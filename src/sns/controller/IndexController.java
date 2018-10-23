@@ -19,6 +19,11 @@ public class IndexController {
 	@Autowired
 	LoingDao ldao;
 	
+	@RequestMapping("/index.do")
+	public String index() {
+		return "sns.home";
+	}
+	
 	@GetMapping("/login.do")
 	public String index(WebRequest wr ) {
 		System.out.println("index 옴");
