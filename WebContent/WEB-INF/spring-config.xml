@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-2.0.xsd">
+	
+	<!-- controller -->
+	<context:component-scan base-package="sns.controller" />
+	<!-- Repository (DAO) -->
+	<context:component-scan base-package="sns.repository" />
+	<!-- service -->
+	 <context:component-scan base-package="sns.service" />
+	<!-- 첨부파일 -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver" />
+	 <!-- gson -->
+	 <bean id="gson" class="com.google.gson.Gson" />	 	
+	
+	<!-- tilesViewResolver -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+	<!-- tilesConfigurer -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" value="/WEB-INF/tiles/*.xml" />
+	</bean>
+	
+	<!-- ViewResolver -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- ★★mybatis bridge bean register (서버정해서 변경해야함) -->
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	 	<property name="url" value="jdbc:oracle:thin:@www.mockingu.com:1521:xe" />
+	 	<property name="username" value="jjh" />
+	 	<property name="password" value="oracle" />
+	 </bean>
+	
+	 <!-- sqlSessionFactory -->
+	  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	 	<property name="dataSource" ref="ds" />
+	 	<property name="mapperLocations" value="/WEB-INF/mappers/*.xml" />
+	 </bean>
+	 
+	 <!-- sqlTemplate -->
+	 	 <bean id="sqlTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	 	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	 </bean>
+	 
+	 <!-- @RequestMapping (안쓰면 웹소켓사용안됨)-->
+	 <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	 
+	 <!-- Websocket -->
+	 <websocket:handlers>
+	 	<websocket:mapping handler="webSocketController" path="/conn.do"/>
+	 	<!-- 이걸설정하면 웹소켓연결을 가로채서 사용자가사용한 HTTPsession의 정보를 session.getAttribute에 저장시켜놈-->
+	 	<websocket:handshake-interceptors>
+	 		<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+	 	</websocket:handshake-interceptors>
+	 </websocket:handlers>
+	 
+	 <!--MongoDB-->
+	 <mongo:mongo-client host="www.mockingu.com" port="51249" />
+	 <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+	 	<!-- 생성자(MongodbClient와 데이터베이스이름) -->
+  		<constructor-arg name="mongoClient" ref="mongoClient" /> <!-- ref는 고정임 위에서 bean만들어주면서 저이름으로저장됨 -->
+  		<constructor-arg name="databaseName" value="dev1" /> <!-- 데이터베이스이름 -->
+	 </bean>
+
+</beans>
