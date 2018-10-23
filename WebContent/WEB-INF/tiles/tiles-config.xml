@@ -11,4 +11,5 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/detail/board_detail.jsp" />
 	</definition>
+	
 </tiles-definitions>
