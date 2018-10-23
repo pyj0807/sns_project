@@ -9,14 +9,14 @@ public class ChatSocketController extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		super.afterConnectionEstablished(session);
+		
 	}
 	
 	
 @Override
 protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 	// TODO Auto-generated method stub
-	super.handleTextMessage(session, message);
+
 }
 
 }
