@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sns"><!-- 패키지같은느낌 -->
+<mapper namespace="join"><!-- 패키지같은느낌 -->
+	
+	<insert id="addJoin" parameterType="java.util.HashMap">
+		insert into join values(#{id},#{subid},#{pass},#{name},#{interest})
+	</insert>
+	
+	<select id="getID" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select conunt(*) from join where id=#{id} and sub=#{sub} and pass=#{pass} 
+	</select>
+	
 </mapper>
