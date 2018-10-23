@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <a href="${pageContext.servletContext.contextPath }/xxx.do"><img class="card-img-top" src="/sns_project/upload/test.png" alt="Card image cap"></a>
+                <a href="${pageContext.servletContext.contextPath }/board/board_detail.do"><img class="card-img-top" src="/sns_project/upload/test.png" alt="Card image cap" ></a>
                 <div class="card-body">
                   <p class="card-text">사진테스트</p>
                   <div class="d-flex justify-content-between align-items-center">
