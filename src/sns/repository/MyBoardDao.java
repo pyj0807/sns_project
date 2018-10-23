@@ -12,7 +12,7 @@ public class MyBoardDao {
 	@Autowired
 	MongoTemplate template;
 	
-	//³»°¡°¡Áö°íÀÖ´Â board
+	//ë‚´ê°€ê°€ì§€ê³ ìˆëŠ” board
 	public List<Map> Myboard(){
 		List<Map> list = template.findAll(Map.class,"board");
 		return list;

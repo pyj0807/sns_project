@@ -19,6 +19,11 @@ public class IndexController {
 	@Autowired
 	LoingDao ldao;
 	
+	@RequestMapping("/index.do")
+	public String index() {
+		return "sns.home";
+	}
+	
 	@GetMapping("/login.do")
 	public String index(WebRequest wr ) {
 		System.out.println("index 옴");
@@ -52,7 +57,7 @@ public class IndexController {
 		if(log != null) {
 			
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
-			wr.setAttribute("user",log, wr.SCOPE_SESSION);
+			wr.setAttribute("user", log, wr.SCOPE_SESSION);
 			
 			return "sns.home";
 		
