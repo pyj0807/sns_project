@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <a href="${pageContext.servletContext.contextPath }/xxx.do"><img class="card-img-top" src="/Project/upload/test.png" alt="Card image cap"></a>
+                <a href="${pageContext.servletContext.contextPath }/xxx.do"><img class="card-img-top" src="/sns_project/upload/test.png" alt="Card image cap"></a>
                 <div class="card-body">
                   <p class="card-text">사진테스트</p>
                   <div class="d-flex justify-content-between align-items-center">
@@ -28,7 +28,7 @@
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <!-- <img class="card-img-top" src="/Project/upload/people.jpg" alt="Card image cap"> -->
-                <video class="card-img-top" src="/Project/upload/movie.mp4" alt="Card image cap" controls></video>
+                <video class="card-img-top" src="/sns_project/upload/movie.mp4" alt="Card image cap" controls></video>
                 <div class="card-body">
                   <p class="card-text">영상재생테스트</p>
                   <div class="d-flex justify-content-between align-items-center">
