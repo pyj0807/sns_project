@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import sns.repository.BoardTestRepository;
@@ -32,9 +33,10 @@ public class MyPageController {
 	
 	
 	@GetMapping("/home.do")
-	public String mypage() {
+	public String mypage(WebRequest wr) {
 		List<Map> list = btr.findWriter("wlsgud1990");
 		System.out.println(list);
+		wr.setAttribute("list", list, WebRequest.SCOPE_SESSION);
 		
 		return "sns.mypage";
 	}

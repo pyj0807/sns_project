@@ -21,6 +21,12 @@
 	</p>
 	<hr />
 	<p>내가올린사진목록</p>
+	<p>
+	<c:forEach var="list" items="${list}" >
+		${list }<br/>
+	</c:forEach>
+
+	</p>
 
 
 </body>
