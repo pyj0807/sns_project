@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board"><!-- 패키지같은느낌 -->
+
+	<!-- 글 번호 자동생성 -->
+	<select id="getBoardNo" resultType="java.lang.Integer">
+		select board_no.nextval from dual
+	</select>
+	
+</mapper>
