@@ -21,5 +21,6 @@ public class WebSocketController extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("sss");
+		System.out.println("dd");
 	}
 }

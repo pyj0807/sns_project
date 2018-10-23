@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sns"><!-- 패키지같은느낌 -->
+<mapper namespace="account"><!-- 패키지같은느낌 -->
+
+	<select id="login" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from account where email=#{email} and pass=#{pass} 
+	</select>
+
 </mapper>
