@@ -12,22 +12,37 @@
 	<br />
 	<br />
 	<br />
-	<p>
-		<img src="${pageContext.servletContext.contextPath }/pic/01.jpg">
-		<br /> 프로필 사진 <br /> 아이디 : 세션에서 뽑아올거에요<br /> 관심사 : 요리, 게임, IT
-	</p>
-	<p>
-		<a href="${pageContext.servletContext.contextPath }/mypage/write.do">글쓰기</a>
-	</p>
-	<hr />
-	<p>내가올린사진목록</p>
-	<p>
-	<c:forEach var="list" items="${list}" >
-		${list }<br/>
-	</c:forEach>
+	<div align="center">
+		<p>
+			<img src="${pageContext.servletContext.contextPath }/pic/01.jpg">
+			<br /> 프로필 사진 <br /> 아이디 : ${sessionScope.user.ID }<br /> 
+			관심사 : 요리, 게임, IT
+		</p>
+		<p>
+			<a href="${pageContext.servletContext.contextPath }/mypage/write.do">글쓰기</a>
+		</p>
+		<hr />
+		<p>내가올린사진목록</p>
+		<p>
+		<c:forEach var="list" items="${list}">
+		<a href="${pageContext.servletContext.contextPath }/mypage/home.do?num=${list._id }">
+		<img src=" ${list.file_attach }"><br/>
+		내용 : ${list.content }<br />
+		<hr/>
+		</a>
+		</c:forEach>
+<%-- 			<c:forEach var="list" items="${list}">
+				글번호 : ${list._id}<br/>
+				올린 사진 또는 영상 경로: ${list.file_attach }<br/>
+				<img src=" ${list.file_attach }"><br/>
+				내용 : ${list.content }<br />
+				좋아요 :${list.like }<br/> 
+				댓글창<br/>
+				<hr/>
+			</c:forEach> --%>
 
-	</p>
-
+		</p>
+	</div>
 
 </body>
 </html>
