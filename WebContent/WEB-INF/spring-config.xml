@@ -18,6 +18,8 @@
 	 <context:component-scan base-package="sns.service" />
 	 
 	 <context:component-scan base-package="sns.controller.chat"/>
+	 
+	 <context:component-scan base-package="sns.club.chat"/>
 	<!-- 첨부파일 -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver" />

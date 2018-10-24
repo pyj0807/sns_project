@@ -1,6 +1,9 @@
 package sns.controller.chat;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,7 @@ import com.google.gson.Gson;
 
 import sns.repository.AlertService;
 import sns.repository.ChatDao;
+import sns.repository.ChatMongoRepository;
 
 
 @Controller
@@ -27,6 +31,9 @@ public class ChatSocketController extends TextWebSocketHandler{
 	
 	@Autowired
 	Gson gson;
+	
+	@Autowired
+	ChatMongoRepository mongochat;
 	
 	List<WebSocketSession> sockets;
 	public ChatSocketController() {
@@ -56,11 +63,34 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		System.out.println("저장된 유저 아이디="+userMap.get("ID"));
 		String got=message.getPayload();
 		Map map =gson.fromJson(got, Map.class);
-		map.put("user",userMap);
-		
+		map.put("userNAME",(String)userMap.get("NAME"));
+		System.out.println(userMap.get("NAME"));
 		String otherId=(String)map.get("otherId");
 		System.out.println(otherId);
 		String sendmsg=gson.toJson(map);
+		
+		
+		
+		List modeid=new ArrayList<>();
+		Date time =new Date(System.currentTimeMillis());
+		System.out.println(" 유저아이디유="+map.get("userId"));
+		System.out.println(time.toString());
+	
+		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		/*df.format(time);*/
+		
+		map.put("jspsendtime", time);
+		modeid.add(map.get("id"));
+		modeid.add(map.get("otherId"));
+		String modeidd=gson.toJson(modeid);
+		map.put("modeId", modeid);
+		
+		map.put("sendtime",sf.format(time) );
+		mongochat.insertfreechat(map);
+		/*TextMessage msg= new TextMessage(gson.toJson(map));
+		*/
+		String str= gson.toJson(map);
+		TextMessage msg =new TextMessage(str);
 		
 		List li=new ArrayList<>();
 		for(int i=0;i<service.size();i++) {
@@ -80,7 +110,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 				service.sendOne(map, (String)service.list.get(i).getAttributes().get("userId"));
 				
 			}
-			sockets.get(i).sendMessage(message);
+			sockets.get(i).sendMessage(msg);
 		}
 		
 		

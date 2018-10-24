@@ -16,15 +16,19 @@ public class ChatMongoRepository {
 	@Autowired
 	MongoTemplate template;
 	
-	public boolean insertfreechat(Map map,String id,String otherid) {
-			Map mapp =template.insert(map);
-					
-		return mapp!=null;
+	public boolean insertfreechat(Map map) {
+				try {	
+					Map rst =template.insert(map,"freechat");
+			return rst != null;
+	}catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
 	}
 	
-public List<Map> getfreechat(String id){
+public List<Map> getfreechat(String id,String id2){
 		
-		List<Map> list2=template.find(new Query(Criteria.where("userId").in(id)),Map.class,"freechat");
+		List<Map> list2=template.find(new Query(Criteria.where("modeId").in(id).andOperator(Criteria.where("modeId").in(id2))),Map.class,"freechat");
 		return list2;
 		
 	}

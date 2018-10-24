@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -40,14 +42,16 @@
  
 <h4>Chat Room <small id="ho">(??)</small></h4>
 <div style="height: 520px; overflow-y: scroll; width: 500px " id="chatView">
-	<%-- <c:forEach var="v" items="??">
+	<c:forEach var="v" items="${allchat }">
 		
-			
-			<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-			<small><b>zzz</b></small>
-			</div>
+		<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
 		
-	</c:forEach> --%>
+		<b>${v.id }(${v.userNAME}) : ${v.text }  / <small><b><fmt:formatDate value="${v.jspsendtime}" pattern="yyyy-MM-dd HH:mm"/></b></small></b>
+		
+		</div>
+	</c:forEach>
+
+
 </div>
 
 <hr/>
@@ -65,9 +69,13 @@ var chatws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.c
 chatws.onmessage= function(evt) {
 	console.log(evt.data);
 	var obj = JSON.parse(evt.data);
-	var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-	html += obj.id+" : "+obj.text +">";
-	html +="</div>";
+	/* var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+	html += obj.id+" : "+obj.text ;
+	html +="</div>"; */
+	console.log("시간이유"+obj.sendtime);
+	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+	html += "<b>"+obj.id+"("+obj.userNAME+") : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+	html +="</div>"; 
 	document.getElementById("chatView").innerHTML += html;
 	document.getElementById("chatView").scrollTop = 
 		document.getElementById("chatView").scrollHeight; 

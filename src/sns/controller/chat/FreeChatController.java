@@ -10,8 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import sns.repository.ChatDao;
+import sns.repository.ChatMongoRepository;
 
 @RequestMapping("/chat")
 @Controller
@@ -19,6 +21,9 @@ public class FreeChatController {
 
 		@Autowired
 		ChatDao chatdao;
+		
+		@Autowired
+		ChatMongoRepository mongochat;
 	
 	@RequestMapping("/freechat.do")
 	public String freechatController(ModelMap map) {
@@ -36,7 +41,13 @@ public class FreeChatController {
 	
 	
 	@GetMapping("/freechatview.do")
-	public String freechatviewController(ModelMap map,@RequestParam Map pp) {
+	public String freechatviewController(ModelMap map,@RequestParam Map pp,WebRequest wr) {
+		
+		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		String id2 =(String)pp.get("id");
+		List<Map> allchat=mongochat.getfreechat(id, id2);
+		
+		map.put("allchat", allchat);
 		
 		map.put("otherId", pp.get("id"));
 		List li =new ArrayList<>();
