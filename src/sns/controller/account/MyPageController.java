@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
 import sns.repository.MyBoardDao;
 
@@ -32,6 +34,9 @@ public class MyPageController {
 	
 	@Autowired
 	BoardRepository boardRepository;
+	
+	@Autowired
+	BoardDao boarddao;
 	
 	
 	@GetMapping("/home.do")
@@ -51,7 +56,6 @@ public class MyPageController {
 	@PostMapping("/home.do")
 	public String mypage(@RequestParam Map map, @RequestParam MultipartFile file, WebRequest wr) throws IllegalStateException, IOException {
 		String realpath = svc.getRealPath("upload");
-		System.out.println(realpath);
 		File dir = new File(realpath);
 		if(!dir.exists()) {
 			dir.mkdirs();
@@ -65,23 +69,25 @@ public class MyPageController {
 		Map user=(Map)wr.getAttribute("user",wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");
 		
-		System.out.println("글작성버튼클릭후 받아온 RequestParam map : " + map);
-		System.out.println(myboarddao.Myboard());
 		map.put("_id", boardRepository.getBoardNo());
 		map.put("like", 0);
 		map.put("writer", userId);
 		map.put("file_attach", path);
 		map.put("type", type.substring(0, 5));
 		boardRepository.insertOne(map);
-		return "sns.mypage";
+		return "redirect:/home.do";
 	}
 	
-	@RequestMapping("/write.do")
+	@GetMapping("/write.do")
 	public String write() {
-		
 		return "sns.write";
 	}
 	
-	
+	@GetMapping("/content.do")
+	public String detail(@RequestParam int num,ModelMap modelmap) {
+		Map list = boarddao.getOneBoard(num);
+		modelmap.put("boardOne", list);
+		return "sns.board_detail";
+	}
 	
 }
