@@ -22,6 +22,7 @@ import sns.repository.LoingDao;
 
 @Controller
 public class IndexController {
+
 	@Autowired
 	BoardDao boarddao;
 	@Autowired

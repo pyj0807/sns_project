@@ -1,11 +1,12 @@
 package sns.repository;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Repository
 public class JoinDao {
@@ -13,8 +14,8 @@ public class JoinDao {
 	@Autowired
 	SqlSessionTemplate template;
 	
-/*	@PostMapping
-	public addAccountPostHandle(@RequestParam Map param, ModelMap map) {
-		
-	}*/
+	
+	public int addAccount(Map map) {
+		return template.insert("account.addAccount",map);
+	}
 }
