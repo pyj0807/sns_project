@@ -20,8 +20,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/chat/freechat.do">개인챗</a>
+              <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/mypage/home.do">마이페이지</a>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>

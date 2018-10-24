@@ -20,6 +20,7 @@ public class WebSocketController extends TextWebSocketHandler{
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		// 클라이언트측에서 WebSocket 객체를 통해 데이터를 전송했을때.
+		System.out.println("sss");
+		System.out.println("dd");
 	}
 }
