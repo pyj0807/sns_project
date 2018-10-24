@@ -9,12 +9,15 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-2.0.xsd">
 	
+	 <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 	<!-- controller -->
 	<context:component-scan base-package="sns.controller" />
 	<!-- Repository (DAO) -->
 	<context:component-scan base-package="sns.repository" />
 	<!-- service -->
 	 <context:component-scan base-package="sns.service" />
+	 
+	 <context:component-scan base-package="sns.controller.chat"/>
 	<!-- 첨부파일 -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver" />
@@ -54,16 +57,15 @@
 	 </bean>
 	 
 	 <!-- @RequestMapping (안쓰면 웹소켓사용안됨)-->
-	 <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 	 
 	 <!-- Websocket -->
 	 <websocket:handlers>
 	 	<websocket:mapping handler="webSocketController" path="/conn.do"/>
-	 	<!-- 이걸설정하면 웹소켓연결을 가로채서 사용자가사용한 HTTPsession의 정보를 session.getAttribute에 저장시켜놈-->
+	 	<!-- 이걸설정하면 웹소켓연결을 가로채서 사용자가사용한 HTTPsession의 정보를 session.getAttribute에 저장시켜놈 -->
 	 	<websocket:handshake-interceptors>
 	 		<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 	 	</websocket:handshake-interceptors>
-	 </websocket:handlers>
+	 </websocket:handlers> 
 	 
 	 <!--MongoDB-->
 	 <mongo:mongo-client host="kzpray.mockingu.com" port="11111" />
@@ -72,5 +74,23 @@
   		<constructor-arg name="mongoClient" ref="mongoClient" /> <!-- ref는 고정임 위에서 bean만들어주면서 저이름으로저장됨 -->
   		<constructor-arg name="databaseName" value="project" /> <!-- 데이터베이스이름 -->
 	 </bean>
+	 
+	 <websocket:handlers>
+		<websocket:mapping handler="allSocketController" path="/all.do"/>
+		<websocket:mapping handler="chatSocketController" path="/chating.do"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	
+	
+	</websocket:handlers>
+	
+	 <!-- <websocket:handlers>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	
+	
+	</websocket:handlers> -->
 
 </beans>
