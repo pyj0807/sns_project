@@ -50,8 +50,7 @@ public class IndexController {
 		String subid = (String)wr.getParameter("subid");
 		
 		String pass = (String)wr.getParameter("pass");
-		System.out.println("id="+id);
-		System.out.println("subid="+subid);
+		
 		
 		Map data = new HashMap<>();
 		data.put("email", id);

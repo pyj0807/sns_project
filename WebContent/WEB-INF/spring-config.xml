@@ -77,6 +77,7 @@
 	 
 	 <websocket:handlers>
 		<websocket:mapping handler="allSocketController" path="/all.do"/>
+		<websocket:mapping handler="chatSocketController" path="/chating.do"/>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
@@ -84,13 +85,12 @@
 	
 	</websocket:handlers>
 	
-	 <websocket:handlers>
-		<websocket:mapping handler="chatSocketController" path="/chat.do"/>
+	 <!-- <websocket:handlers>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	
 	
-	</websocket:handlers>
+	</websocket:handlers> -->
 
 </beans>

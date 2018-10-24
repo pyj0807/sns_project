@@ -60,9 +60,17 @@
 </div>
 
 <script>
+var chatws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/chating.do");
+
 chatws.onmessage= function(evt) {
 	console.log(evt.data);
 	var obj = JSON.parse(evt.data);
+	var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+	html += obj.id+" : "+obj.text +">";
+	html +="</div>";
+	document.getElementById("chatView").innerHTML += html;
+	document.getElementById("chatView").scrollTop = 
+		document.getElementById("chatView").scrollHeight; 
 	
 } 
 
@@ -78,13 +86,19 @@ document.getElementById("input").onchange= function() {
 	console.log(aa);
 	console.log(cc);
 	 */
+	
+		 
 		 msg = {
+			 	"mode" :"other",
 				"id":"${userId}",
 				"text":this.value,
+				"otherId":"${otherId}"
 				
 			};
-		 chatws.send(JSON.stringify(msg));
+	 /* console.log(JSON.stringify(msg)); */
+	 chatws.send(JSON.stringify(msg));
 		 this.value=""; 
+	
 			
 
 	

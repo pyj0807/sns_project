@@ -27,7 +27,10 @@ public class AllSocketController extends TextWebSocketHandler{
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		
 		service.addSocket(session);
+		System.out.println(session.getAttributes());
+		System.out.println(service.size());
 		
 	}
 	
