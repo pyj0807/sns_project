@@ -1,6 +1,7 @@
 package sns.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import com.google.gson.Gson;
+
+import sns.repository.BoardDao;
 import sns.repository.LoingDao;
 
 @Controller
 public class IndexController {
-	
+	@Autowired
+	BoardDao boarddao;
+	@Autowired
+	Gson gson;
 	@Autowired
 	LoingDao ldao;
 	
 	@RequestMapping("/index.do")
-	public String index() {
+
+	public String index(ModelMap modelmap) {
+		
+		//메인접속시 몽고db board테이블 정보 뽑기
+		List<Map> list = boarddao.getAllBoard();
+		modelmap.put("board_list", list);
+				
 		return "sns.home";
 	}
 	
@@ -65,5 +78,6 @@ public class IndexController {
 			
 			return "/index/login";
 		}
+
 	}
 }
