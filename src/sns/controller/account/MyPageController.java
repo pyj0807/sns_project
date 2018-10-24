@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import sns.repository.BoardTestRepository;
+import sns.repository.BoardRepository;
 import sns.repository.MyBoardDao;
 
 @Controller
@@ -29,12 +31,17 @@ public class MyPageController {
 	MyBoardDao myboarddao;
 	
 	@Autowired
-	BoardTestRepository btr;
+	BoardRepository boardRepository;
 	
 	
 	@GetMapping("/home.do")
 	public String mypage(WebRequest wr) {
-		List<Map> list = btr.findWriter("wlsgud1990");
+		System.out.println("마이페이지 /mypage/home.do");
+		
+		Map user=(Map)wr.getAttribute("user",wr.SCOPE_SESSION);
+		String userId = (String) user.get("ID");
+		
+		List<Map> list = boardRepository.findWriter(userId);
 		System.out.println(list);
 		wr.setAttribute("list", list, WebRequest.SCOPE_SESSION);
 		
@@ -42,7 +49,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/home.do")
-	public String mypage(@RequestParam Map map, @RequestParam MultipartFile file) throws IllegalStateException, IOException {
+	public String mypage(@RequestParam Map map, @RequestParam MultipartFile file, WebRequest wr) throws IllegalStateException, IOException {
 		String realpath = svc.getRealPath("upload");
 		System.out.println(realpath);
 		File dir = new File(realpath);
@@ -55,14 +62,17 @@ public class MyPageController {
 		String path = svc.getContextPath()+"/upload/"+file.getOriginalFilename();
 		String type = file.getContentType();
 		
+		Map user=(Map)wr.getAttribute("user",wr.SCOPE_SESSION);
+		String userId = (String) user.get("ID");
+		
 		System.out.println("글작성버튼클릭후 받아온 RequestParam map : " + map);
 		System.out.println(myboarddao.Myboard());
-		map.put("_id", btr.getBoardNo());
+		map.put("_id", boardRepository.getBoardNo());
 		map.put("like", 0);
-		map.put("writer", "shpbbb");
+		map.put("writer", userId);
 		map.put("file_attach", path);
 		map.put("type", type.substring(0, 5));
-		btr.insertOne(map);
+		boardRepository.insertOne(map);
 		return "sns.mypage";
 	}
 	

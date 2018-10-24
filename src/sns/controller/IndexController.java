@@ -28,18 +28,11 @@ public class IndexController {
 	
 	@RequestMapping("/index.do")
 
-	public String index(ModelMap modelmap) {
+	public String index(ModelMap modelmap,WebRequest wr) {
 		
 		//메인접속시 몽고db board테이블 정보 뽑기
 		List<Map> list = boarddao.getAllBoard();
 		modelmap.put("board_list", list);
-				
-		return "sns.home";
-	}
-	
-	@GetMapping("/login.do")
-	public String index(WebRequest wr ) {
-		System.out.println("index 옴");
 		
 		if(wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
 			return "/index/login";
@@ -62,20 +55,15 @@ public class IndexController {
 		Map data = new HashMap<>();
 		data.put("email", id);
 		data.put("pass", pass);
-		
 		System.out.println("data = " + data);
 		
 		Map log = ldao.login(data);
 		
 		if(log != null) {
-			
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
 			wr.setAttribute("user", log, wr.SCOPE_SESSION);
-			
-			return "sns.home";
-		
+			return "redirect:/index.do";
 		}else {
-			
 			return "/index/login";
 		}
 

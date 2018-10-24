@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BoardTestRepository {
+public class BoardRepository {
 	@Autowired
 	MongoTemplate template;
 	
@@ -30,9 +30,7 @@ public class BoardTestRepository {
 	
 	// 작성자 아이디로 글 찾기 (마이페이지용)
 	public List<Map> findWriter(String writer) {
-		Criteria c = 
-			Criteria.where("writer").in(writer);
-		
+		Criteria c = 	Criteria.where("writer").in(writer);
 		return template.find(new Query(c), Map.class, "board");
 	}
 	
