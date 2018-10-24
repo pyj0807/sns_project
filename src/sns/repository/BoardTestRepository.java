@@ -18,16 +18,17 @@ public class BoardTestRepository {
 	@Autowired
 	SqlSessionTemplate sqltemplate;
 	
+	// 게시판에 글 하나 올리기
 	public void insertOne(Map map) {
 		Map ret = template.insert(map, "board");
-		// Returns: the inserted object.
 	}
 	
+	// 게시글 고유번호 생성
 	public int getBoardNo() {
 		return sqltemplate.selectOne("board.getBoardNo");
 	}
 	
-	
+	// 작성자 아이디로 글 찾기 (마이페이지용)
 	public List<Map> findWriter(String writer) {
 		Criteria c = 
 			Criteria.where("writer").in(writer);
