@@ -31,16 +31,7 @@ public class IndexController {
 	}*/
 
 	
-	@GetMapping("/index.do")
-	public String index(WebRequest wr ) {
-		System.out.println("index 옴");
-		
-		if(wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
-			return "/index/login";
-		}else {
-			return "sns.home";
-		}
-	}
+
 	
 	@PostMapping("/login.do")
 	public String loginHandle(WebRequest wr, ModelMap map,HttpSession session) {
