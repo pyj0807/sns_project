@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="follow"><!-- 팔로워 팔로잉 관리 mapper -->
+
+	<insert id="insertFollowing"  parameterType="java.util.HashMap">
+		insert into following values(#{myid},#{otherid})
+	</insert>
+
+	<insert id="insertFollower"  parameterType="java.util.HashMap">
+		insert into following values(#{otherid},#{myid})
+	</insert>
+	
+	<select id="getFollowingList" resultType="java.lang.String" parameterType="java.lang.String">
+		select otherid from following where myid=#{myid}
+	</select> 
+
+	<select id="getFollowerList" resultType="java.lang.String" parameterType="java.lang.String">
+		select myid from following where otherid=#{otherid}
+	</select> 
+	
+	<select id="getFollowingCnt" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from following where myid=#{myid}
+	</select> 
+
+	<select id="getFollowerCnt" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from following where otherid=#{otherid}
+	</select> 
+	
+	<delete id="delFollowing" parameterType="java.lang.String">
+		delete from following where myid=#{myid}
+	</delete>
+
+	<delete id="delFollower" parameterType="java.lang.String">
+		delete from follower where otherid=#{otherid}
+	</delete>
+
+</mapper>

@@ -16,7 +16,7 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.servletContext.contextPath }/mypage/home.do">MyPage</a>
+				href="${pageContext.servletContext.contextPath }/mypage.do">MyPage</a>
 			</li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="http://example.com"
@@ -26,8 +26,9 @@
 					<a class="dropdown-item"
 						href="${pageContext.servletContext.contextPath}/chat/freechat.do">개인채팅</a>
 					<a class="dropdown-item"
-						href="${pageContext.servletContext.contextPath}/mypage/home.do">마이페이지</a>
-					<a class="dropdown-item" href="#">클럽</a>
+						href="${pageContext.servletContext.contextPath}/mypage.do">마이페이지</a>
+					<a class="dropdown-item"
+						href="${pageContext.servletContext.contextPath}/club/all.do">클럽</a>
 				</div></li>
 		</ul>
 		<form class="form-inline my-2 my-md-0">

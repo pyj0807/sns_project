@@ -13,8 +13,8 @@
 	<Br />
 
 	<form method="post"
-		action="${pageContext.servletContext.contextPath}/mypage/home.do"
-		enctype="multipart/form-data">
+		action="${pageContext.servletContext.contextPath}/mypage.do"
+		enctype="multipart/form-data"> 
 		<p>
 			파일첨부<br /> 
 			<input type="file" style="width: 320px; pa	dding: 5px;" name="file" id="file" />

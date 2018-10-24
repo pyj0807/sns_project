@@ -2,23 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <html lang="en">
 <body>
 	<div align="center">
 		<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-			class="img-circle" style="width: 300px; height: 300px;"> <br />
-		<strong>아이디 : ${sessionScope.user.ID }</strong><br /> 관심사 : 요리, 게임, IT
-		<p>
-		게시물수 : <br/>
-		팔로워 : <br/>
-		팔로잉 : <br/>
-		</p>
-		<p>
-			<a href="${pageContext.servletContext.contextPath }/write.do"><button
-					type="button" class="btn btn-warning">글쓰기</button></a> <a
-				href="${pageContext.servletContext.contextPath }/club/all.do"><button
-					type="button" class="btn btn-primary">클럽</button></a>
-		</p>
+			class="img-circle" style="width: 300px; height: 300px;"><br />
+		<strong>아이디 : ${id}</strong><br /> 관심사 : 게임, IT<br />
+		<button type="button" class="btn btn-primary" id="follow">팔로우</button>
 	</div>
 	<hr />
 	추천
@@ -38,12 +29,11 @@
 	<hr />
 
 
-
 	<main role="main">
 	<div class="album py-5 bg-light">
 		<div class="container">
 			<div class="row">
-				<c:forEach var="i" items="${mylist}">
+				<c:forEach var="i" items="${accountlist }">
 					<c:choose>
 						<c:when test="${i.type == 'video'}">
 							<!-- 타입이비디오일경우 -->
@@ -52,7 +42,7 @@
 									<video class="card-img-top" src="${i.file_attach }" controls></video>
 									<div class="card-body">
 										<a
-											href="${pageContext.servletContext.contextPath }/mypage/content.do?num=${i._id}"><p
+											href="${pageContext.servletContext.contextPath }/content.do?num=${i._id}"><p
 												class="card-text">${i.content }</p></a>
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
@@ -74,7 +64,7 @@
 										alt="Card image cap">
 									<div class="card-body">
 										<a
-											href="${pageContext.servletContext.contextPath }/mypage/content.do?num=${i._id}"><p
+											href="${pageContext.servletContext.contextPath }/content.do?num=${i._id}"><p
 												class="card-text">${i.content }</p></a>
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
@@ -97,6 +87,20 @@
 	</div>
 	</main>
 
+/* 		$("#follow").on("click",function({
+			$.ajax({
+				"url":"/account.do",
+				"data":{
+					"myid":"${sessionScope.user.ID}",
+					"otherid":"${id}"
+				},
+	
+			})
+		})	 */
+	
+
+
+
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -113,3 +117,21 @@
 	<script src="../../assets/js/vendor/holder.min.js"></script>
 </body>
 </html>
+
+<script>
+		
+		
+		$("#follow").on("click",function(){
+			var param = {
+					"myid": "${sessionScope.user.ID}",
+					"otherid":"${id}"
+			};
+			$.get("${pageContext.servletContext.contextPath }/follow.do",param,function(rst){
+				
+				var obj =JSON.parse(rst);
+				console.log(obj);
+			});
+			
+		});
+		
+	</script>

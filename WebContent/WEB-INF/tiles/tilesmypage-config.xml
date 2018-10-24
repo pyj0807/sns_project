@@ -13,4 +13,10 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/mypage/write.jsp" />
 	</definition>
+	<!-- 다른회원 마이페이지 -->
+	<definition name="sns.account" template="/WEB-INF/tiles/sns-template.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
+		<put-attribute name="left" value="" />
+		<put-attribute name="center" value="/WEB-INF/views/account/home.jsp" />
+	</definition>
 </tiles-definitions>
