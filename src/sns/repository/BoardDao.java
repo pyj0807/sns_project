@@ -20,8 +20,13 @@ public class BoardDao {
 		return list;
 	}
 	//board에 저장된 데이터 한건 불러오기
-		public List<Map> getOneBoard(int no){
-			Criteria c = Criteria.where("_id").in(no);
-			return template.find(new Query(c), Map.class,"board");
-		}
+	public Map getOneBoard(int no){
+		Criteria c = Criteria.where("_id").in(no);
+		return template.findOne(new Query(c), Map.class,"board");
+	}
+	//board테이블에 like 건수 1씩 증가시키기
+	public int addOneBoardLike(double num) {
+		
+		return 1;
+	}
 }

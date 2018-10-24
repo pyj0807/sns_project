@@ -11,7 +11,7 @@
           <div class="row">    
           <c:forEach var="i" items="${board_list }">
           	<c:choose>
-          		<c:when test="${i.type == 'video/mp4'}"> <!-- 타입이비디오일경우 -->
+          		<c:when test="${i.type == 'video'}"> <!-- 타입이비디오일경우 -->
           			<div class="col-md-4">
 		              <div class="card mb-4 shadow-sm">
 		               <video class="card-img-top" src="${i.file_attach }" controls></video>
