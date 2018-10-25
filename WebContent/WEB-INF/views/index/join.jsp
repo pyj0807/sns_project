@@ -55,22 +55,23 @@
 								<input name="id" id="id" type="text" maxlength="20"
 									placeholder="이메일 주소"> @ <input name="subid" id="subid"
 									type="text" maxlength="30">
+								<br/>	
 								<h4>비밀번호</h4>
 								<input name="pass" id="pass" type="password" maxlength="20"
 									placeholder="비밀번호">
-								<h4>비밀번호 재확인</h4>
-								<input name="pass" id="repass" type="password" maxlength="20"
-									placeholder="비밀번호">
+								<br/>
 								<h4>이름</h4>
 								<input name="name" id="name" type="text" maxlength="20"
 									placeholder="이름">
+								<br/>	
 								<div class="join_row join_birthday">
 									<h3 class="join_title">생년월일</h3>
 									<div class="bir_wrap">
 										<div class="bir_yy">
-											<span class="ps_box"> <input type="text" name="yy"
-												placeholder="년도(4자)" maxlength="4">
-											</span> <span> <select name="mm" aria-label="월">
+											<span class="ps_box"> 
+											<input type="text" name="yy" placeholder="년도(4자)" maxlength="4">
+											</span> <span> 
+											<select name="mm" aria-label="월">
 													<option>월</option>
 													<option value="01">01</option>
 													<option value="02">02</option>
@@ -85,8 +86,42 @@
 													<option value="11">11</option>
 													<option value="12">12</option>
 											</select>
-											</span> <span> <input type="text" name="dd" placeholder="일"
-												maxlength="2">
+											</span> 
+											<span> 
+											<select name="dd" aria-label="일">
+													<option>일</option>
+													<option value="01">01</option>
+													<option value="02">02</option>
+													<option value="03">03</option>
+													<option value="04">04</option>
+													<option value="05">05</option>
+													<option value="06">06</option>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+													<option value="21">21</option>
+													<option value="22">22</option>
+													<option value="23">23</option>
+													<option value="24">24</option>
+													<option value="25">25</option>
+													<option value="26">26</option>
+													<option value="27">27</option>
+													<option value="28">28</option>
+													<option value="29">29</option>
+													<option value="30">30</option>
+													<option value="31">31</option>
+											</select>
 											</span>
 										</div>
 									</div>
@@ -96,8 +131,8 @@
 								<div class="ps_box gender_code">
 									<select id="gender" name="gender" aria-label="성별">
 										<option selected>성별</option>
-										<option value="m">남자</option>
-										<option value="f">여자</option>
+										<option value="M">남자</option>
+										<option value="F">여자</option>
 									</select>
 								</div>
 								<!-- 

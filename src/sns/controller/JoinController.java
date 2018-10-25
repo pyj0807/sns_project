@@ -1,9 +1,11 @@
 package sns.controller;
 
+import java.lang.reflect.Array;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,11 +44,16 @@ public class JoinController {
 		String mm = (String) param.get("mm");
 		String dd = (String) param.get("dd");
 		String birth = yy + mm + dd;
-
+		
+		
+		//Date day = Date.valueOf(birth); 
+				
 		String gender = (String) param.get("gender");
 
 		String[] interest = wr.getParameterValues("interest");
-
+		System.out.println("관심사 : " + Arrays.toString(interest));
+		String inter = Arrays.toString(interest);
+		
 		System.out.println(
 				id + "/" + subid + "/" + email + "/" + pass + "/" + birth + "/" + name + "/" + gender + "/" + interest);
 
@@ -56,11 +63,11 @@ public class JoinController {
 		data.put("email", email);
 		data.put("pass", pass);
 		data.put("name", name);
-
-		// data.put("birth", birth);
+		data.put("birth", birth);
+		//data.put("day", day);
 
 		data.put("gender", gender);
-		data.put("interest", interest);
+		data.put("interest", inter);
 
 		int a = jdao.addAccount(data);
 
