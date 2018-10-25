@@ -1,20 +1,76 @@
 package sns.controller;
 
+import java.lang.reflect.Array;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
+
+import sns.repository.JoinDao;
 
 @Controller
 public class JoinController {
-	
-	
-	
-	@RequestMapping("/join.do")
-	public String joinHandle() {
-		
-		
-		
-		
-		
+
+	@Autowired
+	JoinDao jdao;
+
+	@GetMapping("/join.do")
+	public String joinGetHandle(ModelMap map) {
+		String[] data = "운동,영화,음악,음식,여행,패션,기타".split(",");
+		map.put("interest", data);
+
 		return "index/join";
+	}
+
+	@PostMapping("/join.do")
+	public String joinPostHandle(@RequestParam Map param, ModelMap map, WebRequest wr) {
+
+		String id = (String) param.get("id");
+		String subid = (String) param.get("subid");
+		String email = id + "@" + subid;
+		String pass = (String) param.get("pass");
+		String name = (String) param.get("name");
+
+		String yy = (String) param.get("yy");
+		String mm = (String) param.get("mm");
+		String dd = (String) param.get("dd");
+		String birth = yy + mm + dd;
+		
+		
+		//Date day = Date.valueOf(birth); 
+				
+		String gender = (String) param.get("gender");
+
+		String[] interest = wr.getParameterValues("interest");
+		System.out.println("관심사 : " + Arrays.toString(interest));
+		String inter = Arrays.toString(interest);
+		
+		System.out.println(
+				id + "/" + subid + "/" + email + "/" + pass + "/" + birth + "/" + name + "/" + gender + "/" + interest);
+
+		Map data = new HashMap<>();
+		data.put("id", id);
+		data.put("subid", subid);
+		data.put("email", email);
+		data.put("pass", pass);
+		data.put("name", name);
+		data.put("birth", birth);
+		//data.put("day", day);
+
+		data.put("gender", gender);
+		data.put("interest", inter);
+
+		int a = jdao.addAccount(data);
+
+		return "index/login";
 	}
 }
