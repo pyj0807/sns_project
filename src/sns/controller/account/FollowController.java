@@ -1,5 +1,6 @@
 package sns.controller.account;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,12 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import sns.repository.FollowRepository;
 
 @Controller
 public class FollowController {
 	@Autowired
 	FollowRepository follow;
+	
+	@Autowired
+	Gson gson;
 
 	@ResponseBody
 	@PostMapping("/follow.do")
@@ -29,25 +35,25 @@ public class FollowController {
 		// 팔로우가 되어있는지 체크하는 맵
 		Map checkmap = follow.CheckFollowing(map);
 		System.out.println("팔로우 체크 : " + checkmap);
+		Map mm = new HashMap<>();
 		if (checkmap==null) {
 			// 서로 팔로우가 안되어있을때 인서트 시도
 			int r = follow.insertFollowing(map);
 			int a = follow.insertFollower(map);
-			if (r != 1) {
-				// 인서트 실패
-				follow.delFollowing(map);
-				follow.delFollower(map);
-				return "{\"mode\":\"err\"}";
-			} else {
-				// 인서트 성공
-				return "{\"mode\":\"on\"}";
-			}
+			// 인서트 성공
+				mm.put("mode","on");
+				int cnt = follow.getFollowerCnt(otherid);
+				mm.put("followerCnt", cnt);
+				return gson.toJson(mm);
 		}else {
 			// 이미 팔로우중일때 이쪽으로
 			// 팔로우 취소
 			follow.delFollower(map);
 			follow.delFollowing(map);
-			return "{\"mode\":\"off\"}";
+			mm.put("mode","off");
+			int cnt = follow.getFollowerCnt(otherid);
+			mm.put("followerCnt", cnt);
+			return gson.toJson(mm);
 		}
 
 	}

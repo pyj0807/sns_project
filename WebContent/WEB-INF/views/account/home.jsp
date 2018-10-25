@@ -9,13 +9,13 @@
 		<p>
 		게시물수 : <b>0 </b> 팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
-			name="${id}"><b>${followerCnt }</b></a>
+			name="${id}"><b id="cnt">${followerCnt }</b></a>
 		팔로잉 : <a href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
 			name="${id}"><b>${followingCnt }</b></a>
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">
-		<button type="button" class="btn btn-outline-primary" id="following"> 팔로잉</button>
+		<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button>
 		</c:when>
 		<c:otherwise>
 	<button type="button" class="btn btn-primary" id="follow">팔로우</button>
@@ -109,10 +109,13 @@
 				$.post("${pageContext.servletContext.contextPath }/follow.do",
 						param, function(rst) {
 							var obj = JSON.parse(rst);
-							console.log(obj.mode);
+							console.log(obj);
 							switch(obj.mode){
 							case "on":
-								onHandle();
+								onHandle(obj);
+								break;
+							case "off":
+								offHandle(obj);
 								break;
 							case "err":
 								break;
@@ -120,34 +123,17 @@
 						});
 			});
 	
-	var onHandle = function(){
+	var onHandle = function(obj){
+		var cnt = obj.followerCnt;
 		$("#follow").attr("class","btn btn-outline-primary");
 		$("#follow").html("팔로잉");	
+		$("#cnt").html(cnt);
 	}
-	
-	$("#following").on("click",function() {
-				console.log("start");
-				var param = {
-					"myid" : "${sessionScope.user.ID}",
-					"otherid" : "${id}"
-				};
-				$.post("${pageContext.servletContext.contextPath }/follow.do",
-						param, function(rst) {
-							var obj = JSON.parse(rst);
-							console.log(obj.mode);
-							switch(obj.mode){
-							case "off":
-								offHandle();
-								break;
-							case "err":
-								break;
-							}
-						});
-			});
-	
-	var offHandle = function(){
-		$("#following").attr("class","btn btn-primary");
-		$("#following").html("팔로우");	
+	var offHandle = function(obj){
+		var cnt = obj.followerCnt;
+		$("#follow").attr("class","btn btn-primary");
+		$("#follow").html("팔로우");
+		$("#cnt").html(cnt);
 	}
 	
 	

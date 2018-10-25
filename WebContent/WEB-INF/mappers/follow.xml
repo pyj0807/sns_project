@@ -24,7 +24,7 @@
 	</select> 
 
 	<select id="getFollowerCnt" resultType="java.lang.Integer" parameterType="java.lang.String">
-		select count(*) from follower where myid=#{myid}
+		select count(*) from follower where myid=#{otherid}
 	</select> 
 	
 	<delete id="delFollowing" parameterType="java.util.HashMap">
@@ -32,7 +32,7 @@
 	</delete>
 
 	<delete id="delFollower" parameterType="java.util.HashMap">
-		delete from follower where otherid=#{otherid} and myid=#{myid}
+		delete from follower where myid=#{otherid} and otherid=#{myid}
 	</delete>
 	
 	<select id="CheckFollowing" parameterType="java.util.HashMap" resultType="java.util.HashMap">
