@@ -12,48 +12,41 @@ import org.springframework.stereotype.Repository;
 public class FollowRepository {
 	@Autowired
 	SqlSessionTemplate sqltemplate;
-	
+
 	public int insertFollowing(Map map) {
-		  int r =sqltemplate.insert("follow.insertFollowing", map);
-		  if(r ==1) {
-			  return sqltemplate.insert("follow.insertFollowing", map);
-		  }
-		return -1;
+		return sqltemplate.insert("follow.insertFollowing", map);
 	}
-		
+
 	public int insertFollower(Map map) {
-		int r=sqltemplate.insert("follow.insertFollower", map);
-			if(r==1) {
-				return sqltemplate.insert("follow.insertFollower", map);
-			}else {
-				
-				return -1;
-			}
+		return sqltemplate.insert("follow.insertFollower", map);
 	}
-	
-	public List<String> getFollowingList(String id){
+
+	public List<String> getFollowingList(String id) {
 		return sqltemplate.selectList("follow.getFollowingList", id);
 	}
-	
-	public List<String> getFollowerList(String id){
+
+	public List<String> getFollowerList(String id) {
 		return sqltemplate.selectList("follow.getFollowerList", id);
 	}
-	
+
 	public int getFollowingCnt(String id) {
-		return sqltemplate.selectOne("follow.getFollowingCnt");
+		return sqltemplate.selectOne("follow.getFollowingCnt", id);
 	}
-	
+
 	public int getFollowerCnt(String id) {
-		return sqltemplate.selectOne("follow.getFollowerCnt");
+		return sqltemplate.selectOne("follow.getFollowerCnt", id);
 	}
-	
-	public int delFollowing(String id) {
-		return sqltemplate.delete("follow.delFollowing", id);
+
+	public int delFollowing(Map map) {
+		return sqltemplate.delete("follow.delFollowing", map);
 	}
-	
-	public int delFollower(String id) {
-		return sqltemplate.delete("follow.delFollower", id);
+
+	public int delFollower(Map map) {
+		return sqltemplate.delete("follow.delFollower", map);
 	}
-	
-	
+
+	public Map CheckFollowing(Map map) {
+		return sqltemplate.selectOne("follow.CheckFollowing", map);
+	}
+
 }

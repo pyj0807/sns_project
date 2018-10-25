@@ -2,6 +2,7 @@ package sns.controller.account;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
+import sns.repository.FollowRepository;
 import sns.repository.MyBoardDao;
 
 @Controller
@@ -36,15 +38,23 @@ public class MyPageController {
 
 	@Autowired
 	BoardDao boarddao;
+	
+	@Autowired
+	FollowRepository follow;
 
 	@GetMapping("/mypage.do")
 	public String mypage(WebRequest wr) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");
-
+		
 		List<Map> mylist = boardRepository.findWriter(userId);
 		wr.setAttribute("mylist", mylist, WebRequest.SCOPE_SESSION);
-
+		
+		int followerCnt = follow.getFollowerCnt(userId);
+		int followingCnt = follow.getFollowingCnt(userId);
+		wr.setAttribute("followerCnt", followerCnt, wr.SCOPE_REQUEST);
+		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
+		
 		return "sns.mypage";
 	}
 
@@ -66,12 +76,12 @@ public class MyPageController {
 		String userId = (String) user.get("ID");
 
 		map.put("_id", boardRepository.getBoardNo());
-		map.put("like", 0);
 		map.put("writer", userId);
 		map.put("file_attach", path);
 		map.put("type", type.substring(0, 5));
+		map.put("liker", new ArrayList<>());
 		boardRepository.insertOne(map);
-		return "redirect:/home.do";
+		return "redirect:/mypage.do";
 	}
 
 }

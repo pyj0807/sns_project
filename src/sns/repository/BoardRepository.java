@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,10 +30,13 @@ public class BoardRepository {
 		return sqltemplate.selectOne("board.getBoardNo");
 	}
 	
-	// 작성자 아이디로 글 찾기 (마이페이지용)
+	// 작성자 아이디로 글 찾기
 	public List<Map> findWriter(String writer) {
 		Criteria c = 	Criteria.where("writer").in(writer);
 		return template.find(new Query(c), Map.class, "board");
 	}
-	
+
+
 }
+
+

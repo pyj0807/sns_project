@@ -1,10 +1,12 @@
 package sns.controller.account;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,47 +18,39 @@ import sns.repository.FollowRepository;
 
 @Controller
 public class AccountController {
-	
 	@Autowired
 	BoardRepository boardRepository;
+
 	@Autowired
-	FollowRepository foll;
-	
-	
+	FollowRepository follow;
+
 	@RequestMapping("/account.do")
-	public String account(WebRequest wr,@RequestParam String id) {
-		List<Map> accountlist = boardRepository.findWriter(id);
-		wr.setAttribute("id", id, wr.SCOPE_REQUEST);
-		wr.setAttribute("accountlist", accountlist , WebRequest.SCOPE_SESSION);
+	public String account(WebRequest wr, @RequestParam String id,ModelMap map) {
+		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+		String loginId = (String) user.get("ID");
 		
-		
-		return "sns.account";
-	}
-	
-	
-	@ResponseBody
-	@PostMapping("/follow.do")
-	public String follow(@RequestParam Map map) {
-		
-		
-		String myid =(String)map.get("myid");
-		String otherid=(String)map.get("otherid");
-		
-		System.out.println("하하하하하핳"+myid);
-		
-		int r=foll.insertFollowing(map);
-		int a=foll.insertFollower(map);
-		if(r!=1) {
-			foll.delFollowing(myid);
-			foll.delFollower(otherid);
-			return "{\"mode\":\"err\"}";
-			
-		}else {
-			return "{\"mode\":\"on\"}";
+		if (id.equals(loginId)) {
+			return "redirect:/mypage.do";
+		} else {
+			List<Map> accountlist = boardRepository.findWriter(id);
+			wr.setAttribute("id", id, wr.SCOPE_REQUEST);
+			wr.setAttribute("accountlist", accountlist, WebRequest.SCOPE_REQUEST);
 		}
 		
+		Map followingcheck =new HashMap<>();
+		followingcheck.put("myid",loginId);
+		followingcheck.put("otherid",id);
 		
+		Map cnt =follow.CheckFollowing(followingcheck);
+		System.out.println("팔로잉체크="+cnt);
+		map.put("check",cnt);
+		
+		int followerCnt = follow.getFollowerCnt(id);
+		int followingCnt = follow.getFollowingCnt(id);
+		wr.setAttribute("followerCnt", followerCnt, wr.SCOPE_REQUEST);
+		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
+
+		return "sns.account";
 	}
-	
-	
+
 }
