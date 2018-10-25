@@ -1,23 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="img-circle" style="width: 300px; height: 300px;"> <br />
-	<strong>아이디 : ${sessionScope.user.ID }</strong><br /> 관심사 : 요리, 게임, IT
-	<p>
+		class="img-circle" style="width: 300px; height: 300px;"><br />
+	<strong>아이디 : ${id}</strong><br /> 관심사 : 게임, IT<br />
+		<p>
 		게시물수 : <b>0 </b> 팔로워 : <a
-			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.ID }"
-			name="${sessionScope.user.ID }"><b>${followerCnt }</b></a>
-		팔로잉 : <a href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.ID }"
-			name="${sessionScope.user.ID }"><b>${followingCnt }</b></a>
+			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
+			name="${id}"><b id="cnt">${followerCnt }</b></a>
+		팔로잉 : <a href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
+			name="${id}"><b>${followingCnt }</b></a>
 	</p>
-	<p>
-		<a href="${pageContext.servletContext.contextPath }/write.do"><button
-				type="button" class="btn btn-warning">글쓰기</button></a> <a
-			href="${pageContext.servletContext.contextPath }/club/all.do"><button
-				type="button" class="btn btn-primary">클럽</button></a>
-	</p>
+	<c:choose>
+		<c:when test="${ check!=null }">
+		<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button>
+		</c:when>
+		<c:otherwise>
+	<button type="button" class="btn btn-primary" id="follow">팔로우</button>
+		
+		</c:otherwise>
+	</c:choose>
+	
 </div>
 <hr />
 추천
@@ -37,12 +42,11 @@
 <hr />
 
 
-
 <main role="main">
 <div class="album py-5 bg-light">
 	<div class="container">
 		<div class="row">
-			<c:forEach var="i" items="${mylist}">
+			<c:forEach var="i" items="${accountlist }">
 				<c:choose>
 					<c:when test="${i.type == 'video'}">
 						<!-- 타입이비디오일경우 -->
@@ -51,7 +55,7 @@
 								<video class="card-img-top" src="${i.file_attach }" controls></video>
 								<div class="card-body">
 									<a
-										href="${pageContext.servletContext.contextPath }/mypage/content.do?num=${i._id}"><p
+										href="${pageContext.servletContext.contextPath }/content.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
@@ -73,7 +77,7 @@
 									alt="Card image cap">
 								<div class="card-body">
 									<a
-										href="${pageContext.servletContext.contextPath }/mypage/content.do?num=${i._id}"><p
+										href="${pageContext.servletContext.contextPath }/content.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
@@ -95,3 +99,43 @@
 	</div>
 </div>
 </main>
+<script>
+	$("#follow").on(	"click",function() {
+				console.log("start");
+				var param = {
+					"myid" : "${sessionScope.user.ID}",
+					"otherid" : "${id}"
+				};
+				$.post("${pageContext.servletContext.contextPath }/follow.do",
+						param, function(rst) {
+							var obj = JSON.parse(rst);
+							console.log(obj);
+							switch(obj.mode){
+							case "on":
+								onHandle(obj);
+								break;
+							case "off":
+								offHandle(obj);
+								break;
+							case "err":
+								break;
+							}
+						});
+			});
+	
+	var onHandle = function(obj){
+		var cnt = obj.followerCnt;
+		$("#follow").attr("class","btn btn-outline-primary");
+		$("#follow").html("팔로잉");	
+		$("#cnt").html(cnt);
+	}
+	var offHandle = function(obj){
+		var cnt = obj.followerCnt;
+		$("#follow").attr("class","btn btn-primary");
+		$("#follow").html("팔로우");
+		$("#cnt").html(cnt);
+	}
+	
+	
+	
+</script>
