@@ -5,5 +5,9 @@
 	<select id="chatgetall" resultType="java.util.HashMap">
 	select * from account
 	</select>
+	
+	<!-- <select id="followchatall" resultType="java.util.HashMap" parameterType="java.lang.String">
+	
+	</select> -->
 
 </mapper>

@@ -7,6 +7,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 <html lang="en">
+<style>
+.max-small {
+    width: auto; height: auto;
+    max-width: 500px;
+    max-height: 400px;
+}
+</style>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -65,7 +72,7 @@
           <h1 class="jumbotron-heading">Album example</h1>
           <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
           <p>
-            <a href="#" class="btn btn-primary">클럽채팅방 만들기</a>
+            <a href="${pageContext.servletContext.contextPath }/club/create.do" class="btn btn-primary">클럽채팅방 만들기</a>
             
           </p>
           <p>
@@ -78,19 +85,20 @@
         <div class="container">
 
           <div class="row">
+            <div class="card"  >
+              <img class="max-small" src="${pageContext.servletContext.contextPath }/img/clubmain.png" alt="Card image cap">
+              <p class="card-text">즐거운 싸커.</p>
+            </div>
+            <br/>
             <div class="card">
               <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
-        <!--     <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
             <div class="card">
               <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
-
+<!-- 
             <div class="card">
               <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

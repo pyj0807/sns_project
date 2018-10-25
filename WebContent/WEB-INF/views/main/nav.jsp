@@ -21,13 +21,12 @@
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="http://example.com"
 				id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false">Dropdown</a>
+				aria-expanded="false">채팅</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown01">
 					<a class="dropdown-item"
 						href="${pageContext.servletContext.contextPath}/chat/freechat.do">개인채팅</a>
 					<a class="dropdown-item"
-						href="${pageContext.servletContext.contextPath}/mypage/home.do">마이페이지</a>
-					<a class="dropdown-item" href="#">클럽</a>
+						href="${pageContext.servletContext.contextPath}/club/all.do">클럽</a>
 				</div></li>
 		</ul>
 		<form class="form-inline my-2 my-md-0">
