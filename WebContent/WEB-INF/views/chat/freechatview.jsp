@@ -44,11 +44,19 @@
 <div style="height: 520px; overflow-y: scroll; width: 500px " id="chatView">
 	<c:forEach var="v" items="${allchat }">
 		
-		<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-		
-		<b>${v.id }(${v.userNAME}) : ${v.text }  / <small><b><fmt:formatDate value="${v.jspsendtime}" pattern="yyyy-MM-dd HH:mm"/></b></small></b>
-		
+		<c:choose>
+		<c:when test="${userId eq v.id}">
+				<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
+		<b>${v.id }<a href="${pageContext.servletContext.contextPath}/mypage.do?"><small><b>(${v.userNAME})</b></small></a> : ${v.text }  / <small><b><fmt:formatDate value="${v.jspsendtime}" pattern="yyyy-MM-dd HH:mm"/></b></small></b>
 		</div>
+		</c:when>
+		<c:otherwise>
+		<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
+		<b>${v.id }<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}"><small><b>(${v.userNAME})</b></small></a> : ${v.text }  / <small><b><fmt:formatDate value="${v.jspsendtime}" pattern="yyyy-MM-dd HH:mm"/></b></small></b>
+		</div>
+		
+		</c:otherwise>
+		</c:choose>
 	</c:forEach>
 
 
@@ -74,7 +82,7 @@ chatws.onmessage= function(evt) {
 	html +="</div>"; */
 	console.log("시간이유"+obj.sendtime);
 	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-	html += "<b>"+obj.id+"("+obj.userNAME+") : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+	html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
 	html +="</div>"; 
 	document.getElementById("chatView").innerHTML += html;
 	document.getElementById("chatView").scrollTop = 
