@@ -30,6 +30,7 @@ public class FollowController {
 		String myid = (String) map.get("myid");
 		String otherid = (String) map.get("otherid");
 
+		System.out.println(myid+"/"+otherid);
 		System.out.println("팔로우버튼클릭 누른사람아이디 : " + myid);
 
 		// 팔로우가 되어있는지 체크하는 맵

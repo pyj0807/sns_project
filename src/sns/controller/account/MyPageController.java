@@ -45,13 +45,13 @@ public class MyPageController {
 	@GetMapping("/mypage.do")
 	public String mypage(WebRequest wr) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String userId = (String) user.get("ID");
+		String userEmail = (String) user.get("EMAIL");
 		
-		List<Map> mylist = boardRepository.findWriter(userId);
+		List<Map> mylist = boardRepository.findWriter(userEmail);
 		wr.setAttribute("mylist", mylist, WebRequest.SCOPE_SESSION);
 		
-		int followerCnt = follow.getFollowerCnt(userId);
-		int followingCnt = follow.getFollowingCnt(userId);
+		int followerCnt = follow.getFollowerCnt(userEmail);
+		int followingCnt = follow.getFollowingCnt(userEmail);
 		wr.setAttribute("followerCnt", followerCnt, wr.SCOPE_REQUEST);
 		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
 		

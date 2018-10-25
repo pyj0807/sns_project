@@ -27,9 +27,11 @@ public class AccountController {
 	@RequestMapping("/account.do")
 	public String account(WebRequest wr, @RequestParam String id,ModelMap map) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String loginId = (String) user.get("ID");
+		String loginEmail = (String) user.get("EMAIL");
+		System.out.println("/account.do 들어온 페이지 이메일 : " + id);
+		System.out.println("/acoount.do 내 이메일 : " + loginEmail);
 		
-		if (id.equals(loginId)) {
+		if (id.equals(loginEmail)) {
 			return "redirect:/mypage.do";
 		} else {
 			List<Map> accountlist = boardRepository.findWriter(id);
@@ -38,7 +40,7 @@ public class AccountController {
 		}
 		
 		Map followingcheck =new HashMap<>();
-		followingcheck.put("myid",loginId);
+		followingcheck.put("myid",loginEmail);
 		followingcheck.put("otherid",id);
 		
 		Map cnt =follow.CheckFollowing(followingcheck);
