@@ -18,9 +18,9 @@
 				type="button" class="btn btn-warning">글쓰기</button></a> <a
 			href="${pageContext.servletContext.contextPath }/club/all.do"><button
 				type="button" class="btn btn-primary">클럽</button></a> <a
-			href="${pageContext.servletContext.contextPath }/change.do주소는임의로넣어둠"><button
+			href="${pageContext.servletContext.contextPath }/changepass.do"><button
 				type="button" class="btn btn-success">회원정보변경</button></a> <a
-			href="${pageContext.servletContext.contextPath }/logout.do주소는임의로넣어둠"><button
+			href="${pageContext.servletContext.contextPath }/logout.do"><button
 				type="button" class="btn btn-danger">로그아웃</button></a>
 	</p>
 </div>
@@ -56,12 +56,13 @@
 								<video class="card-img-top" src="${i.file_attach }" controls></video>
 								<div class="card-body">
 									<a
-										href="${pageContext.servletContext.contextPath }/content.do?num=${i._id}"><p
+										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<button type="button"
-												class="btn btn-sm btn-outline-secondary">View</button>
+												class="btn btn-sm btn-outline-secondary" data-toggle="modal"
+												data-target="#exampleModalLong">View</button>
 											<button type="button"
 												class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
@@ -78,12 +79,13 @@
 									alt="Card image cap">
 								<div class="card-body">
 									<a
-										href="${pageContext.servletContext.contextPath }/content.do?num=${i._id}"><p
+										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<button type="button"
-												class="btn btn-sm btn-outline-secondary">View</button>
+												class="btn btn-sm btn-outline-secondary" data-toggle="modal"
+												data-target="#exampleModalLong">View</button>
 											<button type="button"
 												class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
@@ -96,7 +98,50 @@
 				</c:choose>
 			</c:forEach>
 
+<%-- 			<!-- Modal -->
+			<div class="modal fade" id="exampleModalLong" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLongTitle"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">${sessionScope.user.EMAIL }</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<c:forEach var="i" items="${mylist}">
+								<c:choose>
+									<c:when test="${i.type == 'video'}">
+										<div>
+											<video class="card-img-top" src="${i.file_attach }" controls></video>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div>
+											<img class="card-img-top" src="${i.file_attach }"
+												alt="Card image cap">
+										</div>
+									</c:otherwise>
+									<hr />
+									<div>${i.content }</div>
+
+								</c:choose>
+							</c:forEach>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div> --%>
+
 		</div>
 	</div>
 </div>
+
+
 </main>

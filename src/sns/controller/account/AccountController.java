@@ -20,7 +20,6 @@ import sns.repository.FollowRepository;
 public class AccountController {
 	@Autowired
 	BoardRepository boardRepository;
-
 	@Autowired
 	FollowRepository follow;
 
