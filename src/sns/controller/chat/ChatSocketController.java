@@ -60,7 +60,7 @@ public class ChatSocketController extends TextWebSocketHandler{
 protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 	
 	Map userMap=(Map)session.getAttributes().get("user");
-		System.out.println("저장된 유저 아이디="+userMap.get("ID"));
+		System.out.println("저장된 유저 아이디="+userMap.get("EMAIL"));
 		String got=message.getPayload();
 		Map map =gson.fromJson(got, Map.class);
 		map.put("userNAME",(String)userMap.get("NAME"));
@@ -69,6 +69,10 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		System.out.println(otherId);
 		String sendmsg=gson.toJson(map);
 		
+		List socketslist=new ArrayList<>();
+		for(int i=0;i<sockets.size();i++) {
+			socketslist.add(sockets.get(i).getAttributes().get("userId"));
+		}
 		
 		
 		List modeid=new ArrayList<>();
@@ -98,19 +102,34 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 			li.add(userId);
 			
 		}
+		List humanlist=new ArrayList<>();
+		humanlist.add(otherId);
+		humanlist.add(userMap.get("EMAIL"));
+		
+		for(int i=0;i<humanlist.size();i++) {
+			if(socketslist.contains(humanlist.get(i))) {
+				
+				
+				
+			}
+		}
+		
 		
 		
 		for(int i=0;i<sockets.size();i++) {
 			
 			System.out.println("zzz="+service.list.get(i).getAttributes().get("userId"));
-			if(li.contains(otherId)) {
+			/*if(li.contains(otherId)) {
 				System.out.println("otherId");
 				service.list.get(i).sendMessage(message);
 				
 				service.sendOne(map, (String)service.list.get(i).getAttributes().get("userId"));
 				
-			}
+			}*/
+			
+			if(service.list.get(i).getAttributes().get("userId").equals(otherId)||service.list.get(i).getAttributes().get("userId").equals(userMap.get("EMAIL"))) {
 			sockets.get(i).sendMessage(msg);
+			}
 		}
 		
 		

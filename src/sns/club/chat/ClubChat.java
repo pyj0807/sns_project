@@ -2,6 +2,7 @@ package sns.club.chat;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +22,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import sns.repository.Clubmongochat;
+
+class TimeSorter implements Comparator<Integer> {
+
+	
+	public int compare(Integer a,Integer b) {
+	return (Integer)(a-b);
+	}
+	
+}
 
 @Controller
 @RequestMapping("/club")
@@ -36,9 +47,14 @@ public class ClubChat {
 	
 	@RequestMapping("/all.do")
 	public String clubAll(ModelMap map) {
+		TimeSorter sr= new TimeSorter();
+		List<Map> li=clubmongo.getAllopenChat();
+		for(int i=0;i<li.size();i++) {
 		
 		
+		}
 		
+		map.put("clubAll", li);
 		return "club.chat.all";
 	}
 	
@@ -64,6 +80,7 @@ public class ClubChat {
 		String filename= attach.getOriginalFilename();
 		
 		String id =(String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		human.add(id);
 		System.out.println(id);
 		
 		
@@ -79,11 +96,13 @@ public class ClubChat {
 		
 		String constex=ctx.getContextPath();
 			System.out.println("불러올경로(경수대로 883번길 33. 107동 501호)="+constex+"/clubimg/"+filename);
+			String ext ="."+ FilenameUtils.getExtension(filename);
+			
 			map.put("_id", info);
 			map.put("mainid", id);
-			map.put("attach", constex+"/clubimg/"+filename);
-			map.put("createdate", new Date(System.currentTimeMillis()));
-		
+			map.put("attach", constex+"/clubimg/"+new Date(System.currentTimeMillis()).getTime()+ext);
+			map.put("createdate", new Date(System.currentTimeMillis()).getTime());
+			map.put("agency",human );
 		
 		if(str[0].equals("image")) {
 		if(!dst.exists()) {
@@ -92,6 +111,7 @@ public class ClubChat {
 		
 		try {
 			
+			clubmongo.createroom(map);
 			attach.transferTo(dst);
 			return "redirect:/club/all.do";
 		}catch(Exception e) {

@@ -81,6 +81,16 @@ chatws.onmessage= function(evt) {
 	html += obj.id+" : "+obj.text ;
 	html +="</div>"; */
 	console.log("시간이유"+obj.sendtime);
+	
+	/* switch(evt.mode){
+	case "${otherId}":
+		otherchatHandler(){
+		
+		
+	}
+	
+	} */
+	
 	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 	html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
 	html +="</div>"; 
