@@ -1,12 +1,12 @@
 package sns.repository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -21,6 +21,21 @@ public class BoardDao {
 	//board에 저장된 데이터 불러오기
 	public List<Map> getAllBoard(){
 		List<Map> list = template.findAll(Map.class,"board");
+		//뽑아온 list 내림차순정렬
+		list.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
+				long n2 = (long)o2.get("time");	
+				if(n1>n2) {//2번째>1번째 
+					return -1; //-1내림
+				}else if(n1<n2){
+					return 1; //1오름
+				}else {
+					return 0;
+				}
+			}
+		});
 		return list;
 	}
 	//board에 저장된 데이터 한건 불러오기

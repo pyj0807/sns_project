@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!doctype html>
 <html lang="en">
-
   <body>
     <main role="main">
       <div class="album py-5 bg-light">
