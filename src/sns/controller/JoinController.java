@@ -25,7 +25,7 @@ public class JoinController {
 
 	@GetMapping("/join.do")
 	public String joinGetHandle(ModelMap map) {
-		String[] data = "운동,영화,음악,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,<br/>연애,음식,여행,패션,기타".split(",");
 		map.put("interest", data);
 
 		return "index/join";

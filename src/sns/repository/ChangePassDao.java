@@ -13,6 +13,6 @@ public class ChangePassDao {
 	SqlSessionTemplate template;
 	
 	public int changePass(Map map) {
-		return template.update("account.changePass");
+		return template.update("account.changePass", map);
 	}
 }

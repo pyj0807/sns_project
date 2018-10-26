@@ -23,7 +23,7 @@
 	<div class="center-box">
 	<h4>Change Password</h4>
 	<form
-		action="${pageContext.servletContext.contextPath }/changepass.do" method="post">
+		action="${pageContext.servletContext.contextPath }/change.do" method="post">
 		<div class="form-group row">
 			<label for="opass" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-8">
@@ -42,7 +42,7 @@
 				<input type="password" class="form-control" name="npassC" id="npassC" placeholder="새로운 비밀번호 확인" />
 			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary">변경</button>
 	</form>
 	</div>
 	</div>
