@@ -4,19 +4,24 @@
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 		class="img-circle" style="width: 300px; height: 300px;"> <br />
-	<strong>이메일 : ${sessionScope.user.EMAIL }</strong><br /> 관심사 : 요리, 게임, IT
+	<strong>이메일 : ${sessionScope.user.EMAIL }</strong><br /> 관심사 : 요리, 게임,
+	IT
 	<p>
 		게시물수 : <b>0 </b> 팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.EMAIL }"
-			name="${sessionScope.user.EMAIL }"><b>${followerCnt }</b></a>
-		팔로잉 : <a href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.EMAIL }"
+			name="${sessionScope.user.EMAIL }"><b>${followerCnt }</b></a> 팔로잉 : <a
+			href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.EMAIL }"
 			name="${sessionScope.user.EMAIL }"><b>${followingCnt }</b></a>
 	</p>
 	<p>
 		<a href="${pageContext.servletContext.contextPath }/write.do"><button
 				type="button" class="btn btn-warning">글쓰기</button></a> <a
 			href="${pageContext.servletContext.contextPath }/club/all.do"><button
-				type="button" class="btn btn-primary">클럽</button></a>
+				type="button" class="btn btn-primary">클럽</button></a> <a
+			href="${pageContext.servletContext.contextPath }/change.do주소는임의로넣어둠"><button
+				type="button" class="btn btn-success">회원정보변경</button></a> <a
+			href="${pageContext.servletContext.contextPath }/logout.do주소는임의로넣어둠"><button
+				type="button" class="btn btn-danger">로그아웃</button></a>
 	</p>
 </div>
 <hr />

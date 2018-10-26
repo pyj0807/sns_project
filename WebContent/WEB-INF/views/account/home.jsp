@@ -1,6 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  <style>
+    .btn{
+      text-decoration: none;
+      font-size:2rem;
+      color:white;
+      padding:10px 20px 10px 20px;
+      margin:20px;
+      display:inline-block;
+      border-radius: 10px;
+      transition:all 0.1s;
+      text-shadow: 0px -2px rgba(0, 0, 0, 0.44);
+      font-family: 'Lobster', cursive;
+    }
+    .btn:active{
+      transform: translateY(3px);
+    }
+    .btn.blue{
+      background-color: #1f75d9;
+      border-bottom:5px solid #165195;
+    }
+    .btn.blue:active{
+      border-bottom:2px solid #165195;
+    }
+    .btn.red{
+      background-color: #ff521e;
+      border-bottom:5px solid #c1370e;
+    }
+    .btn.red:active{
+      border-bottom:2px solid #c1370e;
+    }
+  </style>
 
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
@@ -15,11 +47,12 @@
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">
-		<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button>
+	<!-- 	<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button> -->
+	<a class="btn red" href="#red"  id="follow">following</a>
 		</c:when>
 		<c:otherwise>
-	<button type="button" class="btn btn-primary" id="follow">팔로우</button>
-		
+<!-- 	<button type="button" class="btn btn-primary" id="follow">팔로우</button> -->
+		 <a class="btn blue" href="#blue"  id="follow">follow</a>
 		</c:otherwise>
 	</c:choose>
 	
@@ -125,14 +158,14 @@
 	
 	var onHandle = function(obj){
 		var cnt = obj.followerCnt;
-		$("#follow").attr("class","btn btn-outline-primary");
-		$("#follow").html("팔로잉");	
+		$("#follow").attr("class","btn red");
+		$("#follow").html("following");	
 		$("#cnt").html(cnt);
 	}
 	var offHandle = function(obj){
 		var cnt = obj.followerCnt;
-		$("#follow").attr("class","btn btn-primary");
-		$("#follow").html("팔로우");
+		$("#follow").attr("class","btn blue");
+		$("#follow").html("follow");
 		$("#cnt").html(cnt);
 	}
 	

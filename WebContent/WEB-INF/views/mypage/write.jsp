@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <div align="center">
+<c:if test="${!empty err}">
+	<div class="alert alert-danger" role="alert">
+	   Image 나 Video 파일만 업로드 가능합니다.
+	</div>	
+</c:if>
 	<form method="post"
 		action="${pageContext.servletContext.contextPath}/mypage.do"
 		enctype="multipart/form-data">
