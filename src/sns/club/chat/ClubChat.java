@@ -1,6 +1,7 @@
 package sns.club.chat;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -49,10 +50,22 @@ public class ClubChat {
 	public String clubAll(ModelMap map) {
 		TimeSorter sr= new TimeSorter();
 		List<Map> li=clubmongo.getAllopenChat();
-		for(int i=0;i<li.size();i++) {
 		
-		
-		}
+		li.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1= (long)o1.get("createdate");
+				long n2= (long)o2.get("createdate");
+				
+				if(n1>n2) {
+					return 1;
+				}else if(n1<n2) {
+					return -1;
+				}else {
+					return 0;
+				}
+			}
+		});
 		
 		map.put("clubAll", li);
 		return "club.chat.all";
@@ -67,7 +80,7 @@ public class ClubChat {
 	
 	@PostMapping("/createon.do")
 	public String clubcreateon(@RequestParam String info ,
-			@RequestParam MultipartFile attach  , WebRequest wr) {
+			@RequestParam MultipartFile attach  , WebRequest wr) throws IllegalStateException, IOException{
 	
 		
 			Map map=new LinkedHashMap<>();
@@ -89,14 +102,16 @@ public class ClubChat {
 		
 		System.out.println(str[0]);
 		
-		String path =ctx.getRealPath("/clubimg/");
-		File dst= new File(path,filename);
-		System.out.println("경로(당)=" +path+filename);
-		System.out.println("실제네임(김나윤)"+filename);
-		
+		String path =ctx.getRealPath("clubimg");
+		File dir = new File(path);
+		System.out.println("꿀꿀꿀="+path);
 		String constex=ctx.getContextPath();
-			System.out.println("불러올경로(경수대로 883번길 33. 107동 501호)="+constex+"/clubimg/"+filename);
-			String ext ="."+ FilenameUtils.getExtension(filename);
+		
+		String ext ="."+ FilenameUtils.getExtension(filename);
+		
+		System.out.println(ext+"qwtgrehd");
+		
+		
 			
 			map.put("_id", info);
 			map.put("mainid", id);
@@ -104,20 +119,21 @@ public class ClubChat {
 			map.put("createdate", new Date(System.currentTimeMillis()).getTime());
 			map.put("agency",human );
 		
+			long gg= new Date(System.currentTimeMillis()).getTime();
 		if(str[0].equals("image")) {
-		if(!dst.exists()) {
+		/*if(!dst.exists()) {
 			dst.mkdirs();
-		}
+		}*/
 		
-		try {
-			
+		
+		
+			File dst= new File(dir,gg+ext);
+			System.out.println("저장될 경로="+dst.toString());
 			clubmongo.createroom(map);
 			attach.transferTo(dst);
 			return "redirect:/club/all.do";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "redirect:/club/create.do";
-		}
+		
+	
 		
 		}else {
 			
