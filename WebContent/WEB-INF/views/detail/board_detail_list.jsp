@@ -4,6 +4,8 @@
 <div>
 	좋아요한 사람들<br/>
 	<c:forEach var="i" items="${likes }">
-		<a href="">${i }</a><br/>	
+		<li>
+			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i }">${i }</a><br/>
+		</li>	
 	</c:forEach>
 </div>
