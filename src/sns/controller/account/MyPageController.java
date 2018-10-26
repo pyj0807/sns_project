@@ -74,7 +74,7 @@ public class MyPageController {
 
 		//해쉬태그뽑아서 저장하기============================
 		String content = (String)map.get("content");
-		String regex = "\\#([0-9a-zA-Z가-힣]*)";
+		String regex = "\\#([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]*)";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(content);
 		List hash = new ArrayList<>();
