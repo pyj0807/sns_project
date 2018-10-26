@@ -18,9 +18,9 @@
 				type="button" class="btn btn-warning">글쓰기</button></a> <a
 			href="${pageContext.servletContext.contextPath }/club/all.do"><button
 				type="button" class="btn btn-primary">클럽</button></a> <a
-			href="${pageContext.servletContext.contextPath }/change.do주소는임의로넣어둠"><button
+			href="${pageContext.servletContext.contextPath }/change.do"><button
 				type="button" class="btn btn-success">회원정보변경</button></a> <a
-			href="${pageContext.servletContext.contextPath }/logout.do주소는임의로넣어둠"><button
+			href="${pageContext.servletContext.contextPath }/logout.do"><button
 				type="button" class="btn btn-danger">로그아웃</button></a>
 	</p>
 </div>

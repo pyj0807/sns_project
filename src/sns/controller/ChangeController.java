@@ -18,25 +18,25 @@ public class ChangeController {
 	@Autowired
 	ChangePassDao cpdao;
 	
-	@GetMapping("/changepass.do")
+	@GetMapping("/change.do")
 	public String changeGetHandle(Map map) {
-
+		
+		
 		return "index/changePass";
 	}
 	
-	@PostMapping("/changepass.do")
+	@PostMapping("/change.do")
 	public String changePostHandle(@SessionAttribute Map user, @RequestParam Map map, ModelMap model) {
 		String cp = (String)user.get("PASS");
 		String op = (String)map.get("opass");
+
 		if(op.equals(cp)) {
 			map.put("id", user.get("ID"));
 			int r = cpdao.changePass(map);
 			if(r>0) {
-				
-				return "";
+				return "sns.mypage";
 			}
 		}
-		model.put("err", "on");
 		return "index/changePass";
 	}
 	

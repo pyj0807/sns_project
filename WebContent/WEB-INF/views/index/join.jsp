@@ -18,6 +18,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <title>join</title>
 <script>
+
 	var checkbox = new Array();
 	var cksave = function(target) {
 		if (target.checked) {
@@ -27,8 +28,12 @@
 				window.alert("최대 3개 까지 선택 가능합니다");
 				target.checked = false;
 			}
+		}else{
+			 var idx = checkbox.indexOf(target.value);
+			 checkbox.splice(idx,1);
 		}
 	}
+
 </script>
 
 <form class="form-signin"
@@ -53,20 +58,20 @@
 							<div class="join">
 								<h4>아이디</h4>
 								<input name="id" id="id" type="text" maxlength="20"
-									placeholder="이메일 주소"> @ <input name="subid" id="subid"
-									type="text" maxlength="30">
+									placeholder="이메일 주소" required> @ <input name="subid" id="subid"
+									type="text" maxlength="30" required>
 								<br/>	
 								<h4>비밀번호</h4>
 								<input name="pass" id="pass" type="password" maxlength="20"
-									placeholder="비밀번호">
+									placeholder="비밀번호" required>
 								<br/>
 								<h4>이름</h4>
 								<input name="name" id="name" type="text" maxlength="20"
-									placeholder="이름">
+									placeholder="이름" required>
 								<br/>	
 								<div class="join_row join_birthday">
 									<h3 class="join_title">생년월일</h3>
-									<div class="bir_wrap">
+									<div class="bir_wrap" required>
 										<div class="bir_yy">
 											<span class="ps_box"> 
 											<input type="text" name="yy" placeholder="년도(4자)" maxlength="4">
@@ -128,7 +133,7 @@
 								</div>
 
 								<h3 class="join_title">성별</h3>
-								<div class="ps_box gender_code">
+								<div class="ps_box gender_code" required>
 									<select id="gender" name="gender" aria-label="성별">
 										<option selected>성별</option>
 										<option value="M">남자</option>
@@ -148,8 +153,8 @@
 								</fieldset>
  								-->
 								<c:forEach var="v" items="${interest }">
-									<input type="checkbox" name="interest" value="${v}"
-										onchange="cksave(this)" />${v }
+									${v }<input type="checkbox" name="interest" value="${v}"
+										onchange="cksave(this)" />
 								 </c:forEach>
 							</div>
 						</div>
@@ -170,4 +175,9 @@
 </form>
 </head>
 </html>
+<script>
+	var checkid = function(id){
+		
+	}
+</script>
 

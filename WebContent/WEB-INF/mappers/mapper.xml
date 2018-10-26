@@ -13,7 +13,7 @@
 	</select>
 	
 	<update id="changePass" parameterType="java.util.HashMap">
-		update account set pass = #{pass} where={id}	
+		update account set pass=#{npass} where id=#{id}	
 	</update>
 	
 	
