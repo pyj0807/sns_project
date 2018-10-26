@@ -47,12 +47,30 @@
 	<c:forEach var="in" items="${requestScope.otherUser.INTEREST }">${in }</c:forEach>
 	<br />
 	<p>
-		게시물수 : <b>${size }</b> 팔로워 : <a
-			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
-			name="${id}"><b id="cnt">${followerCnt }</b></a> 팔로잉 : <a
-			href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
-			name="${id}"><b>${followingCnt }</b></a>
-
+		게시물수 : <b>${size }</b>
+		 팔로워 : 
+		 <c:choose>
+		 <c:when test="${followerCnt !=0}">
+		 <a href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
+			name="${id}"><b id="cnt">${followerCnt }</b></a> 
+		 
+		 </c:when>
+		 <c:otherwise>
+		 <b id="cnt">${followerCnt }</b>
+		 </c:otherwise>
+		 </c:choose>
+			
+			팔로잉 :
+		<c:choose>
+			<c:when test="${followingCnt!=0 }">
+				<a
+					href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
+					name="${id}"><b>${followingCnt }</b></a>
+			</c:when>
+			<c:otherwise>
+				<b>${followingCnt }</b>
+			</c:otherwise>
+		</c:choose>
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">

@@ -23,12 +23,17 @@
 <title>그룹웨어</title>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<div>
 			<tiles:insertAttribute name="nav" />
 		</div>
-		<div>
-			<tiles:insertAttribute name="center" />
+<%-- 		<div class="row">
+			<div class="col-md-3">
+				<tiles:insertAttribute name="left" />
+			</div> --%>
+			<div>
+				<tiles:insertAttribute name="center"/>
+			</div>
 		</div>
 	</div>
 </body>

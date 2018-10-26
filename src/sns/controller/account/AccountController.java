@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import sns.repository.AccountRepository;
 import sns.repository.BoardRepository;
 import sns.repository.FollowRepository;
 
@@ -22,7 +23,9 @@ public class AccountController {
 	BoardRepository boardRepository;
 	@Autowired
 	FollowRepository follow;
-
+	@Autowired
+	AccountRepository accountRepository;
+	
 	@RequestMapping("/account.do")
 	public String account(WebRequest wr, @RequestParam String id,ModelMap map) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
@@ -34,7 +37,11 @@ public class AccountController {
 			return "redirect:/mypage.do";
 		} else {
 			List<Map> accountlist = boardRepository.findWriter(id);
+			int size = accountlist.size();
+			Map otherUser = accountRepository.getOneUserInfo(id);
+			wr.setAttribute("otherUser", otherUser, wr.SCOPE_REQUEST);
 			wr.setAttribute("id", id, wr.SCOPE_REQUEST);
+			wr.setAttribute("size", size, wr.SCOPE_REQUEST);
 			wr.setAttribute("accountlist", accountlist, WebRequest.SCOPE_REQUEST);
 		}
 		
