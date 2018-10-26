@@ -118,7 +118,9 @@ public class MyPageController {
 	}
 
 	@GetMapping("/write.do")
-	public String write() {
+	public String write(ModelMap modelmap) {
+		String[] data = "운동,영화,음악,음식,여행,패션,게임,기타".split(",");
+		modelmap.put("interest", data);
 		return "sns.write";
 	}
 }
