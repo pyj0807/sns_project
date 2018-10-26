@@ -26,7 +26,8 @@
 	<p>
 		<a href="${pageContext.servletContext.contextPath }/board/likelist.do?num=${boardOne._id}"><b>좋아요:</b><span id="like_count">${fn:length(boardOne.liker) }</span></a><br/>
 		<b>글쓴이:</b>${boardOne.writer }<br/>
-		<b>내용:</b>${boardOne.content }
+		<%--<b>내용:</b>${boardOne.content }<br/> --%>
+		<b>내용:</b>${hashtag }<br/>		
 	</p>
 
 </div>

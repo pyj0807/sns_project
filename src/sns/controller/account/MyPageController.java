@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 
@@ -70,8 +72,20 @@ public class MyPageController {
 		String userEmail = (String) user.get("EMAIL");
 		String userId = (String) user.get("ID");
 
+		//해쉬태그뽑아서 저장하기============================
+		String content = (String)map.get("content");
+		String regex = "\\#([0-9a-zA-Z가-힣]*)";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(content);
+		List hash = new ArrayList<>();
+		while(m.find()) {
+			hash.add(m.group());
+		}
+		//===========================================
+
 		// 파일 타입 확인하고 image 랑 video 만 가능하게
 		String type = file.getContentType().substring(0, 5);
+		
 		if (!(type.equals("image") || type.equals("video"))) {
 			modelmap.put("err", "on");
 			System.out.println("파일 타입이 Image나 Video가 아님");
@@ -86,15 +100,16 @@ public class MyPageController {
 			file.transferTo(insertfile);
 			String path = svc.getContextPath() + "/upload/" + filename;
 
-			String content = (String) map.get("content");
-			content = content.replace("\r\n", "<br>");
+//			String content_enter = (String) map.get("content");
+//			content_enter = content_enter.replace("\r\n", "<br>");
 
 			map.put("_id", boardRepository.getBoardNo());
 			map.put("writer", userEmail);
-			map.put("content", content);
+//			map.put("content", content_enter);
 			map.put("file_attach", path);
 			map.put("type", type);
 			map.put("liker", new ArrayList<>());
+			map.put("hashcode", hash);
 			map.put("time", currentTime);
 			boardRepository.insertOne(map);
 
@@ -106,5 +121,4 @@ public class MyPageController {
 	public String write() {
 		return "sns.write";
 	}
-
 }

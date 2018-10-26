@@ -48,4 +48,9 @@ public class BoardDao {
 		UpdateResult rst = template.updateMulti(query, u, "board");
 		return rst.getModifiedCount();
 	}
+	//board테이블에서  파라미터로 Hashcode 뽑기 
+	public List<Map> getBoardHash(String[] hashtag){
+		Query query = new Query(Criteria.where("hashcode").in(hashtag));
+		return template.find(query, Map.class, "board");
+	}
 }
