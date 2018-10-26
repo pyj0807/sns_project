@@ -11,4 +11,10 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/chat/freechatview.jsp" />
 	</definition>
+	
+	<definition name="chat.clubview" template="/WEB-INF/tiles/sns-template.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
+		<put-attribute name="left" value="" />
+		<put-attribute name="center" value="/WEB-INF/views/clubchat/freechatview.jsp" />
+	</definition>
 </tiles-definitions>

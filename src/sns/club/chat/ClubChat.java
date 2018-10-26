@@ -120,14 +120,14 @@ public class ClubChat {
 			map.put("agency",human );
 		
 			long gg= new Date(System.currentTimeMillis()).getTime();
-		if(str[0].equals("image")) {
-		/*if(!dst.exists()) {
-			dst.mkdirs();
-		}*/
-		
-		
-		
 			File dst= new File(dir,gg+ext);
+		if(str[0].equals("image")) {
+		if(!dst.exists()) {
+			dst.mkdirs();
+		}
+		
+		
+		
 			System.out.println("저장될 경로="+dst.toString());
 			clubmongo.createroom(map);
 			attach.transferTo(dst);
@@ -142,6 +142,15 @@ public class ClubChat {
 		
 		
 	}
+	
+	
+	public String clubchatview() {
+		
+		return "chat.clubview";
+	}
+	
+	
+	
 	
 	
 
