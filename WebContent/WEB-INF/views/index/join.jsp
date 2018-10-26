@@ -155,9 +155,14 @@
 						</div>
 
 						<button type="submit">가입</button>
+						<form action="${pageContext.servletContext.contextPath }/index.do" method="post">
+							<button type="submit">로그인</button>
+						</form>
 					</div>
+				
 				</div>
 			</span>
+			
 			<div class="col"></div>
 		</div>
 

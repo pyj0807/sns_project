@@ -44,7 +44,7 @@
         <input type="password" id="pass" class="form-control" placeholder="비밀번호" name="pass" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me"> 로그인 유지
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
