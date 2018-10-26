@@ -16,5 +16,10 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/detail/board_detail_list.jsp" />
 	</definition>
+		<definition name="sns.board_hash" template="/WEB-INF/tiles/sns-template.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
+		<put-attribute name="left" value="" />
+		<put-attribute name="center" value="/WEB-INF/views/detail/board_hash.jsp" />
+	</definition>
 	
 </tiles-definitions>

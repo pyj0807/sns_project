@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -74,12 +76,24 @@ public class MyPageController {
 
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");
-
+		
+		//해쉬태그뽑아서 저장하기============================
+		String content = (String)map.get("content");
+		String regex = "\\#([0-9a-zA-Z가-힣]*)";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(content);
+		List hash = new ArrayList<>();
+		while(m.find()) {
+			hash.add(m.group());
+		}
+		//===========================================
+		
 		map.put("_id", boardRepository.getBoardNo());
 		map.put("writer", userId);
 		map.put("file_attach", path);
 		map.put("type", type.substring(0, 5));
 		map.put("liker", new ArrayList<>());
+		map.put("hashcode", hash);
 		boardRepository.insertOne(map);
 		return "redirect:/mypage.do";
 	}
