@@ -29,6 +29,11 @@ public class IndexController {
 	Gson gson;
 	@Autowired
 	LoingDao ldao;
+	
+	Map<String, HttpSession> sessions;
+	public IndexController() {
+		sessions = new HashMap<>();
+	}
 
 	@RequestMapping("/index.do")
 	public String index(ModelMap modelmap, WebRequest wr) {
@@ -66,6 +71,19 @@ public class IndexController {
 		Map log = ldao.login(data);
 
 		if (log != null) {
+			Map msgg = new HashMap();
+			msgg.put("mode", "erlogin");
+			msgg.put("actor", id);
+			if(sessions.containsKey(id)) {
+				sessions.get(id).invalidate();
+				sessions.remove(id);
+				
+				
+				service.sendOne(msgg, id);
+			}
+			sessions.put(id,session);
+			
+			
 			wr.setAttribute("userId", id, wr.SCOPE_SESSION);
 
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
@@ -77,5 +95,14 @@ public class IndexController {
 			return "/index/login";
 		}
 
+	}
+	
+	@GetMapping("logout.do")
+	public String logout(WebRequest wr) {
+		String id= (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		/*sessions.get(id).invalidate();*/
+		sessions.remove(id);
+		wr.removeAttribute("auth", wr.SCOPE_SESSION);
+		return "redirect:index.do";
 	}
 }

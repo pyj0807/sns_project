@@ -41,4 +41,22 @@
 <script>
 	var ws = new WebSocket("ws://" + location.host
 			+ "${pageContext.servletContext.contextPath}/all.do");
+	
+	ws.onmessage=function(evt){
+		console.log(evt.data);
+		var obj=JSON.parse(evt.data);
+		switch(obj.mode){
+		case "erlogin":
+			errLoginHandle(obj);
+			break;
+		
+		}
+		
+		}
+		errLoginHandle =function(obj){
+			window.alert(" 다른곳에서 로그인을 시도하였습니다.");
+			window.location.href = "${pageContext.servletContext.contextPath}/index.do";
+		
+		
+	}
 </script>
