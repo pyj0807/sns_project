@@ -118,7 +118,7 @@
 										<div>
 											<video class="card-img-top" src="${i.file_attach }" controls></video>
 										</div>
-									</c:when>
+									</c:when> 
 									<c:otherwise>
 										<div>
 											<img class="card-img-top" src="${i.file_attach }"
