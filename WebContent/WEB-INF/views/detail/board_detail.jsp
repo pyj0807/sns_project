@@ -33,7 +33,7 @@
 
 	<span id="replyList">
 		<c:forEach var="i" items="${reply_list }">
-			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.email }">${i.email }</a>${i.reply_content }<br/>
+			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>${i.reply_content }<br/>
 		</c:forEach>
 	</span>
 	
@@ -92,9 +92,9 @@
 						html+="<a href=\"";
 						html+="${pageContext.servletContext.contextPath }";
 						html+="/account.do?id=";
-						html+=obj[i].email;
+						html+=obj[i].writer;
 						html+="\">";		
-						html+=obj[i].email+"</a>";
+						html+=obj[i].writer+"</a>";
 						html+=obj[i].reply_content;
 						html+="<br/>";
 					}				

@@ -147,7 +147,7 @@ public class BoardController {
 		long currentTime = System.currentTimeMillis();
 		Map map = gson.fromJson(param, Map.class);
 		Map user = (Map)wr.getAttribute("user", wr.SCOPE_SESSION);
-		map.put("email", user.get("EMAIL"));
+		map.put("writer", user.get("ID"));
 		map.put("time", currentTime);
 		System.out.println(map);
 		//추가
