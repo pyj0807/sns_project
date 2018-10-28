@@ -6,6 +6,9 @@
 		<div class="alert alert-danger" role="alert">Image 나 Video 파일만
 			업로드 가능합니다.</div>
 	</c:if>
+	<c:if test="${!empty errr}">
+		<div class="alert alert-danger" role="alert">관심사 체크는 필수입니다.</div>
+	</c:if>
 	<form method="post"
 		action="${pageContext.servletContext.contextPath}/mypage.do"
 		enctype="multipart/form-data">
@@ -20,6 +23,7 @@
 				placeholder="write a content"></textarea>
 		</p>
 		<p>
+			관심사(*)<br/>
 			<c:forEach var="v" items="${interest }">
 				<input type="checkbox" name="interest" value="${v}"
 					onchange="cksave(this)" />${v }

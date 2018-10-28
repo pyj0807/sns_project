@@ -16,6 +16,13 @@ video {
 	height: 300px;
 }
 </style>
+<style>
+.photo {
+    width: 100px; height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+</style>
 <link href="https://fonts.googleapis.com/css?family=Lobster"
 	rel="stylesheet">
 <style>
@@ -57,20 +64,16 @@ video {
 
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="img-circle" style="width: 300px; height: 300px;"><br />
-
-
-	<strong>아이디 : ${id}</strong><br /> 관심사 :
-	<c:forEach var="in" items="${requestScope.otherUser.INTEREST }">${in }</c:forEach>
+		class="photo" style="width: 300px; height: 300px;"><br />
+	<strong> ${id}</strong><br /> 관심사 :
+	<c:forEach var="in" items="${otherInter }">☆${in } </c:forEach>
 	<br />
 	<p>
 		게시물수 : <b>${size }</b> 팔로워 : <a
-
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
 			name="${id}"><b id="cnt">${followerCnt }</b></a> 팔로잉 : <a
 			href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
 			name="${id}"><b>${followingCnt }</b></a>
-
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">
@@ -82,10 +85,9 @@ video {
 			<a class="btn blue" href="#blue" id="follow">follow</a>
 		</c:otherwise>
 	</c:choose>
-
 </div>
 <hr />
-추천
+관심사가 같은 회원 추천
 <br />
 <a
 	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb">박소현(shpbbb)</a>

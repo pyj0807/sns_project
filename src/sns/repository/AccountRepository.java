@@ -11,8 +11,9 @@ public class AccountRepository {
 	@Autowired
 	SqlSessionTemplate sqltemplate;
 	
-	public Map getOneUserInfo(String email) {
-		return sqltemplate.selectOne("account.getOneUserInfo", email);
+	// 다른 회원의 정보 Map 으로 뽑아오기
+	public Map getOneUserInfo(String id) {
+		return sqltemplate.selectOne("account.getOneUserInfo", id);
 	}
 	
 }

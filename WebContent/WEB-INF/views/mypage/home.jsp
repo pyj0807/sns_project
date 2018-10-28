@@ -16,10 +16,19 @@ video {
 	height: 300px;
 }
 </style>
+<style>
+.photo {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+</style>
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="img-circle" style="width: 300px; height: 300px;"> <br />
-	<strong>이메일 : ${sessionScope.user.ID }</strong><br /> 관심사 : <c:forEach var="in" items="${sessionScope.user.INTEREST }">${in }</c:forEach> 
+		class="photo" style="width: 300px; height: 300px;"> <br /> <strong>${sessionScope.user.ID }</strong><br />
+	관심사 :
+	<c:forEach var="in" items="${myInter }">☆${in } </c:forEach>
 	<p>
 		게시물수 : <b>${msize }</b> 팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.ID }"
@@ -34,13 +43,29 @@ video {
 				type="button" class="btn btn-primary">클럽</button></a> <a
 			href="${pageContext.servletContext.contextPath }/change.do"><button
 				type="button" class="btn btn-success">회원정보변경</button></a> <a
+			href="${pageContext.servletContext.contextPath }/liked.do"><button
+				type="button" class="btn btn-light">내가좋아요한게시물</button></a> <a
 			href="${pageContext.servletContext.contextPath }/logout.do"><button
 				type="button" class="btn btn-danger">로그아웃</button></a>
 	</p>
 </div>
 <hr />
-추천
+관심사가 같은 회원 추천
 <br />
+<br />
+<div class="btn-group" role="group" align="center">
+	<button style="align-content: center;" id="btnGroupDrop1" type="button"
+		class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+		aria-haspopup="true" aria-expanded="false">관심사</button>
+	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		<c:forEach var="v" items="${allInter}">
+				<a class="dropdown-item"
+					href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
+		</c:forEach>
+	</div>
+</div>
+<br/>
+<br/>
 <a
 	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb">박소현(shpbbb)</a>
 <br />
@@ -115,7 +140,7 @@ video {
 			</c:forEach>
 		</div>
 
- 
+
 
 
 	</div>

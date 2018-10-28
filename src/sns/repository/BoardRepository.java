@@ -23,7 +23,7 @@ public class BoardRepository {
 	
 	// 게시판에 글 하나 올리기
 	public void insertOne(Map map) {
-		Map ret = template.insert(map, "board");
+		template.insert(map, "board");
 	}
 	
 	// 게시글 고유번호 생성
@@ -51,7 +51,28 @@ public class BoardRepository {
 	       });
 		return list;
 	}
+	
+	// board 테이블에서 파라미터로 Liker 뽑기
+	public List<Map> getBoardLiker(String liker){
+		Query query = new Query(Criteria.where("liker").in(liker));
+		return template.find(query, Map.class, "board");
+	}
+	
+	// 글번호 + 좋아요 한사람 + 좋아요한 시간 
+	public void insertLikerAndTime(Map liked) {
+		template.insert(liked, "like");
+	}
+	
+	// 좋아요취소하면 삭제
+	public void removeLikerAndTime(Map liked) {
+		template.remove(liked, "like");
+	}
 
+	// board 테이블에서 파라미터로 Theme 뽑기
+	public List<Map> getBoardTheme(String theme){
+		Query query = new Query(Criteria.where("interest").in(theme));
+		return template.find(query, Map.class, "board");
+	}
 
 }
 
