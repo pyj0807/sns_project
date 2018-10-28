@@ -22,4 +22,9 @@ public class ChatDao {
 		
 		return template.selectList("snschat.chatgetall");
 	}
+	
+public List<Map> followchatgetall(String id){
+		
+		return template.selectList("snschat.followgetall",id);
+	}
 }

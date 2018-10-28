@@ -26,9 +26,9 @@
   <%--   <c:forEach var="v" items="${chatlist }">
     ${v }
     </c:forEach> --%>
-   <c:forEach var="v" items="${chatlist}">
-   <c:if test="${v.EMAIL != userId }">
-      <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.EMAIL}"> ${v.EMAIL }</a>
+   <c:forEach var="v" items="${friends}">
+   <c:if test="${v.OTHERID != otherid }">
+      <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.OTHERID}"> ${v.OTHERID }</a>
    </c:if>
     </c:forEach>	`
       
@@ -82,14 +82,11 @@ chatws.onmessage= function(evt) {
 	html +="</div>"; */
 	console.log("시간이유"+obj.sendtime);
 	
-	/* switch(evt.mode){
-	case "${otherId}":
-		otherchatHandler(){
-		
-		
-	}
-	
-	} */
+/* 	 switch(evt.mode){
+	case "other":
+		otherchatHandler(obj);
+		break;
+	}  */
 	
 	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 	html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
@@ -97,8 +94,9 @@ chatws.onmessage= function(evt) {
 	document.getElementById("chatView").innerHTML += html;
 	document.getElementById("chatView").scrollTop = 
 		document.getElementById("chatView").scrollHeight; 
-	
+
 } 
+
 
 document.getElementById("input").onchange= function() {
 	console.log(this.value);
@@ -116,7 +114,7 @@ document.getElementById("input").onchange= function() {
 		 
 		 msg = {
 			 	"mode" :"other",
-				"id":"${userId}",
+				"id":"${Id}",
 				"text":this.value,
 				"otherId":"${otherId}"
 				
