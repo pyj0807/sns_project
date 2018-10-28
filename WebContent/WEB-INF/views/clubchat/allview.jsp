@@ -31,7 +31,7 @@ img {
     <meta name="author" content="">
    
 
-    <title>Album example for Bootstrap</title>
+    <title>Open Chat</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://bootstrap4.kr/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -42,35 +42,7 @@ img {
 
   <body>
 
-    <!-- <header>
-      <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-            </div>
-            <div class="col-sm-4 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                <li><a href="#" class="text-white">Email me</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark">
-        <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand">Album</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
-    </header>
- -->
+   
  
  <br/>
   <br/>
@@ -79,8 +51,8 @@ img {
 
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Album example</h1>
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+          <h1 class="jumbotron-heading">Open Chat</h1>
+          <p class="lead text-muted">마음이 맞는 사람과 <br/>채팅을 해 보아요.</p>
           <p>
             <a href="${pageContext.servletContext.contextPath }/club/create.do" class="btn btn-primary">오픈채팅방 만들기</a>
             
@@ -101,7 +73,7 @@ img {
             </div>
             <br/> --%>
             <c:forEach var="v" items="${clubAll }">
-           <a href="${pageContext.servletContext.contextPath }/club/"><img class="img" src="${v.attach }" alt="Card image cap"></a>
+           <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"><img class="img" src="${v.attach }" alt="Card image cap"></a>
             <p class="card-text">▶  ${v._id}</p>
             <br/>
             </c:forEach>
