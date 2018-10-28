@@ -205,12 +205,12 @@
 			document.getElementById("idspan").style.color ="red";
 		}
 	};
-	
+
 </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <script type="text/javascript">
-$('#selectEmail').change(function(){ 
-	$("#selectEmail option:selected").each(function () { 
+$('#subid').change(function(){ 
+	$("#subid option:selected").each(function () { 
 		if($(this).val()== '1'){ //직접입력일 경우 
 			$("#str_email02").val(''); //값 초기화
 			$("#str_email02").attr("disabled",false); //활성화 
