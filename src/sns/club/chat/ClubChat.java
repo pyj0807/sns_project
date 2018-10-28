@@ -57,9 +57,9 @@ public class ClubChat {
 				long n1= (long)o1.get("createdate");
 				long n2= (long)o2.get("createdate");
 				
-				if(n1>n2) {
+				if(n1<n2) {
 					return 1;
-				}else if(n1<n2) {
+				}else if(n1>n2) {
 					return -1;
 				}else {
 					return 0;
@@ -144,9 +144,28 @@ public class ClubChat {
 	}
 	
 	
-	public String clubchatview() {
+	
+	@GetMapping("/clubview.do")
+	public String clubchatview(ModelMap map,@RequestParam Map mapp,WebRequest wr) {
+		String id =(String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		String content =(String)mapp.get("id");
+		/*System.out.println(id);*/
 		
-		return "chat.clubview";
+		
+		
+			if(clubmongo.getagencyChat(content, id).size()<1) {
+				clubmongo.clubagency(content,id);
+			}
+		List li =clubmongo.getaAencyAllclub(id);
+		
+		 
+		   
+		
+		/*System.out.println(content);*/
+		map.put("contentid", content);
+		map.put("clubchating", clubmongo.clubchatingview(content));
+		map.put("allclub", li);
+		return "club.chat.view";
 	}
 	
 	

@@ -80,6 +80,7 @@
 	 <websocket:handlers>
 		<websocket:mapping handler="allSocketController" path="/all.do"/>
 		<websocket:mapping handler="chatSocketController" path="/chating.do"/>
+			<websocket:mapping handler="clubChatSocketController" path="/clubchating.do"/>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
