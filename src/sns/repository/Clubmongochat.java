@@ -71,6 +71,11 @@ public List<Map> clubchatingview(String contentid){
 	
 	return template.find(new Query(Criteria.where("contentid").in(contentid)), Map.class,"clubchat");
 }
+
+public List<Map> clubbest(String id){
+	
+	return template.find(new Query(Criteria.where("mainid").in(id)), Map.class,"clubroom");
+}
 	 
 	
 }
