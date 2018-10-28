@@ -13,8 +13,8 @@ public class LoginCheckDao {
 	@Autowired
 	SqlSessionTemplate template;
 
-	public Map loginCheck(String email){
-		return template.selectOne("account.loginCheck",email);
+	public Map loginCheck(String id){
+		return template.selectOne("account.loginCheck",id);
 	}
 }
 

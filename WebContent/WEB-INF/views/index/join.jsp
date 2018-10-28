@@ -55,12 +55,24 @@
 						<div class="row">
 							<div class="join">
 								<h4>아이디</h4>
-								<input name="id" id="id" type="text" maxlength="20"
+								<input name="id" id="id" type="text" style="width:100px;" maxlength="20"
 									placeholder="이메일 " onkeyup="checkId(this.value);" required> 
-									@ 
-								<input name="subid" id="subid" type="text" maxlength="30" 
-									onkeyup="checkId(this.value);" required> 
-									<span id="idspan"></span> <br />
+								 <br/><span id="idspan"></span>	
+								<h4>메일 인증</h4>
+								<input name="id" id="id" type="text" style="width:100px;" maxlength="20"
+									placeholder="아이디 " onkeyup="checkId(this.value);" required> 
+									@
+								<input type="text" name="str_email02" id="str_email02" style="width:100px;" disabled value="naver.com"> 
+								 <select style="width:100px;margin-right:10px" name="subid" id="subid"> 
+									 <option value="1">직접입력</option> 
+									 <option value="naver.com" selected>naver.com</option> 
+									 <option value="hanmail.net">hanmail.net</option> 
+									 <option value="nate.com">nate.com</option> 
+									 <option value="yahoo.co.kr">yahoo.co.kr</option> 
+									 <option value="dreamwiz.com">dreamwiz.com</option> 
+									 <option value="freechal.com">freechal.com</option> 
+									 <option value="gmail.com">gmail.com</option> 
+								 </select>								 
 								<h4>비밀번호</h4>
 								<input name="pass" id="pass" type="password" maxlength="20"
 									placeholder="비밀번호" required> <br />
@@ -135,18 +147,7 @@
 										<option value="F">여자</option>
 									</select>
 								</div>
-								<!-- 
-								<fieldset>
-									<legend>관심사</legend>
-										운동 <input type="checkbox" name="interest" id="interest" value="exercise" onchange="interest(this)" />
-										영화 <input type="checkbox" name="interest" id="interest" value="movie" onchange="interest(this)" /> 
-										음악 <input type="checkbox" name="interest" id="interest" value="music" onchange="interest(this)" /> 
-										음식 <input type="checkbox" name="interest" id="interest" value="food" onchange="interest(this)" />
-										여행 <input type="checkbox" name="interest" id="interest"	value="travel" onchange="interest(this)" /> 
-										패션 <input type="checkbox" name="interest" id="interest" value="fashion" onchange="interest(this)" /> 
-										기타 <input type="checkbox" name="interest" id="interest" value="ect" onchange="interest(this)" />
-								</fieldset>
- 								-->
+								
 								<c:forEach var="v" items="${interest }">
 									${v }<input type="checkbox" name="interest" value="${v}"
 										onchange="cksave(this)" />
@@ -174,16 +175,13 @@
 <script>
 	var checkId = function(){
 		var id = document.getElementById("id").value;
-		var subid = document.getElementById("subid").value;
-		console.log("id="+id+ "/" + "subid="+subid);
-		var email = id + "@" + subid;
-		console.log("email="+email)
-		var r = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
-		console.log(r.test(email));
+		var r = new RegExp(/^[A-Za-z]{1}[0-9A-Za-z]{3,11}$/);
 		
-		if(r.test(email)){
+		console.log(r.test(id));
+		
+		if(r.test(id)){
 			var req = new XMLHttpRequest();
-			req.open("get","joinajax.do?email="+email,true);
+			req.open("get","joinajax.do?id="+id,true);
 			console.log("옴? 왜 안옴?")
 			
 			req.onreadystatechange = function() {
@@ -207,5 +205,21 @@
 			document.getElementById("idspan").style.color ="red";
 		}
 	};
+	
 </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+<script type="text/javascript">
+$('#selectEmail').change(function(){ 
+	$("#selectEmail option:selected").each(function () { 
+		if($(this).val()== '1'){ //직접입력일 경우 
+			$("#str_email02").val(''); //값 초기화
+			$("#str_email02").attr("disabled",false); //활성화 
+			}else{ //직접입력이 아닐경우 
+				$("#str_email02").val($(this).text()); //선택값 입력
+				$("#str_email02").attr("disabled",true); //비활성화
+				} 
+		}); 
+	}); 
+</script> 
+
 
