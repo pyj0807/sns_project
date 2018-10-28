@@ -5,7 +5,7 @@
 
 	<!-- 한 유저 정보 Map 형으로 뽑아오기 -->
 	<select id="getOneUserInfo" resultType="java.util.HashMap" parameterType="java.lang.String">
-		select * from account where email=#{email}
+		select * from account where id=#{id}
 	</select>
 
 </mapper>

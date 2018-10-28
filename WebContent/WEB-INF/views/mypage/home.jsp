@@ -19,13 +19,13 @@ video {
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 		class="img-circle" style="width: 300px; height: 300px;"> <br />
-	<strong>이메일 : ${sessionScope.user.EMAIL }</strong><br /> 관심사 : <c:forEach var="in" items="${sessionScope.user.INTEREST }">${in }</c:forEach> 
+	<strong>이메일 : ${sessionScope.user.ID }</strong><br /> 관심사 : <c:forEach var="in" items="${sessionScope.user.INTEREST }">${in }</c:forEach> 
 	<p>
 		게시물수 : <b>${msize }</b> 팔로워 : <a
-			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.EMAIL }"
-			name="${sessionScope.user.EMAIL }"><b>${followerCnt }</b></a> 팔로잉 : <a
-			href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.EMAIL }"
-			name="${sessionScope.user.EMAIL }"><b>${followingCnt }</b></a>
+			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.ID }"
+			name="${sessionScope.user.ID }"><b>${followerCnt }</b></a> 팔로잉 : <a
+			href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.ID }"
+			name="${sessionScope.user.ID }"><b>${followingCnt }</b></a>
 	</p>
 	<p>
 		<a href="${pageContext.servletContext.contextPath }/write.do"><button
@@ -42,16 +42,16 @@ video {
 추천
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb@gmail.com">박소현(shpbbb)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb">박소현(shpbbb)</a>
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=wlsgud1990@naver.com">전진형(wlsgud1990)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=wlsgud1990">전진형(wlsgud1990)</a>
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=rjsrl504@naver.com">박건기(rjsrl504)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=rjsrl504">박건기(rjsrl504)</a>
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=joon920807@naver.com">박영준(joon920807)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=joon920807">박영준(joon920807)</a>
 <br />
 <hr />
 

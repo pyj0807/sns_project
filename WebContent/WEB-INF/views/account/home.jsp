@@ -88,16 +88,16 @@ video {
 추천
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb@gmail.com">박소현(shpbbb)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb">박소현(shpbbb)</a>
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=wlsgud1990@naver.com">전진형(wlsgud1990)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=wlsgud1990">전진형(wlsgud1990)</a>
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=rjsrl504@naver.com">박건기(rjsrl504)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=rjsrl504">박건기(rjsrl504)</a>
 <br />
 <a
-	href="${pageContext.servletContext.contextPath }/account.do?id=joon920807@naver.com">박영준(joon920807)</a>
+	href="${pageContext.servletContext.contextPath }/account.do?id=joon920807">박영준(joon920807)</a>
 <br />
 <hr />
 
@@ -153,7 +153,7 @@ video {
 			function() {
 				console.log("start");
 				var param = {
-					"myid" : "${sessionScope.user.EMAIL}",
+					"myid" : "${sessionScope.user.ID}",
 					"otherid" : "${id}"
 				};
 				$.post("${pageContext.servletContext.contextPath }/follow.do",

@@ -47,15 +47,15 @@ public class MyPageController {
 	@GetMapping("/mypage.do")
 	public String mypage(WebRequest wr) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String userEmail = (String) user.get("EMAIL");
+		String userId= (String) user.get("ID");
 
-		List<Map> mylist = boardRepository.findWriter(userEmail);
+		List<Map> mylist = boardRepository.findWriter(userId);
 		int msize = mylist.size();
 		wr.setAttribute("mylist", mylist, WebRequest.SCOPE_SESSION);
 		wr.setAttribute("msize", msize, WebRequest.SCOPE_SESSION);
 
-		int followerCnt = follow.getFollowerCnt(userEmail);
-		int followingCnt = follow.getFollowingCnt(userEmail);
+		int followerCnt = follow.getFollowerCnt(userId);
+		int followingCnt = follow.getFollowingCnt(userId);
 		wr.setAttribute("followerCnt", followerCnt, wr.SCOPE_REQUEST);
 		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
 
@@ -71,7 +71,6 @@ public class MyPageController {
 			dir.mkdirs();
 		}
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String userEmail = (String) user.get("EMAIL");
 		String userId = (String) user.get("ID");
 
 		//해쉬태그뽑아서 저장하기============================
@@ -106,7 +105,7 @@ public class MyPageController {
 //			content_enter = content_enter.replace("\r\n", "<br>");
 
 			map.put("_id", boardRepository.getBoardNo());
-			map.put("writer", userEmail);
+			map.put("writer", userId);
 //			map.put("content", content_enter);
 			map.put("file_attach", path);
 			map.put("type", type);
