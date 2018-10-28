@@ -107,12 +107,12 @@ public class BoardController {
 
 		// 몽고디비 board테이블 liker컬럼에 추가
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String userEmail = (String) user.get("EMAIL");// 접속한 ID(Email)
+		String userId = (String) user.get("ID");// 접속한 ID
 
 		if (like.get("checked").equals(true)) {
-			boarddao.addBoardLiker(room_id, userEmail); // 좋아요추가
+			boarddao.addBoardLiker(room_id, userId); // 좋아요추가
 		} else {
-			boarddao.removeBoardLiker(room_id, userEmail); // 좋아요취소
+			boarddao.removeBoardLiker(room_id, userId); // 좋아요취소
 		}
 		// liker수 count해서 ajax리턴
 		int room_num = room_id.intValue();// Double-->int
