@@ -1,61 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-  <style>
-    .btn{
-      text-decoration: none;
-      font-size:2rem;
-      color:white;
-      padding:10px 20px 10px 20px;
-      margin:20px;
-      display:inline-block;
-      border-radius: 10px;
-      transition:all 0.1s;
-      text-shadow: 0px -2px rgba(0, 0, 0, 0.44);
-      font-family: 'Lobster', cursive;
-    }
-    .btn:active{
-      transform: translateY(3px);
-    }
-    .btn.blue{
-      background-color: #1f75d9;
-      border-bottom:5px solid #165195;
-    }
-    .btn.blue:active{
-      border-bottom:2px solid #165195;
-    }
-    .btn.red{
-      background-color: #ff521e;
-      border-bottom:5px solid #c1370e;
-    }
-    .btn.red:active{
-      border-bottom:2px solid #c1370e;
-    }
-  </style>
+<style>
+img {
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+
+video {
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lobster"
+	rel="stylesheet">
+<style>
+.btn {
+	text-decoration: none;
+	font-size: 2rem;
+	color: white;
+	padding: 10px 20px 10px 20px;
+	margin: 20px;
+	display: inline-block;
+	border-radius: 10px;
+	transition: all 0.1s;
+	text-shadow: 0px -2px rgba(0, 0, 0, 0.44);
+	font-family: 'Lobster', cursive;
+}
+
+.btn:active {
+	transform: translateY(3px);
+}
+
+.btn.blue {
+	background-color: #1f75d9;
+	border-bottom: 5px solid #165195;
+}
+
+.btn.blue:active {
+	border-bottom: 2px solid #165195;
+}
+
+.btn.red {
+	background-color: #ff521e;
+	border-bottom: 5px solid #c1370e;
+}
+
+.btn.red:active {
+	border-bottom: 2px solid #c1370e;
+}
+</style>
 
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 		class="img-circle" style="width: 300px; height: 300px;"><br />
 	<strong>아이디 : ${id}</strong><br /> 관심사 : 게임, IT<br />
-		<p>
+	<p>
 		게시물수 : <b>0 </b> 팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
-			name="${id}"><b id="cnt">${followerCnt }</b></a>
-		팔로잉 : <a href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
+			name="${id}"><b id="cnt">${followerCnt }</b></a> 팔로잉 : <a
+			href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
 			name="${id}"><b>${followingCnt }</b></a>
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">
-	<!-- 	<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button> -->
-	<a class="btn red" href="#red"  id="follow">following</a>
+			<!-- 	<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button> -->
+			<a class="btn red" href="#red" id="follow">following</a>
 		</c:when>
 		<c:otherwise>
-<!-- 	<button type="button" class="btn btn-primary" id="follow">팔로우</button> -->
-		 <a class="btn blue" href="#blue"  id="follow">follow</a>
+			<!-- 	<button type="button" class="btn btn-primary" id="follow">팔로우</button> -->
+			<a class="btn blue" href="#blue" id="follow">follow</a>
 		</c:otherwise>
 	</c:choose>
-	
+
 </div>
 <hr />
 추천
@@ -121,7 +142,9 @@
 </div>
 </main>
 <script>
-	$("#follow").on(	"click",function() {
+	$("#follow").on(
+			"click",
+			function() {
 				console.log("start");
 				var param = {
 					"myid" : "${sessionScope.user.EMAIL}",
@@ -131,7 +154,7 @@
 						param, function(rst) {
 							var obj = JSON.parse(rst);
 							console.log(obj);
-							switch(obj.mode){
+							switch (obj.mode) {
 							case "on":
 								onHandle(obj);
 								break;
@@ -143,20 +166,17 @@
 							}
 						});
 			});
-	
-	var onHandle = function(obj){
+
+	var onHandle = function(obj) {
 		var cnt = obj.followerCnt;
-		$("#follow").attr("class","btn red");
-		$("#follow").html("following");	
+		$("#follow").attr("class", "btn red");
+		$("#follow").html("following");
 		$("#cnt").html(cnt);
 	}
-	var offHandle = function(obj){
+	var offHandle = function(obj) {
 		var cnt = obj.followerCnt;
-		$("#follow").attr("class","btn blue");
+		$("#follow").attr("class", "btn blue");
 		$("#follow").html("follow");
 		$("#cnt").html(cnt);
 	}
-	
-	
-	
 </script>
