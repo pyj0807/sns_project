@@ -36,8 +36,8 @@ public class BoardController {
 		Map list = boarddao.getOneBoard(num);
 		List liker = (List) list.get("liker"); // board테이블에 좋아요한 list
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String userEmail = (String) user.get("EMAIL");// 접속한 EMAIL
-		if (liker.contains(userEmail)) {
+		String userId = (String) user.get("ID");// 접속한 EMAIL
+		if (liker.contains(userId)) {
 			list.put("checked", true);// 체크 true
 		} else {
 			list.put("checked", false);// 체크 false
