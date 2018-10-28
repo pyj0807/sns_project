@@ -9,5 +9,9 @@
 	<!-- <select id="followchatall" resultType="java.util.HashMap" parameterType="java.lang.String">
 	
 	</select> -->
+	
+	<select id="followgetall" resultType="java.util.HashMap" parameterType="java.lang.String">
+	select otherid from following where myid=#{id}
+	</select>
 
 </mapper>

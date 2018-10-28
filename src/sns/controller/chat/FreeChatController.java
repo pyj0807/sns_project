@@ -26,9 +26,9 @@ public class FreeChatController {
 		ChatMongoRepository mongochat;
 	
 	@RequestMapping("/freechat.do")
-	public String freechatController(ModelMap map) {
+	public String freechatController(ModelMap map,WebRequest wr) {
 		List li =new ArrayList<>();
-		li=chatdao.chatgetall();
+		li=chatdao.followchatgetall((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
 		
 		map.put("frends", li);
 		
@@ -43,8 +43,10 @@ public class FreeChatController {
 	@GetMapping("/freechatview.do")
 	public String freechatviewController(ModelMap map,@RequestParam Map pp,WebRequest wr) {
 		
-		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		String id = (String)wr.getAttribute("Id", wr.SCOPE_SESSION);
 		String id2 =(String)pp.get("id");
+		
+		List list=chatdao.followchatgetall((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
 		List<Map> allchat=mongochat.getfreechat(id, id2);
 		
 		map.put("allchat", allchat);
@@ -53,6 +55,7 @@ public class FreeChatController {
 		List li =new ArrayList<>();
 		li=chatdao.chatgetall();
 		map.put("chatlist",li );
+		map.put("friends", list);
 		System.out.println(li.toString());
 		return "chat.freeview";
 	}

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import sns.repository.ClubChatMongoDeleteRepository;
 import sns.repository.Clubmongochat;
 
 class TimeSorter implements Comparator<Integer> {
@@ -44,7 +45,8 @@ public class ClubChat {
 	@Autowired
 	Clubmongochat clubmongo;
 	
-	
+	@Autowired
+	ClubChatMongoDeleteRepository mongoremove;
 	
 	@RequestMapping("/all.do")
 	public String clubAll(ModelMap map) {
@@ -92,7 +94,7 @@ public class ClubChat {
 		
 		String filename= attach.getOriginalFilename();
 		
-		String id =(String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		String id =(String)wr.getAttribute("Id", wr.SCOPE_SESSION);
 		human.add(id);
 		System.out.println(id);
 		
@@ -147,7 +149,7 @@ public class ClubChat {
 	
 	@GetMapping("/clubview.do")
 	public String clubchatview(ModelMap map,@RequestParam Map mapp,WebRequest wr) {
-		String id =(String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		String id =(String)wr.getAttribute("Id", wr.SCOPE_SESSION);
 		String content =(String)mapp.get("id");
 		/*System.out.println(id);*/
 		
@@ -162,10 +164,20 @@ public class ClubChat {
 		   
 		
 		/*System.out.println(content);*/
+		
+		map.put("best", clubmongo.clubbest(id));
 		map.put("contentid", content);
 		map.put("clubchating", clubmongo.clubchatingview(content));
 		map.put("allclub", li);
 		return "club.chat.view";
+	}
+	
+	
+	@GetMapping("/remove.do")
+	public String clubremoveroom(@RequestParam Map map,WebRequest wr) {
+		System.out.println("이이이이="+(String)map.get("contentid"));
+		mongoremove.roomremove((String)map.get("contentid"),(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
+		return "redirect:/club/all.do";
 	}
 	
 	
