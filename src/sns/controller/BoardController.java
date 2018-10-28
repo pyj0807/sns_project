@@ -1,12 +1,8 @@
 package sns.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 
@@ -46,6 +42,10 @@ public class BoardController {
 		} else {
 			list.put("checked", false);// 체크 false
 		}
+		
+		//댓글조회
+		List<Map> reply_list = boarddao.getBoardReply(num);
+		
 //=================================================================================		
 		//입력한내용에서 split 뽑기(띄어쓰기마다)
 		String content = (String) list.get("content");
@@ -93,6 +93,7 @@ public class BoardController {
 		modelmap.put("hashtag", result); //해쉬태그
 //================================================================================
 		modelmap.put("boardOne", list);
+		modelmap.put("reply_list", reply_list);
 
 		return "sns.board_detail";
 	}
@@ -137,5 +138,25 @@ public class BoardController {
 		modelmap.put("gethash_list", list);
 		modelmap.put("select_code", hashtag);
 		return "sns.board_hash";
+	}
+	
+	//댓글달기
+	@ResponseBody
+	@PostMapping(path ="/reply.do",produces="application/json;charset=UTF-8")
+	public String boardAddReply(@RequestBody String param,WebRequest wr) {
+		long currentTime = System.currentTimeMillis();
+		Map map = gson.fromJson(param, Map.class);
+		Map user = (Map)wr.getAttribute("user", wr.SCOPE_SESSION);
+		map.put("email", user.get("EMAIL"));
+		map.put("time", currentTime);
+		System.out.println(map);
+		//추가
+		boarddao.addBoardReply(map);
+		//조회 (방번호받아와야함)
+		Double id = (double)map.get("id");
+		List<Map> reply_list = boarddao.getBoardReply(id.intValue());
+		String json = gson.toJson(reply_list);
+		
+		return json;
 	}
 }

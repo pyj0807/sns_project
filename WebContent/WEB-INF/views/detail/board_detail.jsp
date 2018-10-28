@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <div>
 	<c:choose>
 		<c:when test="${boardOne.type == 'video'}">
@@ -30,6 +31,22 @@
 		<b>내용:</b>${hashtag }<br/>		
 	</p>
 
+	<span id="replyList">
+		<c:forEach var="i" items="${reply_list }">
+			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.email }">${i.email }</a>${i.reply_content }<br/>
+		</c:forEach>
+	</span>
+	
+	<div style="margin-right: 10%; margin-left: 0%; text-align: left; margin-top: 	55px;">
+		<p>
+			<b>〔댓글달기〕</b><br/>
+		</p>
+		<p>
+			<input type="text" id="reply" name="reply" style="width: 80%"/>
+			<button type="button" id="add_reply" onclick="replyAjax();">등록하기</button>
+		</p>
+	</div>
+
 </div>
 <script>
 	//상세화면에서 좋아요 눌렀을때 ajax처리
@@ -52,5 +69,41 @@
 		};
 		//4.send (Map --> string)
 		xhr.send(JSON.stringify(param));
+	};
+	
+	//댓글등록하기
+	var replyAjax = function(){
+		//1글자라도 입력했을경우
+		if(document.getElementById("reply").value.trim().length>0){
+			var xhr = new XMLHttpRequest();
+			xhr.open("post","${pageContext.servletContext.contextPath}/board/reply.do",true);
+			//파람설정
+			var param = {
+				"id":${boardOne._id} //방번호
+				,"reply_content":document.getElementById("reply").value //댓글내용
+			};
+			//아작스 성공시처리
+			xhr.onreadystatechange = function(){
+				if(this.readyState==4){
+					var obj = JSON.parse(this.responseText);
+					console.log(obj);
+					var html="";
+					for(var i=0; i<obj.length; i++){
+						html+="<a href=\"";
+						html+="${pageContext.servletContext.contextPath }";
+						html+="/account.do?id=";
+						html+=obj[i].email;
+						html+="\">";		
+						html+=obj[i].email+"</a>";
+						html+=obj[i].reply_content;
+						html+="<br/>";
+					}				
+					document.getElementById("replyList").innerHTML = html;
+					document.getElementById("reply").value="";
+				}
+			};
+			//send
+			xhr.send(JSON.stringify(param));
+		}
 	};
 </script>
