@@ -16,5 +16,8 @@
 		update account set pass=#{npass} where id=#{id}	
 	</update>
 	
+	<select id="loginCheck" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from account where email=#{email}
+	</select>
 	
 </mapper>

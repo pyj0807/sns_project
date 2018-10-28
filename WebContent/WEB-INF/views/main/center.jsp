@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<style>
+img {
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+
+video {
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+</style>
 <!doctype html>
 <html lang="en">
   <body>

@@ -1,10 +1,8 @@
 package sns.controller;
 
-import java.lang.reflect.Array;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +11,25 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import com.google.gson.Gson;
+
 import sns.repository.JoinDao;
+import sns.repository.LoginCheckDao;
 
 @Controller
 public class JoinController {
 
 	@Autowired
 	JoinDao jdao;
+	
+	@Autowired
+	LoginCheckDao lcdao;
+	
+	@Autowired
+	Gson gson;
 
 	@GetMapping("/join.do")
 	public String joinGetHandle(ModelMap map) {
@@ -73,4 +81,28 @@ public class JoinController {
 
 		return "index/login";
 	}
+	
+	
+	@GetMapping(path="/joinajax.do", produces="application/json;charset=UTF-8" )
+	@ResponseBody
+	public String joinajaxHandle(@RequestParam String email) {
+		System.out.println(email);
+		Map id = lcdao.loginCheck(email);
+		System.out.println("id :"+id);
+		Map map = new HashMap<>();
+		if(id != null) {
+			map.put("pass", "on");
+			System.out.println(id +"사용중인 아이디");
+		}else {
+			map.put("pass", "off");
+			System.out.println(id+"사용가능한 아이디");
+		}
+		return gson.toJson(map);
+	}
+	
+	
+	
+	
+	
+	
 }
