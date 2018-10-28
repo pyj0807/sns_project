@@ -28,12 +28,13 @@
 		<a href="${pageContext.servletContext.contextPath }/board/likelist.do?num=${boardOne._id}"><b>좋아요:</b><span id="like_count">${fn:length(boardOne.liker) }</span></a><br/>
 		<b>글쓴이:</b><a href="${pageContext.servletContext.contextPath }/account.do?id=${boardOne.writer }">${boardOne.writer }</a><br/>
 		<%--<b>내용:</b>${boardOne.content }<br/> --%>
-		<b>내용:</b>${hashtag }<br/>		
+		<b>내용:</b>${hashtag }		
 	</p>
 
 	<span id="replyList">
 		<c:forEach var="i" items="${reply_list }">
-			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>${i.reply_content }<br/>
+			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>${i.reply_content }
+			<button id="delete_reply" value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
 		</c:forEach>
 	</span>
 	
@@ -96,6 +97,17 @@
 						html+="\">";		
 						html+=obj[i].writer+"</a>";
 						html+=obj[i].reply_content;
+						
+						//(등록후조회)여기부터 버튼만드는곳 여기이상함...
+						html+="<button id=\"delete_reply\" value=\"";
+						html+=obj[i].key,obj[i].id;
+						html+="\"";
+						html+="onclick=\"";
+						html+=delete_reply(this);
+						html+="\"";
+						html+=">삭제</button>";
+						//까지....
+						//<button id="delete_reply" value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>						
 						html+="<br/>";
 					}				
 					document.getElementById("replyList").innerHTML = html;
@@ -105,5 +117,45 @@
 			//send
 			xhr.send(JSON.stringify(param));
 		}
+	};
+	
+	var delete_reply = function(target){
+		console.log("삭제버튼클릭함"+target.value);
+		var xhr = new XMLHttpRequest();
+		xhr.open("post","${pageContext.servletContext.contextPath}/board/delete_reply.do",true);
+		//파람설정
+		var param = {
+			"key":target.value // 키값,방번호
+		};
+		//아작스성공시처리
+		xhr.onreadystatechange = function(){
+			if(this.readyState==4){
+				var obj = JSON.parse(this.responseText);
+				console.log(obj);
+				var html="";
+				for(var i=0; i<obj.length; i++){
+					html+="<a href=\"";
+					html+="${pageContext.servletContext.contextPath }";
+					html+="/account.do?id=";
+					html+=obj[i].writer;
+					html+="\">";		
+					html+=obj[i].writer+"</a>";
+					html+=obj[i].reply_content;
+					
+					//(삭제후조회)여기부터 버튼만드는곳 여기이상함...
+					html+="<button id=\"delete_reply\" value=\"";
+					html+=obj[i].key,obj[i].id;
+					html+="\"";
+					html+="onclick=\"";
+					html+=delete_reply(this);
+					html+="\"";
+					html+=">삭제</button>";						
+					html+="<br/>";
+				}				
+				document.getElementById("replyList").innerHTML = html;
+				document.getElementById("reply").value="";
+			}
+		};
+		xhr.send(JSON.stringify(param));	
 	};
 </script>
