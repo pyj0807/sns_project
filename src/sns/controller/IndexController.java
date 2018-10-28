@@ -85,6 +85,7 @@ public class IndexController {
 			
 			
 			wr.setAttribute("userId", id, wr.SCOPE_SESSION);
+			wr.setAttribute("Id", log.get("ID"), wr.SCOPE_SESSION);
 
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
 			wr.setAttribute("user", log, wr.SCOPE_SESSION);
