@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
@@ -85,12 +86,12 @@ public class JoinController {
 	
 	@GetMapping(path="/joinajax.do", produces="application/json;charset=UTF-8" )
 	@ResponseBody
-	public String joinajaxHandle(@RequestParam String email) {
-		System.out.println(email);
-		Map id = lcdao.loginCheck(email);
-		System.out.println("id :"+id);
+	public String joinidajaxHandle(@RequestParam String id) {
+		System.out.println(id);
+		Map ckid = lcdao.loginCheck(id);
+		System.out.println("ckid :"+ckid);
 		Map map = new HashMap<>();
-		if(id != null) {
+		if(ckid != null) {
 			map.put("pass", "on");
 			System.out.println(id +"사용중인 아이디");
 		}else {
@@ -99,9 +100,6 @@ public class JoinController {
 		}
 		return gson.toJson(map);
 	}
-	
-	
-	
 	
 	
 	
