@@ -3,6 +3,7 @@ package sns.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
@@ -149,12 +150,33 @@ public class BoardController {
 		Map user = (Map)wr.getAttribute("user", wr.SCOPE_SESSION);
 		map.put("writer", user.get("ID"));
 		map.put("time", currentTime);
+		map.put("key", UUID.randomUUID().toString().split("-")[0]);
 		System.out.println(map);
 		//추가
 		boarddao.addBoardReply(map);
 		//조회 (방번호받아와야함)
 		Double id = (double)map.get("id");
 		List<Map> reply_list = boarddao.getBoardReply(id.intValue());
+		String json = gson.toJson(reply_list);
+		
+		return json;
+	}
+	
+	//댓글삭제
+	@ResponseBody
+	@PostMapping(path="/delete_reply.do",produces="application/json;charset=UTF-8")
+	public String delete_reply(@RequestBody String param) {
+		//button 에서 키값을 두개로 받아오기떄문에 배열로 처리해야함
+		Map map = gson.fromJson(param, Map.class);
+		String key = (String)map.get("key");
+		String[] keys =key.split(",");
+		//댓글삭제처리
+		//keys[0] = 댓글의키값 , keys[1] = 댓글이달려있는방번호(double)
+		boarddao.deleteBoardReply(keys[0]);
+		//댓글다시조회하여 ajax처리
+		
+		Double d1 = Double.parseDouble(keys[1]); //double casting
+		List<Map> reply_list = boarddao.getBoardReply(d1.intValue()); //double--> int casting
 		String json = gson.toJson(reply_list);
 		
 		return json;

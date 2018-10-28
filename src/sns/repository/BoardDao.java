@@ -93,4 +93,9 @@ public class BoardDao {
 	       });
 		return list;
 	}
+	//reply 삭제
+	public void deleteBoardReply(String key) {
+		Query query = new Query(Criteria.where("key").in(key));
+		template.remove(query,"board_reply");
+	} 
 }
