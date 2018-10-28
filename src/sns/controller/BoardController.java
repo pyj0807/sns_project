@@ -1,6 +1,7 @@
 package sns.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.google.gson.Gson;
 
 import sns.repository.BoardDao;
+import sns.repository.BoardRepository;
 
 @Controller
 @RequestMapping("/board")
@@ -31,6 +33,8 @@ public class BoardController {
 	Gson gson;
 	@Autowired
 	ServletContext svc;
+	@Autowired
+	BoardRepository boardRepository;
 
 	@GetMapping("/board_detail.do")
 	public String board_datail(@RequestParam int num, ModelMap modelmap, WebRequest wr) {
@@ -109,11 +113,20 @@ public class BoardController {
 		// 몽고디비 board테이블 liker컬럼에 추가
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");// 접속한 ID
+		
+		// 좋아요 한 시간 몽고디비 liked 컬럼에 추가 
+		long currentTime = System.currentTimeMillis();
+		Map liked = new HashMap<>();
+		liked.put("_id", room_id);
+		liked.put("likerId", userId);
+		liked.put("likedTime", currentTime);
 
 		if (like.get("checked").equals(true)) {
 			boarddao.addBoardLiker(room_id, userId); // 좋아요추가
+			boardRepository.insertLikerAndTime(liked);
 		} else {
 			boarddao.removeBoardLiker(room_id, userId); // 좋아요취소
+			boardRepository.removeLikerAndTime(liked);
 		}
 		// liker수 count해서 ajax리턴
 		int room_num = room_id.intValue();// Double-->int
