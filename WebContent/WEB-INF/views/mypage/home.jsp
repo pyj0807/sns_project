@@ -19,10 +19,9 @@ video {
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 		class="img-circle" style="width: 300px; height: 300px;"> <br />
-	<strong>이메일 : ${sessionScope.user.EMAIL }</strong><br /> 관심사 : 요리, 게임,
-	IT
+	<strong>이메일 : ${sessionScope.user.EMAIL }</strong><br /> 관심사 : <c:forEach var="in" items="${sessionScope.user.INTEREST }">${in }</c:forEach> 
 	<p>
-		게시물수 : <b>0 </b> 팔로워 : <a
+		게시물수 : <b>${msize }</b> 팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.EMAIL }"
 			name="${sessionScope.user.EMAIL }"><b>${followerCnt }</b></a> 팔로잉 : <a
 			href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.EMAIL }"
@@ -33,9 +32,7 @@ video {
 				type="button" class="btn btn-warning">글쓰기</button></a> <a
 			href="${pageContext.servletContext.contextPath }/club/all.do"><button
 				type="button" class="btn btn-primary">클럽</button></a> <a
-
 			href="${pageContext.servletContext.contextPath }/change.do"><button
-
 				type="button" class="btn btn-success">회원정보변경</button></a> <a
 			href="${pageContext.servletContext.contextPath }/logout.do"><button
 				type="button" class="btn btn-danger">로그아웃</button></a>
@@ -64,6 +61,8 @@ video {
 <div class="album py-5 bg-light">
 	<div class="container">
 		<div class="row">
+
+
 			<c:forEach var="i" items="${mylist}">
 				<c:choose>
 					<c:when test="${i.type == 'video'}">
@@ -114,51 +113,11 @@ video {
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-
-<%-- 			<!-- Modal -->
-			<div class="modal fade" id="exampleModalLong" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalLongTitle"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLongTitle">${sessionScope.user.EMAIL }</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<c:forEach var="i" items="${mylist}">
-								<c:choose>
-									<c:when test="${i.type == 'video'}">
-										<div>
-											<video class="card-img-top" src="${i.file_attach }" controls></video>
-										</div>
-									</c:when> 
-									<c:otherwise>
-										<div>
-											<img class="card-img-top" src="${i.file_attach }"
-												alt="Card image cap">
-										</div>
-									</c:otherwise>
-									<hr />
-									<div>${i.content }</div>
-
-								</c:choose>
-							</c:forEach>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div> --%>
-
 		</div>
+
+ 
+
+
 	</div>
 </div>
-
-
 </main>

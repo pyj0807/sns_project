@@ -50,7 +50,9 @@ public class MyPageController {
 		String userEmail = (String) user.get("EMAIL");
 
 		List<Map> mylist = boardRepository.findWriter(userEmail);
+		int msize = mylist.size();
 		wr.setAttribute("mylist", mylist, WebRequest.SCOPE_SESSION);
+		wr.setAttribute("msize", msize, WebRequest.SCOPE_SESSION);
 
 		int followerCnt = follow.getFollowerCnt(userEmail);
 		int followingCnt = follow.getFollowingCnt(userEmail);

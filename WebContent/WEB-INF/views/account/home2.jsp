@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-img {
-	max-width: 100%;
-	width: 400px;
-	max-height: 100%;
-	height: 300px;
-}
-
-video {
-	max-width: 100%;
-	width: 400px;
-	max-height: 100%;
-	height: 300px;
-}
-</style>
 <link href="https://fonts.googleapis.com/css?family=Lobster"
 	rel="stylesheet">
 <style>
@@ -58,19 +43,34 @@ video {
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 		class="img-circle" style="width: 300px; height: 300px;"><br />
-
-
 	<strong>아이디 : ${id}</strong><br /> 관심사 :
 	<c:forEach var="in" items="${requestScope.otherUser.INTEREST }">${in }</c:forEach>
 	<br />
 	<p>
-		게시물수 : <b>${size }</b> 팔로워 : <a
-
-			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
-			name="${id}"><b id="cnt">${followerCnt }</b></a> 팔로잉 : <a
-			href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
-			name="${id}"><b>${followingCnt }</b></a>
-
+		게시물수 : <b>${size }</b>
+		 팔로워 : 
+		 <c:choose>
+		 <c:when test="${followerCnt !=0}">
+		 <a href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
+			name="${id}"><b id="cnt">${followerCnt }</b></a> 
+		 
+		 </c:when>
+		 <c:otherwise>
+		 <b id="cnt">${followerCnt }</b>
+		 </c:otherwise>
+		 </c:choose>
+			
+			팔로잉 :
+		<c:choose>
+			<c:when test="${followingCnt!=0 }">
+				<a
+					href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
+					name="${id}"><b>${followingCnt }</b></a>
+			</c:when>
+			<c:otherwise>
+				<b>${followingCnt }</b>
+			</c:otherwise>
+		</c:choose>
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">

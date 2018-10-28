@@ -2,6 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!doctype html>
+<style>
+img {
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+
+video {
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+</style>
 <html lang="en">
   <body>
   	<c:forEach var="i" items="#{select_code }">
