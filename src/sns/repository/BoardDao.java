@@ -68,4 +68,29 @@ public class BoardDao {
 		Query query = new Query(Criteria.where("hashcode").in(hashtag));
 		return template.find(query, Map.class, "board");
 	}
+	
+	//reply 달기
+	public void addBoardReply(Map param) {
+		template.insert(param,"board_reply");
+	}
+	//reply 조회
+	public List<Map> getBoardReply(int no) {
+		Criteria c = Criteria.where("id").in(no);
+		List<Map> list = template.find(new Query(c), Map.class,"board_reply");
+		list.sort(new Comparator<Map>() {
+	          @Override
+	          public int compare(Map o1, Map o2) {
+	             long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
+	             long n2 = (long)o2.get("time");   
+	             if(n1>n2) {//2번째>1번째 
+	                return -1; //-1내림
+	             }else if(n1<n2){
+	                return 1; //1오름
+	             }else {
+	                return 0;
+	             }
+	          }
+	       });
+		return list;
+	}
 }
