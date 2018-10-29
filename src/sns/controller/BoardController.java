@@ -117,11 +117,11 @@ public class BoardController {
 		// 좋아요 한 시간 몽고디비 liked 컬럼에 추가 
 		long currentTime = System.currentTimeMillis();
 		Map liked = new HashMap<>();
-		liked.put("_id", room_id);
+		liked.put("roomId", room_id);
 		liked.put("likerId", userId);
-		liked.put("likedTime", currentTime);
 
 		if (like.get("checked").equals(true)) {
+			liked.put("likedTime", currentTime);
 			boarddao.addBoardLiker(room_id, userId); // 좋아요추가
 			boardRepository.insertLikerAndTime(liked);
 		} else {

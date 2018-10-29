@@ -73,24 +73,10 @@ public class BoardRepository {
 	       });
 		List<Map> getList = new ArrayList<>();
 		for(int i =0; i<list.size(); i++) {
-			Double id1 = (Double) list.get(i).get("_id");
+			Double id1 = (Double) list.get(i).get("roomId");
 			Criteria c = Criteria.where("_id").in(id1.intValue());
 			getList.add(template.findOne(new Query(c), Map.class,"board"));
 		}
-		getList.sort(new Comparator<Map>() {
-	          @Override
-	          public int compare(Map o1, Map o2) {
-	             long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
-	             long n2 = (long)o2.get("time");   
-	             if(n1>n2) {//2번째>1번째 
-	                return -1; //-1내림
-	             }else if(n1<n2){
-	                return 1; //1오름
-	             }else {
-	                return 0;
-	             }
-	          }
-	       });
 		return getList;
 	}
 	
