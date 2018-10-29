@@ -39,7 +39,7 @@
       <form class="form-signin" action="${pageContext.servletContext.contextPath }/login.do" method="post">
         <h2 class="form-signin-heading">Login</h2>
         <label for="inputEmail" class="sr-only">아이디</label>
-        <input type="text" id="id" class="form-control" placeholder="이메일 주소" name="id" required autofocus>
+        <input type="text" id="id" class="form-control" placeholder="아이디" name="id" required autofocus>
         <label for="inputPassword" class="sr-only">비밀번호</label>
         <input type="password" id="pass" class="form-control" placeholder="비밀번호" name="pass" required>
         <div class="checkbox">
