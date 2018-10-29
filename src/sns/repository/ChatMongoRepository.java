@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -53,8 +54,8 @@ public List<Map> chatroomcheck(String id,String id2){
 	
 }
 
-public void roomupdate(String id1,String id2,String lasttime) {
-	Update u= new Update().set("lastsenddate", (long)(System.currentTimeMillis())).set("lastformat", lasttime);
+public void roomupdate(String id1,String id2,String lasttime,String otherid) {
+	Update u= new Update().set("lastsenddate", (long)(System.currentTimeMillis())).set("lastformat", lasttime).set("readid",otherid );
 	template.updateMulti(new Query(Criteria.where("modeId").in(id1).andOperator(Criteria.where("modeId").in(id2))),u,"freechatroom");
 	
 }
@@ -63,5 +64,19 @@ public void roomupdate(String id1,String id2,String lasttime) {
 public List<Map> getallroom(String id){
 	return template.find(new Query(Criteria.where("modeId").in(id)), Map.class,"freechatroom");
 	
+}
+
+public long getcount(String id){
+	return template.count(new Query(Criteria.where("readid").in(id)),Map.class,"freechat");
+}
+
+public void removecount(String id,String otherid) {
+	template.remove(new Query(Criteria.where("readid").in(id).and("otherId").in(id).andOperator(Criteria.where("id").in(otherid))),"freechat");
+}
+
+
+
+public void removecountsocket(String id) {
+	template.remove(new Query(Criteria.where("readid").in(id)),"freechatroom");
 }
 }

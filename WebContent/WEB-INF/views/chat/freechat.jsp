@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,10 +30,14 @@
   <c:if test="${!empty v }">
  	<c:forEach var ="e" items="${v.modeId }">
  	
+ 	
  	<c:if test="${e ne Id}">
- 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat }</b></small><br/>
+ 	
+ 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat }</b></small><br/> <!-- <span class="badge badge-pill badge-primary" id="countt">new</span> -->
+ 	
  	</c:if>
  	
+ 
  	</c:forEach> 
  	</c:if>
   </c:forEach>
@@ -53,3 +58,6 @@
 		
 </body>
 </html>
+
+
+ <%--      <c:if test = "${fn:contains(theString, 'test')}" --%>

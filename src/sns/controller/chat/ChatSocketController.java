@@ -89,7 +89,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		modeid.add(map.get("otherId"));
 		String modeidd=gson.toJson(modeid);
 		map.put("modeId", modeid);
-		
+		map.put("readid", otherId);
 		map.put("sendtime",sf.format(time) );
 		mongochat.insertfreechat(map);
 		
@@ -100,6 +100,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		roominsert.put("modeId", modeid);
 		roominsert.put("lastsenddate", (long)(System.currentTimeMillis()));
 		roominsert.put("lastformat", sf.format(time));
+		
 
 		
 		
@@ -107,7 +108,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		if(mongochat.chatroomcheck((String)map.get("id"),(String)map.get("otherId")).size()<1) {
 			mongochat.insertchatroom(roominsert);
 		}else {
-			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"),sf.format(time));
+			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"),sf.format(time),otherId);
 		}
 		
 		List li=new ArrayList<>();
@@ -146,7 +147,22 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 			sockets.get(i).sendMessage(msg);
 			}
 		}
-		/*session.sendMessage(msg);*/
+		
+		
+		
+		//밑에는 카운팅 넘기는용
+		long l=mongochat.getcount(otherId);
+		for(int i=0;i<service.size();i++) {
+			if(service.list.get(i).getAttributes().get("userId").equals(otherId)) {
+				Map mappp =new HashMap<>();
+				mappp.put("mode", "count");
+				mappp.put("defaultcnt", l);
+				TextMessage msgggg =new TextMessage(gson.toJson(mappp));
+				service.list.get(i).sendMessage(msgggg);
+			}
+			
+		}
+		
 		
 		
 

@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <nav class="navbar navbar-dark bg-dark">
 	<a class="navbar-brand"
-		href="${pageContext.servletContext.contextPath}">Never expand</a>
+		href="${pageContext.servletContext.contextPath}">Never expand  <span class="badge badge-pill badge-primary" id="countt"></span></a>  
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarsExample01" aria-controls="navbarsExample01"
-		aria-expanded="false" aria-label="Toggle navigation">
+		aria-expanded="false" aria-label="Toggle navigation" onclick="selectt();">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
@@ -21,7 +21,7 @@
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="http://example.com"
 				id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false">채팅</a>
+				aria-expanded="false">채팅   <span class="badge badge-pill badge-primary" id="count"></span></a>
 				<div class="dropdown-menu" aria-labelledby="dropdown01">
 					<a class="dropdown-item"
 						href="${pageContext.servletContext.contextPath}/chat/freechat.do">개인채팅</a>
@@ -45,13 +45,35 @@
 		var obj=JSON.parse(evt.data);
 		switch(obj.mode){
 		case "erlogin":
-			errLoginHandle(obj);
+			 errLoginHandle(obj);
+			break;
+			
+		case "count" :
+			countHandler(obj);
 			break;
 		
 		}
 		
 		}
-		errLoginHandle =function(obj){
+	
+	var selectt=function(){
+		document.getElementById("countt").innerHTML="";
+	}
+	
+	
+		
+		var countHandler=function(obj){
+		if(obj.defaultcnt>0){
+			var html="<b>new </b>"+obj.defaultcnt
+			var htmll="<small><b>new </b></small>";
+			document.getElementById("count").innerHTML=html;
+			document.getElementById("countt").innerHTML=htmll;
+		}
+		}
+		
+	
+		
+		var	errLoginHandle =function(obj){
 			window.alert(" 다른곳에서 로그인을 시도하였습니다.");
 			window.location.href = "${pageContext.servletContext.contextPath}/index.do";
 		
