@@ -53,17 +53,9 @@ video {
 관심사가 같은 회원 추천
 <br />
 <br />
-<div class="btn-group" role="group" align="center">
-	<button style="align-content: center;" id="btnGroupDrop1" type="button"
-		class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-		aria-haspopup="true" aria-expanded="false">관심사</button>
-	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		<c:forEach var="v" items="${allInter}">
-				<a class="dropdown-item"
-					href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
+		<c:forEach var="v" items="${myInter}">
+			<button type="button" id="inte" class="btn btn-outline-dark">#${v } </button>
 		</c:forEach>
-	</div>
-</div>
 <br/>
 <br/>
 <a
@@ -141,8 +133,20 @@ video {
 		</div>
 
 
-
-
 	</div>
 </div>
 </main>
+<script>
+	$("#inte").on("click",function(){
+		console.log("inte추천");
+		var param = {
+				"inte":"${v}"
+		};
+		$.post("${pageContext.servletContext.contextPath}/inte.do", param, function(rst){
+			var obj = JSON.parse(rst);
+			console.log(obj);
+		})
+	})
+
+
+</script>

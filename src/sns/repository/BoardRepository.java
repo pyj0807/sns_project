@@ -1,18 +1,19 @@
 package sns.repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
 
 @Repository
 public class BoardRepository {
@@ -25,6 +26,11 @@ public class BoardRepository {
 	// 게시판에 글 하나 올리기
 	public void insertOne(Map map) {
 		template.insert(map, "board");
+	}
+	
+	// 다른 회원의 정보 Map 으로 뽑아오기
+	public Map getOneUserInfo(String id) {
+		return sqltemplate.selectOne("account.getOneUserInfo", id);
 	}
 
 	// 게시글 고유번호 생성
@@ -51,6 +57,51 @@ public class BoardRepository {
 			}
 		}); 
 		return list;
+	}
+	
+	// 뉴스피드 글 정렬
+	public List<Map> newsfeedSort(List list){
+		list.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1 = (long) o1.get("time"); // time숫자가 클수록 최근
+				long n2 = (long) o2.get("time");
+				if (n1 > n2) {// 2번째>1번째
+					return -1; // -1내림
+				} else if (n1 < n2) {
+					return 1; // 1오름
+				} else {
+					return 0;
+				} 
+			}
+		}); 
+		return list;
+	}
+	
+	// 팔로우한 사람들의 모든 글 목록 최신순으로 리스트에 담기 (뉴스피드)
+	public  List<Map> getFollowBoardCnt(List list) {
+		List<Map> allList = new ArrayList<>();
+		for(int i=0; i<list.size();i++) {
+			List<Map> oneList = findWriter((String)list.get(i));
+			for(int k=0; k<oneList.size(); k++) {
+				allList.add(oneList.get(k));
+			}
+		}
+		allList.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1 = (long) o1.get("time"); // time숫자가 클수록 최근
+				long n2 = (long) o2.get("time");
+				if (n1 > n2) {// 2번째>1번째
+					return -1; // -1내림
+				} else if (n1 < n2) {
+					return 1; // 1오름
+				} else {
+					return 0;
+				} 
+			}
+		}); 
+		return allList;
 	}
 
 	// board 테이블에서 파라미터로 Liker 뽑아서 내가 좋아요 누른 글 목록 보기
@@ -115,5 +166,6 @@ public class BoardRepository {
 		});
 		return list;
 	}
+
 
 }

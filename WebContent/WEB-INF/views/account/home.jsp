@@ -87,23 +87,6 @@ video {
 	</c:choose>
 </div>
 <hr />
-관심사가 같은 회원 추천
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb">박소현(shpbbb)</a>
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=wlsgud1990">전진형(wlsgud1990)</a>
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=rjsrl504">박건기(rjsrl504)</a>
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=joon920807">박영준(joon920807)</a>
-<br />
-<hr />
-
-
 <main role="main">
 <div class="album py-5 bg-light">
 	<div class="container">

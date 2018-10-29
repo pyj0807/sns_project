@@ -1,5 +1,6 @@
 package sns.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,11 @@ public class IndexController {
 
 			return "/index/login";
 		} else {
+			String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+			String sInter = Arrays.toString(interest);
+			List listInter = gson.fromJson(sInter, List.class);
+			wr.setAttribute("allInter", listInter, wr.SCOPE_REQUEST);
+
 			return "sns.home";
 		}
 	}
