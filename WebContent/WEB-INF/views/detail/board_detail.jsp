@@ -35,7 +35,7 @@
 	<span id="replyList">
 		<c:forEach var="i" items="${reply_list }">
 			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>${i.reply_content }
-			<button id="delete_reply" value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
+			<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
 		</c:forEach>
 	</span>
 	
@@ -99,16 +99,15 @@
 						html+=obj[i].writer+"</a>";
 						html+=obj[i].reply_content;
 						
-						//(등록후조회)여기부터 버튼만드는곳 여기이상함...
+						//(등록후조회)
 						html+="<button id=\"delete_reply\" value=\"";
-						html+=obj[i].key,obj[i].id;
+						html+=obj[i].key+","+obj[i].id;
 						html+="\"";
 						html+="onclick=\"";
-						html+=delete_reply(this);
+						html+="delete_reply(this);";
 						html+="\"";
 						html+=">삭제</button>";
-						//까지....
-						//<button id="delete_reply" value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>						
+						
 						html+="<br/>";
 					}				
 					document.getElementById("replyList").innerHTML = html;
@@ -143,14 +142,15 @@
 					html+=obj[i].writer+"</a>";
 					html+=obj[i].reply_content;
 					
-					//(삭제후조회)여기부터 버튼만드는곳 여기이상함...
+					//(삭제후조회)
 					html+="<button id=\"delete_reply\" value=\"";
-					html+=obj[i].key,obj[i].id;
+					html+=obj[i].key+","+obj[i].id;
 					html+="\"";
 					html+="onclick=\"";
-					html+=delete_reply(this);
+					html+="delete_reply(this);";
 					html+="\"";
-					html+=">삭제</button>";						
+					html+=">삭제</button>";
+					
 					html+="<br/>";
 				}				
 				document.getElementById("replyList").innerHTML = html;
