@@ -78,9 +78,19 @@ public class JoinController {
 		data.put("gender", gender);
 		data.put("interest", inter);
 
-		int a = jdao.addAccount(data);
+		
+		try {
+			int a = jdao.addAccount(data);
+			
+		
+				return "redirect:/index.do";
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/join.do";
+		}
 
-		return "index/login";
 	}
 	
 	
