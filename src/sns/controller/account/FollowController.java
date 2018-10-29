@@ -30,12 +30,8 @@ public class FollowController {
 		String myid = (String) map.get("myid");
 		String otherid = (String) map.get("otherid");
 
-		System.out.println(myid+"/"+otherid);
-		System.out.println("팔로우버튼클릭 누른사람아이디 : " + myid);
-
 		// 팔로우가 되어있는지 체크하는 맵
 		Map checkmap = follow.CheckFollowing(map);
-		System.out.println("팔로우 체크 : " + checkmap);
 		Map mm = new HashMap<>();
 		if (checkmap==null) {
 			// 서로 팔로우가 안되어있을때 인서트 시도

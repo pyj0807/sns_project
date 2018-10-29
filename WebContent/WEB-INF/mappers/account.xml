@@ -7,5 +7,9 @@
 	<select id="getOneUserInfo" resultType="java.util.HashMap" parameterType="java.lang.String">
 		select * from account where id=#{id}
 	</select>
+	<!-- 모든 유저 정보중 ID, 이름, 관심사만 Map 형으로 뽑아오기 -->
+	<select id="getAllUserInfo" resultType="java.util.HashMap">
+		select id,name,interest from account
+	</select>
 
 </mapper>

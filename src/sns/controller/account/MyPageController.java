@@ -153,26 +153,5 @@ public class MyPageController {
 		return "sns.liked";
 	}
 
-	@RequestMapping("/test.do")
-	public void test() {
-
-//		@Autowired
-//		BoardRepository boardRepository;
-//		
-//		// 좋아요 한 시간 몽고디비 liked 컬럼에 추가 
-//		BoardController 에 board one 에서 like 눌렀을때 처리
-//		long currentTime = System.currentTimeMillis();
-//		Map liked = new HashMap<>();
-//		liked.put("_id", room_id);
-//		liked.put("likerId", userId);
-//		liked.put("likedTime", currentTime);
-//		boardRepository.insertLikerAndTime(liked);
-//		boardRepository.removeLikerAndTime(liked);
-//
-//			디테일 뷰에서 내용 위에 관심사 : 해서 보여주기
-//			1. board_detail.jsp 에 추가
-//			<b>관심사:</b>${boardOne.interest }<br/>		
-
-	}
 
 }

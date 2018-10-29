@@ -17,11 +17,24 @@ video {
 }
 </style>
 <body>
+	<h2>내가 팔로우 한 사람의 글만 보기</h2>
+		<div class="btn-group" role="group" align="center">
+		<button style="align-content: center;" id="btnGroupDrop1"
+			type="button" class="btn btn-secondary
+			dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">글 보기</button>
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+			<a class="dropdown-item"
+				href="${pageContext.servletContext.contextPath }/index.do">모든회원글보기</a>
+			<a class="dropdown-item"
+				href="${pageContext.servletContext.contextPath }/newsfeed.do">뉴스피드</a>
+		</div>
+	</div>
 	<main role="main">
 	<div class="album py-5 bg-light">
 		<div class="container">
 			<div class="row">
-				<c:forEach var="i" items="${board_list }">
+				<c:forEach var="i" items="${allList }">
 					<c:choose>
 						<c:when test="${i.type == 'video'}">
 							<!-- 타입이비디오일경우 -->

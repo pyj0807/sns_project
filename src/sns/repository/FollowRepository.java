@@ -1,17 +1,23 @@
 package sns.repository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
 
 @Repository
 public class FollowRepository {
 	@Autowired
 	SqlSessionTemplate sqltemplate;
+	
+	@Autowired
+	Gson gson;
 
 	public int insertFollowing(Map map) {
 		return sqltemplate.insert("follow.insertFollowing", map);
@@ -48,5 +54,21 @@ public class FollowRepository {
 	public Map CheckFollowing(Map map) {
 		return sqltemplate.selectOne("follow.CheckFollowing", map);
 	}
+	
+	public List<Map> getAllUserInfo(){
+		return sqltemplate.selectList("follow.getAllUserInfo");
+	}
+	
+	// 관심사가 같은 회원 정보 뽑기
+	public List<Map> sameInter(String inte){
+		List<Map> allUserInfo = getAllUserInfo();
+		List<Map> sameInterUser = new ArrayList<>();
+		for(int i=0; i<allUserInfo.size();i++) {
+			allUserInfo.get(i).get("INTEREST").equals(inte);
+			sameInterUser.add(allUserInfo.get(i));
+		}
+		return sameInterUser;
+	}
+	
 
 }
