@@ -123,17 +123,17 @@ public class BoardController {
 		if (like.get("checked").equals(true)) {
 			liked.put("likedTime", currentTime);
 			boarddao.addBoardLiker(room_id, userId); // 좋아요추가
-			boardRepository.insertLikerAndTime(liked);
+			boardRepository.insertLikerAndTime(liked);  // 몽고디비 like 테이블 한줄 추가
 		} else {
 			boarddao.removeBoardLiker(room_id, userId); // 좋아요취소
-			boardRepository.removeLikerAndTime(liked);
+			boardRepository.removeLikerAndTime(userId,room_id.intValue()); // 몽고디비 like 테이블 한줄 삭제
 		}
 		// liker수 count해서 ajax리턴
 		int room_num = room_id.intValue();// Double-->int
 		Map boardOne = boarddao.getOneBoard(room_num);
 		String json = gson.toJson(boardOne);
 
-		// 리턴
+		// 리턴 
 		return json;
 	}
 
