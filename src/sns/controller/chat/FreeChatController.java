@@ -1,6 +1,7 @@
 package sns.controller.chat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,26 @@ public class FreeChatController {
 		for(int i=0;i<li.size();i++) {
 			Map aa=(Map)li.get(i);
 		
+		}
+		List<Map> roomlist=mongochat.getallroom((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
+		
+		if(roomlist!=null) {
+		roomlist.sort(new Comparator<Map>() {
+	         @Override
+	         public int compare(Map o1, Map o2) {
+	            long n1= (long)o1.get("lastsenddate");
+	            long n2= (long)o2.get("lastsenddate");
+	            
+	            if(n1>n2) {
+	               return 1;
+	            }else if(n1<n2) {
+	               return -1;
+	            }else {
+	               return 0;
+	            }
+	         }
+	      });
+		map.put("freelist", roomlist);
 		}
 		return "chat.free";
 	}

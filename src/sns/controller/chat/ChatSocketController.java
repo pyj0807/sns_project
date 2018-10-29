@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +84,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		/*df.format(time);*/
 		
-		map.put("jspsendtime", time);
+		map.put("jspsendtime",System.currentTimeMillis());
 		modeid.add(map.get("id"));
 		modeid.add(map.get("otherId"));
 		String modeidd=gson.toJson(modeid);
@@ -91,10 +92,23 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		
 		map.put("sendtime",sf.format(time) );
 		mongochat.insertfreechat(map);
-		/*TextMessage msg= new TextMessage(gson.toJson(map));
-		*/
+		
 		String str= gson.toJson(map);
 		TextMessage msg =new TextMessage(str);
+		
+		Map roominsert =new HashMap<>();
+		roominsert.put("modeId", modeid);
+		roominsert.put("lastsenddate", (long)(System.currentTimeMillis()));
+		roominsert.put("lastformat", sf.format(time));
+
+		
+		
+		
+		if(mongochat.chatroomcheck((String)map.get("id"),(String)map.get("otherId")).size()<1) {
+			mongochat.insertchatroom(roominsert);
+		}else {
+			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"));
+		}
 		
 		List li=new ArrayList<>();
 		for(int i=0;i<service.size();i++) {

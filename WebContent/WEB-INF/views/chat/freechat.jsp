@@ -24,6 +24,19 @@
 		</c:forEach>
     </div>
   </div>
+  <div align="center">
+  <c:forEach var ="v" items="${freelist}">
+  <c:if test="${!empty v }">
+ 	<c:forEach var ="e" items="${v.modeId }">
+ 	
+ 	<c:if test="${e ne Id}">
+ 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat }</b></small><br/>
+ 	</c:if>
+ 	
+ 	</c:forEach> 
+ 	</c:if>
+  </c:forEach>
+  </div>
 		
 	
 	

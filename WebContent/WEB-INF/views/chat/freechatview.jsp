@@ -30,7 +30,7 @@
    <c:if test="${v.OTHERID != otherid }">
       <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.OTHERID}"> ${v.OTHERID }</a>
    </c:if>
-    </c:forEach>	`
+    </c:forEach>	
       
     </div>
   </div>
@@ -47,12 +47,12 @@
 		<c:choose>
 		<c:when test="${userId eq v.id}">
 				<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-		<b>${v.id }<a href="${pageContext.servletContext.contextPath}/mypage.do?"><small><b>(${v.userNAME})</b></small></a> : ${v.text }  / <small><b><fmt:formatDate value="${v.jspsendtime}" pattern="yyyy-MM-dd HH:mm"/></b></small></b>
+		<b>${v.id }<a href="${pageContext.servletContext.contextPath}/mypage.do?"><small><b>(${v.userNAME})</b></small></a> : ${v.text }  / <small><b>${v.sendtime}</b></small></b>
 		</div>
 		</c:when>
 		<c:otherwise>
 		<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-		<b>${v.id }<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}"><small><b>(${v.userNAME})</b></small></a> : ${v.text }  / <small><b><fmt:formatDate value="${v.jspsendtime}" pattern="yyyy-MM-dd HH:mm"/></b></small></b>
+		<b>${v.id }<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}"><small><b>(${v.userNAME})</b></small></a> : ${v.text }  / <small><b>${v.sendtime}</b></small></b>
 		</div>
 		
 		</c:otherwise>
