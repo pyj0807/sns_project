@@ -83,20 +83,5 @@ public class AccountController {
 		
 		return "sns.newsfeed";
 	}
-
-	@ResponseBody
-	@PostMapping("/inte.do")
-	public List<Map> inte(@RequestParam String inte) {
-		// 예를들어 RequestParam 으로 게임이 들어왔다. 그러면 게임에 관심이 있는 사람들의 목록을 보여준다.
-		List<Map> same = follow.sameInter(inte);
-		List<Map> realSame =  new ArrayList<>();
-		for(int i=0; i<same.size(); i++) {
-			double randomSu = Math.random();
-			int intSu = (int)(randomSu*same.size());
-			realSame.add(same.get(intSu));
-		}
-		
-		return realSame;
-	}
 	
 }

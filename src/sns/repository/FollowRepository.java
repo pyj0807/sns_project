@@ -60,7 +60,8 @@ public class FollowRepository {
 	}
 	
 	// 관심사가 같은 회원 정보 뽑기
-	public List<Map> sameInter(String inte){
+	public List<Map> sameInter(Map map){
+		String inte = (String) map.get("inte");
 		List<Map> allUserInfo = getAllUserInfo();
 		List<Map> sameInterUser = new ArrayList<>();
 		for(int i=0; i<allUserInfo.size();i++) {

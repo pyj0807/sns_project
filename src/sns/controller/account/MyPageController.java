@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -157,14 +158,14 @@ public class MyPageController {
 	@GetMapping("/write.do")
 	public String write(ModelMap modelmap) {
 		// 글 관심사 선택, 1개만 선택 가능
-		String[] data = "게임,운동,영화,음악,IT<br/>,연애,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
 		modelmap.put("interest", data);
 		return "sns.write";
 	}
 	//글수정페이지(글내용 관심사만 수정가능)
 	@GetMapping("/update.do")
 	public String board_update(@RequestParam int num,ModelMap modelmap) {
-		String[] data = "게임,운동,영화,음악,IT<br/>,연애,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
 		modelmap.put("interest", data);
 		Map map = boarddao.getOneBoard(num);
 		modelmap.put("Oneboard", map);
@@ -182,5 +183,21 @@ public class MyPageController {
 		return "sns.liked";
 	}
 
+
+	@ResponseBody
+	@PostMapping("/inte.do")
+	public String inte(@RequestParam Map map) {
+		// 예를들어 RequestParam 으로 게임이 들어왔다. 그러면 게임에 관심이 있는 사람들의 목록을 보여준다.
+		List<Map> same = follow.sameInter(map);
+		Map realSame =  new HashMap<>();
+		for(int i=0; i<same.size(); i++) {
+			double randomSu = Math.random();
+			int intSu = (int)(randomSu*same.size());
+			realSame.put("1+i", (same.get(intSu)));
+		}
+		realSame.put("mode", "on");
+		
+		return gson.toJson(realSame);
+	}
 
 }

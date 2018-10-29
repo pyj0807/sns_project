@@ -53,9 +53,10 @@ video {
 관심사가 같은 회원 추천
 <br />
 <br />
-		<c:forEach var="v" items="${myInter}">
-			<button type="button" id="inte" class="btn btn-outline-dark">#${v } </button>
-		</c:forEach>
+	<c:forEach var="v" items="${myInter}">
+ 			<button class="btn btn-outline-dark"  value="${v }" onclick="interclick(this);" >${v } </button>
+<%--   			<input  type="hidden" id="target" value="${v }">  --%>
+	</c:forEach>
 <br/>
 <br/>
 <a
@@ -137,16 +138,31 @@ video {
 </div>
 </main>
 <script>
-	$("#inte").on("click",function(){
+var interclick=function (target){
+	console.log(target.value);
+
+};
+
+<%--	$("#target").on("click",function() {
 		console.log("inte추천");
 		var param = {
-				"inte":"${v}"
+			"inte" : "${v}"
 		};
-		$.post("${pageContext.servletContext.contextPath}/inte.do", param, function(rst){
-			var obj = JSON.parse(rst);
-			console.log(obj);
-		})
-	})
-
-
+		$.post("${pageContext.servletContext.contextPath }/inte.do",param, function(rst) {
+					var obj = JSON.parse(rst);
+					console.log(obj);
+					switch (obj.mode) {
+					case "on":
+						onHandle(obj);
+						break;
+					}
+				});
+	});
+	var onHandle = function(obj){
+		var list1 = obj.1;
+		var list2 = obj.2;
+		var list3 = obj.3;
+		var list4 = obj.4;
+		$("#inte").html(list1+"<br/>"+list2+"<br/>"+list3+"<br/>"+list4);
+	}--%>
 </script>
