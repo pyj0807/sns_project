@@ -66,5 +66,12 @@ public class AccountController {
 
 		return "sns.account";
 	}
+	
+	// 뉴스피드 (팔로잉한 사람들의 글 목록)
+	@RequestMapping("/newsfeed.do")
+	public String newsfeed() {
+		
+		return "sns.newsfeed";
+	}
 
 }
