@@ -163,9 +163,9 @@ public class ClubChat {
 		 
 		   
 		
-		/*System.out.println(content);*/
+		System.out.println("깔갈깔="+clubmongo.clubbest(id,content));
 		
-		map.put("best", clubmongo.clubbest(id));
+		map.put("best", clubmongo.clubbest(id,content));
 		map.put("contentid", content);
 		map.put("clubchating", clubmongo.clubchatingview(content));
 		map.put("allclub", li);
@@ -175,7 +175,7 @@ public class ClubChat {
 	
 	@GetMapping("/remove.do")
 	public String clubremoveroom(@RequestParam Map map,WebRequest wr) {
-		System.out.println("이이이이="+(String)map.get("contentid"));
+		System.out.println("이이이이="+(String)map.get("contentid")+(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		mongoremove.roomremove((String)map.get("contentid"),(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		return "redirect:/club/all.do";
 	}
