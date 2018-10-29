@@ -82,7 +82,7 @@
 		</form>
 		</c:when>
 		<c:otherwise>
-		<form action="${pageContext.servletContext.contextPath}">
+		<form action="${pageContext.servletContext.contextPath}/club/all.do">
 		 <button type="submit" class="btn btn-secondary btn-lg btn-block">방 나가기</button>
 		
 		</form>
