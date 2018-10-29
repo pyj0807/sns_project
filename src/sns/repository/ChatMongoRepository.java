@@ -70,8 +70,10 @@ public long getcount(String id){
 	return template.count(new Query(Criteria.where("readid").in(id)),Map.class,"freechat");
 }
 
-public void removecount(String id,String otherid) {
-	template.remove(new Query(Criteria.where("readid").in(id).and("otherId").in(id).andOperator(Criteria.where("id").in(otherid))),"freechat");
+public void removecount(String id,String id2,String otherid) {
+Update u= new Update().pull("readid", id);
+	//template.updateMulti(new Query(Criteria.where("readid").in(id).and("otherId").in(id2).and("id").in(otherid)),u,"freechat");
+	template.updateMulti(new Query(Criteria.where("readid").in(id).andOperator(Criteria.where("otherId").in(id2).andOperator(Criteria.where("id").in(otherid)))), u, "freechat");
 }
 
 
