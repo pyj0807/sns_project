@@ -96,10 +96,10 @@ public class JoinController {
 	
 	@GetMapping(path="/joinajax.do", produces="application/json;charset=UTF-8" )
 	@ResponseBody
-	public String joinidajaxHandle(@RequestParam String id) {
+	public String joinajaxHandle(@RequestParam String id) {
 		System.out.println(id);
 		Map ckid = lcdao.loginCheck(id);
-		System.out.println("ckid :"+ckid);
+		System.out.println("id :"+id);
 		Map map = new HashMap<>();
 		if(ckid != null) {
 			map.put("pass", "on");

@@ -63,13 +63,14 @@ public class IndexController {
 		String pass = (String) wr.getParameter("pass");
 
 		Map data = new HashMap<>();
-		data.put("email", id);
+		data.put("id", id);
 		data.put("pass", pass);
 
 		System.out.println("data = " + data);
 
 		Map log = ldao.login(data);
-
+		
+		//중복로그인 체크
 		if (log != null) {
 			Map msgg = new HashMap();
 			msgg.put("mode", "erlogin");

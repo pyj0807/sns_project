@@ -17,22 +17,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <title>join</title>
-<script>
-	var checkbox = new Array();
-	var cksave = function(target) {
-		if (target.checked) {
-			if (checkbox.length < 3) {
-				checkbox.push(target.value);
-			} else {
-				window.alert("최대 3개 까지 선택 가능합니다");
-				target.checked = false;
-			}
-		} else {
-			var idx = checkbox.indexOf(target.value);
-			checkbox.splice(idx, 1);
-		}
-	}
-</script>
 
 <form class="form-signin"
 	action="${pageContext.servletContext.contextPath }/join.do"
@@ -56,21 +40,18 @@
 							<div class="join">
 								<h4>아이디</h4>
 								<input name="id" id="id" type="text" style="width:100px;" maxlength="20"
-									placeholder="이메일 " onkeyup="checkId(this.value);" required> 
+									placeholder="아이디 " onkeyup="checkId(this.value);" required> 
 								 <br/><span id="idspan"></span>	
 								<h4>메일 인증</h4>
-								<input name="id" id="id" type="text" style="width:100px;" maxlength="20"
-									placeholder="아이디 " onkeyup="checkId(this.value);" required> 
+								<input name="email01" id="email01" type="text" style="width:100px;" maxlength="12"
+									placeholder="이메일 " required> 
 									@
-								<input type="text" name="str_email02" id="str_email02" style="width:100px;" disabled value="naver.com"> 
+								<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com"> 
 								 <select style="width:100px;margin-right:10px" name="subid" id="subid"> 
 									 <option value="1">직접입력</option> 
 									 <option value="naver.com" selected>naver.com</option> 
 									 <option value="hanmail.net">hanmail.net</option> 
 									 <option value="nate.com">nate.com</option> 
-									 <option value="yahoo.co.kr">yahoo.co.kr</option> 
-									 <option value="dreamwiz.com">dreamwiz.com</option> 
-									 <option value="freechal.com">freechal.com</option> 
 									 <option value="gmail.com">gmail.com</option> 
 								 </select>								 
 								<h4>비밀번호</h4>
@@ -156,10 +137,6 @@
 						</div>
 
 						<button type="submit">가입</button>
-						<form action="${pageContext.servletContext.contextPath }/index.do"
-							method="post">
-							<button type="submit">로그인</button>
-						</form>
 					</div>
 
 				</div>
@@ -173,6 +150,7 @@
 </head>
 </html>
 <script>
+	//아이디 중복
 	var checkId = function(){
 		var id = document.getElementById("id").value;
 		var r = new RegExp(/^[A-Za-z]{1}[0-9A-Za-z]{3,11}$/);
@@ -205,21 +183,38 @@
 			document.getElementById("idspan").style.color ="red";
 		}
 	};
-
+	
+	// 관심사
+	var checkbox = new Array();
+	var cksave = function(target) {
+		if (target.checked) {
+			if (checkbox.length < 3) {
+				checkbox.push(target.value);
+			} else {
+				window.alert("최대 3개 까지 선택 가능합니다");
+				target.checked = false;
+			}
+		} else {
+			var idx = checkbox.indexOf(target.value);
+			checkbox.splice(idx, 1);
+		}
+	}
 </script>
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <script type="text/javascript">
 $('#subid').change(function(){ 
 	$("#subid option:selected").each(function () { 
-		if($(this).val()== '1'){ //직접입력일 경우 
-			$("#str_email02").val(''); //값 초기화
-			$("#str_email02").attr("disabled",false); //활성화 
+		if($(this).val()== "1"){ //직접입력일 경우 
+			$("#email02").val(""); //값 초기화
+			$("#email02").attr("disabled",false); //활성화 
 			}else{ //직접입력이 아닐경우 
-				$("#str_email02").val($(this).text()); //선택값 입력
-				$("#str_email02").attr("disabled",true); //비활성화
+				$("#email02").val($(this).text()); //선택값 입력
+				$("#email02").attr("disabled",true); //비활성화
 				} 
 		}); 
-	}); 
-</script> 
+	});
+	
+</script>
 
 
