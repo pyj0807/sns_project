@@ -1,5 +1,6 @@
 package sns.repository;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class BoardRepository {
 	public List<Map> findWriter(String writer) {
 		Criteria c = 	Criteria.where("writer").in(writer);
 		List<Map> list =  template.find(new Query(c), Map.class, "board");
-	     list.sort(new Comparator<Map>() {
+	    list.sort(new Comparator<Map>() {
 	          @Override
 	          public int compare(Map o1, Map o2) {
 	             long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
@@ -52,10 +53,45 @@ public class BoardRepository {
 		return list;
 	}
 	
-	// board 테이블에서 파라미터로 Liker 뽑기
+	// board 테이블에서 파라미터로 Liker 뽑기 (내가 좋아요 누른 글 목록 보기)
 	public List<Map> getBoardLiker(String liker){
-		Query query = new Query(Criteria.where("liker").in(liker));
-		return template.find(query, Map.class, "board");
+		Query query = new Query(Criteria.where("likerId").in(liker));
+		List<Map> list = template.find(query, Map.class, "like");
+		list.sort(new Comparator<Map>() {
+	          @Override
+	          public int compare(Map o1, Map o2) {
+	             long n1 = (long)o1.get("likedTime"); //time숫자가 클수록 최근
+	             long n2 = (long)o2.get("likedTime");   
+	             if(n1>n2) {//2번째>1번째 
+	                return -1; //-1내림
+	             }else if(n1<n2){
+	                return 1; //1오름
+	             }else {
+	                return 0;
+	             }
+	          }
+	       });
+		List<Map> getList = new ArrayList<>();
+		for(int i =0; i<list.size(); i++) {
+			Double id1 = (Double) list.get(i).get("_id");
+			Criteria c = Criteria.where("_id").in(id1.intValue());
+			getList.add(template.findOne(new Query(c), Map.class,"board"));
+		}
+		getList.sort(new Comparator<Map>() {
+	          @Override
+	          public int compare(Map o1, Map o2) {
+	             long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
+	             long n2 = (long)o2.get("time");   
+	             if(n1>n2) {//2번째>1번째 
+	                return -1; //-1내림
+	             }else if(n1<n2){
+	                return 1; //1오름
+	             }else {
+	                return 0;
+	             }
+	          }
+	       });
+		return getList;
 	}
 	
 	// 글번호 + 좋아요 한사람 + 좋아요한 시간 
@@ -71,7 +107,22 @@ public class BoardRepository {
 	// board 테이블에서 파라미터로 Theme 뽑기
 	public List<Map> getBoardTheme(String theme){
 		Query query = new Query(Criteria.where("interest").in(theme));
-		return template.find(query, Map.class, "board");
+		List<Map> list = template.find(query, Map.class, "board");
+	    list.sort(new Comparator<Map>() {
+	          @Override
+	          public int compare(Map o1, Map o2) {
+	             long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
+	             long n2 = (long)o2.get("time");   
+	             if(n1>n2) {//2번째>1번째 
+	                return -1; //-1내림
+	             }else if(n1<n2){
+	                return 1; //1오름
+	             }else {
+	                return 0;
+	             }
+	          }
+	       });
+		return list;
 	}
 
 }
