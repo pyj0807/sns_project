@@ -2,6 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+img {
+	max-width: 100%;
+	width: 700px;
+	max-height: 100%;
+	height: 500px;
+}
+
+video {
+	max-width: 100%;
+	width:700px;
+	max-height: 100%;
+	height: 500px;
+}
+</style>
+
+<br/>
+<br/>
+<br/>
 
 <div>
 	<c:choose>
