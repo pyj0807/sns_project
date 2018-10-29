@@ -107,7 +107,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		if(mongochat.chatroomcheck((String)map.get("id"),(String)map.get("otherId")).size()<1) {
 			mongochat.insertchatroom(roominsert);
 		}else {
-			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"));
+			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"),sf.format(time));
 		}
 		
 		List li=new ArrayList<>();
@@ -140,11 +140,13 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 				service.sendOne(map, (String)service.list.get(i).getAttributes().get("userId"));
 				
 			}*/
+			System.out.println("");
 			
-			if(service.list.get(i).getAttributes().get("Id").equals(otherId)||service.list.get(i).getAttributes().get("Id").equals(userMap.get("ID"))) {
+			if(sockets.get(i).getAttributes().get("Id").equals(otherId)||sockets.get(i).getAttributes().get("Id").equals(userMap.get("ID"))) {
 			sockets.get(i).sendMessage(msg);
 			}
 		}
+		/*session.sendMessage(msg);*/
 		
 		
 

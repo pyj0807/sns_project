@@ -46,9 +46,9 @@ public class FreeChatController {
 	            long n1= (long)o1.get("lastsenddate");
 	            long n2= (long)o2.get("lastsenddate");
 	            
-	            if(n1>n2) {
+	            if(n1<n2) {
 	               return 1;
-	            }else if(n1<n2) {
+	            }else if(n1>n2) {
 	               return -1;
 	            }else {
 	               return 0;

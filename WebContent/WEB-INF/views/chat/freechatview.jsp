@@ -82,20 +82,45 @@ chatws.onmessage= function(evt) {
 	html +="</div>"; */
 	console.log("시간이유"+obj.sendtime);
 	
-/* 	 switch(evt.mode){
-	case "other":
+ 	 switch(obj.mode){
+	case "${otherId}":
 		otherchatHandler(obj);
 		break;
-	}  */
+		
+	}  
+ 	 
+ 	  switch(obj.id){
+ 	 case "${otherId}":
+ 		 mychatHandler(obj);
+ 	 	break;
+ 	 } 
 	
+
+}
+
+	var mychatHandler=function(obj){
+		var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+		html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+		html +="</div>"; 
+		document.getElementById("chatView").innerHTML += html;
+		document.getElementById("chatView").scrollTop = 
+			document.getElementById("chatView").scrollHeight; 
+		
+	}
+
+
+
+
+	 var otherchatHandler=function(obj){
+		 
+		 
 	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 	html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
 	html +="</div>"; 
 	document.getElementById("chatView").innerHTML += html;
 	document.getElementById("chatView").scrollTop = 
 		document.getElementById("chatView").scrollHeight; 
-
-} 
+	 }
 
 
 document.getElementById("input").onchange= function() {
@@ -113,7 +138,7 @@ document.getElementById("input").onchange= function() {
 	
 		 
 		 msg = {
-			 	"mode" :"other",
+			 	"mode" :"${otherId}",
 				"id":"${Id}",
 				"text":this.value,
 				"otherId":"${otherId}"

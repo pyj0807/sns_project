@@ -53,8 +53,8 @@ public List<Map> chatroomcheck(String id,String id2){
 	
 }
 
-public void roomupdate(String id1,String id2) {
-	Update u= new Update().set("lastsenddate", (long)(System.currentTimeMillis())).addToSet("lastformat", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(System.currentTimeMillis()));
+public void roomupdate(String id1,String id2,String lasttime) {
+	Update u= new Update().set("lastsenddate", (long)(System.currentTimeMillis())).set("lastformat", lasttime);
 	template.updateMulti(new Query(Criteria.where("modeId").in(id1).andOperator(Criteria.where("modeId").in(id2))),u,"freechatroom");
 	
 }
