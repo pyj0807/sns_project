@@ -35,7 +35,14 @@
 	<span id="replyList">
 		<c:forEach var="i" items="${reply_list }">
 			<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>${i.reply_content }
-			<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
+			<c:choose>
+				<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
+					<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
+				</c:when>
+				<c:otherwise>
+					<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">삭제</button><br/>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 	</span>
 	
@@ -99,15 +106,25 @@
 						html+=obj[i].writer+"</a>";
 						html+=obj[i].reply_content;
 						
-						//(등록후조회)
-						html+="<button id=\"delete_reply\" value=\"";
-						html+=obj[i].key+","+obj[i].id;
-						html+="\"";
-						html+="onclick=\"";
-						html+="delete_reply(this);";
-						html+="\"";
-						html+=">삭제</button>";
-						
+						if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
+							//(등록후조회)
+							html+="<button id=\"delete_reply\" value=\"";
+							html+=obj[i].key+","+obj[i].id;
+							html+="\"";
+							html+="onclick=\"";
+							html+="delete_reply(this);";
+							html+="\"";
+							html+=">삭제</button>";
+						}else{
+							html+="<button id=\"delete_reply\" value=\"";
+							html+=obj[i].key+","+obj[i].id;
+							html+="\"";
+							html+="onclick=\"";
+							html+="delete_reply(this);";
+							html+="\"";
+							html+="style=\"visibility:hidden\"";
+							html+=">삭제</button>";
+						}
 						html+="<br/>";
 					}				
 					document.getElementById("replyList").innerHTML = html;
@@ -133,7 +150,7 @@
 				var obj = JSON.parse(this.responseText);
 				console.log(obj);
 				var html="";
-				for(var i=0; i<obj.length; i++){
+				for(var i=0; i<obj.length; i++){	
 					html+="<a href=\"";
 					html+="${pageContext.servletContext.contextPath }";
 					html+="/account.do?id=";
@@ -142,15 +159,25 @@
 					html+=obj[i].writer+"</a>";
 					html+=obj[i].reply_content;
 					
-					//(삭제후조회)
-					html+="<button id=\"delete_reply\" value=\"";
-					html+=obj[i].key+","+obj[i].id;
-					html+="\"";
-					html+="onclick=\"";
-					html+="delete_reply(this);";
-					html+="\"";
-					html+=">삭제</button>";
-					
+					if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
+						//(삭제후조회)
+						html+="<button id=\"delete_reply\" value=\"";
+						html+=obj[i].key+","+obj[i].id;
+						html+="\"";
+						html+="onclick=\"";
+						html+="delete_reply(this);";
+						html+="\"";
+						html+=">삭제</button>";
+					}else{
+						html+="<button id=\"delete_reply\" value=\"";
+						html+=obj[i].key+","+obj[i].id;
+						html+="\"";
+						html+="onclick=\"";
+						html+="delete_reply(this);";
+						html+="\"";
+						html+="style=\"visibility:hidden\"";
+						html+=">삭제</button>";
+					}
 					html+="<br/>";
 				}				
 				document.getElementById("replyList").innerHTML = html;
