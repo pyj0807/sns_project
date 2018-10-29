@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import sns.repository.AlertService;
 import sns.repository.ChatDao;
 import sns.repository.ChatMongoRepository;
+import sns.repository.ClubChatMongoDeleteRepository;
 import sns.repository.Clubmongochat;
 
 
@@ -36,6 +37,9 @@ public class ClubChatSocketController extends TextWebSocketHandler{
 	
 	@Autowired
 	Clubmongochat mongo;
+	
+	@Autowired
+	ClubChatMongoDeleteRepository mongoremove;
 	
 	List<WebSocketSession> sockets;
 	public ClubChatSocketController() {
@@ -98,7 +102,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 			System.out.println(service.list.get(i).getAttributes().get("userId"));
 		}*/
 		for(int i=0;i<sockets.size();i++) {
-			String id= (String)sockets.get(i).getAttributes().get("userId");
+			String id= (String)sockets.get(i).getAttributes().get("Id");
 			System.out.println(id);
 			if(clublist.contains(id)) {
 				sockets.get(i).sendMessage(msg);

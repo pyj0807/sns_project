@@ -21,8 +21,11 @@
     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
      오픈채팅 목록
     </button>
+     
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
     
+    
+  
   <%--   <c:forEach var="v" items="${chatlist }">
     ${v }
     </c:forEach> --%>
@@ -40,7 +43,7 @@
 </div>
  
  
-<h4>Chat Room <small id="ho">(??)</small></h4>
+<h4>Open Chat Room <small id="ho"></small></h4>
 <div style="height: 520px; overflow-y: scroll; width: 500px " id="chatView">
 	<c:forEach var="v" items="${clubchating }">
 		
@@ -71,6 +74,21 @@
   	id="input" >
 </div>
 
+	<c:choose>
+		<c:when test="${!empty best }">
+		<form action="${pageContext.servletContext.contextPath}/club/remove.do">
+		<input type="hidden" name = "contentid" value="${contentid }">
+  <button type="submit" class="btn btn-secondary btn-lg btn-block" >방 없애기</button>
+		</form>
+		</c:when>
+		<c:otherwise>
+		<form action="${pageContext.servletContext.contextPath}">
+		 <button type="submit" class="btn btn-secondary btn-lg btn-block">방 나가기</button>
+		
+		</form>
+		</c:otherwise>
+	</c:choose>
+
 <script>
 	var clubchatws= new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/clubchating.do");
 
@@ -78,6 +96,15 @@
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
 		
+		switch(obj.mode){
+		case "${contentid}":
+			conhandle(obj);
+		break;
+		};
+		
+		
+	}
+	var conhandle=function(obj){
 		var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 		html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
 		html +="</div>"; 
@@ -122,7 +149,7 @@ document.getElementById("input").onchange= function() {
 	
 		 
 		 msg = {
-			 	"mode" :"club",
+			 	"mode" :"${contentid}",
 				"id":"${userId}",
 				"content":this.value,
 				"contentid":"${contentid}"

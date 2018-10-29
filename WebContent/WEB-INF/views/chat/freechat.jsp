@@ -17,9 +17,9 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
     <c:forEach var="v" items="${frends}">
-		<c:if test="${v.EMAIL != userId }">
-      <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.EMAIL}">${v.EMAIL } : ${v.NAME }</a>
-     </c:if>
+		
+      <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.OTHERID}">${v.OTHERID }</a>
+   
 	
 		</c:forEach>
     </div>

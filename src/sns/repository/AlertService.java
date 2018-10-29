@@ -115,7 +115,7 @@ public class AlertService {
 		TextMessage msg = new TextMessage(txt);
 		for(int i=0; i<list.size(); i++) {
 			WebSocketSession ws=list.get(i);
-			String userId =(String)ws.getAttributes().get("userId");
+			String userId =(String)ws.getAttributes().get("Id");
 			if(userId.equals(target)) {
 				try {
 					ws.sendMessage(msg);
@@ -133,7 +133,7 @@ public class AlertService {
 		TextMessage msg = new TextMessage(txt);
 		for(int i=0; i<list.size(); i++) {
 			WebSocketSession ws=list.get(i);
-			String userId =(String)ws.getAttributes().get("userId");
+			String userId =(String)ws.getAttributes().get("Id");
 			
 			for(int ii=0;ii<target.length;ii++) {
 			if(userId.equals(target)) {
