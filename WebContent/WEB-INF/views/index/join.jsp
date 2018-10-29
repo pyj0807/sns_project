@@ -39,21 +39,35 @@
 						<div class="row">
 							<div class="join">
 								<h4>아이디</h4>
-								<input name="id" id="id" type="text" style="width:100px;" maxlength="20"
-									placeholder="아이디 " onkeyup="checkId(this.value);" required> 
-								 <br/><span id="idspan"></span>	
+								<input name="id" id="id" type="text" style="width: 100px;"
+									maxlength="20" placeholder="아이디 "
+									onkeyup="checkId(this.value);" required> <br />
+								<span id="idspan"></span>
 								<h4>메일 인증</h4>
+								<!-- 
 								<input name="email01" id="email01" type="text" style="width:100px;" maxlength="12"
 									placeholder="이메일 " required> 
 									@
-								<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com"> 
+								<input type="text" name="email02" id="email02" style="width:100px;" disabled> 
 								 <select style="width:100px;margin-right:10px" name="subid" id="subid"> 
 									 <option value="1">직접입력</option> 
 									 <option value="naver.com" selected>naver.com</option> 
 									 <option value="hanmail.net">hanmail.net</option> 
 									 <option value="nate.com">nate.com</option> 
 									 <option value="gmail.com">gmail.com</option> 
-								 </select>								 
+								 </select>	
+								 	 -->
+								<input type="text" name="str_email01" id="str_email01" style="width: 100px"> 
+								@ 
+								<input type="text" name="str_email02" id="str_email02" style="width: 100px;"> 
+								<select	style="width: 100px; margin-right: 10px" name="subid" id="subid">
+									 <option value="naver.com" selected>naver.com</option> 
+									 <option value="hanmail.net">hanmail.net</option> 
+									 <option value="nate.com">nate.com</option> 
+									 <option value="gmail.com">gmail.com</option> 
+								</select>
+
+
 								<h4>비밀번호</h4>
 								<input name="pass" id="pass" type="password" maxlength="20"
 									placeholder="비밀번호" required> <br />
@@ -128,10 +142,17 @@
 										<option value="F">여자</option>
 									</select>
 								</div>
-								
+
 								<c:forEach var="v" items="${interest }">
-									${v }<input type="checkbox" name="interest" value="${v}"
-										onchange="cksave(this)" />
+								<c:choose>
+								<c:when test="${ v eq '연애' }">
+								${v }<input type="checkbox" name="interest" value="${v}" onchange="cksave(this)" /><br/>
+								</c:when>
+								<c:otherwise>
+								${v }<input type="checkbox" name="interest" value="${v}" onchange="cksave(this)" />
+								</c:otherwise>
+								</c:choose>
+									
 								</c:forEach>
 							</div>
 						</div>
@@ -151,39 +172,39 @@
 </html>
 <script>
 	//아이디 중복
-	var checkId = function(){
+	var checkId = function() {
 		var id = document.getElementById("id").value;
 		var r = new RegExp(/^[A-Za-z]{1}[0-9A-Za-z]{3,11}$/);
-		
+
 		console.log(r.test(id));
-		
-		if(r.test(id)){
+
+		if (r.test(id)) {
 			var req = new XMLHttpRequest();
-			req.open("get","joinajax.do?id="+id,true);
+			req.open("get", "joinajax.do?id=" + id, true);
 			console.log("옴? 왜 안옴?")
-			
+
 			req.onreadystatechange = function() {
-	            if(this.readyState==4) {
-	                var m =JSON.parse(this.responseText);
-					console.log("m="+m);
-					if(m.pass == "on"){
+				if (this.readyState == 4) {
+					var m = JSON.parse(this.responseText);
+					console.log("m=" + m);
+					if (m.pass == "on") {
 						console.log("on")
 						document.getElementById("idspan").innerHTML = "이미 사용중인 아이디입니다.";
-						document.getElementById("idspan").style.color ="red";
-					}else {
+						document.getElementById("idspan").style.color = "red";
+					} else {
 						console.log("off")
 						document.getElementById("idspan").innerHTML = "아주 멋진 아이디에요.";
-						document.getElementById("idspan").style.color ="green";
+						document.getElementById("idspan").style.color = "green";
 					}
-				}	
+				}
 			}
 			req.send();
-		}else{
+		} else {
 			document.getElementById("idspan").innerHTML = "아이디는 영문숫자혼용 4~12자로 설정바랍니다.";
-			document.getElementById("idspan").style.color ="red";
+			document.getElementById("idspan").style.color = "red";
 		}
 	};
-	
+
 	// 관심사
 	var checkbox = new Array();
 	var cksave = function(target) {
@@ -201,20 +222,27 @@
 	}
 </script>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-$('#subid').change(function(){ 
-	$("#subid option:selected").each(function () { 
-		if($(this).val()== "1"){ //직접입력일 경우 
-			$("#email02").val(""); //값 초기화
-			$("#email02").attr("disabled",false); //활성화 
-			}else{ //직접입력이 아닐경우 
+/* 
+	$('#subid').change(function() {
+		$("#subid option:selected").each(function() {
+			if ($(this).val() == "1") { //직접입력일 경우 
+				$("#subid").val(""); //값 초기화
+				$("#email02").attr("disabled", false); //활성화
+		
+				alert(this['subid'].value);
+
+			} else { //직접입력이 아닐경우 
 				$("#email02").val($(this).text()); //선택값 입력
-				$("#email02").attr("disabled",true); //비활성화
-				} 
-		}); 
+				$("#email02").attr("disabled", true); //비활성화
+			}
+		});
 	});
-	
+*/
+ 
+	 
 </script>
 
 
