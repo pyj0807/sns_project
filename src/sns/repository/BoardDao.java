@@ -98,4 +98,16 @@ public class BoardDao {
 		Query query = new Query(Criteria.where("key").in(key));
 		template.remove(query,"board_reply");
 	} 
+	//board 수정
+	public void updateBoard(int no,String content,String interest,List hash) {
+		Criteria c = Criteria.where("_id").in(no);
+		//1.update(배열에추가)
+		Update u = new Update().set("content", content);
+		Update u2 = new Update().set("interest", interest);
+		Update u3 = new Update().set("hashcode", hash);
+		//2.UpdateResult
+		UpdateResult rst = template.updateMulti(new Query(c), u, "board");
+		UpdateResult rst2 = template.updateMulti(new Query(c), u2, "board");
+		UpdateResult rst3 = template.updateMulti(new Query(c), u3, "board");
+	}
 }
