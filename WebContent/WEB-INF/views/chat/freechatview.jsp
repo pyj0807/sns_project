@@ -82,21 +82,25 @@ chatws.onmessage= function(evt) {
 	html +="</div>"; */
 	console.log("시간이유"+obj.sendtime);
 	
-/* 	 switch(evt.mode){
-	case "other":
+	/*  switch(evt.mode){
+	case ${otherId}:
 		otherchatHandler(obj);
 		break;
-	}  */
-	
+	}   */
 	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 	html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
 	html +="</div>"; 
 	document.getElementById("chatView").innerHTML += html;
 	document.getElementById("chatView").scrollTop = 
 		document.getElementById("chatView").scrollHeight; 
+	
 
-} 
+}; 
 
+/* var otherchatHandler=function(obj){
+	
+
+}; */
 
 document.getElementById("input").onchange= function() {
 	console.log(this.value);

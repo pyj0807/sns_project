@@ -72,13 +72,14 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		
 		List socketslist=new ArrayList<>();
 		for(int i=0;i<sockets.size();i++) {
+			System.out.println("훌할ㄴ알한ㅇ란ㅇ란ㅇㄹㄴㅇ라ㅏ"+sockets.get(i).getAttributes().get("userId"));
 			socketslist.add(sockets.get(i).getAttributes().get("Id"));
 		}
 		
 		
 		List modeid=new ArrayList<>();
 		Date time =new Date(System.currentTimeMillis());
-		System.out.println(" 유저아이디유="+map.get("Id"));
+		System.out.println(" 유저아이디유="+map.get("id"));
 		System.out.println(time.toString());
 	
 		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -104,11 +105,11 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		
 		
 		
-		if(mongochat.chatroomcheck((String)map.get("id"),(String)map.get("otherId")).size()<1) {
+	/*	if(mongochat.chatroomcheck((String)map.get("id"),(String)map.get("otherId")).size()<1) {
 			mongochat.insertchatroom(roominsert);
 		}else {
 			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"));
-		}
+		}*/
 		
 		List li=new ArrayList<>();
 		for(int i=0;i<service.size();i++) {
@@ -141,7 +142,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 				
 			}*/
 			
-			if(service.list.get(i).getAttributes().get("Id").equals(otherId)||service.list.get(i).getAttributes().get("Id").equals(userMap.get("ID"))) {
+			if(sockets.get(i).getAttributes().get("Id").equals(otherId)||sockets.get(i).getAttributes().get("Id").equals(userMap.get("ID"))) {
 			sockets.get(i).sendMessage(msg);
 			}
 		}
