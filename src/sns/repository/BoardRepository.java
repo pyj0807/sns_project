@@ -166,6 +166,4 @@ public class BoardRepository {
 		});
 		return list;
 	}
-
-
 }

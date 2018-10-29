@@ -22,7 +22,15 @@ video {
 <br/>
 <br/>
 
-<div>
+<div align="right">
+	<c:choose>
+		<c:when test="${Id==boardOne.writer}">
+			<a href="${pageContext.servletContext.contextPath }/update.do?num=${boardOne._id}"><button>글수정하기</button></a>
+		</c:when>
+	</c:choose>
+</div>
+
+<div>	
 	<c:choose>
 		<c:when test="${boardOne.type == 'video'}">
 		<!-- 타입이비디오일경우 -->

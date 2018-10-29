@@ -131,7 +131,28 @@ public class MyPageController {
 				return "redirect:/mypage.do";
 		}
 	}
-
+	//글수정페이지20181029
+	@PostMapping("/update_install.do")
+	public String update_install(@RequestParam Map map) {
+		String num = (String)map.get("num");
+		int room_num = Integer.parseInt(num);
+		String interest = (String)map.get("interest");
+		
+		//해쉬태그뽑은거 list에 담아서 수정하기위하여=============
+		String content = (String)map.get("content");
+		String regex = "\\#([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]*)";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(content);
+		List hash = new ArrayList<>();
+		while(m.find()) {
+			hash.add(m.group());
+		}
+		//===========================================
+		//수정처리
+		boarddao.updateBoard(room_num, content, interest,hash);
+		//수정시 해시태그가되야함
+		return "redirect:/mypage.do";
+	}
 	// 글쓰는페이지
 	@GetMapping("/write.do")
 	public String write(ModelMap modelmap) {
@@ -140,7 +161,15 @@ public class MyPageController {
 		modelmap.put("interest", data);
 		return "sns.write";
 	}
-
+	//글수정페이지(글내용 관심사만 수정가능)
+	@GetMapping("/update.do")
+	public String board_update(@RequestParam int num,ModelMap modelmap) {
+		String[] data = "게임,운동,영화,음악,IT<br/>,연애,음식,여행,패션,기타".split(",");
+		modelmap.put("interest", data);
+		Map map = boarddao.getOneBoard(num);
+		modelmap.put("Oneboard", map);
+		return "sns.update";
+	}
 	// 내가 좋아요한 글 목록 보기
 	@RequestMapping("/liked.do")
 	public String liked(WebRequest wr, ModelMap modelmap) {
