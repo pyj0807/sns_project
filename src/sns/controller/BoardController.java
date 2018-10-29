@@ -119,7 +119,7 @@ public class BoardController {
 		Map liked = new HashMap<>();
 		liked.put("roomId", room_id);
 		liked.put("likerId", userId);
-
+ 
 		if (like.get("checked").equals(true)) {
 			liked.put("likedTime", currentTime);
 			boarddao.addBoardLiker(room_id, userId); // 좋아요추가

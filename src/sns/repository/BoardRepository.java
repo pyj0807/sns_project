@@ -57,7 +57,7 @@ public class BoardRepository {
 	public List<Map> getBoardLiker(String liker){
 		Query query = new Query(Criteria.where("likerId").in(liker));
 		List<Map> list = template.find(query, Map.class, "like");
-		list.sort(new Comparator<Map>() {
+		list.sort(new Comparator<Map>()  {
 	          @Override
 	          public int compare(Map o1, Map o2) {
 	             long n1 = (long)o1.get("likedTime"); //time숫자가 클수록 최근
