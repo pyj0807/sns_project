@@ -12,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
@@ -38,9 +41,8 @@ public class IndexController {
 
 	@RequestMapping("/index.do")
 	public String index(ModelMap modelmap, WebRequest wr) {
-
+		
 		// 메인접속시 몽고db board테이블 정보 뽑기
-
 		List<Map> list = boarddao.getAllBoard();
 		modelmap.put("board_list", list);
 		if (wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
@@ -51,11 +53,17 @@ public class IndexController {
 			String sInter = Arrays.toString(interest);
 			List listInter = gson.fromJson(sInter, List.class);
 			wr.setAttribute("allInter", listInter, wr.SCOPE_REQUEST);
-
+			
 			return "sns.home";
 		}
 	}
-
+	@ResponseBody
+	@PostMapping(path="/indexAjax.do",produces="application/json;charset=UTF-8")
+	public String indexAjax(@RequestParam int room_no) {
+		List<Map> list = boarddao.getBoardReply(room_no);
+		String json = gson.toJson(list);
+		return json;
+	}
 	@Autowired
 	AlertService service;
 
@@ -96,8 +104,13 @@ public class IndexController {
 
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
 			wr.setAttribute("user", log, wr.SCOPE_SESSION);
-
-			return "redirect:/index.do";
+			
+			System.out.println(wr.getAttribute("dest", wr.SCOPE_SESSION));
+			if(wr.getAttribute("dest", wr.SCOPE_SESSION)==null) { //dest:경로 입력했을때 주소저장
+				return "redirect:/index.do"; 
+			}else {
+				return "redirect:"+wr.getAttribute("dest", wr.SCOPE_SESSION);
+			}
 		} else {
 
 			return "/index/login";

@@ -13,6 +13,19 @@
   <listener>
   	<listener-class>sns.listener.ApplicationHandler</listener-class>
   </listener>
+  <!-- filter -->
+  <filter>
+  	<filter-name>sns</filter-name>
+  	<filter-class>sns.filter.AuthFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>sns</filter-name>
+  	<!-- 필터아래로 자기꺼 넣을것 -->
+  	<!-- 전진형 -->
+  	<url-pattern>/board/*</url-pattern>
+  	
+  </filter-mapping>
+  
   <!-- The front controller of this Spring Web application, responsible for handling all application requests -->
 	<servlet>
 		<servlet-name>springDispatcherServlet</servlet-name>

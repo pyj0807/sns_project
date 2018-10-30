@@ -57,7 +57,7 @@ public class BoardDao {
 	public long removeBoardLiker(double num, String liker) {
 		//0.query
 		Query query = new Query(Criteria.where("_id").is(num));
-		//1.update(배열에추가)
+		//1.update(배열에삭제)
 		Update u = new Update().pull("liker", liker);
 		//2.UpdateResult
 		UpdateResult rst = template.updateMulti(query, u, "board");
