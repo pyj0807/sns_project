@@ -77,6 +77,30 @@ article:hover .links{
 	</div>
 
   <body>
+     <h2>모든 회원 글보기</h2>
+   <div class="btn-group" role="group" align="center">
+      <button style="align-content: center;" id="btnGroupDrop1"
+         type="button" class="btn btn-secondary
+         dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false">글 보기</button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+         <a class="dropdown-item"
+            href="${pageContext.servletContext.contextPath }/index.do">모든 회원 글 보기</a>
+         <a class="dropdown-item"
+            href="${pageContext.servletContext.contextPath }/newsfeed.do">뉴스피드</a>
+      </div>
+   </div>
+   <div class="btn-group" role="group" align="center">
+   <button style="align-content: center;" id="btnGroupDrop1" type="button"
+      class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">관심사</button>
+   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <c:forEach var="v" items="${allInter}">
+            <a class="dropdown-item"
+               href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
+      </c:forEach>
+   </div>
+</div>
     <main role="main">
       <div class="album py-5 bg-light">
         <div class="container">
