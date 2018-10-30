@@ -55,8 +55,8 @@ $("#searchlist").on("keyup",function(){
 			
 	};
 	
-	$.post("${pageContext.servletContext.contextPath}/searchAjax.do",param,function(rst){
 		var html="";
+	$.post("${pageContext.servletContext.contextPath}/searchAjax.do",param,function(rst){
 		/* var obj =JSON.parse(rst); */
 		 /* console.log(obj); */ 
 		for(var i=0;i<rst.length;i++){
@@ -67,6 +67,24 @@ $("#searchlist").on("keyup",function(){
 	});
 	
 });
+
+/* $("#pass").on("change",function(){
+	window.location.href="${pageContext.servletContext.contextPath}/mypage.do?id="+$("#id").val();
+	
+}) */
+
+var pass=function(){
+	var a=$("#searchlist").val();
+	var r1= new RegExp(/^[#]/);
+
+		
+	
+	
+		/* window.location.href="${pageContext.servletContext.contextPath}/mypage.do?id="+a; */
+		
+	
+	
+}
 
 </script>
 
