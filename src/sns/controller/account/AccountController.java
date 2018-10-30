@@ -94,7 +94,6 @@ public class AccountController {
 	public String alluser(WebRequest wr) {
 		List<Map> list = follow.getAll();
 		wr.setAttribute("list", list, wr.SCOPE_REQUEST);
-		
 		return "sns.alluser";
 	}
 	
