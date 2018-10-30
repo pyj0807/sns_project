@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <nav class="navbar navbar-dark bg-dark">
 	<a class="navbar-brand"
 		href="${pageContext.servletContext.contextPath}">Never expand <span
@@ -34,7 +34,7 @@
 						href="${pageContext.servletContext.contextPath}/club/all.do">오픈채팅</a>
 				</div></li>
 		</ul>
-		<form class="form-inline my-2 my-md-0" action="${pageContext.servletContext.contextPath}/mypage.do" onchange="pass();">
+		<form class="form-inline my-2 my-md-0" action="${pageContext.servletContext.contextPath}/account.do" onchange="pass();">
 			<input class="form-control" type="text" placeholder="Search" list="some"
 				aria-label="Search" autocomplete="off" id="searchlist" name="id" >
 				<!-- <input class="form-control" type="text" placeholder="Search" list="some"
