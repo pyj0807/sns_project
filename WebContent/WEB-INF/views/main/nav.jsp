@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <nav class="navbar navbar-dark bg-dark">
 	<a class="navbar-brand"
 		href="${pageContext.servletContext.contextPath}">Never expand <span
@@ -33,14 +34,46 @@
 						href="${pageContext.servletContext.contextPath}/club/all.do">오픈채팅</a>
 				</div></li>
 		</ul>
-		<form class="form-inline my-2 my-md-0">
-			<input class="form-control" type="text" placeholder="Search"
-				aria-label="Search">
+		<form class="form-inline my-2 my-md-0" action="${pageContext.servletContext.contextPath}/mypage.do" onchange="pass();">
+			<input class="form-control" type="text" placeholder="Search" list="some"
+				aria-label="Search" autocomplete="off" id="searchlist" name="id" >
+				<!-- <input class="form-control" type="text" placeholder="Search" list="some"
+				aria-label="Search" autocomplete="off" id="searchlist" name="id" > -->
+				<datalist id="some">
+				
+			</datalist>
+			
 		</form>
 	</div>
 </nav>
+<script>
+$("#searchlist").on("keyup",function(){
+	console.log($("#searchlist").val());
+	var search=$("#searchlist").val();
+	var param ={
+			"value":search
+			
+	};
+	
+	$.post("${pageContext.servletContext.contextPath}/searchAjax.do",param,function(rst){
+		var html="";
+		/* var obj =JSON.parse(rst); */
+		 /* console.log(obj); */ 
+		for(var i=0;i<rst.length;i++){
+			html+="<option value=\""+rst[i].ID+"\">("+rst[i].NAME+")</option>";
+		}
+			$("#some").html(html);
+		
+	});
+	
+});
+
+</script>
 
 <script>
+
+
+
 	var ws = new WebSocket("ws://" + location.host
 			+ "${pageContext.servletContext.contextPath}/all.do");
 

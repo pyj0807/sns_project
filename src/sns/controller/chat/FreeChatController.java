@@ -70,7 +70,7 @@ public class FreeChatController {
 		
 		String id = (String)wr.getAttribute("Id", wr.SCOPE_SESSION);
 		String id2 =(String)pp.get("id");
-		System.out.println("실제 아더아이디="+id2);
+		/*System.out.println("실제 아더아이디="+id2);*/
 		
 	/*	if(mongochat.getcount(id)>0) {*/
 			mongochat.removecount(id,(String)wr.getAttribute("Id", wr.SCOPE_SESSION),id2);

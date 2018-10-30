@@ -11,5 +11,12 @@
 	<select id="getAllUserInfo" resultType="java.util.HashMap">
 		select id,name,interest from account
 	</select>
+	
+	<select id="allAccount" resultType="java.util.HashMap" parameterType="java.lang.String">
+		select id,email,name from account where id like #{id}
+	</select>
+	
+	
+	
 
 </mapper>
