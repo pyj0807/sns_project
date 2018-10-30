@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -183,21 +186,75 @@ public class MyPageController {
 		return "sns.liked";
 	}
 
-
-	@ResponseBody
-	@PostMapping("/inte.do")
-	public String inte(@RequestParam Map map) {
-		// 예를들어 RequestParam 으로 게임이 들어왔다. 그러면 게임에 관심이 있는 사람들의 목록을 보여준다.
-		List<Map> same = follow.sameInter(map);
-		Map realSame =  new HashMap<>();
-		for(int i=0; i<same.size(); i++) {
-			double randomSu = Math.random();
-			int intSu = (int)(randomSu*same.size());
-			realSame.put("1+i", (same.get(intSu)));
-		}
-		realSame.put("mode", "on");
+	// 마이페이지에서 관심사 버튼 중 한개를 눌렀을때 처리
+	@ResponseBody // 안해주면 view로 리턴함
+	@PostMapping(path="/inte.do", produces="application/json;charset=UTF-8")
+	public String inte(@RequestBody String body, WebRequest wr) {
+		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+		String loginId = (String) user.get("ID");
 		
+		// 예를들어 RequestParam 으로 게임이 들어왔다. 그러면 게임에 관심이 있는 사람들의 목록을 보여준다.
+		System.out.println(body);
+		Map mm = gson.fromJson(body, Map.class);
+		String inte = (String) mm.get("inte");
+		
+		// 관심사가 같은 회원 정보 뽑기
+		List<Map> allUserInfo = follow.getAllUserInfo(); // 모든회원정보
+		List<Map> sameInterUser = new ArrayList<>();	// 같은 관심사를 가진 회원이 담긴 리스트
+		for(int i=0; i<allUserInfo.size();i++) {
+			boolean boo = allUserInfo.get(i).get("INTEREST").toString().contains(inte);
+			if(boo) {
+				sameInterUser.add(allUserInfo.get(i));
+			}
+		}
+		
+		Map realSame =  new HashMap<>();
+		for(int i=0; i<3; i++) {
+			int ran = (int) (Math.random()*sameInterUser.size()); 
+			 if(realSame.containsValue(sameInterUser.get(ran)) || sameInterUser.get(ran).get("ID").equals(loginId)) {
+				 i--;
+			 }else {
+				 realSame.put(1+i, sameInterUser.get(ran));
+			 }
+		}
 		return gson.toJson(realSame);
 	}
+	
+	@RequestMapping("/test.do")
+	public String test(WebRequest wr) {
+		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+		String loginId = (String) user.get("ID");
+
+		String inte = "게임";
+		
+		List<Map> allUserInfo = follow.getAllUserInfo(); // 모든회원정보
+		List<Map> sameInterUser = new ArrayList<>();	// 담을 리스트 
+		for(int i=0; i<allUserInfo.size();i++) {
+			boolean boo = allUserInfo.get(i).get("INTEREST").toString().contains(inte);
+			if(boo) {
+				sameInterUser.add(allUserInfo.get(i));
+				System.out.println(allUserInfo.get(i).get("INTEREST").toString().contains(inte));
+			}
+		}
+		for(int i=0; i<sameInterUser.size();i++) {
+			System.out.println(sameInterUser.get(i));
+		}
+
+		Map realSame =  new HashMap<>();
+		for(int i=0; i<3; i++) {
+			int ran = (int) (Math.random()*sameInterUser.size()); 
+			 if(realSame.containsValue(sameInterUser.get(ran)) || sameInterUser.get(ran).get("ID").equals(loginId)) {
+				 i--;
+			 }else {
+				 realSame.put(1+i, sameInterUser.get(ran));
+			 }
+		}
+		for(int i=0; i<3;i++) {
+				System.out.println("여기서:"+realSame.get(i+1));
+		}
+		
+		return "";
+	}
+	
 
 }

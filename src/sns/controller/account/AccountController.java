@@ -1,6 +1,7 @@
 package sns.controller.account;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,11 @@ public class AccountController {
 		// 새로운 리스트를 만들어서 여기에 그 사람들의 글을 전부 넣을거다. (이미 Repository에서 소팅하고옴)
 		List allList = boardRepository.getFollowBoardCnt(list);
 		wr.setAttribute("allList",	allList, wr.SCOPE_SESSION);
+		
+		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+		String sInter = Arrays.toString(interest);
+		List listInter = gson.fromJson(sInter, List.class);
+		wr.setAttribute("allInter", listInter, wr.SCOPE_REQUEST);
 		
 		return "sns.newsfeed";
 	}
