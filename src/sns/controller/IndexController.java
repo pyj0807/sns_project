@@ -44,6 +44,7 @@ public class IndexController {
 		
 		// 메인접속시 몽고db board테이블 정보 뽑기
 		List<Map> list = boarddao.getAllBoard();
+		
 		modelmap.put("board_list", list);
 		if (wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
 
