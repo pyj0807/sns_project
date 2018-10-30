@@ -3,12 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
+
 img {
-	max-width: 100%;
-	width: 700px;
-	max-height: 100%;
-	height: 500px;
-}
+	;
+	width: 400px;
+	
+	height: auto;
+	height: 300px;
+	}
+
+
 video {
 	max-width: 100%;
 	width:700px;

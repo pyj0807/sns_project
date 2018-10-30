@@ -1,6 +1,8 @@
 package sns.controller.chat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,13 @@ public class AllSocketController extends TextWebSocketHandler{
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
 		service.addSocket(session);
+		
+		List lll=new ArrayList<>();
+		
+		
+		
+		
+		
 		System.out.println(session.getAttributes());
 		System.out.println(service.size());
 	long count=	mongodao.getcount((String)session.getAttributes().get("userId"));

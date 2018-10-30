@@ -88,9 +88,13 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		modeid.add(map.get("id"));
 		modeid.add(map.get("otherId"));
 		String modeidd=gson.toJson(modeid);
+		
+		List a=new ArrayList<>();
+		a.add(otherId);
 		map.put("modeId", modeid);
 		map.put("readid", otherId);
 		map.put("sendtime",sf.format(time) );
+		map.put("readid",a );
 		mongochat.insertfreechat(map);
 		
 		String str= gson.toJson(map);
