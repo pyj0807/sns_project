@@ -46,7 +46,7 @@ video {
 			href="${pageContext.servletContext.contextPath }/liked.do"><button
 				type="button" class="btn btn-light">내가좋아요한게시물</button></a> <a
 			href="${pageContext.servletContext.contextPath }/logout.do"><button
-				type="button" class="btn btn-danger">로그아웃</button></a>
+				type="button" class="btn btn-danger">로그아웃</button></a></a>
 	</p>
 </div>
 <hr />
@@ -56,6 +56,8 @@ video {
 	<c:forEach var="v" items="${myInter}">
  			<button class="btn btn-outline-dark"  value="${v }" onclick="myFunction(this);" >#${v } </button>
 	</c:forEach>
+	<a href="${pageContext.servletContext.contextPath }/alluser.do"><button
+				type="button" class="btn btn-Info">모든 유저 보기</button></a>
 <br/>
 <br/>
 <span id="inte"></span>
@@ -123,7 +125,7 @@ video {
 
 	</div> 
 </div> 
-</main>
+</main> 
 
 <script> 
 function myFunction(target) {
@@ -142,9 +144,9 @@ function myFunction(target) {
 				html += "<a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
 				html += obj[i].ID;
 				html += "\">";
-				html += obj[i].NAME;
-				html += "(";
 				html += obj[i].ID;
+				html += "(";
+				html += obj[i].NAME;
 				html += ")</a>";
 				html += "<br/>";
 			}

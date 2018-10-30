@@ -49,4 +49,10 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/account/interestfeed.jsp" />
 	</definition>
+	<!-- 모든 유저 뽑는 페이지 -->
+	<definition name="sns.alluser" template="/WEB-INF/tiles/sns-mypagetemplate.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
+		<put-attribute name="left" value="" />
+		<put-attribute name="center" value="/WEB-INF/views/account/alluser.jsp" />
+	</definition>
 </tiles-definitions>

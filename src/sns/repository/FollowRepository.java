@@ -56,6 +56,9 @@ public class FollowRepository {
 		return sqltemplate.selectList("account.getAllUserInfo");
 	}
 	
+	public List<Map> getAll(){
+		return sqltemplate.selectList("account.getAll");
+	}
 
 	
 
