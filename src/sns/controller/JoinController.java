@@ -44,7 +44,8 @@ public class JoinController {
 	public String joinPostHandle(@RequestParam Map param, ModelMap map, WebRequest wr) {
 
 		String id = (String) param.get("id");
-		String subid = (String) param.get("subid");
+		String emailid = (String)param.get("email01");
+		String subid = (String) param.get("email02");
 		String email = id + "@" + subid;
 		String pass = (String) param.get("pass");
 		String name = (String) param.get("name");

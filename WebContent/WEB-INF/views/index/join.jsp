@@ -44,29 +44,20 @@
 									onkeyup="checkId(this.value);" required> <br />
 								<span id="idspan"></span>
 								<h4>메일 인증</h4>
-								<!-- 
-								<input name="email01" id="email01" type="text" style="width:100px;" maxlength="12"
-									placeholder="이메일 " required> 
-									@
-								<input type="text" name="email02" id="email02" style="width:100px;" disabled> 
-								 <select style="width:100px;margin-right:10px" name="subid" id="subid"> 
-									 <option value="1">직접입력</option> 
-									 <option value="naver.com" selected>naver.com</option> 
-									 <option value="hanmail.net">hanmail.net</option> 
-									 <option value="nate.com">nate.com</option> 
-									 <option value="gmail.com">gmail.com</option> 
-								 </select>	
-								 	 -->
-								<input type="text" name="str_email01" id="str_email01" style="width: 100px"> 
+								<input type="text" name="email01" id="email01" style="width: 100px"> 
 								@ 
-								<input type="text" name="str_email02" id="str_email02" style="width: 100px;"> 
+								<input type="text" name="email02" id="email02" style="width: 100px;" disabled value="naver.com" > 
 								<select	style="width: 100px; margin-right: 10px" name="subid" id="subid">
-									 <option value="naver.com" selected>naver.com</option> 
-									 <option value="hanmail.net">hanmail.net</option> 
-									 <option value="nate.com">nate.com</option> 
-									 <option value="gmail.com">gmail.com</option> 
+									<option value="1">직접입력</option> 
+									<option value="naver.com" selected>naver.com</option> 
+									<option value="hanmail.net">hanmail.net</option> 
+									<option value="nate.com">nate.com</option> 
+									<option value="gmail.com">gmail.com</option> 
 								</select>
-
+								<br/>
+								
+								<button type="submit">번호받기</button><br/>
+								<input type="text" id="ckemail" name="ckemail">
 
 								<h4>비밀번호</h4>
 								<input name="pass" id="pass" type="password" maxlength="20"
@@ -220,29 +211,26 @@
 			checkbox.splice(idx, 1);
 		}
 	}
+	
+		
+	
 </script>
 
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <script type="text/javascript">
-/* 
+	//이메일 직접입력
 	$('#subid').change(function() {
 		$("#subid option:selected").each(function() {
-			if ($(this).val() == "1") { //직접입력일 경우 
-				$("#subid").val(""); //값 초기화
+			if ($(this).val() == '1') { //직접입력일 경우 
+				$("#email02").val(''); //값 초기화
 				$("#email02").attr("disabled", false); //활성화
-		
-				alert(this['subid'].value);
-
 			} else { //직접입력이 아닐경우 
 				$("#email02").val($(this).text()); //선택값 입력
 				$("#email02").attr("disabled", true); //비활성화
 			}
 		});
 	});
-*/
- 
-	 
+
 </script>
 
 
