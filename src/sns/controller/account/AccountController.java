@@ -1,6 +1,7 @@
 package sns.controller.account;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,22 +82,20 @@ public class AccountController {
 		List allList = boardRepository.getFollowBoardCnt(list);
 		wr.setAttribute("allList",	allList, wr.SCOPE_SESSION);
 		
+		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+		String sInter = Arrays.toString(interest);
+		List listInter = gson.fromJson(sInter, List.class);
+		wr.setAttribute("allInter", listInter, wr.SCOPE_REQUEST);
+		
 		return "sns.newsfeed";
 	}
-
-	@ResponseBody
-	@PostMapping("/inte.do")
-	public List<Map> inte(@RequestParam String inte) {
-		// 예를들어 RequestParam 으로 게임이 들어왔다. 그러면 게임에 관심이 있는 사람들의 목록을 보여준다.
-		List<Map> same = follow.sameInter(inte);
-		List<Map> realSame =  new ArrayList<>();
-		for(int i=0; i<same.size(); i++) {
-			double randomSu = Math.random();
-			int intSu = (int)(randomSu*same.size());
-			realSame.add(same.get(intSu));
-		}
+	
+	@RequestMapping("/alluser.do")
+	public String alluser(WebRequest wr) {
+		List<Map> list = follow.getAll();
+		wr.setAttribute("list", list, wr.SCOPE_REQUEST);
 		
-		return realSame;
+		return "sns.alluser";
 	}
 	
 }

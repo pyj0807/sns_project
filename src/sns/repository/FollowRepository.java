@@ -15,9 +15,6 @@ import com.google.gson.Gson;
 public class FollowRepository {
 	@Autowired
 	SqlSessionTemplate sqltemplate;
-	
-	@Autowired
-	Gson gson;
 
 	public int insertFollowing(Map map) {
 		return sqltemplate.insert("follow.insertFollowing", map);
@@ -56,19 +53,13 @@ public class FollowRepository {
 	}
 	
 	public List<Map> getAllUserInfo(){
-		return sqltemplate.selectList("follow.getAllUserInfo");
+		return sqltemplate.selectList("account.getAllUserInfo");
 	}
 	
-	// 관심사가 같은 회원 정보 뽑기
-	public List<Map> sameInter(String inte){
-		List<Map> allUserInfo = getAllUserInfo();
-		List<Map> sameInterUser = new ArrayList<>();
-		for(int i=0; i<allUserInfo.size();i++) {
-			allUserInfo.get(i).get("INTEREST").equals(inte);
-			sameInterUser.add(allUserInfo.get(i));
-		}
-		return sameInterUser;
+	public List<Map> getAll(){
+		return sqltemplate.selectList("account.getAll");
 	}
+
 	
 
 }

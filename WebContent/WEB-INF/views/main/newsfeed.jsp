@@ -18,11 +18,12 @@ video {
 </style>
 <body>
 	<h2>내가 팔로우 한 사람의 글만 보기</h2>
-		<div class="btn-group" role="group" align="center">
+	<div class="btn-group" role="group" align="center">
 		<button style="align-content: center;" id="btnGroupDrop1"
 			type="button" class="btn btn-secondary
-			dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false">글 보기</button>
+			dropdown-toggle"
+			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">글
+			보기</button>
 		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 			<a class="dropdown-item"
 				href="${pageContext.servletContext.contextPath }/index.do">모든회원글보기</a>
@@ -30,6 +31,18 @@ video {
 				href="${pageContext.servletContext.contextPath }/newsfeed.do">뉴스피드</a>
 		</div>
 	</div>
+	<div class="btn-group" role="group" align="center">
+		<button style="align-content: center;" id="btnGroupDrop1"
+			type="button" class="btn btn-secondary dropdown-toggle"
+			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">관심사</button>
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+			<c:forEach var="v" items="${allInter}">
+				<a class="dropdown-item"
+					href="${pageContext.servletContext.contextPath}/interestfeed.do?theme=${v}">${v}</a>
+			</c:forEach>
+		</div>
+	</div>
+	
 	<main role="main">
 	<div class="album py-5 bg-light">
 		<div class="container">

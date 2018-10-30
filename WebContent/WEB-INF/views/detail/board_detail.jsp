@@ -9,7 +9,6 @@ img {
 	max-height: 100%;
 	height: 500px;
 }
-
 video {
 	max-width: 100%;
 	width:700px;

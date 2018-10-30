@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,8 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -157,14 +161,14 @@ public class MyPageController {
 	@GetMapping("/write.do")
 	public String write(ModelMap modelmap) {
 		// 글 관심사 선택, 1개만 선택 가능
-		String[] data = "게임,운동,영화,음악,IT<br/>,연애,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
 		modelmap.put("interest", data);
 		return "sns.write";
 	}
 	//글수정페이지(글내용 관심사만 수정가능)
 	@GetMapping("/update.do")
 	public String board_update(@RequestParam int num,ModelMap modelmap) {
-		String[] data = "게임,운동,영화,음악,IT<br/>,연애,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
 		modelmap.put("interest", data);
 		Map map = boarddao.getOneBoard(num);
 		modelmap.put("Oneboard", map);
@@ -182,5 +186,75 @@ public class MyPageController {
 		return "sns.liked";
 	}
 
+	// 마이페이지에서 관심사 버튼 중 한개를 눌렀을때 처리
+	@ResponseBody // 안해주면 view로 리턴함
+	@PostMapping(path="/inte.do", produces="application/json;charset=UTF-8")
+	public String inte(@RequestBody String body, WebRequest wr) {
+		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+		String loginId = (String) user.get("ID");
+		
+		// 예를들어 RequestParam 으로 게임이 들어왔다. 그러면 게임에 관심이 있는 사람들의 목록을 보여준다.
+		System.out.println(body);
+		Map mm = gson.fromJson(body, Map.class);
+		String inte = (String) mm.get("inte");
+		
+		// 관심사가 같은 회원 정보 뽑기
+		List<Map> allUserInfo = follow.getAllUserInfo(); // 모든회원정보
+		List<Map> sameInterUser = new ArrayList<>();	// 같은 관심사를 가진 회원이 담긴 리스트
+		for(int i=0; i<allUserInfo.size();i++) {
+			boolean boo = allUserInfo.get(i).get("INTEREST").toString().contains(inte);
+			if(boo) {
+				sameInterUser.add(allUserInfo.get(i));
+			}
+		}
+		
+		Map realSame =  new HashMap<>();
+		for(int i=0; i<3; i++) {
+			int ran = (int) (Math.random()*sameInterUser.size()); 
+			 if(realSame.containsValue(sameInterUser.get(ran)) || sameInterUser.get(ran).get("ID").equals(loginId)) {
+				 i--;
+			 }else {
+				 realSame.put(1+i, sameInterUser.get(ran));
+			 }
+		}
+		return gson.toJson(realSame);
+	}
+	
+	@RequestMapping("/test.do")
+	public String test(WebRequest wr) {
+		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+		String loginId = (String) user.get("ID");
+
+		String inte = "게임";
+		
+		List<Map> allUserInfo = follow.getAllUserInfo(); // 모든회원정보
+		List<Map> sameInterUser = new ArrayList<>();	// 담을 리스트 
+		for(int i=0; i<allUserInfo.size();i++) {
+			boolean boo = allUserInfo.get(i).get("INTEREST").toString().contains(inte);
+			if(boo) {
+				sameInterUser.add(allUserInfo.get(i));
+				System.out.println(allUserInfo.get(i).get("INTEREST").toString().contains(inte));
+			}
+		}
+		for(int i=0; i<sameInterUser.size();i++) {
+			System.out.println(sameInterUser.get(i));
+		}
+
+		Map realSame =  new HashMap<>();
+		for(int i=0; i<3; i++) {
+			int ran = (int) (Math.random()*sameInterUser.size()); 
+			 if(realSame.containsValue(sameInterUser.get(ran)) || sameInterUser.get(ran).get("ID").equals(loginId)) {
+				 i--;
+			 }else {
+				 realSame.put(1+i, sameInterUser.get(ran));
+			 }
+		}
+		for(int i=0; i<3;i++) {
+				System.out.println("여기서:"+realSame.get(i+1));
+		}
+		
+		return "";
+	}
+	
 
 }

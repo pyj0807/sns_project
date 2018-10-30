@@ -11,5 +11,9 @@
 	<select id="getAllUserInfo" resultType="java.util.HashMap">
 		select id,name,interest from account
 	</select>
+	<!-- 모든 유저 정보 -->
+	<select id="getAll" resultType="java.util.HashMap">
+		select * from account
+	</select>
 
 </mapper>

@@ -46,33 +46,23 @@ video {
 			href="${pageContext.servletContext.contextPath }/liked.do"><button
 				type="button" class="btn btn-light">내가좋아요한게시물</button></a> <a
 			href="${pageContext.servletContext.contextPath }/logout.do"><button
-				type="button" class="btn btn-danger">로그아웃</button></a>
+				type="button" class="btn btn-danger">로그아웃</button></a></a>
 	</p>
 </div>
 <hr />
 관심사가 같은 회원 추천
 <br />
 <br />
-		<c:forEach var="v" items="${myInter}">
-			<button type="button" id="inte" class="btn btn-outline-dark">#${v } </button>
-		</c:forEach>
+	<c:forEach var="v" items="${myInter}">
+ 			<button class="btn btn-outline-dark"  value="${v }" onclick="myFunction(this);" >#${v } </button>
+	</c:forEach>
+	<a href="${pageContext.servletContext.contextPath }/alluser.do"><button
+				type="button" class="btn btn-Info">모든 유저 보기</button></a>
 <br/>
 <br/>
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=shpbbb">박소현(shpbbb)</a>
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=wlsgud1990">전진형(wlsgud1990)</a>
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=rjsrl504">박건기(rjsrl504)</a>
-<br />
-<a
-	href="${pageContext.servletContext.contextPath }/account.do?id=joon920807">박영준(joon920807)</a>
-<br />
-<hr />
-
-
+<span id="inte"></span>
+<br/>
+<br/>
 
 <main role="main">
 <div class="album py-5 bg-light">
@@ -133,20 +123,36 @@ video {
 		</div>
 
 
-	</div>
-</div>
-</main>
-<script>
-	$("#inte").on("click",function(){
-		console.log("inte추천");
-		var param = {
-				"inte":"${v}"
-		};
-		$.post("${pageContext.servletContext.contextPath}/inte.do", param, function(rst){
-			var obj = JSON.parse(rst);
+	</div> 
+</div> 
+</main> 
+
+<script> 
+function myFunction(target) {
+	console.log("관심사 : "+ target.value);
+	var xhr = new XMLHttpRequest();
+	xhr.open("post","${pageContext.servletContext.contextPath}/inte.do",true);
+	var param={                   
+			"inte":target.value
+	};  
+	xhr.onreadystatechange = function(){
+		if(this.readyState==4){
+			var obj = JSON.parse(this.responseText);
 			console.log(obj);
-		})
-	})
-
-
+			var html = ""; 
+ 			for(var i=1; i<=3; i++){
+				html += "<a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
+				html += obj[i].ID;
+				html += "\">";
+				html += obj[i].ID;
+				html += "(";
+				html += obj[i].NAME;
+				html += ")</a>";
+				html += "<br/>";
+			}
+			document.getElementById("inte").innerHTML = html;
+		}
+	};
+ 	xhr.send(JSON.stringify(param)); 
+}
 </script>

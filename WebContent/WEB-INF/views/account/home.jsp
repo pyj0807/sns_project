@@ -133,16 +133,13 @@ video {
 </div>
 </main>
 <script>
-	$("#follow").on(
-			"click",
-			function() {
+	$("#follow").on("click",function() {
 				console.log("start");
 				var param = {
 					"myid" : "${sessionScope.user.ID}",
 					"otherid" : "${id}"
 				};
-				$.post("${pageContext.servletContext.contextPath }/follow.do",
-						param, function(rst) {
+				$.post("${pageContext.servletContext.contextPath }/follow.do",param, function(rst) {
 							var obj = JSON.parse(rst);
 							console.log(obj);
 							switch (obj.mode) {
