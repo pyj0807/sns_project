@@ -95,5 +95,12 @@
 	
 	
 	</websocket:handlers> -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="52.78.68.98"/>
+	<property name="port" value="25"/>
+	<property name="protocol" value="smtp"/>
+	<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
 
 </beans>
