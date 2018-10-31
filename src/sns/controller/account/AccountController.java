@@ -43,6 +43,11 @@ public class AccountController {
 		} else {
 			// 다른 회원이 쓴 글목록 리스트와 사이즈(글개수)
 			List<Map> accountlist = boardRepository.findWriter(id);
+			for(int i=0; i<accountlist.size(); i++) {
+				long writetime = (long)accountlist.get(i).get("time");
+				long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+				accountlist.get(i).put("lasttime", lasttime);
+			}
 			int size = accountlist.size();
 			Map otherUser = boardRepository.getOneUserInfo(id);
 			wr.setAttribute("otherUser", otherUser, wr.SCOPE_REQUEST);
@@ -79,7 +84,12 @@ public class AccountController {
 		// 내가 팔로우 한 사람들의 아이디 목록을 리스트에 넣었다.
 		List list = follow.getFollowingList(loginId);
 		// 새로운 리스트를 만들어서 여기에 그 사람들의 글을 전부 넣을거다. (이미 Repository에서 소팅하고옴)
-		List allList = boardRepository.getFollowBoardCnt(list);
+		List<Map> allList = boardRepository.getFollowBoardCnt(list);
+		for(int i=0; i<allList.size(); i++) {
+			long writetime = (long)allList.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			allList.get(i).put("lasttime", lasttime);
+		}
 		wr.setAttribute("allList",	allList, wr.SCOPE_SESSION);
 		
 		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");

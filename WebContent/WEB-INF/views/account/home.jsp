@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <style>
 img {
 	max-width: 100%;
@@ -152,7 +153,25 @@ article:hover .links {
 										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
-										<small class="text-muted">9 mins</small>
+										<small class="text-muted">
+											<c:choose>
+					                    		<c:when test="${i.lasttime <60}">
+					                    			${i.lasttime }초전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+					                    		</c:otherwise>
+				                    		</c:choose>
+										</small>
 									</div>
 								</div>
 							</div>
@@ -179,7 +198,25 @@ article:hover .links {
 										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
-										<small class="text-muted">9 mins</small>
+										<small class="text-muted">
+											<c:choose>
+					                    		<c:when test="${i.lasttime <60}">
+					                    			${i.lasttime }초전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+					                    		</c:otherwise>
+				                    		</c:choose>
+										</small>
 									</div>
 								</div>
 							</div>
