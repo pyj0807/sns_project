@@ -34,10 +34,6 @@ public class AccountController {
 	// 다른 회원 페이지
 	@RequestMapping("/account.do")
 	public String account(WebRequest wr, @RequestParam String id,ModelMap map) {
-		
-		
-		
-
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
 		

@@ -19,7 +19,6 @@ video {
 	height: 500px;
 }
 </style>
-
 <br/>
 <br/>
 <br/>
