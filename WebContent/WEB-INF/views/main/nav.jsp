@@ -63,10 +63,12 @@ $("#searchlist").on("keyup",function(){
 		 var list =rst.taglist;
 		 /* console.log(list); */
 		 /* console.log("하하하하하="+id); */
-		
+	if(id.length<15){
 		   for(var i=0;i<id.length;i++){
 			html+="<option value=\""+id[i].ID+"\">"+id[i].ID+"("+id[i].NAME+")</option>";
-		};   
+		   
+	};
+	}
 		
 		
 		 
