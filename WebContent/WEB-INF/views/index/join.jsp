@@ -41,24 +41,29 @@
 								<h4>아이디</h4>
 								<input name="id" id="id" type="text" style="width: 100px;"
 									maxlength="20" placeholder="아이디 "
-									onkeyup="checkId(this.value);" required> <br />
+									onkeyup="checkId(this.value);" required autofocus > <br />
 								<span id="idspan"></span>
-								<h4>메일 인증</h4>
-								<input type="text" name="email01" id="email01" style="width: 100px"> 
+								<h4>이메일 인증</h4>
+								<input type="text" name="email01" id="email01" style="width: 100px" > 
 								@ 
 								<input type="text" name="email02" id="email02" style="width: 100px;" disabled value="naver.com" > 
 								<select	style="width: 100px; margin-right: 10px" name="subid" id="subid">
 									<option value="1">직접입력</option> 
-									<option value="naver.com" selected>naver.com</option> 
+									<option value="naver.com" selected>naver.com</option>
+									<option value=daum.net>daum.net</option>  
 									<option value="hanmail.net">hanmail.net</option> 
 									<option value="nate.com">nate.com</option> 
 									<option value="gmail.com">gmail.com</option> 
 								</select>
 								<br/>
 								
-								<button type="submit">번호받기</button><br/>
-								<input type="text" id="ckemail" name="ckemail">
-
+								<button type="submit" id="emailauth">번호받기</button>
+								<small id="ckmail1"></small>
+								<input type="text" id="confirm" class="form-control" name="confirm" placeholder="인증번호" required>
+								<button type="button" id="confirmok" disabled="disabled">인증하기</button>
+								<small id="ckmail2"></small>
+								
+								
 								<h4>비밀번호</h4>
 								<input name="pass" id="pass" type="password" maxlength="20"
 									placeholder="비밀번호" required> <br />
@@ -148,7 +153,7 @@
 							</div>
 						</div>
 
-						<button type="submit">가입</button>
+						<button type="submit" id="btnsubmit">가입</button>
 					</div>
 
 				</div>
@@ -230,7 +235,43 @@
 			}
 		});
 	});
+	
 
+	$("#emailauth").on("click", function() {
+		var param = {"email01":$("#email01").val(),"email02":$("#email02").val()};
+		$("#confirm").prop("disabled", false);
+		$("#confirmok").prop("disabled", false);
+		$.post("${pageContext.servletContext.contextPath}/email.do", param).done(function(rst) {
+			document.getElementById("ckmail1").innerHTML = "전송";
+			document.getElementById("ckmail1").style.color = "green";
+		});
+	});
+	
+	
+	$("#confirmok").on("click", function() {
+		var param = {"confirmkey":$("#confirm").val()};
+		console.log($("#confirm").val());
+		$.post("${pageContext.servletContext.contextPath}/emailauth.do", param).done(function(rst) {
+			console.log(rst);
+			if(rst.includes("true") == true) {
+				document.getElementById("ckmail2").innerHTML = "인증완료";
+				document.getElementById("ckmail2").style.color = "green";
+				$("#inputEmail").prop("readonly", true);
+				$("#emailauth").prop("disabled", true);	
+				$("#confirm").prop("disabled", true);
+				$("#confirmok").prop("disabled", true);
+				$("#btnsubmit").prop("disabled", false);
+			}else {
+				document.getElementById("ckmail2").innerHTML = "인증실패";
+				document.getElementById("ckmail2").style.color = "red";
+				$("#confirm").prop("disabled", true);
+				$("#confirmok").prop("disabled", true);
+				document.getElementById("emailauth").innerHTML = "재전송";
+				document.getElementById("ckmail1").innerHTML = "";
+			}
+		});
+	});
+	
 </script>
 
 

@@ -22,7 +22,7 @@ public class TestMail {
 		String txt = "인증키"; // 인증기
 		txt += UUID.randomUUID().toString().split("-")[0];  //인증키 생성
 		msg.setText(txt);
-		msg.setTo("hkdlye@daum.net");	// 받는사람
+		msg.setTo("joon920807@hanmail.net");	// 받는사람
 		msg.setFrom("aaa@hahah.com");
 		
 		try {

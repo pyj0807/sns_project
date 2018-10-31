@@ -19,40 +19,44 @@ public class EmailController {
 	@Autowired
 	JavaMailSender sender;
 	
+	@ResponseBody
 	@PostMapping("/email.do")
-	public void emailsenderHandl(WebRequest wr) {
+	public String emailsenderHandl(WebRequest wr,@RequestParam Map param) {
 		SimpleMailMessage msg = new SimpleMailMessage();
-		String email01 = (String) wr.getParameter("email01");
-		String email02 = (String) wr.getParameter("email02");
-		String email = email01 + "@" + email02;
-		System.out.println(email);
+		String email01 = (String)param.get("email01");
+		String email02 = (String)param.get("email02");
+		String receiver  = email01 + "@" + email02;
+		System.out.println(receiver);
 		
 		msg.setSubject("회원가입 인증번호");
 		String txt = "인증번호 : ";
 		String confirm = UUID.randomUUID().toString().split("-")[0];
-		
+		txt += confirm;
 		
 		wr.setAttribute("confirm", confirm, wr.SCOPE_SESSION);
 		msg.setText(txt);
-		msg.setTo(email);
+		msg.setTo(receiver);
 		msg.setFrom("sns@test.com");
 		
 		try {
 			sender.send(msg);
 			System.out.println("성공?");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("나가리");
 		}
-		
+		return txt;
 	}
 	
 	@ResponseBody
-	@RequestMapping("emailauth.do")
+	@PostMapping("/emailauth.do")
 	public String emailsenderHandle(@RequestParam Map param,WebRequest wr) {
-		String confirm = (String)wr.getAttribute("confirmKey", wr.SCOPE_SESSION);
+		String confirm = (String)wr.getAttribute("confirm", wr.SCOPE_SESSION);
 		String confirm1 = (String)param.get("confirmkey");
 		String rst;
+		System.out.println(confirm);	//이새끼가 null임 
+		System.out.println(confirm1);
 		wr.removeAttribute("confirmKey", wr.SCOPE_SESSION);
 		if(confirm.equals(confirm1)) {
 			rst = "true";
