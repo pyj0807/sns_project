@@ -77,19 +77,35 @@
 	<c:choose>
 		<c:when test="${!empty best }">
 		<form action="${pageContext.servletContext.contextPath}/club/remove.do">
-		<input type="hidden" name = "contentid" value="${contentid }">
-  <button type="submit" class="btn btn-secondary btn-lg btn-block" >방 없애기</button>
+		<input type="hidden" name = "contentid" value="${contentid }" id="qqq">
+  <!-- <button type="submit" class="btn btn-secondary btn-lg btn-block" >방 없애기</button> -->
+  <button type="button" class="btn btn-secondary btn-lg btn-block" id="abcd">방 없애기</button>
 		</form>
 		</c:when>
 		<c:otherwise>
-		<form action="${pageContext.servletContext.contextPath}/club/all.do">
-		 <button type="submit" class="btn btn-secondary btn-lg btn-block">방 나가기</button>
+		<form>
+		<!--  <button type="submit" class="btn btn-secondary btn-lg btn-block">방 나가기</button> -->
+		 <button type="button" class="btn btn-secondary btn-lg btn-block" id="abcde">방 나가기</button>
 		
 		</form>
 		</c:otherwise>
 	</c:choose>
 
 <script>
+$("#abcd").on("click",function(){
+	var d=window.confirm("방을 없애시겠습니까?");
+	console.log(d);
+	if(d==true){
+		window.location.href ="${pageContext.servletContext.contextPath}/club/remove.do?contentid="+$("#qqq").val();
+	}
+});
+
+
+
+
+
+
+
 	var clubchatws= new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/clubchating.do");
 
 	clubchatws.onmessage= function(evt) {

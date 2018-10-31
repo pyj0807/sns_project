@@ -36,7 +36,7 @@
 		</ul>
 		<form class="form-inline my-2 my-md-0" action="${pageContext.servletContext.contextPath}/account.do" onchange="pass();">
 			<input class="form-control" type="text" placeholder="Search" list="some"
-				aria-label="Search" autocomplete="off" id="searchlist" name="id" >
+				 autocomplete="off" id="searchlist" name="id" >
 				<!-- <input class="form-control" type="text" placeholder="Search" list="some"
 				aria-label="Search" autocomplete="off" id="searchlist" name="id" > -->
 				<datalist id="some">
@@ -63,14 +63,18 @@ $("#searchlist").on("keyup",function(){
 		 var list =rst.taglist;
 		 /* console.log(list); */
 		 /* console.log("하하하하하="+id); */
+		
 		   for(var i=0;i<id.length;i++){
-			html+="<option value=\""+id[i].ID+"\">("+id[i].NAME+")</option>";
+			html+="<option value=\""+id[i].ID+"\">"+id[i].ID+"("+id[i].NAME+")</option>";
 		};   
 		
+		
+		 
 		 for(var ii=0;ii<list.length;ii++){
 		
-			html+= "<option value=\""+list[ii]+"\">("+list[ii]+")</option>"
+			html+= "<option value=\""+list[ii]+"\">"+"("+list[ii]+")</option>"
 		}; 
+	
 		
 			$("#some").html(html);
 		

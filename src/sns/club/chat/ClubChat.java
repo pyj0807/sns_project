@@ -177,6 +177,7 @@ public class ClubChat {
 	public String clubremoveroom(@RequestParam Map map,WebRequest wr) {
 		System.out.println("이이이이="+(String)map.get("contentid")+(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		mongoremove.roomremove((String)map.get("contentid"),(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
+		mongoremove.roomchatremove((String)map.get("contentid"));
 		return "redirect:/club/all.do";
 	}
 	
