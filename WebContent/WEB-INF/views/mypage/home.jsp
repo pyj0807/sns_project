@@ -124,8 +124,11 @@ article:hover .links {
 						<div class="col-md-4">
 							<div class="card mb-4 shadow-sm">
 								<article>
-									<div class="thumbImg" style="width: auto; height: 250px;">
-										<video class="card-img-top" src="${i.file_attach }" controls></video>
+									<div class="thumbImg" style="width: auto; height: 250px;"
+									data-target="${i._id }">
+										<video class="card-img-top" src="${i.file_attach }" 
+										data-toggle="modal" data-target="#exampleModalCenter"
+											data-con="${i.content}" data-vid="${i.file_attach }" data-ima="" controls/>
 									</div>
 									<div class="links" style="text-align: center;"></div>
 								</article>
@@ -137,32 +140,28 @@ article:hover .links {
 										<div class="btn-group">
 											<!-- Button trigger modal -->
 											<button type="button" class="btn btn-primary"
-												data-toggle="modal" data-target="#exampleModalCenter">
+												data-toggle="modal" data-target="#exampleModalCenter"
+												data-con="${i.content}" data-vid="${i.file_attach }" data-vid="">
 												View</button>
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
-										<small class="text-muted"> <c:choose>
-												<c:when test="${i.lasttime <60}">
-		                    			${i.lasttime }초전
-		                    		</c:when>
-												<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
-													<fmt:formatNumber type="number" value="${i.lasttime/60 }"
-														pattern="#" />분전
-		                    		</c:when>
-												<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
-													<fmt:formatNumber type="number"
-														value="${i.lasttime/(60*60) }" pattern="#" />시간전
-		                    		</c:when>
-												<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
-													<fmt:formatNumber type="number"
-														value="${i.lasttime/(60*60*24) }" pattern="#" />일전
-		                    		</c:when>
-												<c:otherwise>
-													<fmt:formatNumber type="number"
-														value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
-		                    		</c:otherwise>
-											</c:choose>
+										<small class="text-muted">
+					                    	<c:choose>
+					                    		<c:when test="${i.lasttime <60}">
+					                    			${i.lasttime }초전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+					                    		</c:otherwise>
+					                    	</c:choose>
 										</small>
 									</div>
 								</div>
@@ -192,36 +191,24 @@ article:hover .links {
 										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary"
-												data-toggle="modal" data-target="#exampleModalCenter"
-												data-con="${i.content}" data-ima="${i.file_attach }">
-												View</button>
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted"> <c:choose>
-												<c:when test="${i.lasttime <60}">
-		                    			${i.lasttime }초전
-		                    		</c:when>
-												<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
-													<fmt:formatNumber type="number" value="${i.lasttime/60 }"
-														pattern="#" />분전
-		                    		</c:when>
-												<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
-													<fmt:formatNumber type="number"
-														value="${i.lasttime/(60*60) }" pattern="#" />시간전
-		                    		</c:when>
-												<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
-													<fmt:formatNumber type="number"
-														value="${i.lasttime/(60*60*24) }" pattern="#" />일전
-		                    		</c:when>
-												<c:otherwise>
-													<fmt:formatNumber type="number"
-														value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
-		                    		</c:otherwise>
-											</c:choose>
+										<small class="text-muted">
+					                    	<c:choose>
+					                    		<c:when test="${i.lasttime <60}">
+					                    			${i.lasttime }초전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전
+					                    		</c:when>
+					                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+					                    		</c:when>
+					                    		<c:otherwise>
+					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+					                    		</c:otherwise>
+					                    	</c:choose>
 										</small>
 									</div>
 								</div>
@@ -246,7 +233,6 @@ article:hover .links {
 			</div>
 	</div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1"
 	role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -265,8 +251,16 @@ article:hover .links {
 				</button>
 			</div>
 			<div class="modal-body">
+			<c:choose>
+			<c:when test="">
 				<div class="modal-img"></div>
 				<div class="modal-con"></div>
+			</c:when>
+			<c:otherwise>
+				<div class="modal-vid"></div>
+				<div class="modal-con"></div>
+			</c:otherwise>
+			</c:choose>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -274,21 +268,8 @@ article:hover .links {
 		</div>
 	</div>
 </div>
-
-
 </main>
-
 <script>
-	$('#exampleModal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var recipient = button.data('whatever') // Extract info from data-* attributes
-		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		var modal = $(this)
-		modal.find('.modal-title').text('New message to ' + recipient)
-		modal.find('.modal-body input').val(recipient)
-	})
-
 	$('#exampleModalCenter').on(
 			'show.bs.modal',
 			function(event) {
@@ -296,14 +277,21 @@ article:hover .links {
 				var ima = "<img src=\"" + button.data('ima')
 						+ "\" width=\"300\" heigth=\"300\"" + ">";
 				var con = button.data('con');
+				var vid = "<video src=\"" + button.data('vid')
+				+ "\" width=\"1280\" heigth=\"720\"" + "controls >";
 				var modal = $(this);
 
-				modal.find('.modal-img').html(ima);
+				if(button.data('ima').equals("")){
+					modal.find('.modal-img').html("");
+					modal.find('.modal-vid').html(vid);
+					modal.find('.modal-con').text(con);
+				}else{
+					
+				}
+				modal.find('.modal-vid').html(vid);
 				modal.find('.modal-con').text(con);
 			})
 </script>
-
-
 <script>
 	function myFunction(target) {
 		console.log("관심사 : " + target.value);
