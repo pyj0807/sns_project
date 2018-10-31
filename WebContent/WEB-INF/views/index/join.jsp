@@ -296,6 +296,7 @@
 				$("#confirm").prop("disabled", true);
 				$("#confirmok").prop("disabled", true);
 				$("#btnsubmit").prop("disabled", false);
+				$("#email01").prop("disabled", true);
 			}else {
 				document.getElementById("ckmail2").innerHTML = "인증실패";
 				document.getElementById("ckmail2").style.color = "red";
