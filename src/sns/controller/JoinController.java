@@ -55,8 +55,6 @@ public class JoinController {
 		String dd = (String) param.get("dd");
 		String birth = yy + mm + dd;
 		
-		
-		//Date day = Date.valueOf(birth); 
 				
 		String gender = (String) param.get("gender");
 
@@ -112,6 +110,48 @@ public class JoinController {
 		return gson.toJson(map);
 	}
 	
+	@GetMapping(path="/emailajax.do", produces="application/json;charset=UTF-8" )
+	@ResponseBody
+	public String emailajaxHandle(@RequestParam String email) {
+		System.out.println(email);
+		Map ckemail = jdao.emailCheck(email);
+		System.out.println("email : "+email);
+		Map map = new HashMap<>();
+		if(ckemail != null) {
+			map.put("pass", "on");
+			System.out.println("인증 가능한 이메일 입니다");
+		}else {
+			map.put("pass", "off");
+			System.out.println("이미 인증을 한 이메일입니다. \n다른 이메일로 인증을 해주세요");
+		}
+		return gson.toJson(map);
+	}
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

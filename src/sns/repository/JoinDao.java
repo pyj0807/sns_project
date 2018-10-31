@@ -18,4 +18,9 @@ public class JoinDao {
 	public int addAccount(Map map) {
 		return template.insert("account.addAccount",map);
 	}
+	
+	public Map emailCheck(String email){
+		return template.selectOne("account.emailCheck",email);
+	}
+	
 }
