@@ -2,7 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
 <style>
 img {
 	max-width: 100%;
@@ -132,13 +136,34 @@ article:hover .links {
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-											  View
-											</button>
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter">
+												View</button>
 											<button type="button"
 												class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
-										<small class="text-muted">9 mins</small>
+										<small class="text-muted"> <c:choose>
+												<c:when test="${i.lasttime <60}">
+		                    			${i.lasttime }초전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+													<fmt:formatNumber type="number" value="${i.lasttime/60 }"
+														pattern="#" />분전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60) }" pattern="#" />시간전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+		                    		</c:when>
+												<c:otherwise>
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+		                    		</c:otherwise>
+											</c:choose>
+										</small>
 									</div>
 								</div>
 							</div>
@@ -152,9 +177,9 @@ article:hover .links {
 								<article>
 									<div class="thumbImg" style="width: auto; height: 250px;"
 										data-target="${i._id }">
-										<img class="card-img-top" src="${i.file_attach }"  
-										data-toggle="modal" data-target="#exampleModalCenter"
-										data-con="${i.content}" data-ima="${i.file_attach }"
+										<img class="card-img-top" src="${i.file_attach }"
+											data-toggle="modal" data-target="#exampleModalCenter"
+											data-con="${i.content}" data-ima="${i.file_attach }"
 											alt="Card image cap">
 									</div>
 									<div class="links" style="text-align: center;">
@@ -169,14 +194,35 @@ article:hover .links {
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"
-										data-con="${i.content}" data-ima="${i.file_attach }">
-												  View
-											</button>
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter"
+												data-con="${i.content}" data-ima="${i.file_attach }">
+												View</button>
 											<button type="button"
 												class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
-										<small class="text-muted">9 mins</small>
+										<small class="text-muted"> <c:choose>
+												<c:when test="${i.lasttime <60}">
+		                    			${i.lasttime }초전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+													<fmt:formatNumber type="number" value="${i.lasttime/60 }"
+														pattern="#" />분전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60) }" pattern="#" />시간전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+		                    		</c:when>
+												<c:otherwise>
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+		                    		</c:otherwise>
+											</c:choose>
+										</small>
 									</div>
 								</div>
 							</div>
@@ -197,92 +243,64 @@ article:hover .links {
            		}); 	
            	});
 			</script>
+			</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+	role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">
+					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
+						class="photo" style="width: 30px; height: 30px;"> <a
+						href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-img"></div>
+				<div class="modal-con"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
 		</div>
 	</div>
 </div>
 
- <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle"><img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="photo" style="width: 30px; height: 30px;"> <a href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div> 
-      <div class="modal-body">
-		<div class="modal-img">
-		</div>
-	      <div class="modal-con">
-	      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> 
-
-<div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-...more buttons...
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-       <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
 </main>
 
 <script>
-$('#exampleModal').on('show.bs.modal', function (event) {
-	  var button = $(event.relatedTarget) // Button that triggered the modal
-	  var recipient = button.data('whatever') // Extract info from data-* attributes
-	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-	  var modal = $(this)
-	  modal.find('.modal-title').text('New message to ' + recipient)
-	  modal.find('.modal-body input').val(recipient)
+	$('#exampleModal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var recipient = button.data('whatever') // Extract info from data-* attributes
+		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var modal = $(this)
+		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-body input').val(recipient)
 	})
 
+	$('#exampleModalCenter').on(
+			'show.bs.modal',
+			function(event) {
+				var button = $(event.relatedTarget);
+				var ima = "<img src=\"" + button.data('ima')
+						+ "\" width=\"300\" heigth=\"300\"" + ">";
+				var con = button.data('con');
+				var modal = $(this);
 
- 	$('#exampleModalCenter').on('show.bs.modal', function (event) {
-		var button = $(event.relatedTarget);
-		var ima = "<img src=\""+button.data('ima')+"\" width=\"300\" heigth=\"300\""+">" ;
-		var con = button.data('con');
-		var modal = $(this);
-		
-		modal.find('.modal-img').html(ima);
-		modal.find('.modal-con').text(con);
-	}) 
-	
+				modal.find('.modal-img').html(ima);
+				modal.find('.modal-con').text(con);
+			})
 </script>
 
 

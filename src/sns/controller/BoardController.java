@@ -149,6 +149,11 @@ public class BoardController {
 	@RequestMapping("/board_search.do")
 	public String boardHashlist(@RequestParam String[] hashtag, ModelMap modelmap) {
 		List<Map> list = boarddao.getBoardHash(hashtag);
+		for(int i=0; i<list.size(); i++) {
+			long writetime = (long)list.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			list.get(i).put("lasttime", lasttime);
+		}
 		modelmap.put("gethash_list", list);
 		modelmap.put("select_code", hashtag);
 		return "sns.board_hash";

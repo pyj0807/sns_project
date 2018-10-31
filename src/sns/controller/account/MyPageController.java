@@ -57,6 +57,11 @@ public class MyPageController {
 
 		// 내가 쓴 글 목록 조회하기 위해
 		List<Map> mylist = boardRepository.findWriter(loginId);
+		for(int i=0; i<mylist.size(); i++) {
+			long writetime = (long)mylist.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			mylist.get(i).put("lasttime", lasttime);
+		}
 		int msize = mylist.size(); // 내가 쓴 게시물수 보여주기 위해
 		wr.setAttribute("mylist", mylist, WebRequest.SCOPE_REQUEST);
 		wr.setAttribute("msize", msize, WebRequest.SCOPE_REQUEST);
@@ -189,6 +194,11 @@ public class MyPageController {
 		String loginId = (String) user.get("ID");
 
 		List<Map> likedList = boardRepository.getBoardLiker(loginId);
+		for(int i=0; i<likedList.size(); i++) {
+			long writetime = (long)likedList.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			likedList.get(i).put("lasttime", lasttime);
+		}
 		modelmap.put("getLikedList", likedList);
 
 		return "sns.liked";
@@ -228,41 +238,6 @@ public class MyPageController {
 		return gson.toJson(realSame);
 	}
 	
-	@RequestMapping("/test.do")
-	public String test(WebRequest wr) {
-		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String loginId = (String) user.get("ID");
-
-		String inte = "게임";
-		
-		List<Map> allUserInfo = follow.getAllUserInfo(); // 모든회원정보
-		List<Map> sameInterUser = new ArrayList<>();	// 담을 리스트 
-		for(int i=0; i<allUserInfo.size();i++) {
-			boolean boo = allUserInfo.get(i).get("INTEREST").toString().contains(inte);
-			if(boo) {
-				sameInterUser.add(allUserInfo.get(i));
-				System.out.println(allUserInfo.get(i).get("INTEREST").toString().contains(inte));
-			}
-		}
-		for(int i=0; i<sameInterUser.size();i++) {
-			System.out.println(sameInterUser.get(i));
-		}
-
-		Map realSame =  new HashMap<>();
-		for(int i=0; i<3; i++) {
-			int ran = (int) (Math.random()*sameInterUser.size()); 
-			 if(realSame.containsValue(sameInterUser.get(ran)) || sameInterUser.get(ran).get("ID").equals(loginId)) {
-				 i--;
-			 }else {
-				 realSame.put(1+i, sameInterUser.get(ran));
-			 }
-		}
-		for(int i=0; i<3;i++) {
-				System.out.println("여기서:"+realSame.get(i+1));
-		}
-		
-		return "";
-	}
 	
 
 }

@@ -142,7 +142,7 @@ article:hover .links{
 		                		<img class="card-img-top" src="${i.file_attach }" alt="Card image cap" >
 		                	</div>
 		                	<div  class="links" style="text-align:center;"> <!--내일댓글수처리 -->
-			                	<span>♡:${fn:length(i.liker) }</span> <span>ss</span>
+			                	<span>♡:${fn:length(i.liker) }</span> <span></span>
 		                	</div>	
 		                </article>
 		                <div class="card-body">
