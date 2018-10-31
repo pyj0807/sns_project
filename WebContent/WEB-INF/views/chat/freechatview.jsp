@@ -94,9 +94,27 @@ chatws.onmessage= function(evt) {
  		 mychatHandler(obj);
  	 	break;
  	 } 
+ 	  
+ 	  switch(obj.receive){
+ 	  case "${Id}":
+ 		  receiveHandler(obj);
+ 	  	break;
+ 	  
+ 	  }
 	
 
 }
+
+
+var  receiveHandler=function(obj){
+ var req =new XMLHttpRequest();
+ req.open("get","${pageContext.servletContext.contextPath}/chat/chatremovecontroller.do?id=${Id}&otherId=${otherId}",true);
+	var param ={
+			"id":"${Id}",
+			"otherid":"${otherId}"
+	} 
+ req.send();
+};
 
 	var mychatHandler=function(obj){
 		var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";

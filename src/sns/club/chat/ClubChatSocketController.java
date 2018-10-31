@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import sns.repository.AlertService;
 import sns.repository.ChatDao;
 import sns.repository.ChatMongoRepository;
+import sns.repository.FreeAlertService;
 import sns.repository.ClubChatMongoDeleteRepository;
 import sns.repository.Clubmongochat;
 
@@ -41,6 +42,7 @@ public class ClubChatSocketController extends TextWebSocketHandler{
 	@Autowired
 	ClubChatMongoDeleteRepository mongoremove;
 	
+	
 	List<WebSocketSession> sockets;
 	public ClubChatSocketController() {
 		sockets= new ArrayList<WebSocketSession>();
@@ -52,13 +54,15 @@ public class ClubChatSocketController extends TextWebSocketHandler{
 		
 		
 		
+		
 	}
-	
 	
 	
 	
 @Override
 protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+	
+	
 	
 	Map userMap=(Map)session.getAttributes().get("user");
 		System.out.println("저장된 유저 아이디="+userMap.get("ID"));
@@ -128,6 +132,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 @Override
 public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 	sockets.remove(session);
+	
 	
 	
 }

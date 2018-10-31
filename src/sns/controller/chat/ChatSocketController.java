@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import sns.repository.AlertService;
 import sns.repository.ChatDao;
 import sns.repository.ChatMongoRepository;
+import sns.repository.FreeAlertService;
 
 
 @Controller
@@ -36,6 +37,9 @@ public class ChatSocketController extends TextWebSocketHandler{
 	@Autowired
 	ChatMongoRepository mongochat;
 	
+	@Autowired
+	FreeAlertService freeservice;
+	
 	List<WebSocketSession> sockets;
 	public ChatSocketController() {
 		sockets= new ArrayList<WebSocketSession>();
@@ -44,12 +48,14 @@ public class ChatSocketController extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sockets.add(session);
+		freeservice.addSocket(session);
 		
-		System.out.println("소켓사이즈="+sockets.size());
+	/*	System.out.println("소켓사이즈="+sockets.size());
 		System.out.println("소켓에서 서비스사이즈="+service.size());
 		
 		System.out.println("입장시 소켓 사이즈="+sockets.size());
 		System.out.println("입장시 서비스 사이즈="+service.size());
+		System.out.println("입장시 클럽소켓 사이즈="+freeservice.size());*/
 		
 		
 	}
@@ -65,9 +71,9 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		String got=message.getPayload();
 		Map map =gson.fromJson(got, Map.class);
 		map.put("userNAME",(String)userMap.get("NAME"));
-		System.out.println(userMap.get("NAME"));
+		
 		String otherId=(String)map.get("otherId");
-		System.out.println(otherId);
+
 		String sendmsg=gson.toJson(map);
 		
 		List socketslist=new ArrayList<>();
@@ -78,11 +84,10 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		
 		List modeid=new ArrayList<>();
 		Date time =new Date(System.currentTimeMillis());
-		System.out.println(" 유저아이디유="+map.get("Id"));
-		System.out.println(time.toString());
+	
 	
 		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		/*df.format(time);*/
+
 		
 		map.put("jspsendtime",System.currentTimeMillis());
 		modeid.add(map.get("id"));
@@ -95,6 +100,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		map.put("readid", otherId);
 		map.put("sendtime",sf.format(time) );
 		map.put("readid",a );
+		map.put("receive", otherId);
 		mongochat.insertfreechat(map);
 		
 		String str= gson.toJson(map);
@@ -104,6 +110,8 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		roominsert.put("modeId", modeid);
 		roominsert.put("lastsenddate", (long)(System.currentTimeMillis()));
 		roominsert.put("lastformat", sf.format(time));
+		roominsert.put(otherId, 1);
+		roominsert.put((String)map.get("id"), 1);
 		
 
 		
@@ -113,6 +121,8 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 			mongochat.insertchatroom(roominsert);
 		}else {
 			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"),sf.format(time),otherId);
+			mongochat.roomcountupdate((String)map.get("id"), otherId);
+			
 		}
 		
 		List li=new ArrayList<>();
@@ -187,6 +197,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 @Override
 public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 	sockets.remove(session);
+	freeservice.removeSocket(session);
 	
 	
 }

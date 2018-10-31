@@ -32,8 +32,18 @@
  	
  	
  	<c:if test="${e ne Id}">
+ 	<c:choose>
  	
- 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat }</b></small><br/> <!-- <span class="badge badge-pill badge-primary" id="countt">new</span> -->
+ 	<c:when test="${v.num<1 }">
+ 	 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat } </b></small><br/>
+ 	</c:when>
+ 	<c:otherwise>
+ 	
+ 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat } </b></small>  <span class="badge badge-danger"> ${v.num }</span><br/> 
+ 	</c:otherwise>
+ 	
+ 	</c:choose>
+ 	
  	
  	</c:if>
  	

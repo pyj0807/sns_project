@@ -81,4 +81,16 @@ Update u= new Update().pull("readid", id);
 public void removecountsocket(String id) {
 	template.remove(new Query(Criteria.where("readid").in(id)),"freechatroom");
 }
+
+public void roomcountupdate(String id,String otherid) { //채팅방 카운팅
+	Update u =new Update().inc(otherid, 1);
+template.updateMulti(new Query(Criteria.where("modeId").in(id).andOperator(Criteria.where("modeId").in(otherid))),u,"freechatroom");
+}
+
+public void roomcountupdatedown(String id,String otherid) { //채팅방 카운팅다운
+	Update u =new Update().set(id, 0);
+template.updateMulti(new Query(Criteria.where("modeId").in(id).andOperator(Criteria.where("modeId").in(otherid))),u,"freechatroom");
+}
+
+
 }
