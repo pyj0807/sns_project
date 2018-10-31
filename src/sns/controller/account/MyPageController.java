@@ -174,6 +174,14 @@ public class MyPageController {
 		modelmap.put("Oneboard", map);
 		return "sns.update";
 	}
+	//글삭제페이지
+	@GetMapping("/delete.do")
+	public String board_delete(@RequestParam int num) {
+		//삭제처리(board,board_reply,like)
+		boarddao.deleteBoard(num);
+		return "redirect:/index.do";
+	}
+	
 	// 내가 좋아요한 글 목록 보기
 	@RequestMapping("/liked.do")
 	public String liked(WebRequest wr, ModelMap modelmap) {

@@ -44,7 +44,12 @@ public class IndexController {
 		
 		// 메인접속시 몽고db board테이블 정보 뽑기
 		List<Map> list = boarddao.getAllBoard();
-		
+		for(int i=0; i<list.size(); i++) {
+			long writetime = (long)list.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			list.get(i).put("lasttime", lasttime);
+		}
+
 		modelmap.put("board_list", list);
 		if (wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
 

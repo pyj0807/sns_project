@@ -110,4 +110,17 @@ public class BoardDao {
 		UpdateResult rst2 = template.updateMulti(new Query(c), u2, "board");
 		UpdateResult rst3 = template.updateMulti(new Query(c), u3, "board");
 	}
+	//board 삭제
+	public void deleteBoard(int no) {
+		//1.board 테이블삭제
+		Query query = new Query(Criteria.where("_id").in(no));
+		//2.board_reply 테이블삭제
+		Query query2 = new Query(Criteria.where("id").in(no));
+		//3.like 테이블삭제
+		Query query3 = new Query(Criteria.where("roomId").in(no));
+		
+		template.remove(query,"board");
+		template.remove(query2,"board_reply");
+		template.remove(query3,"like");
+	}
 }

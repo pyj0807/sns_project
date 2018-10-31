@@ -27,8 +27,8 @@
 		<p>
 			관심사(*)<br/>
 			<c:forEach var="v" items="${interest }">
-				<input type="checkbox" name="interest" value="${v}"
-					onchange="cksave(this)" />${v }
+				<input type="checkbox" name="interest" value="${v }"
+				onchange="cksave(this)" ${v==Oneboard.interest ? 'checked' :'' }/>${v }
 		 </c:forEach>
 		</p>
 		<p>
@@ -44,7 +44,8 @@
 	</form>
 </div>
 <script>
-	var checkbox = new Array();
+	//default 값지정 , 안해주면 처음 수정시 click된 체크박스가 배열에없어서 인식이안됨
+	var checkbox = ["${Oneboard.interest}"]; //default
 	var cksave = function(target) {
 		if (target.checked) {
 			if (checkbox.length < 1) {

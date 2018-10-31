@@ -29,6 +29,7 @@ video {
 	<c:choose>
 		<c:when test="${Id==boardOne.writer}">
 			<a href="${pageContext.servletContext.contextPath }/update.do?num=${boardOne._id}"><button>글수정하기</button></a>
+			<a href="${pageContext.servletContext.contextPath }/delete.do?num=${boardOne._id}"><button>글삭제하기</button></a>
 		</c:when>
 	</c:choose>
 </div>
