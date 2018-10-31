@@ -46,7 +46,7 @@ public class JoinController {
 		String id = (String) param.get("id");
 		String emailid = (String)param.get("email01");
 		String subid = (String) param.get("email02");
-		String email = id + "@" + subid;
+		String email = emailid + "@" + subid;
 		String pass = (String) param.get("pass");
 		String name = (String) param.get("name");
 
