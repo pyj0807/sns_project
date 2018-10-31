@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,8 +36,19 @@ public class AccountController {
 	// 다른 회원 페이지
 	@RequestMapping("/account.do")
 	public String account(WebRequest wr, @RequestParam String id,ModelMap map) {
-		
-		
+		System.out.println("진짜아이디유"+id);
+		String sss="#";
+		String[] str=new String[10]; 
+		str[0]="%23"+id.substring(1);
+		System.out.println(str);
+		Pattern p = Pattern.compile(sss);
+		Matcher d=p.matcher(id);
+		if(d.find()==true) {
+			
+						
+			wr.setAttribute("hashtag", str, wr.SCOPE_REQUEST);
+			return "redirect:/board/board_search.do?hashtag="+str[0];
+		}else {
 		
 
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
@@ -77,6 +90,7 @@ public class AccountController {
 		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
 
 		return "sns.account";
+		}
 	}
 	
 	// 뉴스피드 (팔로잉한 사람들의 글 목록)
