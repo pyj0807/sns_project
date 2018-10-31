@@ -27,14 +27,15 @@
 		<div>
 			<tiles:insertAttribute name="nav" />
 		</div>
-		<div class="row">
+		<%-- <div class="row">
 			<div class="col-md-3">
 				<tiles:insertAttribute name="left" />
 			</div>
+		</div>	 --%>
 			<div>
 				<tiles:insertAttribute name="center"/>
 			</div>
-		</div>
+		
 	</div>
 </body>
 </html>

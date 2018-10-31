@@ -5,7 +5,6 @@
 <style>
 
 img {
-	;
 	width: 400px;
 	
 	height: auto;
@@ -24,8 +23,10 @@ video {
 <br/>
 <br/>
 <br/>
-
-<div align="right">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4"></script>
+<div id="map" style="width:100%;height:150px;"></div>
+<div align="center">
+	위치:<a href="">${boardOne.area }</a>
 	<c:choose>
 		<c:when test="${Id==boardOne.writer}">
 			<a href="${pageContext.servletContext.contextPath }/update.do?num=${boardOne._id}"><button>글수정하기</button></a>
@@ -34,7 +35,7 @@ video {
 	</c:choose>
 </div>
 
-<div>	
+<div align="left">	
 	<c:choose>
 		<c:when test="${boardOne.type == 'video'}">
 		<!-- 타입이비디오일경우 -->
@@ -217,4 +218,19 @@ video {
 		};
 		xhr.send(JSON.stringify(param));	
 	};
+	 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	   mapOption = { 
+	       center: new daum.maps.LatLng(${boardOne.lat},${boardOne.longi}), // 지도의 중심좌표
+	       level: 3 // 지도의 확대 레벨
+	   };
+	   var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new daum.maps.LatLng(${boardOne.lat}, ${boardOne.longi}); 		
+		// 마커를 생성합니다
+		var marker = new daum.maps.Marker({
+		    position: markerPosition
+		});
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+		
 </script>
