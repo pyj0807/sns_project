@@ -86,6 +86,7 @@ public class MyPageController {
 	@PostMapping("/mypage.do")
 	public String mypage(@RequestParam Map map, @RequestParam MultipartFile file, WebRequest wr, ModelMap modelmap)
 			throws IllegalStateException, IOException {
+		System.out.println("★★★★★:"+map);
 		// 파일 업로드 경로 생성
 		String realpath = svc.getRealPath("upload");
 		File dir = new File(realpath);
@@ -135,6 +136,9 @@ public class MyPageController {
 				map.put("liker", new ArrayList<>());	// 좋아요 
 				map.put("hashcode", hash);	// 해쉬태그
 				map.put("time", currentTime);	// 글등록시간
+				map.put("longi", map.get("longi")); //경도
+				map.put("lat", map.get("lat")); //경도
+				map.put("area", map.get("area")); //주소
 				boardRepository.insertOne(map);	//글등록Insert!
 	
 				return "redirect:/mypage.do";
@@ -156,9 +160,12 @@ public class MyPageController {
 		while(m.find()) {
 			hash.add(m.group());
 		}
+		String lat = (String)map.get("lat");
+		String longi = (String)map.get("longi");
+		String area = (String)map.get("area");
 		//===========================================
 		//수정처리
-		boarddao.updateBoard(room_num, content, interest,hash);
+		boarddao.updateBoard(room_num, content, interest,hash,lat,longi,area);
 		//수정시 해시태그가되야함
 		return "redirect:/mypage.do";
 	}
