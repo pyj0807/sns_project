@@ -55,13 +55,23 @@ $("#searchlist").on("keyup",function(){
 			
 	};
 	
-		var html="";
 	$.post("${pageContext.servletContext.contextPath}/searchAjax.do",param,function(rst){
+		var html="";
 		/* var obj =JSON.parse(rst); */
-		 /* console.log(obj); */ 
-		for(var i=0;i<rst.length;i++){
-			html+="<option value=\""+rst[i].ID+"\">("+rst[i].NAME+")</option>";
-		}
+		 /* c원onsole.log(obj); */ 
+		 var id=rst.idlist;
+		 var list =rst.taglist;
+		 /* console.log(list); */
+		 /* console.log("하하하하하="+id); */
+		   for(var i=0;i<id.length;i++){
+			html+="<option value=\""+id[i].ID+"\">("+id[i].NAME+")</option>";
+		};   
+		
+		 for(var ii=0;ii<list.length;ii++){
+		
+			html+= "<option value=\""+list[ii]+"\">("+list[ii]+")</option>"
+		}; 
+		
 			$("#some").html(html);
 		
 	});
