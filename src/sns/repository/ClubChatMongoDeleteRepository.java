@@ -28,4 +28,8 @@ public void roomremove(String content,String id){
 		
 	}
 
+public void roomchatremove(String content) {
+	template.remove(new Query(Criteria.where("contentid").in(content)),"clubchat");
+}
+
 }
