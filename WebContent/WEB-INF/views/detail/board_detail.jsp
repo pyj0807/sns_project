@@ -20,12 +20,13 @@ video {
 	height: 500px;
 }
 </style>
-
+<%-- 
 <br/>
 <br/>
 <br/>
 
-<div align="right">
+ --%>
+ <div align="right">
 	<c:choose>
 		<c:when test="${Id==boardOne.writer}">
 			<a href="${pageContext.servletContext.contextPath }/update.do?num=${boardOne._id}"><button>글수정하기</button></a>

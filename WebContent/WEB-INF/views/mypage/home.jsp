@@ -126,9 +126,7 @@ article:hover .links {
 								<article>
 									<div class="thumbImg" style="width: auto; height: 250px;"
 									data-target="${i._id }">
-										<video class="card-img-top" src="${i.file_attach }" 
-										data-toggle="modal" data-target="#exampleModalCenter"
-											data-con="${i.content}" data-vid="${i.file_attach }" data-ima="" controls/>
+										<video class="card-img-top" src="${i.file_attach }" controls/>
 									</div>
 									<div class="links" style="text-align: center;"></div>
 								</article>
@@ -140,8 +138,8 @@ article:hover .links {
 										<div class="btn-group">
 											<!-- Button trigger modal -->
 											<button type="button" class="btn btn-primary"
-												data-toggle="modal" data-target="#exampleModalCenter"
-												data-con="${i.content}" data-vid="${i.file_attach }" data-vid="">
+												data-toggle="modal" data-target="#VideoModalCenter"
+												data-con="${i.content}" data-vid="${i.file_attach }">
 												View</button>
 										</div>
 										<small class="text-muted">
@@ -176,10 +174,10 @@ article:hover .links {
 								<article>
 									<div class="thumbImg" style="width: auto; height: 250px;"
 										data-target="${i._id }">
-										<img class="card-img-top" src="${i.file_attach }"
-											data-toggle="modal" data-target="#exampleModalCenter"
-											data-con="${i.content}" data-ima="${i.file_attach }"
-											alt="Card image cap">
+										<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
+										data-remote="false" data-toggle="modal" data-target="#myModal" class="btn btn-default"
+											><img class="card-img-top" src="${i.file_attach }"
+											alt="Card image cap"></a>
 									</div>
 									<div class="links" style="text-align: center;">
 										<!--내일댓글수처리 -->
@@ -187,9 +185,7 @@ article:hover .links {
 									</div>
 								</article>
 								<div class="card-body">
-									<a
-										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
-											class="card-text">${i.content }</p></a>
+									<p class="card-text">${i.content }</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<small class="text-muted">
 					                    	<c:choose>
@@ -233,66 +229,37 @@ article:hover .links {
 			</div>
 	</div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-	role="dialog" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalCenterTitle">
-					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
+<!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
+<div class="modal fade <%-- bd-example-modal-lg --%>" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog <%-- modal-lg --%>">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">	
+        <img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 						class="photo" style="width: 30px; height: 30px;"> <a
 						href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
-				</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-			<c:choose>
-			<c:when test="">
-				<div class="modal-img"></div>
-				<div class="modal-con"></div>
-			</c:when>
-			<c:otherwise>
-				<div class="modal-vid"></div>
-				<div class="modal-con"></div>
-			</c:otherwise>
-			</c:choose>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+        </h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 </main>
-<script>
-	$('#exampleModalCenter').on(
-			'show.bs.modal',
-			function(event) {
-				var button = $(event.relatedTarget);
-				var ima = "<img src=\"" + button.data('ima')
-						+ "\" width=\"300\" heigth=\"300\"" + ">";
-				var con = button.data('con');
-				var vid = "<video src=\"" + button.data('vid')
-				+ "\" width=\"1280\" heigth=\"720\"" + "controls >";
-				var modal = $(this);
 
-				if(button.data('ima').equals("")){
-					modal.find('.modal-img').html("");
-					modal.find('.modal-vid').html(vid);
-					modal.find('.modal-con').text(con);
-				}else{
-					
-				}
-				modal.find('.modal-vid').html(vid);
-				modal.find('.modal-con').text(con);
-			})
+<script>
+	// 모달에 불러와지는 링크 JQuery
+	$("#myModal").on("show.bs.modal", function(e) {
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
 </script>
 <script>
+	// #관심사 버튼을 누르면 같은 관심사를 가진 사람들을 추천해주는 Ajax. 랜덤으로 추천해줌. 계속 바뀜 
 	function myFunction(target) {
 		console.log("관심사 : " + target.value);
 		var xhr = new XMLHttpRequest();
@@ -304,7 +271,7 @@ article:hover .links {
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4) {
 				var obj = JSON.parse(this.responseText);
-				console.log(obj);
+				console.log(obj); 
 				var html = "";
 				for (var i = 1; i <= 3; i++) {
 					html += "<a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
