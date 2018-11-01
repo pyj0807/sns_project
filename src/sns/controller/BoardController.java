@@ -146,7 +146,7 @@ public class BoardController {
 	}
 	
 	//해당 해쉬태그 조회
-	@RequestMapping(path="/board_search.do",produces="application/json;charset=UTF-8")
+	@GetMapping(path="/board_search.do",produces="application/json;charset=UTF-8")
 	public String boardHashlist(@RequestParam String[] hashtag, ModelMap modelmap) {
 		System.out.println(hashtag);
 		List<Map> list = boarddao.getBoardHash(hashtag);

@@ -87,8 +87,8 @@ public class FreeChatController {
 		/*System.out.println("실제 아더아이디="+id2);*/
 		
 	/*	if(mongochat.getcount(id)>0) {*/
-			mongochat.removecount(id,(String)wr.getAttribute("Id", wr.SCOPE_SESSION),id2);
-			System.out.println("지워짐");
+			/*mongochat.removecount(id,(String)wr.getAttribute("Id", wr.SCOPE_SESSION),id2);*/
+			/*System.out.println("지워짐");*/
 		/*}*/
 		
 		List list=chatdao.followchatgetall((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
