@@ -95,12 +95,12 @@ chatws.onmessage= function(evt) {
  	 	break;
  	 } 
  	  
- 	  switch(obj.receive){
+ 	   switch(obj.receive){
  	  case "${Id}":
  		  receiveHandler(obj);
  	  	break;
  	  
- 	  }
+ 	  } 
 	
 
 }

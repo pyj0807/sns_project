@@ -122,10 +122,19 @@ var pass=function(){
 		case "count":
 			countHandler(obj);
 			break;
-
+		case "zzz":
+			removeHandler(obj);
+		break;
 		}
 
 	}
+	var removeHandler=function(){
+		document.getElementById("count").innerHTML = "";
+		document.getElementById("countt").innerHTML = "";
+		document.getElementById("counttt").innerHTML = "";
+		
+	}
+	
 
 	var slected = function() {
 		document.getElementById("count").innerHTML = "";

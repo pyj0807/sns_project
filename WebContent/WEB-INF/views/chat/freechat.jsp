@@ -26,7 +26,25 @@
     </div>
   </div>
   <div align="center">
-  <c:forEach var ="v" items="${freelist}">
+
+  </div>
+  
+  
+  <div style=" height: 520px; overflow-y: scroll;">
+  	<table class="table table-hover ">
+  <thead>
+    <tr>
+	 
+      <th scope="col">이름</th>
+      <th scope="col">시간</th>
+      <th scope="col" width="7%">알림</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  
+     <c:forEach var ="v" items="${freelist}">
+    
   <c:if test="${!empty v }">
  	<c:forEach var ="e" items="${v.modeId }">
  	
@@ -35,11 +53,22 @@
  	<c:choose>
  	
  	<c:when test="${v.num<1 }">
- 	 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat } </b></small><br/>
+ 	 		
+ 	 		    <tr>
+      <td class="table-secondary"><a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> </td>
+      <td class="table-secondary"><small>시간 :<b>${v.lastformat } </b></small></td>
+      <td class="table-secondary"></td>
+    </tr>
  	</c:when>
  	<c:otherwise>
  	
- 		▶	<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a> /  <small>최근활성화 :<b>${v.lastformat } </b></small>  <span class="badge badge-danger"> ${v.num }</span><br/> 
+ 		 
+ 		<tr>
+      <td class="table-success"><a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${e}">${e }</a></td>
+      <td class="table-success" ><small>시간 :<b>${v.lastformat } </b></small></td>
+      <td class="table-success ">  <span class="badge badge-danger">    ${v.num }</span></td>
+    </tr>
+ 	
  	</c:otherwise>
  	
  	</c:choose>
@@ -51,7 +80,9 @@
  	</c:forEach> 
  	</c:if>
   </c:forEach>
+  </tbody>
   </div>
+</table>
 		
 	
 	

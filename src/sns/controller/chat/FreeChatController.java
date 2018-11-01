@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import sns.repository.AlertService;
 import sns.repository.ChatDao;
 import sns.repository.ChatMongoRepository;
 
@@ -25,6 +29,10 @@ public class FreeChatController {
 
 		@Autowired
 		ChatDao chatdao;
+		
+
+		@Autowired
+		AlertService service;
 		
 		@Autowired
 		ChatMongoRepository mongochat;
@@ -58,6 +66,24 @@ public class FreeChatController {
 	            }
 	         }
 	      });
+		
+		roomlist.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1= Integer.parseInt( o1.get((String)wr.getAttribute("userId", wr.SCOPE_SESSION)).toString());
+				long n2= Integer.parseInt( o2.get((String)wr.getAttribute("userId", wr.SCOPE_SESSION)).toString());
+				
+				if(n1<n2) {
+					return 1;
+				}else if(n1>n2) {
+					return -1;
+				}else {
+					return 0;
+				}
+			}
+		});
+		
+		
 		/*for(int i=0;i<roomlist.size();i++) {
 			roomlist.get(i).get(key)
 		}*/
@@ -108,8 +134,27 @@ public class FreeChatController {
 	
 	
 	@GetMapping(path="chatremovecontroller.do", produces="application/json;charset=UTF-8") //ajax용
-	public void removecounting(@RequestParam Map param) {
+	public void removecounting(@RequestParam Map param ,HttpSession session) {
+		String otherId=(String)param.get("otherId");
 		System.out.println("아작스 넘어온값="+param);
+		List<Map> othercount =mongochat.getcount(otherId);
+		
+		long count =0;
+for(int i=0;i<othercount.size();i++) {
+			
+			long aa=Integer.parseInt(othercount.get(i).get(otherId).toString());
+			count+=aa;
+			
+		}
+		
+		Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
+		recevier.put("mode", "count");
+		recevier.put("defaultcnt", count);
+		mongochat.roomcountupdatedown((String)param.get("id"),(String)param.get("otherId"));
+		Map re =new HashMap<>();
+		re.put("mode", "zzz");
+		re.put("defaultcnt", 0);
+		service.sendOne(re, (String)param.get("id"));
 		
 		
 		

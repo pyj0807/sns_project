@@ -111,7 +111,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		roominsert.put("lastsenddate", (long)(System.currentTimeMillis()));
 		roominsert.put("lastformat", sf.format(time));
 		roominsert.put(otherId, 1);
-		roominsert.put((String)map.get("id"), 1);
+		roominsert.put((String)map.get("id"), 0);
 		
 
 		
@@ -145,6 +145,37 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		
 		
 		
+		
+
+	List<Map> othercount =mongochat.getcount(otherId);
+		
+		long count =0;
+for(int i=0;i<othercount.size();i++) {
+			
+			long aa=Integer.parseInt(othercount.get(i).get(otherId).toString());
+			count+=aa;
+			
+		}
+		
+		Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
+		recevier.put("mode", "count");
+		recevier.put("defaultcnt", count);
+		service.sendOne(recevier, otherId);
+		
+		/*//밑에는 카운팅 넘기는용
+		long l=mongochat.getcount(otherId);
+		for(int i=0;i<service.size();i++) {
+			if(service.list.get(i).getAttributes().get("userId").equals(otherId)) {
+				Map mappp =new HashMap<>();
+				mappp.put("mode", "count");
+				mappp.put("defaultcnt", l);
+				TextMessage msgggg =new TextMessage(gson.toJson(mappp));
+				service.list.get(i).sendMessage(msgggg);
+			}
+			
+		}*/
+		
+		
 		for(int i=0;i<sockets.size();i++) {
 			
 			System.out.println("zzz="+service.list.get(i).getAttributes().get("Id"));
@@ -158,26 +189,9 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 			System.out.println("");
 			
 			if(sockets.get(i).getAttributes().get("Id").equals(otherId)||sockets.get(i).getAttributes().get("Id").equals(userMap.get("ID"))) {
-			sockets.get(i).sendMessage(msg);
+				sockets.get(i).sendMessage(msg);
 			}
 		}
-		
-		
-		
-		//밑에는 카운팅 넘기는용
-		long l=mongochat.getcount(otherId);
-		for(int i=0;i<service.size();i++) {
-			if(service.list.get(i).getAttributes().get("userId").equals(otherId)) {
-				Map mappp =new HashMap<>();
-				mappp.put("mode", "count");
-				mappp.put("defaultcnt", l);
-				TextMessage msgggg =new TextMessage(gson.toJson(mappp));
-				service.list.get(i).sendMessage(msgggg);
-			}
-			
-		}
-		
-		
 		
 
 	
