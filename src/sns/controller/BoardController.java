@@ -47,6 +47,12 @@ public class BoardController {
 		} else {
 			list.put("checked", false);// 체크 false
 		}
+		//없는값조회
+		if(list.get("area").equals("")) {
+			list.put("lat", "33.450701");
+			list.put("longi", "126.570667");
+			list.put("area", "");
+		}
 		
 		//댓글조회
 		List<Map> reply_list = boarddao.getBoardReply(num);
