@@ -66,7 +66,10 @@ article:hover .links{
 
 
   <body>
-     <h2>모든 회원 글보기</h2>
+  <div>
+  
+   <b><small><b>(전체)</b></small></b>
+  </div>
    <div class="btn-group" role="group" align="center">
       <button style="align-content: center;" id="btnGroupDrop1"
          type="button" class="btn btn-secondary

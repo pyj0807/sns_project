@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
 <nav class="navbar navbar-dark bg-dark">
 	<a class="navbar-brand"
 		href="${pageContext.servletContext.contextPath}">Never expand <span
@@ -122,10 +123,19 @@ var pass=function(){
 		case "count":
 			countHandler(obj);
 			break;
-
+		case "zzz":
+			removeHandler(obj);
+		break;
 		}
 
 	}
+	var removeHandler=function(){
+		document.getElementById("count").innerHTML = "";
+		document.getElementById("countt").innerHTML = "";
+		document.getElementById("counttt").innerHTML = "";
+		
+	}
+	
 
 	var slected = function() {
 		document.getElementById("count").innerHTML = "";
