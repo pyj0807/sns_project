@@ -232,8 +232,8 @@ article:hover .links {
 	</div>
 </div>
 <!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
-<div class="modal fade <%-- bd-example-modal-lg --%>" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog <%-- modal-lg --%>">
+<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg ">
     <div class="modal-content">
 <%--       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">	
@@ -245,9 +245,9 @@ article:hover .links {
       <div class="modal-body">
         ...
       </div>
-      <div class="modal-footer">
+<!--       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
