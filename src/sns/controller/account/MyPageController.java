@@ -185,13 +185,13 @@ public class MyPageController {
 		Map map = boarddao.getOneBoard(num);
 		//update시에 map에 area가없으면 강제로 위도 경도 없으면 초기값찍어줘서 update.jsp보내줌
 		//등록시에는 null로들어가는게 아니라 아예들어가지않음 
-		if(map.containsKey("area")==false) {
-			map.put("lat", "37.49242638484167");
-			map.put("longi", "127.0309201030125");
-			//map.put("area", "");
-		}
+//		if(map.containsKey("area")==false) {
+//			map.put("lat", "37.49242638484167");
+//			map.put("longi", "127.0309201030125");
+//			//map.put("area", "");
+//		}
 		//수정을하면 null로 데이터가들어감
-		if(map.get("area")==null) {
+		if(map.get("area").equals("")) {
 			map.put("lat", "37.49242638484167");
 			map.put("longi", "127.0309201030125");
 		}
