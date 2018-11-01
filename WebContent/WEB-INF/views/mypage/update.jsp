@@ -39,7 +39,7 @@
 		
 		<label for="lastName">내위치(상세주소입력)</label>			
 		<button type="button" onclick="addressPopUp()" >간편 주소 입력</button>
-		<input type="text" class="form-control" id="address1" placeholder="간편 주소" readonly="readonly" onchange="address(this);" name="area" style="width: 500px;">					
+		<input type="text" class="form-control" id="address1" value="${Oneboard.area }" placeholder="간편 주소" readonly="readonly" onchange="address(this);" name="area" style="width: 500px;">					
 		<div id="map" style="width: 40%; height: 350px;"></div>
 
 		<p>
@@ -67,43 +67,43 @@
 			checkbox.splice(idx, 1);
 		}
 	}
+	//위도,경도
+	var input_lat=${Oneboard.lat};
+	var input_longi=${Oneboard.longi};
+
+	//================================================
 	
 	var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
 	mapOption = {
-		center : new daum.maps.LatLng(${Oneboard.lat}, ${Oneboard.longi}), // 지도의 중심좌표
+		//center : new daum.maps.LatLng(${Oneboard.lat}, ${Oneboard.lat}), // 지도의 중심좌표
+		center : new daum.maps.LatLng(input_lat, input_longi), // 지도의 중심좌표
 		level : 3
 	// 지도의 확대 레벨address1
 	};
-
 	// 지도를 생성합니다    
 	var map = new daum.maps.Map(mapContainer, mapOption);
-	
 	//========================================원래저장되어있던 마커 가져오기==================
 	// 마커가 표시될 위치입니다 
-	var markerPosition  = new daum.maps.LatLng(${Oneboard.lat}, ${Oneboard.longi}); 
-	
+	//var markerPosition  = new daum.maps.LatLng(${Oneboard.lat}, ${Oneboard.longi}); 
+	var markerPosition  = new daum.maps.LatLng(input_lat, input_longi); 
 	// 마커를 생성합니다
 	var marker = new daum.maps.Marker({
 	    position: markerPosition
 	});
-	
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	//=================================================================================
 	
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new daum.maps.services.Geocoder();
-	
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new daum.maps.services.Geocoder();
 	
 	var address = function(target) {
 		// 주소 작성 값 추출
 		var area = $("#address1").val();
-	
-	// 주소로 좌표를 검색합니다
+		// 주소로 좌표를 검색합니다
 		geocoder.addressSearch(area, function(result, status) {
-	
 		// 정상적으로 검색이 완료됐으면 
 			if (status === daum.maps.services.Status.OK) {
 		
@@ -114,14 +114,12 @@
 				var longi = new daum.maps.LatLng(result[0].x);
 				console.log(longi);
 				console.log(lat + " , " + longi);
-				
-				
+					
 				// 결과값으로 받은 위치를 마커로 표시합니다
 				var marker = new daum.maps.Marker({
 					map : map,
 					position : coords
 				});
-		
 				// 인포윈도우로 장소에 대한 설명을 표시합니다
 				var infowindow = new daum.maps.InfoWindow(
 						{

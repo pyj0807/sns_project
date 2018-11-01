@@ -18,14 +18,35 @@ video {
 	max-height: 100%;
 	height: 500px;
 }
+
+input[type=checkbox] { display:none; }
+input[type=checkbox] + label { 
+display: inline-block; 
+cursor: pointer; 
+line-height: 22px; 
+padding-left: 22px; 
+background: url('${pageContext.servletContext.contextPath}/img/heart2.png') left/22px no-repeat; 
+}
+input[type=checkbox]:checked + label { background-image: url('${pageContext.servletContext.contextPath}/img/heart1.png'); }
+
 </style>
 <br/>
 <br/>
 <br/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4"></script>
-<div id="map" style="width:100%;height:150px;"></div>
+<!-- db에 위치값이 저장되어있을경우에만 지도보여줌 -->
+<c:choose>
+	<c:when test="${boardOne.area!=null }">
+		<div id="map" style="width:100%;height:150px;"></div>
+	</c:when>
+</c:choose>
 <div align="center">
-	위치:<a href="">${boardOne.area }</a>
+	<!-- db에 위치값이 저장되어있을경우에만 지도보여줌 -->
+	<c:choose>
+		<c:when test="${boardOne.area!=null }">
+			위치:<a href="">${boardOne.area }</a>
+		</c:when>
+	</c:choose>
 	<c:choose>
 		<c:when test="${Id==boardOne.writer}">
 			<a href="${pageContext.servletContext.contextPath }/update.do?num=${boardOne._id}"><button>글수정하기</button></a>
@@ -48,10 +69,10 @@ video {
 
 	<c:choose>
 		<c:when test="${boardOne.checked == true }">
-			<input type="checkbox" id="like_button" onclick="like(this);" checked>좋아요</button>
+			<input type="checkbox" id="like_button" onclick="like(this);" checked><label for="like_button">좋아요</label>
 		</c:when>
 	<c:otherwise>
-			<input type="checkbox" id="like_button" onclick="like(this);">좋아요</button>
+			<input type="checkbox" id="like_button" onclick="like(this);"><label for="like_button">좋아요</label>
 	</c:otherwise>
 	</c:choose>
 	 

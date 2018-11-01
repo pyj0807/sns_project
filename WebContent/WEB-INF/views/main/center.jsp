@@ -142,7 +142,7 @@ article:hover .links{
 		                		<img class="card-img-top" src="${i.file_attach }" alt="Card image cap" >
 		                	</div>
 		                	<div  class="links" style="text-align:center;"> <!--내일댓글수처리 -->
-			                	<span>♡:${fn:length(i.liker) }</span> <span></span>
+			                	<span><img src="${pageContext.servletContext.contextPath }/img/heart1.png" class="icon">:${fn:length(i.liker) }</span><span></span>
 		                	</div>	
 		                </article>
 		                <div class="card-body">
@@ -183,7 +183,7 @@ article:hover .links{
            		};
            		$.post("${pageContext.servletContext.contextPath}/indexAjax.do",param,function(rst){
            			//this =<div class="thumbImg"> , .next 는 동일선상의 다음꺼(<div  class="links"), .children은 자식 (<span>). eq 는 자식을 배열로표시
-           			target.next().children().eq(1).html("♧:" +rst.length);
+           			target.next().children().eq(1).html("<img src=\"${pageContext.servletContext.contextPath }/img/comment.png\" class=\"icon\">" +rst.length);
            		}); 	
            	});
            </script>
