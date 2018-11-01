@@ -135,13 +135,6 @@ article:hover .links {
 										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
 											class="card-text">${i.content }</p></a>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary"
-												data-toggle="modal" data-target="#VideoModalCenter"
-												data-con="${i.content}" data-vid="${i.file_attach }">
-												View</button>
-										</div>
 										<small class="text-muted">
 					                    	<c:choose>
 					                    		<c:when test="${i.lasttime <60}">
@@ -161,6 +154,15 @@ article:hover .links {
 					                    		</c:otherwise>
 					                    	</c:choose>
 										</small>
+										<div class="btn-group">
+											<!-- Button trigger modal -->
+											<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
+													data-remote="false" data-toggle="modal" data-target="#myModal">
+												<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#VideoModalCenter"
+												data-con="${i.content}" data-vid="${i.file_attach }">
+												View</button></a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -233,13 +235,13 @@ article:hover .links {
 <div class="modal fade <%-- bd-example-modal-lg --%>" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog <%-- modal-lg --%>">
     <div class="modal-content">
-      <div class="modal-header">
+<%--       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">	
         <img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
 						class="photo" style="width: 30px; height: 30px;"> <a
 						href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
         </h4>
-      </div>
+      </div> --%>
       <div class="modal-body">
         ...
       </div>
