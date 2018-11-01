@@ -142,6 +142,55 @@
   </tbody>
 </table>
 
+<div class="wrap">
+	<h1 class="animated swing infinite">AMIATE</h1>
+    <!--★여기에!! 원하는 애니메이션 이름을 씁니다. -->
+	<input type="button" value="클릭" name="btName" class="bt">	
+</div>
+
+<style>
+*{margin: 0;padding:0;}
+.wrap{text-align: center;margin: 100px 0;}
+h1{margin:50px 0;}
+.bt{padding:10px 20px;}
+.infinite{-webkit-animation-iteration-count:infinite;}
+
+</style>
+<div id="example-1">
+  <button @click="show = !show">
+    Toggle render
+  </button>
+  <transition name="slide-fade">
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+
+<script >
+
+new Vue({
+  el: '#example-1',
+  data: {
+    show: true
+  }
+})
+</script>
+<style>
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+</style>
+/* 애니메이션 진입 및 진출은 다른 지속 시간 및  */
+/* 타이밍 기능을 사용할 수 있습니다. */
+
 
 </body>
 </html>

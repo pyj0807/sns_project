@@ -9,7 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 <html lang="en">
-<style>
+<!-- <style>
 img {
 	max-width: 100%;
 	width: 400px;
@@ -23,7 +23,7 @@ img {
     max-width: 500px;
     max-height: 400px;
 }
-</style>
+</style> -->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -62,55 +62,23 @@ img {
         	</p>
         </div>
       </section>
-
+<%-- 
       <div class="album text-muted">
         <div class="container">
 
           <div class="row">
-            <%-- <div class="card"  >
+            <div class="card"  >
               <img class="max-small" src="${pageContext.servletContext.contextPath }/img/clubmain.png" alt="Card image cap">
               <p class="card-text">즐거운 싸커.</p>
             </div>
-            <br/> --%>
+            <br/>
             <c:forEach var="v" items="${clubAll }">
            <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"><img class="img" src="${v.attach }" alt="Card image cap"></a>
             <p class="card-text">▶  ${v._id}</p>
             <br/>
             </c:forEach>
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-<!-- 
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
+         
 
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-              <img data-src="holder.js/100px280?theme=thumb" alt="Card image cap">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div> -->
           </div>
 
         </div>
@@ -126,17 +94,41 @@ img {
         <!-- <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
         <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p> -->
       </div>
-    </footer>
+    </footer> --%>
 
     </div>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-   <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="http://bootstrap4.kr/assets/js/vendor/popper.min.js"></script>
-    <script src="http://bootstrap4.kr/dist/js/bootstrap.min.js"></script>
-    <script src="http://bootstrap4.kr/assets/js/vendor/holder.min.js"></script> -->
+    
+  <!--   <div class="media">
+  <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
+  <div class="media-body">
+    <h5 class="mt-0">Media heading</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+  </div>
+</div> -->
+<div style="width:200px; width: auto;height: 200px; height: auto; ">
+ <c:forEach var="v" items="${clubAll }">
+           <%-- <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"><img class="img" src="${v.attach }" alt="Card image cap"></a>
+            <p class="card-text">▶  ${v._id}</p> --%>
+            
+            
+               <div class="media">
+  <img class="mr-3" src="${v.attach }" alt="Generic placeholder image">
+  <div class="media-body">
+    <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"> <h5 class="mt-0">▶  ${v._id}</h5></a>
+   
+  </div>
+</div>
+</div>
+            
+            
+            
+            
+            <br/>
+            </c:forEach>
+    
+    
+    
+  
     <script>
       Holder.addTheme('thumb', {
         bg: '#55595c',
