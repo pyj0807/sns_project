@@ -26,16 +26,14 @@ body {
     clear: both;
 }
 img {
-	width: 400px;
-	
+	width: 500px;
 	height: auto;
-	height: 300px;
 	}
 video {
 	max-width: 100%;
 	width:700px;
 	max-height: 100%;
-	height: 500px;
+	height: auto;
 }
 input[type=checkbox] { display:none; }
 input[type=checkbox] + label { 
@@ -78,11 +76,16 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 	<!-- 오른쪽 표시할것 : 프사 / 아이디 / (장소태그) / 관심사 -->
  	<div class="column">
 	<p>
+		<a href="${pageContext.servletContext.contextPath }/account.do?id=${boardOne.writer }">
 		<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
-		<b><a href="${pageContext.servletContext.contextPath }/account.do?id=${boardOne.writer }">${boardOne.writer }</b></a> 
+		<b>${boardOne.writer }</b></a> 
 		<a href=""><h6>${boardOne.area }</h6></a>
 		<span class="badge badge-pill badge-info"> ${boardOne.interest }</span>
+	</p>
 	<hr/>
+	<!-- 내용표시 -->
+	<p>
+		${hashtag }
 	</p>
 	
 	<!-- 지도 스크립트 -->
@@ -116,16 +119,12 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 				<a href="${pageContext.servletContext.contextPath }/delete.do?num=${boardOne._id}"><i class="trash alternate outline icon"></i></a>
 			</c:when>
 		</c:choose>
-		<hr/>
-		<p>
-			${hashtag }
-		</p>
 		<hr/>	
 	<!-- 댓글 -->
 	<i class="comments outline icon"></i>댓글 0개<br/>
 		<span id="replyList">
 			<c:forEach var="i" items="${reply_list }">
-				<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>  ${i.reply_content }
+				<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }	</a>	${i.reply_content }  
 				<c:choose>
 					<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
 						<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
@@ -141,7 +140,6 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 				<input type="text" id="reply" name="reply" style="width: 80%"/>
 				<button type="button" id="add_reply" onclick="replyAjax();">등록하기</button>
 			</p>
-		<%-- </div> --%>
 	</div>
 </div>
 	
@@ -192,12 +190,12 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+="/account.do?id=";
 						html+=obj[i].writer;
 						html+="\">";		
-						html+=obj[i].writer+"</a>";
+						html+=obj[i].writer+" </a> ";
 						html+=obj[i].reply_content;
 						
 						if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
 							//(등록후조회)
-							html+="<button id=\"delete_reply\" value=\"";
+							html+=" <button id=\"delete_reply\" value=\"";
 							html+=obj[i].key+","+obj[i].id;
 							html+="\"";
 							html+="onclick=\"";
@@ -205,7 +203,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 							html+="\"";
 							html+=">삭제</button>";
 						}else{
-							html+="<button id=\"delete_reply\" value=\"";
+							html+=" <button id=\"delete_reply\" value=\"";
 							html+=obj[i].key+","+obj[i].id;
 							html+="\"";
 							html+="onclick=\"";
@@ -245,12 +243,12 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					html+="/account.do?id=";
 					html+=obj[i].writer;
 					html+="\">";		
-					html+=obj[i].writer+"</a>";
+					html+=obj[i].writer+" </a> ";
 					html+=obj[i].reply_content;
 					
 					if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
 						//(삭제후조회)
-						html+="<button id=\"delete_reply\" value=\"";
+						html+=" <button id=\"delete_reply\" value=\"";
 						html+=obj[i].key+","+obj[i].id;
 						html+="\"";
 						html+="onclick=\"";
@@ -258,7 +256,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+="\"";
 						html+=">삭제</button>";
 					}else{
-						html+="<button id=\"delete_reply\" value=\"";
+						html+=" <button id=\"delete_reply\" value=\"";
 						html+=obj[i].key+","+obj[i].id;
 						html+="\"";
 						html+="onclick=\"";
