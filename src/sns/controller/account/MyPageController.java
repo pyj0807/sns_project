@@ -84,7 +84,7 @@ public class MyPageController {
 
 	// write.do 에서 글쓰고 넘어오는 페이지(실질적 글 업로드 과정)
 	@PostMapping("/mypage.do")
-	public String mypage(@RequestParam Map map, @RequestParam MultipartFile file, WebRequest wr, ModelMap modelmap)
+	public String mypage(@RequestParam Map map, @RequestParam MultipartFile[] file, WebRequest wr, ModelMap modelmap)
 			throws IllegalStateException, IOException {
 		System.out.println("★★★★★:"+map);
 		// 파일 업로드 경로 생성
@@ -107,43 +107,53 @@ public class MyPageController {
 		}
 		//===========================================
 
-		// 파일 타입 확인하고 image 랑 video 만 가능하게
-		String type = file.getContentType().substring(0, 5);
-		if (!(type.equals("image") || type.equals("video"))) {
-			modelmap.put("err", "type");
-			return "sns.write";
-		} else if(map.get("interest").equals(null)){
+		//관심사등록안하면 에러발생
+		if(map.get("interest").equals(null)){
 			modelmap.put("errr", "inter");
 			return "sns.write";
-		}else {
+		}
+		//List 2개 만들기
+		List path_list = new ArrayList<>();
+		List type_list = new ArrayList<>();
+
+		// 파일 타입 확인하고 image 랑 video 만 가능하게
+		for(int i=0; i<file.length; i++) {
+			String type = file[i].getContentType().substring(0, 5);
+			if (!(type.equals("image") || type.equals("video"))) {
+				modelmap.put("err", "type");
+				return "sns.write";
+			}else { //비디오파일이나, 사진파일이면
 				// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
 				long currentTime = System.currentTimeMillis();
-				String filename = file.getOriginalFilename();
+				String filename = file[i].getOriginalFilename();
 				String ext = "." + FilenameUtils.getExtension(filename);
 				filename = currentTime + loginId + ext;
 				File insertfile = new File(dir, filename);
-				file.transferTo(insertfile);
+				file[i].transferTo(insertfile);
 				String path = svc.getContextPath() + "/upload/" + filename;
-	
-	//			String content_enter = (String) map.get("content");
-	//			content_enter = content_enter.replace("\r\n", "<br>");
-	
+				System.out.println("type:"+type+"/path"+path);
+				//리스트에담아서
+				type_list.add(type);
+				path_list.add(path);
+				
 				map.put("_id", boardRepository.getBoardNo());	// 글번호
 				map.put("writer", loginId);	// 글쓴이
-	//			map.put("content", content_enter);
-				map.put("file_attach", path);	// 경로
-				map.put("type", type);	// 파일타입
+				//map.put("file_attach", path);	// 경로
+				map.put("file_attach", path_list);	// 경로
+				//map.put("type", type);	// 파일타입
+				map.put("type", type_list);	// 파일타입
 				map.put("liker", new ArrayList<>());	// 좋아요 
 				map.put("hashcode", hash);	// 해쉬태그
 				map.put("time", currentTime);	// 글등록시간
 				map.put("longi", map.get("longi")); //경도
 				map.put("lat", map.get("lat")); //경도
-				map.put("area", map.get("area")); //주소
-				boardRepository.insertOne(map);	//글등록Insert!
-	
-				return "redirect:/mypage.do";
+				map.put("area", map.get("area")); //주소	
+			}				
 		}
+		boardRepository.insertOne(map);	//글등록Insert!
+		return "redirect:/mypage.do";
 	}
+
 	//글수정페이지20181029
 	@PostMapping("/update_install.do")
 	public String update_install(@RequestParam Map map) {
