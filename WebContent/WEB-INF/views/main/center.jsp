@@ -55,9 +55,8 @@ article:hover .links{
  <script src="semantic/semantic.js"></script>
  <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
  
-  <body>
   
-   <!-- 드롭 박스 -->
+<%--    <!-- 드롭 박스 -->
    <div class="btn-group" role="group" align="center">
    <p>
          <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/index.do">
@@ -74,7 +73,7 @@ article:hover .links{
                href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
       </c:forEach>
    </div>
-</div>
+</div> --%>
 
     <main role="main">
       <div class="album py-5">

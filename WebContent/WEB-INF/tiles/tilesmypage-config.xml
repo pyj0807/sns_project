@@ -3,7 +3,7 @@
 <tiles-definitions>
 	<!-- 개인 홈 화면 -->
 	<definition name="sns.mypage" template="/WEB-INF/tiles/sns-mypagetemplate.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/main/newnav.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/mypage/home.jsp" />
 	</definition>
