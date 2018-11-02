@@ -32,4 +32,8 @@ public void roomchatremove(String content) {
 	template.remove(new Query(Criteria.where("contentid").in(content)),"clubchat");
 }
 
+public List<Map> rommmainid(String content) {
+	return template.find(new Query(Criteria.where("_id").in(content)), Map.class,"freechatroom");
+}
+
 }

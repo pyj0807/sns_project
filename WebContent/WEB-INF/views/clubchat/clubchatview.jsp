@@ -5,6 +5,8 @@
     
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 	<%--  to .<h1 class="h5">${otherId }</h5> --%>
@@ -44,20 +46,65 @@
  
  
 <h4>Open Chat Room <small id="ho"></small></h4>
-<div style="height: 520px; overflow-y: scroll; width: 500px " id="chatView">
+<div style="overflow:scroll;height:600px;"
+	id="chatView" >
 	<c:forEach var="v" items="${clubchating }">
 		
 		<c:choose>
 		<c:when test="${userId eq v.ID}">
-				<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-		<b>${v.ID }<a href="${pageContext.servletContext.contextPath}/mypage.do?"><small><b>(${v.userNAME})</b></small></a> : ${v.content }  / <small><b>${v.sendtime}</b></small></b>
-		</div>
+		<c:choose>
+		<c:when test="${v.mainid eq userId }">
+				<div role="alert" style="padding: 10px; margin-bottom: 10px;"
+					align="right">
+			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
+			<span class="badge badge-pill badge-success">${v.userNAME} </span><i class="chess queen icon"></i></a><br/>
+			<span style="font-size: x-large;" class="badge badge-secondary">
+			${v.content } / <small><b>${v.sendtime}</b></small></b>
+					</span>
+				</div>
+		
 		</c:when>
 		<c:otherwise>
-		<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-		<b>${v.ID }<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}"><small><b>(${v.userNAME})</b></small></a> : ${v.content }  / <small><b>${v.sendtime}</b></small></b>
-		</div>
+		<div role="alert" style="padding: 10px; margin-bottom: 10px;"
+					align="right">
+			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
+			<span class="badge badge-pill badge-success">${v.userNAME} </span></a><br/>
+			<span style="font-size: x-large;" class="badge badge-secondary">
+			${v.content } / <small><b>${v.sendtime}</b></small></b>
+				</span>
+				</div>
+		</c:otherwise>
+		</c:choose>
+</c:when>
+	
+
+	
+		<c:otherwise>
+		<c:choose>
+		<c:when test="${v.ID eq v.mainid}">
+		<div role="alert" style="padding: 10px; margin-bottom: 10px;"
+					align="left">
+			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
+			<span class="badge badge-pill badge-warning">${v.userNAME} </span><i class="chess queen icon"></i></a><br/>
+			<span style="font-size: x-large;" class="badge badge-secondary">
+			${v.content } / <small><b>${v.sendtime}</b></small></b>
+					</span>
+				</div>
 		
+		</c:when>
+		
+		<c:otherwise>
+		<div role="alert" style="padding: 10px; margin-bottom: 10px;"
+					align="left">
+			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
+			<span class="badge badge-pill badge-warning">${v.userNAME} </a><br/>
+			<span style="font-size: x-large;" class="badge badge-secondary">
+			${v.content } / <small><b>${v.sendtime}</b></small></b>
+					</span>
+				</div>
+		
+		</c:otherwise>
+		</c:choose>
 		</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -92,6 +139,8 @@
 	</c:choose>
 
 <script>
+$('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
+
 $("#abcd").on("click",function(){
 	var d=window.confirm("방을 없애시겠습니까?");
 	console.log(d);
@@ -107,7 +156,7 @@ $("#abcd").on("click",function(){
 
 
 	var clubchatws= new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/clubchating.do");
-
+var html="";
 	clubchatws.onmessage= function(evt) {
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
@@ -121,12 +170,39 @@ $("#abcd").on("click",function(){
 		
 	}
 	var conhandle=function(obj){
-		var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+		
+		if(obj.ID == "${Id}"){
+			if(obj.mainid=="${Id}"){
+				 html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+					html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+					html +="</div>"; 
+					document.getElementById("chatView").innerHTML += html;
+					document.getElementById("chatView").scrollTop = 
+						document.getElementById("chatView").scrollHeight; 
+				
+				
+				
+			}else{
+		 html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 		html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
 		html +="</div>"; 
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = 
 			document.getElementById("chatView").scrollHeight; 
+			}
+			
+	}else{
+		 html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+			html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+			html +="</div>"; 
+			document.getElementById("chatView").innerHTML += html;
+			document.getElementById("chatView").scrollTop = 
+				document.getElementById("chatView").scrollHeight; 
+		
+		
+	}
+		
+		
 	}
 	
 	

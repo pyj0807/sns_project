@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -154,9 +155,12 @@ public class ClubChat {
 	@GetMapping("/clubview.do")
 	public String clubchatview(ModelMap map,@RequestParam Map mapp,WebRequest wr) {
 		String id =(String)wr.getAttribute("Id", wr.SCOPE_SESSION);
-		String content =(String)mapp.get("id");
+		String content =(String)mapp.get("id");//방제목
 		/*System.out.println(id);*/
 		
+		List<Map> listmain= mongoremove.rommmainid(content);
+		Map mainmap=listmain.get(0);
+		mainmap.get("");
 		
 		
 			if(clubmongo.getagencyChat(content, id).size()<1) {
@@ -182,7 +186,7 @@ public class ClubChat {
 		System.out.println("이이이이="+(String)map.get("contentid")+(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		mongoremove.roomremove((String)map.get("contentid"),(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		mongoremove.roomchatremove((String)map.get("contentid"));
-		return "redirect:/club/all.do";
+		return "redirect:/chat/freechat.do";
 	}
 	
 	
