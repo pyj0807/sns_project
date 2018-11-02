@@ -55,7 +55,13 @@ public class BoardController {
 		}
 		
 		//댓글조회
-		List<Map> reply_list = boarddao.getBoardReply(num);
+		List<Map> reply_list = boarddao.getBoardReply(num);		
+		for(int i=0; i<reply_list.size(); i++) {
+			long writetime = (long)reply_list.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			reply_list.get(i).put("lasttime", lasttime);
+		}
+		
 		
 //=================================================================================		
 		//입력한내용에서 split 뽑기(띄어쓰기마다)
@@ -182,6 +188,13 @@ public class BoardController {
 		//조회 (방번호받아와야함)
 		Double id = (double)map.get("id");
 		List<Map> reply_list = boarddao.getBoardReply(id.intValue());
+		//지난시간받아오기
+		for(int i=0; i<reply_list.size(); i++) {
+			long writetime = (long)reply_list.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			reply_list.get(i).put("lasttime", lasttime);
+		}
+		
 		String json = gson.toJson(reply_list);
 		
 		return json;
@@ -202,6 +215,13 @@ public class BoardController {
 		
 		Double d1 = Double.parseDouble(keys[1]); //double casting
 		List<Map> reply_list = boarddao.getBoardReply(d1.intValue()); //double--> int casting
+		//지난시간가져오기
+		for(int i=0; i<reply_list.size(); i++) {
+			long writetime = (long)reply_list.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			reply_list.get(i).put("lasttime", lasttime);
+		}
+		
 		String json = gson.toJson(reply_list);
 		
 		return json;

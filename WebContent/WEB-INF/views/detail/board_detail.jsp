@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -125,19 +126,44 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<hr/>	
 	<!-- 댓글 -->
 	<i class="comments outline icon"></i><span id=replyLength>${fn:length(reply_list) }</span> Comment<br/>	
-		<span id="replyList">
-			<c:forEach var="i" items="${reply_list }">
-				<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }	</a>	${i.reply_content }  
-				<c:choose>
-					<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
-						<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
-					</c:when>
-					<c:otherwise>
-						<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">삭제</button><br/>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</span>
+		<div id="scroll" style="overflow-y: scroll; height: 100px;">
+			<span id="replyList">
+				<c:forEach var="i" items="${reply_list }">
+					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
+					<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>
+					${i.reply_content }
+					<c:choose>
+						<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
+							<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
+						</c:when>
+						<c:otherwise>
+							<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">삭제</button><br/>
+						</c:otherwise>
+					</c:choose>
+					<!-- 댓글시간 -->
+					<small class="text-muted">
+                    	<c:choose>
+                    		<c:when test="${i.lasttime <60}">
+                    			${i.lasttime }초전<br/>
+                    		</c:when>
+                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전<br/>
+                    		</c:when>
+                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전<br/>
+                    		</c:when>
+                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전<br/>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전<br/>
+                    		</c:otherwise>
+                    	</c:choose>
+		             </small>
+						
+				</c:forEach>
+			</span>
+		</div>
 		<br/>
 			<p>
 				<input type="text" id="reply" name="reply" style="width: 80%"/>
@@ -145,7 +171,8 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 			</p>
 	</div>
 </div>
-	
+
+
 
 <script>
 	//상세화면에서 좋아요 눌렀을때 ajax처리
@@ -189,6 +216,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					var html="";
 					var len="";
 					for(var i=0; i<obj.length; i++){
+						html+="<img src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 30px; height: 30px;\">";
 						html+="<a href=\"";
 						html+="${pageContext.servletContext.contextPath }";
 						html+="/account.do?id=";
@@ -196,6 +224,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+="\">";		
 						html+=obj[i].writer+" </a> ";
 						html+=obj[i].reply_content;
+						
 												
 						len = obj.length;
 						
@@ -218,7 +247,21 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 							html+="style=\"visibility:hidden\"";
 							html+=">삭제</button>";
 						}
+						html+="<br/>";	
+						html+="<small class=\"text-muted\">";
+						if(obj[i].lasttime<60){
+							html+=obj[i].lasttime+"초전";							
+						}else if(obj[i].lasttime>=60 && obj[i].lasttime<3600){
+							html+=parseInt(obj[i].lasttime/60)+"분전";
+						}else if(obj[i].lasttime>=3600 && obj[i].lasttime<86400){
+							html+=parseInt(obj[i].lasttime/(60*60))+"시간전";
+						}else if(obj[i].lasttime>=86400 && obj[i].lasttime<604800){
+							html+=parseInt(obj[i].lasttime/(60*60*24))+"일전";
+						}else{
+							html+=parseInt(obj[i].lasttime/(60*60*24*7))+"주전";
+						}
 						html+="<br/>";
+						html+="</small>";
 					}				
 					document.getElementById("replyList").innerHTML = html;
 					document.getElementById("reply").value="";
@@ -246,6 +289,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 				var html="";
 				var len="";
 				for(var i=0; i<obj.length; i++){	
+					html+="<img src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 30px; height: 30px;\">";
 					html+="<a href=\"";
 					html+="${pageContext.servletContext.contextPath }";
 					html+="/account.do?id=";
@@ -277,6 +321,21 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+=">삭제</button>";
 					}
 					html+="<br/>";
+					html+="<small class=\"text-muted\">";
+					if(obj[i].lasttime<60){
+						html+=obj[i].lasttime+"초전";							
+					}else if(obj[i].lasttime>=60 && obj[i].lasttime<3600){
+						html+=parseInt(obj[i].lasttime/60)+"분전";
+					}else if(obj[i].lasttime>=3600 && obj[i].lasttime<86400){
+						html+=parseInt(obj[i].lasttime/(60*60))+"시간전";
+					}else if(obj[i].lasttime>=86400 && obj[i].lasttime<604800){
+						html+=parseInt(obj[i].lasttime/(60*60*24))+"일전";
+					}else{
+						html+=parseInt(obj[i].lasttime/(60*60*24*7))+"주전";
+					}
+					html+="<br/>";
+					html+="</small>";
+					
 				}				
 				document.getElementById("replyList").innerHTML = html;
 				document.getElementById("reply").value="";
