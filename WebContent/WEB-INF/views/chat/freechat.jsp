@@ -19,7 +19,7 @@
       <a class="nav-link active" data-toggle="tab" href="#home">개인채팅</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu1">오픈채팅</a>
+      <a class="nav-link" data-toggle="tab" href="#menu1" id="open">오픈채팅</a>
     </li>
    
   </ul>
@@ -171,7 +171,7 @@
    
   </div>
 </div>
-</div>
+
             
             
             
@@ -179,24 +179,30 @@
             <br/>
             </c:forEach>
     
+
+
+
+</div>
+    </div> <!-- 오픈채팅 끝 -->
+	</div><!--탭 컨텐트 마지막  -->
     
+
     
   
     <script>
+
       Holder.addTheme('thumb', {
         bg: '#55595c',
         fg: '#eceeef',
         text: 'Thumbnail'
       });
     </script>
-  </body>
-</html>
-
-
-
-
-    </div> <!-- 오픈채팅 끝 -->
-	</div><!--탭 컨텐트 마지막  -->
+	
+	<script>
+	if(${cluballon}=="on"){
+	$("#open").click();
+	};
+	</script>
 		
 	
 	

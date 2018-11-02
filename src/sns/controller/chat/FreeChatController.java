@@ -62,7 +62,10 @@ public class FreeChatController {
 	public String freechatController(ModelMap map,WebRequest wr) {
 		List li =new ArrayList<>();
 		li=chatdao.followchatgetall((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
-		
+		System.out.println("규규규규규규="+wr.getAttribute("cluballon", wr.SCOPE_REQUEST));
+		if(wr.getAttribute("cluballon", wr.SCOPE_REQUEST)!=null) {
+			wr.setAttribute("cluballon", wr.getAttribute("cluballon", wr.SCOPE_REQUEST),wr.SCOPE_REQUEST);
+		}
 		map.put("frends", li);
 		
 		for(int i=0;i<li.size();i++) {

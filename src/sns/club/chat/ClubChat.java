@@ -49,9 +49,12 @@ public class ClubChat {
 	ClubChatMongoDeleteRepository mongoremove;
 	
 	@RequestMapping("/all.do")
-	public String clubAll(ModelMap map) {
+	public String clubAll(ModelMap map, WebRequest wr) {
 		TimeSorter sr= new TimeSorter();
 		List<Map> li=clubmongo.getAllopenChat();
+		
+	
+		
 		
 		li.sort(new Comparator<Map>() {
 			@Override
@@ -113,6 +116,7 @@ public class ClubChat {
 		
 		System.out.println(ext+"qwtgrehd");
 		
+		wr.setAttribute("cluballon", "on", wr.SCOPE_REQUEST);
 		
 			
 			map.put("_id", info);
@@ -133,7 +137,7 @@ public class ClubChat {
 			System.out.println("저장될 경로="+dst.toString());
 			clubmongo.createroom(map);
 			attach.transferTo(dst);
-			return "redirect:/club/all.do";
+			return "redirect:/chat/freechat.do";
 		
 	
 		

@@ -78,6 +78,7 @@
 
 </div>
 
+
 <hr />
 <div class="input-group mb-3">
 	<div class="input-group-prepend">
@@ -88,6 +89,8 @@
 </div>
 
 <script>
+
+
 $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
 
 
