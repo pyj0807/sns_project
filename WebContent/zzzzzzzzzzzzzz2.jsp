@@ -32,6 +32,8 @@
 
 <a href="http://webdir.tistory.com/435" target="_blank" class="where">posted in webdir</a> 
 
+<a href="#"><span class="badge badge-pill badge-light">Light</span></a>
+
 <style>
 body {margin: 10px}
 .where {

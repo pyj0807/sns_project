@@ -5,7 +5,7 @@
 <!doctype html>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
-
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 <html lang="en">
@@ -62,7 +62,49 @@ img {
         	</p>
         </div>
       </section>
+<%-- 
+      <div class="album text-muted">
+        <div class="container">
 
+          <div class="row">
+            <div class="card"  >
+              <img class="max-small" src="${pageContext.servletContext.contextPath }/img/clubmain.png" alt="Card image cap">
+              <p class="card-text">즐거운 싸커.</p>
+            </div>
+            <br/>
+            <c:forEach var="v" items="${clubAll }">
+           <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"><img class="img" src="${v.attach }" alt="Card image cap"></a>
+            <p class="card-text">▶  ${v._id}</p>
+            <br/>
+            </c:forEach>
+         
+
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <!-- <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p> -->
+      </div>
+    </footer> --%>
+
+    </div>
+    
+  <!--   <div class="media">
+  <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
+  <div class="media-body">
+    <h5 class="mt-0">Media heading</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+  </div>
+</div> -->
 <div style="width:200px; width: auto;height: 200px; height: auto; ">
  <c:forEach var="v" items="${clubAll }">
            <%-- <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"><img class="img" src="${v.attach }" alt="Card image cap"></a>

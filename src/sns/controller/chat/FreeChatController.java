@@ -6,15 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Session;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
@@ -22,6 +20,18 @@ import org.springframework.web.context.request.WebRequest;
 import sns.repository.AlertService;
 import sns.repository.ChatDao;
 import sns.repository.ChatMongoRepository;
+import sns.repository.ClubChatMongoDeleteRepository;
+import sns.repository.Clubmongochat;
+
+
+class TimeSorter implements Comparator<Integer> {
+
+	
+	public int compare(Integer a,Integer b) {
+	return (Integer)(a-b);
+	}
+	
+}
 
 @RequestMapping("/chat")
 @Controller
@@ -36,6 +46,17 @@ public class FreeChatController {
 		
 		@Autowired
 		ChatMongoRepository mongochat;
+		
+		@Autowired
+		ServletContext ctx;
+		
+		@Autowired
+		Clubmongochat clubmongo;
+		
+		@Autowired
+		ClubChatMongoDeleteRepository mongoremove;
+		
+		
 	
 	@RequestMapping("/freechat.do")
 	public String freechatController(ModelMap map,WebRequest wr) {
@@ -101,6 +122,30 @@ public class FreeChatController {
 		
 		
 		}
+		
+		TimeSorter sr= new TimeSorter();
+		List<Map> lii=clubmongo.getAllopenChat();
+		
+		lii.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1= (long)o1.get("createdate");
+				long n2= (long)o2.get("createdate");
+				
+				if(n1<n2) {
+					return 1;
+				}else if(n1>n2) {
+					return -1;
+				}else {
+					return 0;
+				}
+			}
+		});
+		
+		map.put("clubAll", lii);
+		
+		
+		
 		return "chat.free";
 	}
 	
