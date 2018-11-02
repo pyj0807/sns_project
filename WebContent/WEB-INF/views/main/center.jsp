@@ -4,27 +4,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>   
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <style>
-/* img {
-	max-width: 100%;
-	width: 400px;
-	max-height: 100%;
-	height: 300px;
-<<<<<<< HEAD
-=======
-} */
-
 img {
-	;
-	width: 400px;
-	
+	width: 2px;
 	height: auto;
-	height: 300px;
-}
+	}
 video {
 	max-width: 100%;
-	width: 400px;
+	width:700px;
 	max-height: 100%;
-	height: 300px;
+	height: auto;
 }
 .container {
     position: relative;
@@ -63,28 +51,22 @@ article:hover .links{
 }
 </style>
 
-
-
+<!-- semantic 아이콘 사용위한 스크립트와 link  -->
+ <script src="semantic/semantic.js"></script>
+ <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+ 
   <body>
-  <div>
   
-   <b><small><b>(전체)</b></small></b>
-  </div>
+   <!-- 드롭 박스 -->
    <div class="btn-group" role="group" align="center">
-      <button style="align-content: center;" id="btnGroupDrop1"
-         type="button" class="btn btn-secondary
-         dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-         aria-expanded="false">글 보기</button>
-      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-         <a class="dropdown-item"
-            href="${pageContext.servletContext.contextPath }/index.do">모든 회원 글 보기</a>
-         <a class="dropdown-item"
-            href="${pageContext.servletContext.contextPath }/newsfeed.do">뉴스피드</a>
-      </div>
-   </div>
-   <div class="btn-group" role="group" align="center">
+   <p>
+         <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/index.do">
+         <i class="users icon"></i>모든 회원 글 보기</a>
+         <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/newsfeed.do">
+         <i class="user circle icon"></i>뉴스피드</a>
+  </p>
    <button style="align-content: center;" id="btnGroupDrop1" type="button"
-      class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+      class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">관심사</button>
    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
       <c:forEach var="v" items="${allInter}">
@@ -93,25 +75,27 @@ article:hover .links{
       </c:forEach>
    </div>
 </div>
+
     <main role="main">
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">    
           <c:forEach var="i" items="${board_list }">
+          	<c:forEach var="p" begin="0" end="0" items="${i.type }">
           	<c:choose>
-          		<c:when test="${i.type == 'video'}"> <!-- 타입이비디오일경우 -->
+          		<c:when test="${p == 'video'}"> <!-- 타입이비디오일경우 -->
           			<div class="col-md-4">
 		              <div class="card mb-4 shadow-sm">
 		              <article>
 			              <div class="thumbImg" style="width: auto; height:250px;">
-			               	<video class="card-img-top" src="${i.file_attach }" controls></video>
+			              <c:forEach var="v" begin="0" end="0" items="${i.file_attach  }">
+			               	<video class="card-img-top" src="${v }" controls></video>
+			              </c:forEach>
 			               </div>
-			               <div class="links" style="text-align:center;">
-		                		
-		                	</div>
+			               <div class="links" style="text-align:center;"></div>
 		                </article>         
 		                <div class="card-body">
-		                   <a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p class="card-text">${i.content }</p></a>
+							<%--  <a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"> --%><p class="card-text">${i.content }</p><%-- </a> --%>
 		                  <div class="d-flex justify-content-between align-items-center">
 		                    <small class="text-muted">
 		                    	<c:choose>
@@ -132,24 +116,39 @@ article:hover .links{
 		                    		</c:otherwise>
 		                    	</c:choose>
 		                    </small>
+							<div class="btn-group">
+								<!-- Button trigger modal -->
+								<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
+										data-remote="false" data-toggle="modal" data-target="#myModal">
+									<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#VideoModalCenter"
+									data-con="${i.content}" data-vid="${i.file_attach }">
+									View</button></a>
+							</div>		                    
 		                  </div>
 		                </div>
 		              </div>
 		            </div>
           		</c:when>
+          		
+          		
           		<c:otherwise>
 	         		<div class="col-md-4"><!-- 배열 -->
 		              <div class="card mb-4 shadow-sm"><!-- 그림자 -->
 		              	<article>
 		              		<div class="thumbImg" style="width: auto; height:250px;" data-target="${i._id }">
-		                		<img class="card-img-top" src="${i.file_attach }" alt="Card image cap" >
+		              		<c:forEach var="p" begin="0" end="0" items="${i.file_attach }">
+								<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
+										data-remote="false" data-toggle="modal" data-target="#myModal" class="btn btn-default"
+											><img class="card-img-top" src="${p }" alt="Card image cap"  style="width: 328px;"></a>
+							</c:forEach>
 		                	</div>
-		                	<div  class="links" style="text-align:center;"> <!--내일댓글수처리 -->
-			                	<span><img src="${pageContext.servletContext.contextPath }/img/heart1.png" class="icon">:${fn:length(i.liker) }</span><span></span>
+		                	<div  class="links" style="text-align:center;">
+			                	<span><img src="${pageContext.servletContext.contextPath }/img/heart1.png" class="icon">   ${fn:length(i.liker) }</span>   <span></span>
 		                	</div>	
 		                </article>
 		                <div class="card-body">
-		                  <a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p class="card-text">${i.content }</p></a>
+		                  <%-- <a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"> --%><p class="card-text">${i.content }</p><%-- </a> --%>
 		                  <div class="d-flex justify-content-between align-items-center">
 		                    <small class="text-muted">
 		                    	<c:choose>
@@ -177,67 +176,50 @@ article:hover .links{
           		</c:otherwise>
           	</c:choose>
            </c:forEach>
+           </c:forEach>
            <script>
            	$(".thumbImg").on("mouseover", function(){
            		var target = $(this);
            		var t = $(this).data("target"); //글번호
+           		console.log(t);
            		var param ={
            			"room_no":t	
            		};
            		$.post("${pageContext.servletContext.contextPath}/indexAjax.do",param,function(rst){
            			//this =<div class="thumbImg"> , .next 는 동일선상의 다음꺼(<div  class="links"), .children은 자식 (<span>). eq 는 자식을 배열로표시
-           			target.next().children().eq(1).html("<img src=\"${pageContext.servletContext.contextPath }/img/comment.png\" class=\"icon\">" +rst.length);
+           			target.next().children().eq(1).html("<img src=\"${pageContext.servletContext.contextPath }/img/comment.png\" class=\"icon\"> " +rst.length);
            		}); 	
            	});
            </script>
           </div>
         </div>
       </div>
-    </main>
-
-<!-- <<<<<<< HEAD
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-      </div>
-    </footer>
-  </body>
-======= -->
-			</div>
-		</div>
+	<!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
+	<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog  modal-lg ">
+	    <div class="modal-content">
+	<%--       <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">	
+	        <img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
+							class="photo" style="width: 30px; height: 30px;"> <a
+							href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
+	        </h4>
+	      </div> --%>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	<!--       <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div> -->
+	    </div>
+	  </div>
 	</div>
-	</main>
-
-	<footer class="text-muted">
-		<div class="container">
-			<p class="float-right">
-				<a href="#">Back to top</a>
-			</p>
-			<p>Album example is &copy; Bootstrap, but please download and
-				customize it for yourself!</p>
-			<p>
-				New to Bootstrap? <a href="../../">Visit the homepage</a> or read
-				our <a href="../../getting-started/">getting started guide</a>.
-			</p>
-		</div>
-	</footer>
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script> -->
-	<!-- <script>
-		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
-	</script>
-	<script src="../../assets/js/vendor/popper.min.js"></script>
-	<script src="../../dist/js/bootstrap.min.js"></script>
-	<script src="../../assets/js/vendor/holder.min.js"></script>
-</body>
->>>>>>> refs/remotes/origin/pkk25 -->
-</html>
+    </main>
+    <script>
+	// 모달에 불러와지는 링크 JQuery
+	$("#myModal").on("show.bs.modal", function(e) {
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+</script>
+    

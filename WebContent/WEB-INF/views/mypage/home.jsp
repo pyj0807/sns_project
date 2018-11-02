@@ -118,15 +118,17 @@ article:hover .links {
 	<div class="container">
 		<div class="row">
 			<c:forEach var="i" items="${mylist }">
+	          	<c:forEach var="p" begin="0" end="0" items="${i.type }">
 				<c:choose>
-					<c:when test="${i.type == 'video'}">
+					<c:when test="${p == 'video'}">
 						<!-- 타입이비디오일경우 -->
 						<div class="col-md-4">
 							<div class="card mb-4 shadow-sm">
 								<article>
-									<div class="thumbImg" style="width: auto; height: 250px;"
-									data-target="${i._id }">
-										<video class="card-img-top" src="${i.file_attach }" controls/>
+									<div class="thumbImg" style="width: auto; height: 250px;" data-target="${i._id }">
+			 							<c:forEach var="v" begin="0" end="0" items="${i.file_attach  }">
+						           	    	<video class="card-img-top" src="${v }" controls></video>
+						           	   </c:forEach>
 									</div>
 									<div class="links" style="text-align: center;"></div>
 								</article>
@@ -176,14 +178,14 @@ article:hover .links {
 								<article>
 									<div class="thumbImg" style="width: auto; height: 250px;"
 										data-target="${i._id }">
-										<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
-										data-remote="false" data-toggle="modal" data-target="#myModal" class="btn btn-default"
-											><img class="card-img-top" src="${i.file_attach }"
-											alt="Card image cap"></a>
+					              		<c:forEach var="p" begin="0" end="0" items="${i.file_attach }">
+											<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
+													data-remote="false" data-toggle="modal" data-target="#myModal" class="btn btn-default"
+														><img class="card-img-top" src="${p }" alt="Card image cap"  style="width: 328px;"></a>
+										</c:forEach>
 									</div>
 									<div class="links" style="text-align: center;">
-										<!--내일댓글수처리 -->
-										<span>♡:${fn:length(i.liker) }</span> <span>ss</span>
+					                	<span><img src="${pageContext.servletContext.contextPath }/img/heart1.png" class="icon">   ${fn:length(i.liker) }</span>   <span></span>
 									</div>
 								</article>
 								<div class="card-body">
@@ -215,16 +217,18 @@ article:hover .links {
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
+			</c:forEach>
 			<script>
-		 	$(".thumbImg").on("mouseover", function(){
+           	$(".thumbImg").on("mouseover", function(){
            		var target = $(this);
            		var t = $(this).data("target"); //글번호
+           		console.log(t);
            		var param ={
            			"room_no":t	
            		};
            		$.post("${pageContext.servletContext.contextPath}/indexAjax.do",param,function(rst){
            			//this =<div class="thumbImg"> , .next 는 동일선상의 다음꺼(<div  class="links"), .children은 자식 (<span>). eq 는 자식을 배열로표시
-           			target.next().children().eq(1).html("♧:" +rst.length);
+           			target.next().children().eq(1).html("<img src=\"${pageContext.servletContext.contextPath }/img/comment.png\" class=\"icon\"> " +rst.length);
            		}); 	
            	});
 			</script>
@@ -232,8 +236,8 @@ article:hover .links {
 	</div>
 </div>
 <!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
-<div class="modal fade <%-- bd-example-modal-lg --%>" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog <%-- modal-lg --%>">
+<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg ">
     <div class="modal-content">
 <%--       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">	
@@ -245,9 +249,9 @@ article:hover .links {
       <div class="modal-body">
         ...
       </div>
-      <div class="modal-footer">
+<!--       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
