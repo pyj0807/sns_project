@@ -58,7 +58,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 
 <div class="row">
   <div class="column">
-	<!-- 왼쪽에 표시할것 :  사진(영상) / 내용 / 좋아요 / 댓글 -->
+	<!-- 왼쪽에 표시할것 :  사진(영상) -->
 	<p>
 		<c:choose>
 			<c:when test="${boardOne.type == 'video'}">
@@ -121,7 +121,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		</c:choose>
 		<hr/>	
 	<!-- 댓글 -->
-	<i class="comments outline icon"></i>댓글 0개<br/>
+	<i class="comments outline icon"></i><span id=replyLength>${fn:length(reply_list) }</span> Comment<br/>	
 		<span id="replyList">
 			<c:forEach var="i" items="${reply_list }">
 				<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }	</a>	${i.reply_content }  
@@ -184,6 +184,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					var obj = JSON.parse(this.responseText);
 					console.log(obj);
 					var html="";
+					var len="";
 					for(var i=0; i<obj.length; i++){
 						html+="<a href=\"";
 						html+="${pageContext.servletContext.contextPath }";
@@ -192,6 +193,8 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+="\">";		
 						html+=obj[i].writer+" </a> ";
 						html+=obj[i].reply_content;
+												
+						len = obj.length;
 						
 						if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
 							//(등록후조회)
@@ -216,6 +219,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					}				
 					document.getElementById("replyList").innerHTML = html;
 					document.getElementById("reply").value="";
+					document.getElementById("replyLength").innerHTML = len;
 				}
 			};
 			//send
@@ -237,6 +241,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 				var obj = JSON.parse(this.responseText);
 				console.log(obj);
 				var html="";
+				var len="";
 				for(var i=0; i<obj.length; i++){	
 					html+="<a href=\"";
 					html+="${pageContext.servletContext.contextPath }";
@@ -245,6 +250,9 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					html+="\">";		
 					html+=obj[i].writer+" </a> ";
 					html+=obj[i].reply_content;
+					
+					len = obj.length; // 댓글 개수
+					console.log(len);
 					
 					if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
 						//(삭제후조회)
@@ -269,6 +277,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 				}				
 				document.getElementById("replyList").innerHTML = html;
 				document.getElementById("reply").value="";
+				document.getElementById("replyLength").innerHTML = len;
 			}
 		};
 		xhr.send(JSON.stringify(param));	
