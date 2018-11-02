@@ -65,8 +65,8 @@ public List<Map> chatroomcheck(String id,String id2){
 	
 }
 
-public void roomupdate(String id1,String id2,String lasttime,String otherid) {
-	Update u= new Update().set("lastsenddate", (long)(System.currentTimeMillis())).set("lastformat", lasttime).set("readid",otherid );
+public void roomupdate(String id1,String id2,String lasttime,String otherid,String cont) {
+	Update u= new Update().set("lastsenddate", (long)(System.currentTimeMillis())).set("lastformat", lasttime).set("sendid",id1 ).set("cont", cont);
 	template.updateMulti(new Query(Criteria.where("modeId").in(id1).andOperator(Criteria.where("modeId").in(id2))),u,"freechatroom");
 	
 }
@@ -119,6 +119,9 @@ public void roomcountupdatedown(String id,String otherid) { //채팅방 카운�
 	Update u =new Update().set(id, 0);
 template.updateMulti(new Query(Criteria.where("modeId").in(id).andOperator(Criteria.where("modeId").in(otherid))),u,"freechatroom");
 }
+
+
+
 
 
 }

@@ -8,7 +8,7 @@
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 	<%--  to .<h1 class="h5">${otherId }</h5> --%>
-	<h5 class="h5">from . ${userId } ▶  to . ${otherId }</h5>	
+	<h5 class="h5">to . ${otherId }</h5>
 	<div class="btn-toolbar mb-2 mb-md-0">
 
 
@@ -18,7 +18,7 @@
 		</button> -->
 
 		<div class="btn-group" role="group">
-			  <button id="btnGroupDrop1" type="button"
+			<button id="btnGroupDrop1" type="button"
 				class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">팔로우 목록</button>
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -42,33 +42,28 @@
 </div>
 
 
-<!-- <h4>
+<h4>
 	Chat Room <small id="ho">(??)</small>
-</h4> -->
-<div style="overflow:scroll;overflow-x:hidden;max-height:600px;"
-	id="chatView" >
+</h4>
+<div style="height: 500px; overflow-y: scroll; width: 100%"
+	id="chatView">
 	<c:forEach var="v" items="${allchat }">
 
 		<c:choose>
 			<c:when test="${userId eq v.id}">
-				<div role="alert" style="padding: 10px; margin-bottom: 10px;"
-					align="right">
-					<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
-					<span class="badge badge-pill badge-success">${v.userNAME}</span></a><br/>
-				<span style="font-size: x-large;" class="badge badge-secondary">
-					${v.text } / <small><b>${v.sendtime}</b></small></b>
-
-				</span>
+				<div class="alert alert-secondary" role="alert"
+					style="padding: 3px; margin-bottom: 3px;">
+					<b>${v.id }<a
+						href="${pageContext.servletContext.contextPath}/mypage.do?"><small><b>(${v.userNAME})</b></small></a>
+						: ${v.text } / <small><b>${v.sendtime}</b></small></b>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div role="alert" style="padding: 10px; margin-bottom: 10px;" align="left">
-						<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
-					<span class="badge badge-pill badge-warning">${v.userNAME}</span></a><br/>
-				<span style="font-size: x-large;" class="badge badge-secondary">
-					${v.text } / <small><b>${v.sendtime}</b></small></b>
-
-				</span>
+				<div class="alert alert-secondary" role="alert"
+					style="padding: 3px; margin-bottom: 3px;">
+					<b>${v.id }<a
+						href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}"><small><b>(${v.userNAME})</b></small></a>
+						: ${v.text } / <small><b>${v.sendtime}</b></small></b>
 				</div>
 
 			</c:otherwise>
@@ -88,10 +83,6 @@
 </div>
 
 <script>
-$('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
-
-
-
 	var chatws = new WebSocket("ws://" + location.host
 			+ "${pageContext.servletContext.contextPath}/chating.do");
 
@@ -140,24 +131,14 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 	};
 
 	var mychatHandler = function(obj) {
-		var html = "<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\" align=\"left\">";
-		html += 
-				
-				 "<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"
-				+ "<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"</span></a><br/>"
-				+"<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
-				+ obj.text+" / " + "<small><b>"+obj.sendtime+"</b></small></span></div></b> ";
-		
-		
-		/* <div role="alert" style="padding: 10px; margin-bottom: 10px;"
-			align="right">
-			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
-			<span class="badge badge-pill badge-success">${v.userNAME}</span></a><br/>
-		<span style="font-size: x-large;" class="badge badge-secondary">
-			${v.text } / <small><b>${v.sendtime}</b></small></b>
-
-		</span>
-		</div> */
+		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+		html += "<b>"
+				+ obj.id
+				+ "<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"
+				+ "<small><b>(" + obj.userNAME + ")</b></small></a> : "
+				+ obj.text + " / <small><b>" + obj.sendtime + "</b></small>"
+				+ "</b>"
+		html += "</div>";
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = document
 				.getElementById("chatView").scrollHeight;
@@ -166,14 +147,14 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 
 	var otherchatHandler = function(obj) {
 
-		var html = "<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\" align=\"right\">";
-		html += 
-				
-				 "<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"
-				+ "<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"</span></a><br/>"
-				+"<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
-				+ obj.text+" / " + "<small><b>"+obj.sendtime+"</b></small></span></div></b> ";
-		
+		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+		html += "<b>"
+				+ obj.id
+				+ "<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"
+				+ "<small><b>(" + obj.userNAME + ")</b></small></a> : "
+				+ obj.text + " / <small><b>" + obj.sendtime + "</b></small>"
+				+ "</b>"
+		html += "</div>";
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = document
 				.getElementById("chatView").scrollHeight;

@@ -1,43 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script src="semantic/semantic.js"></script>
 
 
-<!DOCTYPE html>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-<html>
-<head>
-
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-
-</head>
-<body>
-
- <br/>
-
-	<%-- 	<form action="${pageContext.servletContext.contextPath }/club/createon.do" method="post" enctype="multipart/form-data">
-		제목 : <input type="text" name="info"/> <br/>
-		메인 사진 : <input type="file" name="attach"> 
-		<br/>
-		<button type="submit">만들기</button>
-	</form> --%>
-	
-	<form action="${pageContext.servletContext.contextPath }/club/createon.do" method="post" enctype="multipart/form-data">
-	<div class="filebox bs3-primary " align="center">
-	
-							제목 : <input type="text" name="info"/> <br/>
-                         메인 사진 :  <input class="upload-name" value="파일선택" disabled="disabled">
+<div class="filebox bs3-primary">
+                            <input class="upload-name" value="파일선택" disabled="disabled">
 
                             <label for="ex_filename">업로드</label> 
-                          <input type="file" id="ex_filename" name="attach"class="upload-hidden"> <br/>
-	<button type="submit" style="align-content: center;">만들기</button>
+                          <input type="file" id="ex_filename" class="upload-hidden"> 
                         </div>
-</form>
+
+<a href="http://webdir.tistory.com/435" target="_blank" class="where">posted in webdir</a> 
+
+<a href="#"><span class="badge badge-pill badge-light">Light</span></a>
 
 <style>
-
 body {margin: 10px}
 .where {
   display: block;
@@ -118,5 +115,3 @@ $(document).ready(function(){
 	}); 
 </script>
 
-</body>
-</html>

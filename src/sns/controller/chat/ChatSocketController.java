@@ -112,6 +112,8 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		roominsert.put("lastformat", sf.format(time));
 		roominsert.put(otherId, 1);
 		roominsert.put((String)map.get("id"), 0);
+		roominsert.put("cont", map.get("text"));
+		roominsert.put("sendid",(String)map.get("id") );
 		
 
 		
@@ -120,7 +122,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		if(mongochat.chatroomcheck((String)map.get("id"),(String)map.get("otherId")).size()<1) {
 			mongochat.insertchatroom(roominsert);
 		}else {
-			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"),sf.format(time),otherId);
+			mongochat.roomupdate((String)map.get("id"), (String)map.get("otherId"),sf.format(time),otherId,(String)map.get("text"));
 			mongochat.roomcountupdate((String)map.get("id"), otherId);
 			
 		}
