@@ -74,6 +74,10 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		gotmap.put("userNAME", userMap.get("NAME"));
 		System.out.println((String)gotmap.get("contentid"));
 		
+		Map li =mongoremove.rommmainid((String)gotmap.get("contentid"));
+		String str="";
+		
+		   System.out.println("하오하오="+str);
 			TextMessage msg =new TextMessage(gson.toJson(gotmap));
 		Map savedata=new HashMap<>();
 		savedata.put("contentid", gotmap.get("contentid"));
@@ -83,6 +87,7 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		savedata.put("sendtime", sf.format(System.currentTimeMillis()));
 		savedata.put("sendtimelong", System.currentTimeMillis());
 		savedata.put("readagency",new ArrayList<>());
+		savedata.put("mainid", (String)li.get("mainid"));
 		
 		mongo.clubchatinsert(savedata);
 		

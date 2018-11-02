@@ -158,25 +158,29 @@ public class ClubChat {
 		String content =(String)mapp.get("id");//방제목
 		/*System.out.println(id);*/
 		
-		List<Map> listmain= mongoremove.rommmainid(content);
-		Map mainmap=listmain.get(0);
-		mainmap.get("");
+		Map listmain= mongoremove.rommmainid(content);
 		
+/*		Map mainmap=listmain.get(0);
+		mainmap.get("");
+		*/
 		
 			if(clubmongo.getagencyChat(content, id).size()<1) {
 				clubmongo.clubagency(content,id);
 			}
-		List li =clubmongo.getaAencyAllclub(id);
+		List<Map> li =clubmongo.getaAencyAllclub(id);
 		
+		 System.out.println("꾸루루="+listmain);
+		String str=(String)listmain.get("mainid");
+			 System.out.println("하오하오="+str+" / "+content);
 		 
-		   
 		
-		System.out.println("깔갈깔="+clubmongo.clubbest(id,content));
+		//System.out.println("깔갈깔="+clubmongo.clubbest(id,content));
 		
 		map.put("best", clubmongo.clubbest(id,content));
 		map.put("contentid", content);
 		map.put("clubchating", clubmongo.clubchatingview(content));
 		map.put("allclub", li);
+		map.put("roommainid", str);
 		return "club.chat.view";
 	}
 	

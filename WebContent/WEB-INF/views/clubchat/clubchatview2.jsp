@@ -146,12 +146,6 @@ $("#abcd").on("click",function(){
 	console.log(d);
 	if(d==true){
 		window.location.href ="${pageContext.servletContext.contextPath}/club/remove.do?contentid="+$("#qqq").val();
-	}else{
-		var b=window.confirm("채팅방으로 가시겠습니까?");
-		if(b==true){
-			window.location.href ="${pageContext.servletContext.contextPath}/chat/freechat.do?"
-		}
-		
 	}
 });
 
@@ -162,7 +156,7 @@ $("#abcd").on("click",function(){
 
 
 	var clubchatws= new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/clubchating.do");
-
+var html="";
 	clubchatws.onmessage= function(evt) {
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
@@ -176,15 +170,12 @@ $("#abcd").on("click",function(){
 		
 	}
 	var conhandle=function(obj){
-		var html="";
+		
 		if(obj.ID == "${Id}"){
-			if("${roommainid}"=="${Id}"){
-				
-				html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"right\">"
-					+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-					+"<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"</span><i class=\"chess queen icon\"></i></a><br/>"
-					+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
-					+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
+			if(obj.mainid=="${Id}"){
+				 html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+					html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+					html +="</div>"; 
 					document.getElementById("chatView").innerHTML += html;
 					document.getElementById("chatView").scrollTop = 
 						document.getElementById("chatView").scrollHeight; 
@@ -192,35 +183,24 @@ $("#abcd").on("click",function(){
 				
 				
 			}else{
-				html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"right\">"
-					+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-					+"<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"</span></a><br/>"
-					+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
-					+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
-					document.getElementById("chatView").innerHTML += html;
-					document.getElementById("chatView").scrollTop = 
-						document.getElementById("chatView").scrollHeight;  
+		 html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+		html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+		html +="</div>"; 
+		document.getElementById("chatView").innerHTML += html;
+		document.getElementById("chatView").scrollTop = 
+			document.getElementById("chatView").scrollHeight; 
 			}
 			
 	}else{
-		if("${roommainid}"=="ID"){
-			html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"left\">"
-				+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-				+"<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"</span><i class=\"chess queen icon\"></i></a><br/>"
-				+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
-				+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
-				document.getElementById("chatView").innerHTML += html;
-				document.getElementById("chatView").scrollTop = 
-					document.getElementById("chatView").scrollHeight; 
+		if(obj.mainid=="ID"){
+		 html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+			html += "<b>"+obj.ID+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.content+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
+			html +="</div>"; 
+			document.getElementById("chatView").innerHTML += html;
+			document.getElementById("chatView").scrollTop = 
+				document.getElementById("chatView").scrollHeight;
 		}else{
-			html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"left\">"
-				+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-				+"<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"</span></a><br/>"
-				+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
-				+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
-				document.getElementById("chatView").innerHTML += html;
-				document.getElementById("chatView").scrollTop = 
-					document.getElementById("chatView").scrollHeight; 
+			
 			
 		}
 		
