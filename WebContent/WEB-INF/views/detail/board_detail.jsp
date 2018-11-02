@@ -56,15 +56,18 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 </div>
 
 <div align="left">	
-	<c:choose>
-		<c:when test="${boardOne.type == 'video'}">
-		<!-- 타입이비디오일경우 -->
-			<video src="${boardOne.file_attach }" controls></video><br/>
-		</c:when>
-		<c:otherwise>
-			<img src="${boardOne.file_attach }">
-		</c:otherwise>	
-	</c:choose>
+	
+	<!-- 타입 비디오,사진 구분 -->
+	<c:forEach var="i" items="${boardOne.type }" varStatus="status">
+		<c:choose>
+			<c:when test="${i  == 'image'}">
+				<img src="${boardOne.file_attach[status.index] }">
+			</c:when>
+			<c:otherwise>
+				<video src="${boardOne.file_attach[status.index] }" controls></video><br/>
+			</c:otherwise>
+		</c:choose>	
+	</c:forEach>
 	<br/>
 
 	<c:choose>

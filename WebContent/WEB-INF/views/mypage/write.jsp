@@ -16,7 +16,7 @@
 		enctype="multipart/form-data">
 		<p>
 			파일첨부<br /> <input type="file" style="width: 320px; pa dding: 5px;"
-				name="file" id="file" />
+				name="file" id="file" multiple="multiple" />
 		</p>
 		<p>
 			글내용(*)<br />
