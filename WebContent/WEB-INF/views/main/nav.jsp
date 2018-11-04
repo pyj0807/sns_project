@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
 <script src="semantic/semantic.js"></script>	
 
@@ -22,9 +22,9 @@
 	<div class="ui simple dropdown item">관심사
 		<i class="dropdown icon"></i>
 	      <div class="menu">
-	        <a class="item"><i class="edit icon"></i>관심사를</a>
-	        <a class="item"><i class="globe icon"></i>아직</a>
-	        <a class="item"><i class="settings icon"></i>못넣었어요</a>
+	      <c:forEach var="v" items="${allInter}">
+				<a class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
+	      </c:forEach>
 	      </div>
     </div>
     

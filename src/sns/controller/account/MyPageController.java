@@ -28,6 +28,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
@@ -54,6 +55,9 @@ public class MyPageController {
 	public String mypage(WebRequest wr) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
+		String loginPic = (String) user.get("PROFILE_ATTACH");
+		System.out.println(loginPic);
+		wr.setAttribute("loginPic", loginPic, wr.SCOPE_SESSION);
 
 		// 내가 쓴 글 목록 조회하기 위해
 		List<Map> mylist = boardRepository.findWriter(loginId);
@@ -179,6 +183,7 @@ public class MyPageController {
 		//수정시 해시태그가되야함
 		return "redirect:/mypage.do";
 	}
+	
 	// 글쓰는페이지
 	@GetMapping("/write.do")
 	public String write(ModelMap modelmap) {
@@ -187,6 +192,7 @@ public class MyPageController {
 		modelmap.put("interest", data);
 		return "sns.write";
 	}
+	
 	//글수정페이지(글내용 관심사만 수정가능)
 	@GetMapping("/update.do")
 	public String board_update(@RequestParam int num,ModelMap modelmap) {
@@ -208,6 +214,7 @@ public class MyPageController {
 		modelmap.put("Oneboard", map);
 		return "sns.update";
 	}
+	
 	//글삭제페이지
 	@GetMapping("/delete.do")
 	public String board_delete(@RequestParam int num) {
@@ -254,7 +261,6 @@ public class MyPageController {
 				sameInterUser.add(allUserInfo.get(i));
 			}
 		}
-		
 		Map realSame =  new HashMap<>();
 		for(int i=0; i<3; i++) {
 			int ran = (int) (Math.random()*sameInterUser.size()); 
@@ -267,12 +273,46 @@ public class MyPageController {
 		return gson.toJson(realSame);
 	}
 	
-	@RequestMapping("changepic.do")
-	public String  changepic(WebRequest wr) {
+	@GetMapping("changepic.do")
+	public String getPic() {
+		return "sns.getpic";
+	}
+	
+	@PostMapping("changepic.do")
+	public String  postPic(WebRequest wr, @RequestParam MultipartFile file) throws IllegalStateException, IOException {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String propic = (String) user.get("PROFILE_ATTACH");
+		String loginId = (String) user.get("ID");
+		String loginPic = (String) user.get("PROFILE_ATTACH");
+		System.out.println("현재프사 : "+loginPic);
+		wr.setAttribute("loginPic", loginPic, wr.SCOPE_SESSION);
 		
-		return "";
+		String realpath = svc.getRealPath("pic");
+		File dir = new File(realpath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		String type = file.getContentType().substring(0, 5);
+		if (!(type.equals("image"))) {
+
+		}
+		
+		// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
+		long currentTime = System.currentTimeMillis();
+		String filename = file.getOriginalFilename();
+		String ext = "." + FilenameUtils.getExtension(filename);
+		filename = currentTime + loginId + ext;
+		File insertfile = new File(dir, filename);
+		file.transferTo(insertfile);
+		String path = svc.getContextPath() + "/pic/" + filename;
+
+
+
+		return "redirect:/mypage.do";
+		
+		
+		
+		
 	}
 	
 

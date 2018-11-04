@@ -74,8 +74,7 @@ article:hover .links {
 <br/>
 <div align="center">
 	<a href="#" onClick="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','popup','scrollbars=no, resizable=no, width=800,height=600')">
-	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="photo" style="width: 200px; height: 200px;"></a>
+	<img src="${pageContext.servletContext.contextPath }/pic/${loginPic}"  class="photo" style="width: 200px; height: 200px;"></a>
 	<br /><br /><br />
 	<strong>${sessionScope.user.ID }</strong><br />
 	관심사 :
