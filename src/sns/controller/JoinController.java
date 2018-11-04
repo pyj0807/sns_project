@@ -45,7 +45,7 @@ public class JoinController {
 
 		String id = (String) param.get("id");
 		String emailid = (String)param.get("email01");
-		String subid = (String) param.get("email02");
+		String subid = (String) param.get("email22");
 		String email = emailid + "@" + subid;
 		String pass = (String) param.get("pass");
 		String name = (String) param.get("name");
@@ -63,7 +63,7 @@ public class JoinController {
 		String inter = Arrays.toString(interest);
 		
 		System.out.println(
-				id + "/" + subid + "/" + email + "/" + pass + "/" + birth + "/" + name + "/" + gender + "/" + interest);
+				id + "/" + subid + "/" + email + "/" + pass + "/" + birth + "/" + name + "/" + gender + "/" + inter);
 
 		Map data = new HashMap<>();
 		data.put("id", id);
@@ -119,10 +119,10 @@ public class JoinController {
 		Map map = new HashMap<>();
 		if(ckemail != null) {
 			map.put("pass", "on");
-			System.out.println("인증 가능한 이메일 입니다");
+			System.out.println("이미 인증을 한 이메일입니다. \n다른 이메일로 인증을 해주세요");
 		}else {
 			map.put("pass", "off");
-			System.out.println("이미 인증을 한 이메일입니다. \n다른 이메일로 인증을 해주세요");
+			System.out.println("인증 가능한 이메일 입니다");
 		}
 		return gson.toJson(map);
 	}

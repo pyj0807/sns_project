@@ -15,7 +15,7 @@
     <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath }/css/changepass.css">	
+	href="${pageContext.servletContext.contextPath }/css/login.css">	
 
 <meta charset="UTF-8">
 <meta name="viewport"
