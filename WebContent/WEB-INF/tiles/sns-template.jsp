@@ -10,6 +10,8 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&amp;subset=korean" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+<script src="semantic/semantic.js"></script>	
 
 <!--  
 <link rel="stylesheet"
