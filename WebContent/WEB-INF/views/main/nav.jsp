@@ -114,6 +114,9 @@ var pass=function(){
 			var htmll = "<small><b>new </b></small>";
 		
 			document.getElementById("counttt").innerHTML = html;
+		}else{
+			var html=""
+				document.getElementById("counttt").innerHTML = html;
 		}
 	}
 	var removeHandler=function(obj){
