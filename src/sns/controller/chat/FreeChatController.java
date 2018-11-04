@@ -186,7 +186,7 @@ public class FreeChatController {
 		String otherId=(String)param.get("otherId");
 		System.out.println("아작스 넘어온값="+param);
 		mongochat.roomcountupdatedown((String)param.get("id"),(String)param.get("otherId"));
-		List<Map> othercount =mongochat.getcount(otherId);
+		List<Map> othercount =mongochat.getcount((String)param.get("id"));
 		
 		long count =0;
 for(int i=0;i<othercount.size();i++) {
