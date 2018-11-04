@@ -49,6 +49,8 @@ public class ClubChat {
 	@Autowired
 	ClubChatMongoDeleteRepository mongoremove;
 	
+	
+	
 	@RequestMapping("/all.do")
 	public String clubAll(ModelMap map, WebRequest wr) {
 		TimeSorter sr= new TimeSorter();
@@ -138,7 +140,7 @@ public class ClubChat {
 			System.out.println("저장될 경로="+dst.toString());
 			clubmongo.createroom(map);
 			attach.transferTo(dst);
-			return "redirect:/chat/freechat.do";
+			return "redirect:/chat/freechat.do?cluballon=on";
 		
 	
 		
@@ -190,7 +192,39 @@ public class ClubChat {
 		System.out.println("이이이이="+(String)map.get("contentid")+(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		mongoremove.roomremove((String)map.get("contentid"),(String) wr.getAttribute("Id", wr.SCOPE_SESSION));
 		mongoremove.roomchatremove((String)map.get("contentid"));
-		return "redirect:/chat/freechat.do";
+		wr.setAttribute("cluballon", "on", wr.SCOPE_REQUEST);
+		return "redirect:/chat/freechat.do?cluballon=on";
+	}
+	
+	@GetMapping("/removeroomagency.do")
+	public String agencyremove(@RequestParam Map map,WebRequest wr) {
+		mongoremove.removeid((String)map.get("contentid"),(String)wr.getAttribute("userId", wr.SCOPE_SESSION) );
+	/*	wr.setAttribute("cluballon", "on", wr.SCOPE_REQUEST);*/
+		return "redirect:/chat/freechat.do?cluballon=on";
+	}
+	
+	@GetMapping("/myallclub.do")//내 오픈채팅방들
+	public String myallclub(ModelMap map,WebRequest wr) {
+	
+	List<Map>li=	clubmongo.clubmyall((String)wr.getAttribute("userId", wr.SCOPE_SESSION));
+	li.sort(new Comparator<Map>() {
+		@Override
+		public int compare(Map o1, Map o2) {
+			long n1= (long)o1.get("createdate");
+			long n2= (long)o2.get("createdate");
+			
+			if(n1<n2) {
+				return 1;
+			}else if(n1>n2) {
+				return -1;
+			}else {
+				return 0;
+			}
+		}
+	});
+	map.put("clubmyAll", li);
+	return "club.myAll";
+	
 	}
 	
 	

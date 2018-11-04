@@ -152,7 +152,7 @@
             
           </p>
           <p>
-            <a href="${pageContext.servletContext.contextPath }/club/myallclub.do" class="btn btn-secondary">내 오픈채팅방 조회</a>
+            <a href="#" class="btn btn-secondary">내 오픈채팅방 조회</a>
         	</p>
         </div>
       </section>
@@ -233,7 +233,7 @@
     </script>
 	
 	<script>
-	if("${cluballon }"=="on"){
+	if(${cluballon =="on"){
 	$("#open").click();
 	};
 	</script>

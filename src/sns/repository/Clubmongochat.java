@@ -76,6 +76,13 @@ public List<Map> clubbest(String id,String content){
 	
 	return template.find(new Query(Criteria.where("mainid").in(id).andOperator(Criteria.where("_id").in(content))), Map.class,"clubroom");
 }
+
+
+
+public List<Map> clubmyall(String id){ //자기가 가입한 오픈채팅방
+	return template.find(new Query(Criteria.where("agency").in(id)), Map.class,"clubroom");
+	
+}
 	 
 	
 }

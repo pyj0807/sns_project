@@ -59,12 +59,12 @@ public class FreeChatController {
 		
 	
 	@RequestMapping("/freechat.do")
-	public String freechatController(ModelMap map,WebRequest wr) {
+	public String freechatController(ModelMap map,WebRequest wr,@RequestParam Map ww) {
 		List li =new ArrayList<>();
 		li=chatdao.followchatgetall((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
-		System.out.println("규규규규규규="+wr.getAttribute("cluballon", wr.SCOPE_REQUEST));
-		if(wr.getAttribute("cluballon", wr.SCOPE_REQUEST)!=null) {
-			wr.setAttribute("cluballon", wr.getAttribute("cluballon", wr.SCOPE_REQUEST),wr.SCOPE_REQUEST);
+		System.out.println("규규규규규규="+wr.getAttribute("cluballon", wr.SCOPE_REQUEST)+ww.get("zz")+" . "+ww.get("cluballon"));
+		if(ww.get("cluballon")!=null) {
+			wr.setAttribute("cluballon", ww.get("cluballon"),wr.SCOPE_REQUEST);
 		}
 		map.put("frends", li);
 		
@@ -185,6 +185,7 @@ public class FreeChatController {
 	public void removecounting(@RequestParam Map param ,HttpSession session) {
 		String otherId=(String)param.get("otherId");
 		System.out.println("아작스 넘어온값="+param);
+		mongochat.roomcountupdatedown((String)param.get("id"),(String)param.get("otherId"));
 		List<Map> othercount =mongochat.getcount(otherId);
 		
 		long count =0;
@@ -198,10 +199,9 @@ for(int i=0;i<othercount.size();i++) {
 		Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
 		recevier.put("mode", "count");
 		recevier.put("defaultcnt", count);
-		mongochat.roomcountupdatedown((String)param.get("id"),(String)param.get("otherId"));
 		Map re =new HashMap<>();
 		re.put("mode", "zzz");
-		re.put("defaultcnt", 0);
+		re.put("defaultcnt", count);
 		service.sendOne(re, (String)param.get("id"));
 		
 		

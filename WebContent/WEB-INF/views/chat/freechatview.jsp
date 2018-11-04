@@ -55,10 +55,15 @@
 					align="right">
 					<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
 					<span class="badge badge-pill badge-success">${v.userNAME}</span></a><br/>
-				<span style="font-size: x-large;" class="badge badge-secondary">
+					
+					<span style="font-size: x-large;" class="badge badge-secondary">
+				
 					${v.text } / <small><b>${v.sendtime}</b></small></b>
 
 				</span>
+			
+				
+				
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -66,9 +71,11 @@
 						<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
 					<span class="badge badge-pill badge-warning">${v.userNAME}</span></a><br/>
 				<span style="font-size: x-large;" class="badge badge-secondary">
+					
 					${v.text } / <small><b>${v.sendtime}</b></small></b>
 
 				</span>
+				
 				</div>
 
 			</c:otherwise>

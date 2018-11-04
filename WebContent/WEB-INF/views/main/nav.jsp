@@ -130,9 +130,11 @@ var pass=function(){
 
 	}
 	var removeHandler=function(){
-		document.getElementById("count").innerHTML = "";
-		document.getElementById("countt").innerHTML = "";
-		document.getElementById("counttt").innerHTML = "";
+		var html = "<b>new </b>" + obj.defaultcnt
+		var htmll = "<small><b>new </b></small>";
+		document.getElementById("count").innerHTML = htmll;
+		document.getElementById("countt").innerHTML = htmll;
+		document.getElementById("counttt").innerHTML = html;
 		
 	}
 	

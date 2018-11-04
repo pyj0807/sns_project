@@ -57,7 +57,7 @@
 				<div role="alert" style="padding: 10px; margin-bottom: 10px;"
 					align="right">
 			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
-			<span class="badge badge-pill badge-success">${v.userNAME} </span><i class="chess queen icon"></i></a><br/>
+			<span class="badge badge-pill badge-success">${v.userNAME}(${v.ID })</span><i class="chess queen icon"></i></a><br/>
 			<span style="font-size: x-large;" class="badge badge-secondary">
 			${v.content } / <small><b>${v.sendtime}</b></small></b>
 					</span>
@@ -68,7 +68,7 @@
 		<div role="alert" style="padding: 10px; margin-bottom: 10px;"
 					align="right">
 			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
-			<span class="badge badge-pill badge-success">${v.userNAME} </span></a><br/>
+			<span class="badge badge-pill badge-success">${v.userNAME}(${v.ID })</span></a><br/>
 			<span style="font-size: x-large;" class="badge badge-secondary">
 			${v.content } / <small><b>${v.sendtime}</b></small></b>
 				</span>
@@ -133,7 +133,7 @@
 		<form>
 		<!--  <button type="submit" class="btn btn-secondary btn-lg btn-block">방 나가기</button> -->
 		 <button type="button" class="btn btn-secondary btn-lg btn-block" id="abcde">방 나가기</button>
-		
+		<input type="hidden" name = "contentid" value="${contentid }" id="qqq">
 		</form>
 		</c:otherwise>
 	</c:choose>
@@ -147,13 +147,28 @@ $("#abcd").on("click",function(){
 	if(d==true){
 		window.location.href ="${pageContext.servletContext.contextPath}/club/remove.do?contentid="+$("#qqq").val();
 	}else{
-		var b=window.confirm("채팅방으로 가시겠습니까?");
+		var b=window.confirm("방에서 나가시겠습니까?");
 		if(b==true){
 			window.location.href ="${pageContext.servletContext.contextPath}/chat/freechat.do?"
 		}
 		
 	}
 });
+
+
+$("#abcde").on("click",function(){
+	var d=window.confirm("탈퇴 하시겠습니까?");
+	
+	if(d==true){
+		window.location.href ="${pageContext.servletContext.contextPath}/club/removeroomagency.do?contentid="+$("#qqq").val();
+	}else{
+		var bb=window.confirm("방에서 나가시겠습니까?");
+		if(bb==true){
+			window.location.href ="${pageContext.servletContext.contextPath}/chat/freechat.do?zz=dd"
+		}
+	}
+	
+})
 
 
 
@@ -182,7 +197,7 @@ $("#abcd").on("click",function(){
 				
 				html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"right\">"
 					+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-					+"<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"</span><i class=\"chess queen icon\"></i></a><br/>"
+					+"<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"("+obj.ID+")"+"</span><i class=\"chess queen icon\"></i></a><br/>"
 					+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 					+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
 					document.getElementById("chatView").innerHTML += html;
@@ -194,7 +209,7 @@ $("#abcd").on("click",function(){
 			}else{
 				html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"right\">"
 					+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-					+"<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"</span></a><br/>"
+					+"<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"("+obj.ID+")"+"</span></a><br/>"
 					+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 					+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
 					document.getElementById("chatView").innerHTML += html;
@@ -203,10 +218,10 @@ $("#abcd").on("click",function(){
 			}
 			
 	}else{
-		if("${roommainid}"=="ID"){
+		if("${roommainid}"==obj.ID){
 			html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"left\">"
 				+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-				+"<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"</span><i class=\"chess queen icon\"></i></a><br/>"
+				+"<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"("+obj.ID+")"+"</span><i class=\"chess queen icon\"></i></a><br/>"
 				+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 				+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
 				document.getElementById("chatView").innerHTML += html;
@@ -215,7 +230,7 @@ $("#abcd").on("click",function(){
 		}else{
 			html+="<div role=\"alert\" style=\"padding: 10px; margin-bottom: 10px;\"align=\"left\">"
 				+"<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.ID+"\">"
-				+"<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"</span></a><br/>"
+				+"<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"("+obj.ID+")"+"</span></a><br/>"
 				+"	<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 				+obj.content+" / <small><b>"+obj.sendtime+"</b></small></b>";
 				document.getElementById("chatView").innerHTML += html;

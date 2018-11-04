@@ -149,20 +149,6 @@ protected void handleTextMessage(WebSocketSession session, TextMessage message) 
 		
 		
 
-	List<Map> othercount =mongochat.getcount(otherId);
-		
-		long count =0;
-for(int i=0;i<othercount.size();i++) {
-			
-			long aa=Integer.parseInt(othercount.get(i).get(otherId).toString());
-			count+=aa;
-			
-		}
-		
-		Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
-		recevier.put("mode", "count");
-		recevier.put("defaultcnt", count);
-		service.sendOne(recevier, otherId);
 		
 		/*//밑에는 카운팅 넘기는용
 		long l=mongochat.getcount(otherId);
@@ -198,6 +184,20 @@ for(int i=0;i<othercount.size();i++) {
 
 	
 	
+		List<Map> othercount =mongochat.getcount(otherId);
+		
+		long count =0;
+		for(int i=0;i<othercount.size();i++) {
+			
+			long aa=Integer.parseInt(othercount.get(i).get(otherId).toString());
+			count+=aa;
+			
+		}
+		
+		Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
+		recevier.put("mode", "count");
+		recevier.put("defaultcnt", count);
+		service.sendOne(recevier, otherId);
 
 }
 
