@@ -73,7 +73,7 @@ article:hover .links {
 </style>
 <br/>
 <div align="center">
-	<a href="#" onClick="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','popup','scrollbars=no, resizable=no, width=800,height=600')">
+	<a href="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','','width=800 height=600');"><%--  onClick="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','popup','scrollbars=no, resizable=no, width=800,height=600')"> --%>
 	<img src="${pageContext.servletContext.contextPath }/pic/${loginPic}"  class="photo" style="width: 200px; height: 200px;"></a>
 	<br /><br /><br />
 	<strong>${sessionScope.user.ID }</strong><br />
@@ -297,3 +297,15 @@ article:hover .links {
 		xhr.send(JSON.stringify(param));
 	}
 </script>
+<script>window.name="main"</script>
+<!-- <script>
+var openWin;
+
+function openChild(){
+    // window.name = "부모창 이름"; 
+    window.name = "parentForm";
+    // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+    openWin = window.open("${pageContext.servletContext.contextPath }/changepic.do",
+            "childForm", "width=800, height=600, resizable = no, scrollbars = no");    
+}
+</script> -->

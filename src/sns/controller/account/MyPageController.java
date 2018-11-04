@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +26,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
@@ -56,7 +53,6 @@ public class MyPageController {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
 		String loginPic = (String) user.get("PROFILE_ATTACH");
-		System.out.println(loginPic);
 		wr.setAttribute("loginPic", loginPic, wr.SCOPE_SESSION);
 
 		// 내가 쓴 글 목록 조회하기 위해
@@ -279,12 +275,11 @@ public class MyPageController {
 	}
 	
 	@PostMapping("changepic.do")
-	public String  postPic(WebRequest wr, @RequestParam MultipartFile file) throws IllegalStateException, IOException {
+	public String  postPic(WebRequest wr, @RequestParam MultipartFile file, ModelMap modelmap) throws IllegalStateException, IOException {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
-		String loginPic = (String) user.get("PROFILE_ATTACH");
-		System.out.println("현재프사 : "+loginPic);
-		wr.setAttribute("loginPic", loginPic, wr.SCOPE_SESSION);
+		String oldPic = (String) user.get("PROFILE_ATTACH");
+		System.out.println("현재프사 : "+oldPic);
 		
 		String realpath = svc.getRealPath("pic");
 		File dir = new File(realpath);
@@ -292,27 +287,37 @@ public class MyPageController {
 			dir.mkdirs();
 		}
 		
+		// 파일타입확인하고 이미지만 업로드 가능하게 하자
 		String type = file.getContentType().substring(0, 5);
 		if (!(type.equals("image"))) {
+			modelmap.put("err", "type");
+			System.out.println("이미지파일만 업로드 가능합니다.");
+			return "redirect:/changepic.do";
+		}else {
+			// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
+			long currentTime = System.currentTimeMillis(); // 현재시간
+			String filename = file.getOriginalFilename(); // 원래 파일이름 가져오고
+			String ext = "." + FilenameUtils.getExtension(filename); // .확장자 붙여주고
+			filename = currentTime + loginId + ext; // 현재시간+글쓴이아이디+확장자
+			File insertfile = new File(dir, filename); // 파일 넣어주고
+			file.transferTo(insertfile); // 변환해주고
+			
+			Map map = new HashMap<>();
+			map.put("file", filename);
+			map.put("id", loginId);
+			System.out.println(map.toString());
+			System.out.println("바뀐프사 : " + filename);
+			
+			System.out.println(follow.changePic(map));
+			System.out.println("변경완료");
+			String newPic = (String) user.get("PROFILE_ATTACH");
+			wr.setAttribute("loginPic", newPic, wr.SCOPE_SESSION);
+			System.out.println("newPic : " + newPic);
+			
+			return "redirect:/mypage.do";
+		}	
 
-		}
-		
-		// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
-		long currentTime = System.currentTimeMillis();
-		String filename = file.getOriginalFilename();
-		String ext = "." + FilenameUtils.getExtension(filename);
-		filename = currentTime + loginId + ext;
-		File insertfile = new File(dir, filename);
-		file.transferTo(insertfile);
-		String path = svc.getContextPath() + "/pic/" + filename;
 
-
-
-		return "redirect:/mypage.do";
-		
-		
-		
-		
 	}
 	
 
