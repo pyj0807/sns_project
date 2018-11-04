@@ -267,6 +267,13 @@ public class MyPageController {
 		return gson.toJson(realSame);
 	}
 	
+	@RequestMapping("changepic.do")
+	public String  changepic(WebRequest wr) {
+		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+		String propic = (String) user.get("PROFILE_ATTACH");
+		
+		return "";
+	}
 	
 
 }

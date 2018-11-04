@@ -44,7 +44,7 @@ body{
 </style> -->
 </head>
 <body>
-	<div class="container">
+
 		<div>
 			<tiles:insertAttribute name="nav" />
 		</div>
@@ -56,7 +56,6 @@ body{
 			<div>
 				<tiles:insertAttribute name="center"/>
 			</div>
-		
-	</div>
+
 </body>
 </html>

@@ -71,9 +71,13 @@ article:hover .links {
 	transition: .5s ease;
 }
 </style>
+<br/>
 <div align="center">
+	<a href="#" onClick="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','popup','scrollbars=no, resizable=no, width=800,height=600')">
 	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="photo" style="width: 300px; height: 300px;"> <br /> <strong>${sessionScope.user.ID }</strong><br />
+		class="photo" style="width: 200px; height: 200px;"></a>
+	<br /><br /><br />
+	<strong>${sessionScope.user.ID }</strong><br />
 	관심사 :
 	<c:forEach var="in" items="${myInter }">☆${in } </c:forEach>
 	<p>
@@ -96,6 +100,7 @@ article:hover .links {
 				type="button" class="btn btn-danger">로그아웃</button></a></a>
 	</p>
 </div>
+
 <hr />
 관심사가 같은 회원 추천
 <br />
@@ -104,8 +109,6 @@ article:hover .links {
 	<button class="btn btn-outline-dark" value="${v }"
 		onclick="myFunction(this);">#${v }</button>
 </c:forEach>
-<a href="${pageContext.servletContext.contextPath }/alluser.do"><button
-		type="button" class="btn btn-Info">모든 유저 보기</button></a>
 <br />
 <br />
 <span id="inte"></span>
@@ -239,19 +242,9 @@ article:hover .links {
 <div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg ">
     <div class="modal-content">
-<%--       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">	
-        <img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-						class="photo" style="width: 30px; height: 30px;"> <a
-						href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
-        </h4>
-      </div> --%>
       <div class="modal-body">
         ...
       </div>
-<!--       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div> -->
     </div>
   </div>
 </div>
@@ -260,9 +253,14 @@ article:hover .links {
 <script>
 	// 모달에 불러와지는 링크 JQuery
 	$("#myModal").on("show.bs.modal", function(e) {
+	    console.log("디스가뭐지"+this);
 	    var link = $(e.relatedTarget);
 	    $(this).find(".modal-body").load(link.attr("href"));
 	});
+ 	$('#myModal').on('hidden.bs.modal', function (e) { 
+		  $(this).removeData('.modal-body'); 
+		 console.log("gg");
+	}); 
 </script>
 <script>
 	// #관심사 버튼을 누르면 같은 관심사를 가진 사람들을 추천해주는 Ajax. 랜덤으로 추천해줌. 계속 바뀜 
@@ -279,16 +277,21 @@ article:hover .links {
 				var obj = JSON.parse(this.responseText);
 				console.log(obj); 
 				var html = "";
+				html += "<div class=\"ui horizontal list\">";
 				for (var i = 1; i <= 3; i++) {
-					html += "<a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
+					html += "<div class=\"item\">";
+					html += "<img class=\"ui avatar image\" src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 30px; height: 30px;\"> <div class=\"content\">";
+					html += "<div><a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
 					html += obj[i].ID;
 					html += "\">";
 					html += obj[i].ID;
 					html += "(";
 					html += obj[i].NAME;
-					html += ")</a>";
-					html += "<br/>";
+					html += ")</a></div>";
+					html += obj[i].INTEREST;
+					html += "</div></div>";
 				}
+				html += "</div>";
 				document.getElementById("inte").innerHTML = html;
 			}
 		};
