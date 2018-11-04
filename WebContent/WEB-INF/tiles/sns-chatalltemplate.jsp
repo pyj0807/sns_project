@@ -25,13 +25,16 @@ font-size: 20px;
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<title>그룹웨어</title>
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
+	
+
 </head>
 <body>
-	<div class="container">
 		<div>
 			<tiles:insertAttribute name="nav" />
 		</div>
+	<div class="container">
 		
 			
 			<div>

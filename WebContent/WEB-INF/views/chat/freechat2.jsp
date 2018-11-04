@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <!DOCTYPE html>
-<%-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.servletContext.contextPath}/semantic/semantic.css"> --%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -130,19 +128,24 @@
 
     <title>Open Chat</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="http://bootstrap4.kr/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="css/album.css" rel="stylesheet">
   </head>
 
   <body>
 
    
  
- 
+ <br/>
+  <br/>
   <!-- <div style="width: 400px; height: 400px; align-content: center;" >
     <main role="main;"> -->
 
-      <section class="jumbotron text-center" style="height: 300px; width: auto; " >
-        <div class="container" >
+     <!--  <section class="jumbotron text-center" style="height: 300px; width: auto; " > -->
+        <div class="container" style="height: 300px; width: auto; ">
           <h1 class="jumbotron-heading">Open Chat</h1>
           <p class="lead text-muted">마음이 맞는 사람과 <br/>채팅을 해 보아요.</p>
           <p>
@@ -150,10 +153,10 @@
             
           </p>
           <p>
-            <a href="${pageContext.servletContext.contextPath }/club/myallclub.do" class="btn btn-secondary">내 오픈채팅방 조회</a>
+            <a href="#" class="btn btn-secondary">내 오픈채팅방 조회</a>
         	</p>
         </div>
-      </section>
+  <!--     </section> -->
 
 <%-- <div style="width:200px; width: auto;height: 200px; height: auto; ">
  <c:forEach var="v" items="${clubAll }">
@@ -173,27 +176,16 @@
             </c:forEach>
 
 </div>  --%>
-<div style="overflow:scroll;overflow-x:hidden;max-height:300px;">
-<hr/>
-
-<c:forEach var="v" items="${clubAll }">
 <ul class="list-unstyled" >
   <li class="media" >
-   <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}">  <img class="mr-3" style="height: 70px; width: auto;" src="${v.attach }" alt="Generic placeholder image"></a>
+    <img class="mr-3" style="height: 70px; width: auto;" src="${pageContext.servletContext.contextPath }/clubimg/im.jpg" alt="Generic placeholder image">
     <div class="media-body">
-    <br/>
-      <h5 class="mt-0 mb-1"> <b>▶ 방제목 : </b> ${v._id}  
-  방 인원 : <span class="badge badge-pill badge-info"> ${fn:length(v.agency)} </span>    
- 
-       </h5>
-   
-     
+      <h5 class="mt-0 mb-1">List-based media object</h5>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
     </div>
-  </li><br/>
-  </c:forEach>
-  <hr/>
-
-  </div>
+  </li>
+  
+  
   <!-- <li class="media my-4">
     <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
     <div class="media-body">
@@ -221,10 +213,17 @@
 
     
   
+    <script>
 
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
 	
 	<script>
-	if("${cluballon }"=="on"){
+	if(${cluballon eq "on"}){
 	$("#open").click();
 	};
 	</script>

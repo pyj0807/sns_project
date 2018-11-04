@@ -5,6 +5,9 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
+  <link rel="stylesheet" type="text/css"
+	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
+	<div class="container">
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 	<%--  to .<h1 class="h5">${otherId }</h5> --%>
@@ -37,9 +40,11 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	
 
 
-</div>
+
 
 
 <!-- <h4>
@@ -55,10 +60,15 @@
 					align="right">
 					<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
 					<span class="badge badge-pill badge-success">${v.userNAME}</span></a><br/>
-				<span style="font-size: x-large;" class="badge badge-secondary">
+					
+					<span style="font-size: x-large;" class="badge badge-secondary">
+				
 					${v.text } / <small><b>${v.sendtime}</b></small></b>
 
 				</span>
+			
+				
+				
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -66,9 +76,11 @@
 						<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
 					<span class="badge badge-pill badge-warning">${v.userNAME}</span></a><br/>
 				<span style="font-size: x-large;" class="badge badge-secondary">
+					
 					${v.text } / <small><b>${v.sendtime}</b></small></b>
 
 				</span>
+				
 				</div>
 
 			</c:otherwise>
@@ -87,7 +99,7 @@
 	<input type="text" class="form-control" aria-describedby="basic-addon1"
 		id="input">
 </div>
-
+</div>
 <script>
 
 

@@ -31,7 +31,6 @@ font-size: 20px;
 </head>
 <body>
 
-<div class="container">
 		<div>
 			<tiles:insertAttribute name="nav" />
 		</div>
@@ -39,6 +38,7 @@ font-size: 20px;
 			<div class="col-md-3">
 				<tiles:insertAttribute name="left" />
 			</div> --%>
+<div class="container">
 			<div>
 				<tiles:insertAttribute name="center"/>
 			</div>

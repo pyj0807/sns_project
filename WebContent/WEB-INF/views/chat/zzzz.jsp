@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <!DOCTYPE html>
-<%-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.servletContext.contextPath}/semantic/semantic.css"> --%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -130,7 +128,11 @@
 
     <title>Open Chat</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="http://bootstrap4.kr/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="css/album.css" rel="stylesheet">
   </head>
 
   <body>
@@ -150,7 +152,7 @@
             
           </p>
           <p>
-            <a href="${pageContext.servletContext.contextPath }/club/myallclub.do" class="btn btn-secondary">내 오픈채팅방 조회</a>
+            <a href="#" class="btn btn-secondary">내 오픈채팅방 조회</a>
         	</p>
         </div>
       </section>
@@ -221,10 +223,17 @@
 
     
   
+    <script>
 
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
 	
 	<script>
-	if("${cluballon }"=="on"){
+	if(${cluballon =="on"){
 	$("#open").click();
 	};
 	</script>

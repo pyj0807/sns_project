@@ -106,15 +106,15 @@ var pass=function(){
 		break;
 		}
 	}
-	var removeHandler=function(){
-	
-		document.getElementById("counttt").innerHTML = "";
+	var removeHandler=function(obj){
+		var html = "<b>new </b>    " + obj.defaultcnt;
+		document.getElementById("counttt").innerHTML =html ;
 	}
 	
 
 	var countHandler = function(obj) {
 		if (obj.defaultcnt > 0) {
-			var html = "<b>new </b>    " + obj.defaultcnt
+			var html = "<b>new </b>    " + obj.defaultcnt;
 			var htmll = "<small><b>new </b></small>";
 		
 			document.getElementById("counttt").innerHTML = html;
@@ -210,6 +210,14 @@ var pass=function(){
 		document.getElementById("count").innerHTML = "";
 		document.getElementById("countt").innerHTML = "";
 		document.getElementById("counttt").innerHTML = "";
+=======
+		var html = "<b>new </b>" + obj.defaultcnt
+		var htmll = "<small><b>new </b></small>";
+		document.getElementById("count").innerHTML = htmll;
+		document.getElementById("countt").innerHTML = htmll;
+		document.getElementById("counttt").innerHTML = html;
+		
+>>>>>>> refs/remotes/origin/pkk42
 	}
 	var slected = function() {
 		document.getElementById("count").innerHTML = "";

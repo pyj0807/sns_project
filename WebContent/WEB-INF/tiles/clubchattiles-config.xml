@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="club.chat.all" template="/WEB-INF/tiles/sns-template.jsp">
+	<definition name="club.chat.all" template="/WEB-INF/tiles/sns-chatalltemplate.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/clubchat/allview.jsp" />
 	</definition>
 	
-		<definition name="club.chat.create" template="/WEB-INF/tiles/sns-template.jsp">
+		<definition name="club.chat.create" template="/WEB-INF/tiles/sns-chatalltemplate.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/clubchat/createclub.jsp" />
 	</definition>
 	
-	<definition name="club.chat.view" template="/WEB-INF/tiles/sns-template.jsp">
+	<definition name="club.chat.view" template="/WEB-INF/tiles/sns-chatalltemplate.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/clubchat/clubchatview.jsp" />
+	</definition>
+	
+	<definition name="club.myAll" template="/WEB-INF/tiles/sns-chatalltemplate.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/main/nav.jsp" />
+		<put-attribute name="left" value="" />
+		<put-attribute name="center" value="/WEB-INF/views/clubchat/myall.jsp" />
 	</definition>
 	
 	
