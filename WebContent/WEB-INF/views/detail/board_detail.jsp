@@ -118,30 +118,14 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<a href="${pageContext.servletContext.contextPath }/account.do?id=${boardOne.writer }">
 		<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
 		<b>${boardOne.writer }</b></a> 
-		<a href=""><h6>${boardOne.area }</h6></a>
+		<a href="${pageContext.servletContext.contextPath }/board/map.do?location=${boardOne.area }"><h6>${boardOne.area }</h6></a>
 		<span class="badge badge-pill badge-info"> ${boardOne.interest }</span>
 	</p>
 	<hr/>
 	<!-- 내용표시 -->
 	<p>
 		${hashtag }
-	</p>
-	
-	<!-- 지도 스크립트 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4"></script>						
-	<!-- db에 위치값이 저장되어있을경우에만 지도보여줌 -->
-	<c:choose>
-		<c:when test="${boardOne.area !=null }">
-			<div id="map" style="width:100% ;height:100px;"></div>
-		</c:when>
-	</c:choose>
-	<p>
-		<c:choose>
-			<c:when test="${boardOne.area!=null }">
-			</c:when>
-		</c:choose>
-	</p>
-		
+	</p>		
 	<!-- 좋아요 버튼 / 글 수정 삭제 버튼 -->
 		<c:choose>
 			<c:when test="${boardOne.checked == true }">
@@ -202,7 +186,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<br/>
 			<p>
 				<input type="text" id="reply" name="reply" style="width: 80%"/>
-				<button type="button" id="add_reply" onclick="replyAjax();">등록하기</button>
+				<i class="pencil alternate icon" id="add_reply" onclick="replyAjax();" style="color: gray"></i>
 			</p>
 	</div>
 </div>
@@ -379,27 +363,4 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		};
 		xhr.send(JSON.stringify(param));	
 	};
-
-	 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	   mapOption = { 
-	       center: new daum.maps.LatLng(${boardOne.lat},${boardOne.longi}), // 지도의 중심좌표
-	       level: 3 // 지도의 확대 레벨
-	   };
-	 
-	 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	 /*
-	 	BoardController 에서  lat,longi,area값이없을경우에
-	 	초기값으로 lat=33.450701, longi=126.570667을 주고
-	 	area 는 "" 값으로 주어서  area가 ""일경우 마커를 찍어주지않음.
-	 */
-	 if(${boardOne.area != ""}){
-		// 마커가 표시될 위치입니다 
-		var markerPosition  = new daum.maps.LatLng(${boardOne.lat}, ${boardOne.longi}); 		
-		// 마커를 생성합니다
-		var marker = new daum.maps.Marker({
-		    position: markerPosition
-		});
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
-	 }	
 </script>

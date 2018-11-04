@@ -129,4 +129,28 @@ public class BoardDao {
 		template.remove(query2,"board_reply");
 		template.remove(query3,"like");
 	}
+	
+	//지도 조회(정렬)
+	public List<Map> searchMap(String loc){
+		//조건
+		Criteria c = Criteria.where("area").in(loc);
+		//출력
+		List<Map> list = template.find(new Query(c),Map.class,"board");
+		//정렬
+		list.sort(new Comparator<Map>() {
+	          @Override
+	          public int compare(Map o1, Map o2) {
+	             long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
+	             long n2 = (long)o2.get("time");   
+	             if(n1>n2) {//2번째>1번째 
+	                return -1; //-1내림
+	             }else if(n1<n2){
+	                return 1; //1오름
+	             }else {
+	                return 0;
+	             }
+	          }
+	       });
+		return list;		
+	}
 }

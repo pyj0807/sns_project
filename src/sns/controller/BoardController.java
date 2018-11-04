@@ -226,4 +226,33 @@ public class BoardController {
 		
 		return json;
 	}
+	
+	//지도 조회
+	@GetMapping("/map.do")
+	public String map(@RequestParam String location,ModelMap modelmap) {		
+		List<Map> list = boarddao.searchMap(location);
+		String lat=""; //위도
+		String longi=""; //경도
+		String area="";//위치
+		for(int i=0; i<list.size(); i++) {
+			//map
+			lat =(String)list.get(0).get("lat");
+			longi = (String)list.get(0).get("longi");
+			area = (String)list.get(0).get("area");
+			//list(시간)
+			long writetime = (long)list.get(i).get("time");
+			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
+			list.get(i).put("lasttime", lasttime);
+		}
+		Map map = new HashMap<>();
+		map.put("lat", lat);
+		map.put("longi", longi);
+		map.put("area", area);		
+		
+		modelmap.put("map", list);
+		modelmap.put("mapinfo", map); //지도의 맵정보(맵으로만들어서보냄)
+				
+		return "sns.board_map";
+	};
+	
 }
