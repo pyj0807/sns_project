@@ -62,7 +62,7 @@ article:hover .links {
 </style>
 <html lang="en">
   <body>
-  	<c:forEach var="i" items="#{select_code }">
+  	<c:forEach var="i" items="${select_code }"><%-- # --%>
   		<h2 style="color: blue">${i}</h2>
   	</c:forEach>
     <main role="main">
