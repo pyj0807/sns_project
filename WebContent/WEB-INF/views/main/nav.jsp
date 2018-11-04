@@ -106,10 +106,6 @@ var pass=function(){
 		break;
 		}
 	}
-	var removeHandler=function(obj){
-		var html = "<b>new </b>    " + obj.defaultcnt;
-		document.getElementById("counttt").innerHTML =html ;
-	}
 	
 
 	var countHandler = function(obj) {
@@ -119,6 +115,10 @@ var pass=function(){
 		
 			document.getElementById("counttt").innerHTML = html;
 		}
+	}
+	var removeHandler=function(obj){
+		var html = "<b>new </b>    " + obj.defaultcnt;
+		document.getElementById("counttt").innerHTML =html ;
 	}
 	var errLoginHandle = function(obj) {
 		window.alert(" 다른곳에서 로그인을 시도하였습니다.");

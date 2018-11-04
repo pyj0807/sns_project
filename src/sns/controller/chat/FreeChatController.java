@@ -185,23 +185,32 @@ public class FreeChatController {
 	public void removecounting(@RequestParam Map param ,HttpSession session) {
 		String otherId=(String)param.get("otherId");
 		System.out.println("아작스 넘어온값="+param);
-		mongochat.roomcountupdatedown((String)param.get("id"),(String)param.get("otherId"));
 		List<Map> othercount =mongochat.getcount((String)param.get("id"));
 		
 		long count =0;
 for(int i=0;i<othercount.size();i++) {
 			
-			long aa=Integer.parseInt(othercount.get(i).get(otherId).toString());
+	if(othercount.get(i).get((String)param.get("id"))!=null) {
+			long aa=Integer.parseInt(othercount.get(i).get((String)param.get("id")).toString());
 			count+=aa;
+	}
 			
 		}
+
+
 		
-		Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
+		/*Map recevier =new HashMap<>();//상대 카운팅 얼럿 주는것
 		recevier.put("mode", "count");
-		recevier.put("defaultcnt", count);
+		recevier.put("defaultcnt", count);*/
+		mongochat.roomcountupdatedown((String)param.get("id"),(String)param.get("otherId"));
 		Map re =new HashMap<>();
 		re.put("mode", "zzz");
-		re.put("defaultcnt", count);
+		if(count==0) {
+			re.put("defaultcnt", 0);
+		}else {
+			
+			re.put("defaultcnt", count);
+		}
 		service.sendOne(re, (String)param.get("id"));
 		
 		
