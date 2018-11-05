@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" type="text/css" href="semantic/semantic.css">
-<script src="semantic/semantic.js"></script>	
+
 
 <div class="ui attached stackable menu">
   <div class="ui container">
@@ -18,6 +17,9 @@
     </a>
     <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
       <i class="users icon"></i>NewsFeed
+    </a>
+    <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
+    <i class="github icon"></i>뀨?
     </a>
 	<div class="ui simple dropdown item">관심사
 		<i class="dropdown icon"></i>
@@ -106,10 +108,6 @@ var pass=function(){
 		break;
 		}
 	}
-	var removeHandler=function(obj){
-		var html = "<b>new </b>    " + obj.defaultcnt;
-		document.getElementById("counttt").innerHTML =html ;
-	}
 	
 
 	var countHandler = function(obj) {
@@ -118,7 +116,14 @@ var pass=function(){
 			var htmll = "<small><b>new </b></small>";
 		
 			document.getElementById("counttt").innerHTML = html;
+		}else{
+			var html=""
+				document.getElementById("counttt").innerHTML = html;
 		}
+	}
+	var removeHandler=function(obj){
+		var html = "<b>new </b>    " + obj.defaultcnt;
+		document.getElementById("counttt").innerHTML =html ;
 	}
 	var errLoginHandle = function(obj) {
 		window.alert(" 다른곳에서 로그인을 시도하였습니다.");
