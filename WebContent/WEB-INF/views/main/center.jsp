@@ -18,7 +18,6 @@ video {
     position: relative;
     width: 250%;
 }
-
 article{
 	display: inline-block;
 	position:relative;
@@ -54,27 +53,7 @@ article:hover .links{
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
  <script src="semantic/semantic.js"></script>
  <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
- 
   
-<%--    <!-- 드롭 박스 -->
-   <div class="btn-group" role="group" align="center">
-   <p>
-         <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/index.do">
-         <i class="users icon"></i>모든 회원 글 보기</a>
-         <a class="dropdown-item" href="${pageContext.servletContext.contextPath }/newsfeed.do">
-         <i class="user circle icon"></i>뉴스피드</a>
-  </p>
-   <button style="align-content: center;" id="btnGroupDrop1" type="button"
-      class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">관심사</button>
-   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-      <c:forEach var="v" items="${allInter}">
-            <a class="dropdown-item"
-               href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
-      </c:forEach>
-   </div>
-</div> --%>
-
     <main role="main">
       <div class="album py-5">
         <div class="container">
@@ -117,7 +96,7 @@ article:hover .links{
 		                    </small>
 							<div class="btn-group">
 								<!-- Button trigger modal -->
-								<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
+								<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
 										data-remote="false" data-toggle="modal" data-target="#myModal">
 									<button type="button" class="btn btn-primary"
 									data-toggle="modal" data-target="#VideoModalCenter"
@@ -221,4 +200,3 @@ article:hover .links{
 	    $(this).find(".modal-body").load(link.attr("href"));
 	});
 </script>
-    
