@@ -21,8 +21,7 @@
     <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
     <i class="github icon"></i>뀨?
     </a>
-	<div class="ui simple dropdown item">관심사
-		<i class="dropdown icon"></i>
+	<div class="ui simple dropdown item"><i class="hashtag icon"></i>주제
 	      <div class="menu">
 	      <c:forEach var="v" items="${allInter}">
 				<a class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>

@@ -1,5 +1,6 @@
 package sns.controller.account;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import sns.repository.BoardRepository;
 import sns.repository.FollowRepository;
 
 @Controller
 public class FollowController {
 	@Autowired
 	FollowRepository follow;
+	
+	@Autowired
+	BoardRepository board;
 	
 	@Autowired
 	Gson gson;
@@ -57,15 +62,22 @@ public class FollowController {
 
 	@GetMapping("/follower.do")
 	public String follower(@RequestParam String id, ModelMap map) {
-		System.out.println(id);
-		List list = follow.getFollowerList(id);
+		List listuu = follow.getFollowerList(id);
+		List<Map> list = new ArrayList<>();
+		for(int i=0;i<listuu.size();i++) {
+			list.add((Map)board.getOneUserInfo((String)listuu.get(i)));
+		}
 		map.put("list", list);
 		return "sns.follower";
 	}
 
 	@GetMapping("/following.do")
 	public String following(@RequestParam String id, ModelMap map) {
-		List list = follow.getFollowingList(id);
+		List listuu = follow.getFollowingList(id);
+		List<Map> list = new ArrayList<>();
+		for(int i=0;i<listuu.size();i++) {
+			list.add((Map)board.getOneUserInfo((String)listuu.get(i)));
+		}
 		map.put("list", list);
 		return "sns.following";
 	}

@@ -47,11 +47,15 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 	object-fit: cover;
 	border-radius: 50%;
 }
+	  button {
+	    background-color: #ffffff;
+	    opacity: 0.5;
+	  }
 </style>
 <br/>
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
  <script src="semantic/semantic.js"></script>
- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
+ <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
 
 <div class="row">
   <div class="column">
@@ -118,12 +122,18 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 	
 	<!-- 오른쪽 표시할것 : 프사 / 아이디 / (장소태그) / 관심사 -->
  	<div class="column">
+	<div class="ui horizontal list">
+		<div class="item">
+			<h3><a href="${pageContext.servletContext.contextPath }/account.do?id=${boardOne.writer }">
+			<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
+			<b>${boardOne.writer }</b></a></h3>
+		</div>
+		<div class="item">
+			<h3><a href="${pageContext.servletContext.contextPath}/interest.do?theme=${boardOne.interest }"><span class="badge badge-pill badge-info"> ${boardOne.interest }</span></a></h3>
+		</div>
+	</div>
 	<p>
-		<a href="${pageContext.servletContext.contextPath }/account.do?id=${boardOne.writer }">
-		<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
-		<b>${boardOne.writer }</b></a> 
 		<a href="${pageContext.servletContext.contextPath }/board/map.do?location=${boardOne.area }"><h6>${boardOne.area }</h6></a>
-		<span class="badge badge-pill badge-info"> ${boardOne.interest }</span>
 	</p>
 	<hr/>
 	<!-- 내용표시 -->
@@ -152,15 +162,23 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<div id="scroll" style="overflow-y: scroll; height: 100px;">
 			<span id="replyList">
 				<c:forEach var="i" items="${reply_list }">
+<<<<<<< HEAD
 					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
+=======
+					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 25px; height: 25px;">
+>>>>>>> refs/heads/ssh-59
 					<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>
 					${i.reply_content }
 					<c:choose>
 						<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
+<<<<<<< HEAD
 							<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
+=======
+							<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="border:solid 0px#FFFFFF;">&times;</button><br/>
+>>>>>>> refs/heads/ssh-59
 						</c:when>
 						<c:otherwise>
-							<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">삭제</button><br/>
+							<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">&times;</button><br/>
 						</c:otherwise>
 					</c:choose>
 					<!-- 댓글시간 -->
@@ -239,7 +257,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					var html="";
 					var len="";
 					for(var i=0; i<obj.length; i++){
-						html+="<img src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 30px; height: 30px;\">";
+						html+="<img src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 25px; height: 25px;\"> ";
 						html+="<a href=\"";
 						html+="${pageContext.servletContext.contextPath }";
 						html+="/account.do?id=";
@@ -248,7 +266,6 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+=obj[i].writer+" </a> ";
 						html+=obj[i].reply_content;
 						
-												
 						len = obj.length;
 						
 						if(obj[i].writer=="${Id}" || "${Id}"=="${boardOne.writer}"){ //등록한아이디와 세션아이디가같거나, 글작성자와 세션이같으면
@@ -259,7 +276,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 							html+="onclick=\"";
 							html+="delete_reply(this);";
 							html+="\"";
-							html+=">삭제</button>";
+							html+=" style=\"border:solid 0px#FFFFFF;\">&times;</button>";
 						}else{
 							html+=" <button id=\"delete_reply\" value=\"";
 							html+=obj[i].key+","+obj[i].id;
@@ -268,7 +285,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 							html+="delete_reply(this);";
 							html+="\"";
 							html+="style=\"visibility:hidden\"";
-							html+=">삭제</button>";
+							html+=">&times;</button>";
 						}
 						html+="<br/>";	
 						html+="<small class=\"text-muted\">";
@@ -312,7 +329,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 				var html="";
 				var len="";
 				for(var i=0; i<obj.length; i++){	
-					html+="<img src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 30px; height: 30px;\">";
+					html+="<img src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 25px; height: 25px;\"> ";
 					html+="<a href=\"";
 					html+="${pageContext.servletContext.contextPath }";
 					html+="/account.do?id=";
@@ -332,7 +349,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+="onclick=\"";
 						html+="delete_reply(this);";
 						html+="\"";
-						html+=">삭제</button>";
+						html+=" style=\"border:solid 0px#FFFFFF;\">&times;</button>";
 					}else{
 						html+=" <button id=\"delete_reply\" value=\"";
 						html+=obj[i].key+","+obj[i].id;
@@ -341,7 +358,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 						html+="delete_reply(this);";
 						html+="\"";
 						html+="style=\"visibility:hidden\"";
-						html+=">삭제</button>";
+						html+=">&times;</button>";
 					}
 					html+="<br/>";
 					html+="<small class=\"text-muted\">";

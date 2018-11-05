@@ -269,11 +269,13 @@ public class MyPageController {
 		return gson.toJson(realSame);
 	}
 	
+	// 프로필 사진을 누르면 프로필 사진을 바꿀수 있는 팝업창을 열어준다.
 	@GetMapping("changepic.do")
 	public String getPic() {
 		return "sns.getpic";
 	}
 	
+	// 프로필 사진을 바꿔준다.
 	@PostMapping("changepic.do")
 	public String  postPic(WebRequest wr, @RequestParam MultipartFile file, ModelMap modelmap) throws IllegalStateException, IOException {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
