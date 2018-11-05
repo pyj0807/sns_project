@@ -18,6 +18,9 @@
     <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
       <i class="users icon"></i>NewsFeed
     </a>
+    <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
+    <i class="github icon"></i>뀨?
+    </a>
 	<div class="ui simple dropdown item">관심사
 		<i class="dropdown icon"></i>
 	      <div class="menu">
