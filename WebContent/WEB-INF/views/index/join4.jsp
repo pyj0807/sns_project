@@ -21,8 +21,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<style>
 
+<style>
 body {
 	
 	background-color: #FBFBFB;
@@ -35,9 +35,9 @@ span{
 label{
 	font-size: 30px;
 }
-
+/* 
 select { 
-	width: 60px; /* 원하는 너비설정 */ 
+	width: 100px; /* 원하는 너비설정 */ 
 	padding: .3em .7em; /* 여백으로 높이 설정 */ 
 	font-family: inherit; /* 폰트 상속 */ 
 	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */
@@ -47,7 +47,7 @@ select {
 	-moz-appearance: none; 
 	appearance: none; 
 }
-
+ */
 button{
   background:#1AAB8A;
   color:#fff;
@@ -90,20 +90,25 @@ button:hover:before,button:hover:after{
   border-radius:10px;
 }
 </style>
-
 <title>join</title>
 <body>
-	<div class="container" style="margin-top: 80px;">
-  	<div class="row">
-    <div class="col-sm">
-    </div>
-    
-	<span class="border">
-    <div class="col-sm" style="margin-top: 60px 60px">
-		<form class="form-signin" align="center" action="${pageContext.servletContext.contextPath }/join.do" method="post">
-			<div class="join">
-				<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
-					<input name="id" id="id" type="text" style="margin-bottom: 10px " placeholder="아이디 " class="form-control"
+<form class="form-signin" align="center"
+	action="${pageContext.servletContext.contextPath }/join.do"
+	method="post">
+	<div class="container" style="margin-top: 90px" >
+		<div class="row">
+			<div class="col"></div>
+			<div class="col">
+
+			</div>
+			<span class="border">
+				<div class="col" align="center" >
+					<div class="row-group">
+						<div class="row">
+							<div class="join">
+								<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
+								<input name="id" id="id" type="text" style="margin-bottom: 10px "
+									 placeholder="아이디 " class="form-control"
 									onkeyup="checkId(this.value);" required> <br /> <span
 									id="idspan" style="margin-bottom: 20px" ></span>
 								
@@ -144,7 +149,7 @@ button:hover:before,button:hover:after{
 									<label>생년월인</label><i class="fas fa-birthday-cake fa-2x"></i>
 									<div class="bir_wrap" required>
 										<div class="bir_yy">
-											<span class="ps_box"> <input type="text" name="yy" class="form-control"
+											<span class="ps_box"> <input type="text" name="yy"
 												placeholder="년도(4자)" maxlength="4"> <select
 												name="mm" aria-label="월">
 													<option>월</option>
@@ -209,7 +214,7 @@ button:hover:before,button:hover:after{
 										<option value="F">여자</option>
 									</select>
 								</div>
-							<div style="margin-bottom: 20px"><label>관심사</label><i class="fas fa-heart fa-2x"></i><br/>
+								<div style="margin-bottom: 20px"><label>관심사</label><i class="fas fa-heart fa-2x"></i><br/>
 									<c:forEach var="v" items="${interest }">
 										<c:choose>
 											<c:when test="${ v eq '연애' }">
@@ -225,16 +230,18 @@ button:hover:before,button:hover:after{
 									</c:forEach>
 								</div>
 							</div>
-							<button type="submit" id="btnsubmit">가입</button>
-						</form>
+						</div>
+						<button type="submit" id="btnsubmit">가입</button>
 					</div>
-				</span>
-    
-    <div class="col-sm">
-    </div>
-    </div>
-  </div>
 
+				</div>
+			</span>
+
+			<div class="col"></div>
+		</div>
+
+	</div>
+</form>
 </body>
 </head>
 </html>

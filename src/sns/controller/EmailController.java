@@ -55,7 +55,7 @@ public class EmailController {
 		String confirm = (String)wr.getAttribute("confirm", wr.SCOPE_SESSION);
 		String confirm1 = (String)param.get("confirmkey");
 		String rst;
-		System.out.println(confirm);	//이새끼가 null임 
+		System.out.println(confirm);
 		System.out.println(confirm1);
 		wr.removeAttribute("confirmKey", wr.SCOPE_SESSION);
 		if(confirm.equals(confirm1)) {
