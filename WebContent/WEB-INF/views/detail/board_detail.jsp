@@ -148,12 +148,12 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<div id="scroll" style="overflow-y: scroll; height: 100px;">
 			<span id="replyList">
 				<c:forEach var="i" items="${reply_list }">
-					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
+					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 20px; height: 20px;">
 					<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>
 					${i.reply_content }
 					<c:choose>
 						<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
-							<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
+ 							<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button> 
 						</c:when>
 						<c:otherwise>
 							<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">삭제</button><br/>
