@@ -1,9 +1,12 @@
 package sns.controller.chat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,15 +17,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 
-import sns.club.chat.ClubChatSocketController;
 import sns.repository.AlertService;
 import sns.repository.ChatDao;
 import sns.repository.ChatMongoRepository;
+import sns.repository.FollowLikemongoalert;
 import sns.repository.FreeAlertService;
 
 
 @Controller
-public class AllSocketController extends TextWebSocketHandler{
+public class AllSocketController extends TextWebSocketHandler {
 	@Autowired
 	ChatDao ChatDao;
 	
@@ -40,6 +43,8 @@ public class AllSocketController extends TextWebSocketHandler{
 	@Autowired
 	FreeAlertService freeservice;
 	
+	@Autowired
+	FollowLikemongoalert follolikemongo;
 	
 	
 	@Override
@@ -55,8 +60,31 @@ public class AllSocketController extends TextWebSocketHandler{
 		}
 		
 		
+		List<Map> qq=follolikemongo.mongofollowserviceall(id);
+		String aaa="";
+		qq.sort(new Comparator<Map>() {
+	         @Override
+	         public int compare(Map o1, Map o2) {
+	            long n1= (long)o1.get("senddate");
+	            long n2= (long)o2.get("senddate");
+	            
+	            if(n1<n2) {
+	               return 1;
+	            }else if(n1>n2) {
+	               return -1;
+	            }else {
+	               return 0;
+	            }
+	         }
+	      });
+	
+		Map alertMap=new HashMap<>();
+		alertMap.put("mode", "defaultalert");
+		alertMap.put("str", qq);
+		session.sendMessage(new TextMessage(gson.toJson(alertMap)));
 		
 		
+		System.out.println(" 로로로로로호호="+qq);
 		/*System.out.println(session.getAttributes());
 		System.out.println(service.size());*/
 /*	long count=	mongodao.getcount((String)session.getAttributes().get("userId"));*/
