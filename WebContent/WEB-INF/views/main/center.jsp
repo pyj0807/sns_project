@@ -195,15 +195,15 @@ article:hover .links{
     </main>
     <script>
 	// 모달에 불러와지는 링크 JQuery
-	$("#myModal").on("show.bs.modal", function(e) {
+	$("#myModal").on("show.bs.modal", function(e) {		
 	    var link = $(e.relatedTarget);
 	    $(this).find(".modal-body").load(link.attr("href"));
+
 	});
 	
 	/* $('.modal').on('hidden.bs.modal', function (e) {
 	    console.log('modal close');
-	    console.log($(this).find(".modal-body"));
-	  $(this).find('.modal-body')[0].reset();
+	  	$(this).find('.modal-body')[0].reset();
 	}); */
 </script>
 
