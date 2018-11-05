@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+
+%>
 
 
 <div class="ui attached stackable menu">
@@ -18,10 +21,25 @@
     <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
       <i class="users icon"></i>NewsFeed
     </a>
-    <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
-    <i class="github icon"></i>뀨?
-    </a>
-	<div class="ui simple dropdown item"><i class="hashtag icon"></i>주제
+
+    
+    
+    <!--  -->
+    <div class="ui simple dropdown item">
+   
+    <i class="github icon" ></i>뀨?
+     <div class="menu" style="overflow:scroll; overflow-x:hidden; max-height:200px;" >
+     <span id="alert" > </span>
+  <a role="alert" class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme="></a>
+    
+    
+         </div>
+    </div>
+ <!--   //== -->
+   
+	<div class="ui simple dropdown item">관심사
+		<i class="dropdown icon"></i>
+
 	      <div class="menu">
 	      <c:forEach var="v" items="${allInter}">
 				<a class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
@@ -93,7 +111,7 @@ var pass=function(){
 <script>
 	var ws = new WebSocket("ws://" + location.host+ "${pageContext.servletContext.contextPath}/all.do");
 	ws.onmessage = function(evt) {
-		console.log(evt.data);
+		/* console.log(evt.data); */
 		var obj = JSON.parse(evt.data);
 		switch (obj.mode) {
 		case "erlogin":
@@ -105,8 +123,66 @@ var pass=function(){
 		case "zzz":
 			removeHandler(obj);
 		break;
+		
+		case "followinglike":
+			followHandler(obj);
+			break;
+		case "defaultalert":
+			defaultalertHandler(obj);
+			break;
 		}
+		
 	}
+	var defaultalertHandler=function(obj){
+		var html="";
+		var like="like";
+		var follow="follow";
+		var o=document.getElementById("alert").innerHTML;
+		console.log("V팔루오"+follow);
+		var s=obj.str;
+		for(var i=0;i<s.length;i++){
+			console.log("이게바로 그거입니다그거+"+s[i].senddatejsp);
+			if(s[i].moded==follow){
+				html+="<hr/><div role=\"alert\">";
+				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/account.do?id="+s[i].id+"\">"+s[i].id+s[i].content+"</a>";
+				html+="<div align=\"right\"><small >"+s[i].senddatejsp+"</small></div>";			
+				html+="</div><hr/>"+o;
+			
+			}else{
+				html+="<hr/><div role=\"alert\">";
+				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+s[i].num+"\">"+s[i].id+s[i].content+"</a>";
+				html+="<div align=\"right\"><small >"+s[i].senddatejsp+"</small></div>";	
+				html+="</div><hr/>"+o;
+			}
+		}
+		document.getElementById("alert").innerHTML = html; 
+		
+	}
+	
+	
+	
+	var followHandler=function(obj){
+		console.log("꺄르르르르르르르르르르르르르르를="+obj.id);
+		var html="";
+		var o=document.getElementById("alert").innerHTML;
+		if(obj.moded==follow){
+		html+="<hr/><div role=\"alert\">";
+		html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"+obj.id+obj.content+"</a>";
+		html+="<div align=\"right\"><small >"+obj.senddatejsp+"</small></div>";
+		html+="</div><hr/>"+o;
+		}else{
+			html+="<hr/><div role=\"alert\">";
+			html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+obj.num+"\">"+obj.id+obj.content+"</a>";
+			html+="<div align=\"right\"><small >"+obj.senddatejsp+"</small></div>";	
+			html+="</div><hr/>"+o;
+			
+		}
+		document.getElementById("alert").innerHTML = html; 
+		
+		/* console.log("꾜로로로ㅗ"+o); */
+		
+		
+	};
 	
 
 	var countHandler = function(obj) {

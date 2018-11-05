@@ -1,6 +1,8 @@
 package sns.controller;
 
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.socket.TextMessage;
 
 import com.google.gson.Gson;
 
+import sns.repository.AlertService;
 import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
+import sns.repository.FollowLikemongoalert;
 
 @Controller
 @RequestMapping("/board")
@@ -35,6 +40,11 @@ public class BoardController {
 	ServletContext svc;
 	@Autowired
 	BoardRepository boardRepository;
+	
+	@Autowired
+	FollowLikemongoalert mongoalert;
+	@Autowired
+	AlertService service;
 
 	@GetMapping("/board_detail.do")
 	public String board_datail(@RequestParam int num, ModelMap modelmap, WebRequest wr) {
@@ -121,10 +131,17 @@ public class BoardController {
 	public String board_like(@RequestBody String param, WebRequest wr) {
 		Map like = gson.fromJson(param, Map.class); // 방번호
 		Double room_id = (double) like.get("_id");
+		int room_num = room_id.intValue();// Double-->int
 
 		// 몽고디비 board테이블 liker컬럼에 추가
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");// 접속한 ID
+		SimpleDateFormat sf =new SimpleDateFormat("YYYY-MM-dd HH:mm");
+		
+		//=========================얼럿용
+		
+		
+		//얼럿용=========================
 		
 		// 좋아요 한 시간 몽고디비 liked 컬럼에 추가 
 		long currentTime = System.currentTimeMillis();
@@ -136,15 +153,77 @@ public class BoardController {
 			liked.put("likedTime", currentTime);
 			boarddao.addBoardLiker(room_id, userId); // 좋아요추가
 			boardRepository.insertLikerAndTime(liked);  // 몽고디비 like 테이블 한줄 추가
+			Map boardOnee = boarddao.getOneBoard(room_num);
+			String jsonn = gson.toJson(boardOnee);
+			
+			
+			String contentstr="";
+			Map sendMap=new HashMap<>();
+			sendMap.put("mode", "followinglike");
+			sendMap.put("moded", "like");
+			sendMap.put("id",userId);
+			sendMap.put("receiver",boardOnee.get("writer"));
+			sendMap.put("senddate", (long)System.currentTimeMillis());
+			if(((String)boardOnee.get("content")).length()>7) {
+				contentstr=	((String)boardOnee.get("content")).substring(1, 7);
+			sendMap.put("content", " 님이 당신의 글 ("+contentstr+"...)에 좋아요를 누르셨습니다.");
+			}else {
+				sendMap.put("content", " 님이 당신의 글 ("+boardOnee.get("content")+")에 좋아요를 누르셨습니다.");
+			}
+			sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
+			sendMap.put("num", room_num);
+			mongoalert.Mongofollowservice(sendMap);
+			TextMessage msg =new TextMessage(gson.toJson(sendMap));
+			
+			for(int i=0;i<service.list.size();i++) {
+				if(service.list.get(i).getAttributes().get("userId").equals(boardOnee.get("writer"))) {
+					try {
+						service.list.get(i).sendMessage(msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
 		} else {
+			
 			boarddao.removeBoardLiker(room_id, userId); // 좋아요취소
 			boardRepository.removeLikerAndTime(userId,room_id.intValue()); // 몽고디비 like 테이블 한줄 삭제
+			Map boardOnee = boarddao.getOneBoard(room_num);
+			String jsonn = gson.toJson(boardOnee);
+			String contentstr= "";
+			Map sendMap=new HashMap<>();
+			sendMap.put("mode", "followinglike");
+			sendMap.put("moded", "like");
+			sendMap.put("id",userId);
+			sendMap.put("receiver",boardOnee.get("writer"));
+			sendMap.put("senddate", (long)System.currentTimeMillis());
+			
+			if(((String)boardOnee.get("content")).length()>7) {
+				contentstr=	((String)boardOnee.get("content")).substring(1, 7);
+				sendMap.put("content", " 님이 당신의 글 ("+contentstr+"...)에 좋아요를 취소하셨습니다.");
+			}else {
+			sendMap.put("content", " 님이 당신의 글 ("+boardOnee.get("content")+")에 좋아요를 취소하셨습니다.");
+			}
+			sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
+			sendMap.put("num", room_num);
+			mongoalert.Mongofollowservice(sendMap);
+			TextMessage msg =new TextMessage(gson.toJson(sendMap));
+			
+			for(int i=0;i<service.list.size();i++) {
+				if(service.list.get(i).getAttributes().get("userId").equals(boardOnee.get("writer"))) {
+					try {
+						service.list.get(i).sendMessage(msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 		// liker수 count해서 ajax리턴
-		int room_num = room_id.intValue();// Double-->int
 		Map boardOne = boarddao.getOneBoard(room_num);
 		String json = gson.toJson(boardOne);
-
 		// 리턴 
 		return json;
 	}
