@@ -51,7 +51,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 <br/>
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
  <script src="semantic/semantic.js"></script>
- <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+ <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
 
 <div class="row">
   <div class="column">

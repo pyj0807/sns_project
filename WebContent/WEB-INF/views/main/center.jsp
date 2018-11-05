@@ -220,5 +220,7 @@ article:hover .links{
 	    var link = $(e.relatedTarget);
 	    $(this).find(".modal-body").load(link.attr("href"));
 	});
+	
+	
 </script>
     
