@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">	
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -41,15 +41,32 @@
 				<div class="col-sm-8">
 					<input type="text" class="form-control" placeholder="${sessionScope.user.INTEREST }" disabled="disabled" />
 				</div>
+		</div><div class="form-group row">
+			<label for="opass" class="col-sm-2 col-form-label">관심사<br/> 변경</label>
+				<div class="col-sm-8">
+					<c:forEach var="v" items="${interest }">
+										<c:choose>
+											<c:when test="${ v eq '연애' }">
+													${v }<input type="checkbox" name="interest" value="${v}"
+													onchange="cksave(this)" />
+												<br />
+											</c:when>
+											<c:otherwise>
+													${v }<input type="checkbox" name="interest" value="${v}"
+													onchange="cksave(this)" />
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+				</div>
 		</div>
 		<div class="form-group row">
-			<label for="opass" class="col-sm-2 col-form-label">현재 비밀번호</label>
+			<label for="opass" class="col-sm-2 col-form-label">현재<br/> 비밀번호</label>
 			<div class="col-sm-8">
 				<input type="password" class="form-control" name="opass" id="opass" placeholder="현재 비밀번호" />
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="npass" class="col-sm-2 col-form-label">새로운 비밀번호</label>
+			<label for="npass" class="col-sm-2 col-form-label">새로운 <br/>비밀번호</label>
 			<div class="col-sm-8">
 				<input type="password" class="form-control" name="npass" id="npass" placeholder="새로운 비밀번호" />
 			</div>
@@ -61,3 +78,20 @@
 	</div>
 </body>
 </html>
+
+<script>
+var checkbox = new Array();
+var cksave = function(target) {
+	if (target.checked) {
+		if (checkbox.length < 3) {
+			checkbox.push(target.value);
+		} else {
+			window.alert("최대 3개 까지 선택 가능합니다");
+			target.checked = false;
+		}
+	} else {
+		var idx = checkbox.indexOf(target.value);
+		checkbox.splice(idx, 1);
+	}
+}
+</script>

@@ -29,7 +29,8 @@ body {
 
 }
 span{
-	width: 350px;
+	width:400px;
+	/* width: 350px; */
 	background-color: #FFFFFF;
 }
 label{
@@ -89,6 +90,8 @@ button:hover:before,button:hover:after{
   transition:800ms ease all;
   border-radius:10px;
 }
+
+
 </style>
 
 <title>join</title>
@@ -104,8 +107,8 @@ button:hover:before,button:hover:after{
 			<div class="join">
 				<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
 					<input name="id" id="id" type="text" style="margin-bottom: 10px " placeholder="아이디 " class="form-control"
-									onkeyup="checkId(this.value);" required> <br /> <span
-									id="idspan" style="margin-bottom: 20px" ></span>
+									onkeyup="checkId(this.value);" required><span
+									id="idspan" style="margin-bottom: 20px" ></span><br/>
 								
 								<label>비밀번호</label><i class="fas fa-unlock-alt fa-2x"></i><br/>
 								<input name="pass" id="pass" type="password" maxlength="20" class="form-control"
@@ -115,10 +118,11 @@ button:hover:before,button:hover:after{
 									placeholder="이름" required style="margin-bottom: 20px" > <br />
 								
 								<label>이메일 인증</label><i class="far fa-envelope fa-2x"></i><br/>
-								<input type="text" name="email01" id="email01" class="form-control" style="width: 100px;"
-									onkeyup="checkEmail(this.value);">
-								@ <input  type="text" name="email22" id="email02"
-									onkeyup="checkEmail(this.value);"  style="width: 100px;"  class="form-control"
+								<input type="text" name="email01" id="email01" class="form-control" style="width: 100px; display:inline-block;"
+									onkeyup="checkEmailID(this.value);" >
+									@ 
+									<input  type="text" name="email22" id="email02"
+									onchange="checkEmailSubid(this.value);"  style="width: 100px; display:inline-block;"  class="form-control"
 									value="naver.com" style="margin-bottom: 10px"> <select
 									style="width: 100px; margin-right: 10px" name="subid"
 									id="subid">
@@ -131,7 +135,7 @@ button:hover:before,button:hover:after{
 								</select> <br />
 
 								
-								<button type="button" id="emailauth" style="margin-bottom: 10px">번호받기</button>
+								<button type="button" id="emailauth" style="margin: 10px 10px">번호받기</button>
 								<small id="ckmail1"></small> <input type="text" id="confirm"
 									class="form-control" name="confirm" placeholder="인증번호" style="margin-bottom: 20px " >
 								<button type="button" id="confirmok" disabled="disabled"
@@ -144,9 +148,9 @@ button:hover:before,button:hover:after{
 									<label>생년월인</label><i class="fas fa-birthday-cake fa-2x"></i>
 									<div class="bir_wrap" required>
 										<div class="bir_yy">
-											<span class="ps_box"> <input type="text" name="yy" class="form-control"
+											<span class="ps_box"> <input type="text" name="yy" class="form-control" style="width: 100px; display:inline-block;"
 												placeholder="년도(4자)" maxlength="4"> <select
-												name="mm" aria-label="월">
+												name="mm" aria-label="월" class="form-control" style="width: 100px; display:inline-block;" >
 													<option>월</option>
 													<option value="01">01</option>
 													<option value="02">02</option>
@@ -161,7 +165,7 @@ button:hover:before,button:hover:after{
 													<option value="11">11</option>
 													<option value="12">12</option>
 											</select>
-											</span> <span> <select name="dd" aria-label="일" style="margin-bottom: 20px">
+											</span> <span> <select name="dd" aria-label="일" class="form-control" style="margin-bottom: 20px; width: 100px; display:inline-block;">
 													<option>일</option>
 													<option value="01">01</option>
 													<option value="02">02</option>
@@ -238,6 +242,8 @@ button:hover:before,button:hover:after{
 </body>
 </head>
 </html>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	//아이디 중복
 	var checkId = function() {
@@ -274,7 +280,7 @@ button:hover:before,button:hover:after{
 	};
 
 	//이메일 중복
-	var checkEmail = function() {
+	var checkEmailID = function() {
 		var emailid = document.getElementById("email01").value;
 		var subid = document.getElementById("email02").value;
 		var email = emailid + "@" + subid;
@@ -307,7 +313,40 @@ button:hover:before,button:hover:after{
 			document.getElementById("ckmail1").style.color = "red";
 		}
 	};
+	
+	var checkEmailSubid = function() {
+		var emailid = document.getElementById("email01").value;
+		var subid = document.getElementById("email02").value;
+		var email = emailid + "@" + subid;
+		var r2 = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
+		console.log("test : " + r2.test(email));
+
+		if (r2.test(email)) {
+			var req = new XMLHttpRequest();
+			req.open("get", "emailajax.do?email=" + email, true);
+			console.log("옴? 왜 안옴?");
+			req.onreadystatechange = function() {
+				if (this.readyState == 4) {
+					var m = JSON.parse(this.responseText);
+					console.log("m =" + m);
+					if (m.pass == "on") {
+						console.log("on");
+						document.getElementById("ckmail1").innerHTML = "이미 인증을 한 이메일입니다.";
+						document.getElementById("ckmail1").style.color = "red";
+					} else {
+						console.log("off")
+						document.getElementById("ckmail1").innerHTML = "인증 가능한 이메일입니다";
+						document.getElementById("ckmail1").style.color = "green";
+					}
+				}
+			}
+			req.send();
+		} else {
+			document.getElementById("ckmail1").innerHTML = "사용 불가능한 이메일 형식입니다";
+			document.getElementById("ckmail1").style.color = "red";
+		}
+	};
 	// 관심사
 	var checkbox = new Array();
 	var cksave = function(target) {
@@ -323,11 +362,7 @@ button:hover:before,button:hover:after{
 			checkbox.splice(idx, 1);
 		}
 	}
-</script>
 
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
 	//이메일 직접입력
 	$('#subid').change(function() {
 		$("#subid option:selected").each(function() {
@@ -341,9 +376,7 @@ button:hover:before,button:hover:after{
 		});
 	});
 
-	$("#emailauth").on(
-			"click",
-			function() {
+	$("#emailauth").on("click",function() {
 				var param = {
 					"email01" : $("#email01").val(),
 					"email02" : $("#email02").val()
@@ -387,8 +420,7 @@ button:hover:before,button:hover:after{
 														"disabled", true);
 												$("#btnsubmit").prop(
 														"disabled", false);
-												$("#email01").prop("disabled",
-														true);
+											
 											} else {
 												document
 														.getElementById("ckmail2").innerHTML = "인증실패";
