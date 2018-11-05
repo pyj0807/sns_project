@@ -68,7 +68,7 @@ article:hover .links {
 	<h2 style="color: blue">${mapinfo.area}</h2>
 	<!-- 지도 스크립트 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4"></script>						
-	<div id="map" style="width:200% ;height:200px;"></div>
+	<div id="map" style="width:100% ;height:200px;"></div>
 </div>	  
 <div>
 <main role="main">

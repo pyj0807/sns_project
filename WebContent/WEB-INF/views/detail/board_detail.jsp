@@ -51,7 +51,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 <br/>
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
  <script src="semantic/semantic.js"></script>
- <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+ <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
 
 <div class="row">
   <div class="column">
@@ -97,15 +97,15 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					</c:choose>
 				</c:forEach>
 			</div>
-			<!-- 1 -->
-			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> 
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-				<span class="sr-only">이전</span>
-			</a> 
-			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> 
-				<span class="carousel-control-next-icon" aria-hidden="true"></span> 
-				<span class="sr-only">다음</span>
-			</a>
+				<!-- 1 -->
+				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> 
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+					<span class="sr-only">이전</span>
+				</a> 
+				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> 
+					<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+					<span class="sr-only">다음</span>
+				</a>
 		</div>
 		<!-- 0 -->
 		<br />
