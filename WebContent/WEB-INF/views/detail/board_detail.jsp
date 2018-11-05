@@ -97,15 +97,19 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 					</c:choose>
 				</c:forEach>
 			</div>
-				<!-- 1 -->
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> 
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-					<span class="sr-only">이전</span>
-				</a> 
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> 
-					<span class="carousel-control-next-icon" aria-hidden="true"></span> 
-					<span class="sr-only">다음</span>
-				</a>
+				<c:choose>
+					<c:when test="${fn:length(boardOne.file_attach)>1 }">
+						<!-- 1 -->
+						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> 
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+							<span class="sr-only">이전</span>
+						</a> 
+						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> 
+							<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+							<span class="sr-only">다음</span>
+						</a>
+					</c:when>
+				</c:choose>
 		</div>
 		<!-- 0 -->
 		<br />
@@ -148,12 +152,12 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<div id="scroll" style="overflow-y: scroll; height: 100px;">
 			<span id="replyList">
 				<c:forEach var="i" items="${reply_list }">
-					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 20px; height: 20px;">
+					<img src="${pageContext.servletContext.contextPath }/pic/01.jpg" class="photo" style="width: 30px; height: 30px;">
 					<a href="${pageContext.servletContext.contextPath }/account.do?id=${i.writer }">${i.writer }</a>
 					${i.reply_content }
 					<c:choose>
 						<c:when test="${Id==i.writer || boardOne.writer==Id }"><%--작성자와 로그인한사람이 같으면, 글글쓴이와 로그인한사람 --%>
- 							<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button> 
+							<button  value="${i.key },${i.id}" onclick="delete_reply(this);">삭제</button><br/>
 						</c:when>
 						<c:otherwise>
 							<button  value="${i.key },${i.id}" onclick="delete_reply(this);" style="visibility: hidden">삭제</button><br/>

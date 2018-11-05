@@ -26,6 +26,4 @@
 		<put-attribute name="left" value="" />
 		<put-attribute name="center" value="/WEB-INF/views/mypage/map.jsp" />
 	</definition>
-	
-	
 </tiles-definitions>

@@ -4,6 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!doctype html>
+<!-- semantic 아이콘 사용위한 스크립트와 link  -->
+<script src="semantic/semantic.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
+
 <style>
 img {
 	max-width: 100%;

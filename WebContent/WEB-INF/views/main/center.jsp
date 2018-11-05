@@ -51,8 +51,8 @@ article:hover .links{
 </style>
 
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
- <script src="semantic/semantic.js"></script>
- <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+ <script src="${pageContext.servletContext.contextPath }/semantic/semantic.js"></script>
+ <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
   
     <main role="main">
       <div class="album py-5">
@@ -183,7 +183,7 @@ article:hover .links{
 							href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
 	        </h4>
 	      </div> --%>
-	      <div class="modal-body">
+	    <div class="modal-body">
 	        ...
 	      </div>
 	<!--       <div class="modal-footer">
@@ -199,5 +199,11 @@ article:hover .links{
 	    var link = $(e.relatedTarget);
 	    $(this).find(".modal-body").load(link.attr("href"));
 	});
+	
+	/* $('.modal').on('hidden.bs.modal', function (e) {
+	    console.log('modal close');
+	    console.log($(this).find(".modal-body"));
+	  $(this).find('.modal-body')[0].reset();
+	}); */
 </script>
 
