@@ -47,7 +47,6 @@
             <input type="checkbox" value="remember-me"> 로그인 유지
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
     </div>
     </div>

@@ -12,7 +12,7 @@
 	</select>
 
 	<update id="changePass" parameterType="java.util.HashMap">
-		update account set pass=#{npass} where id=#{id}	
+		update account set pass=#{npass}, interest=#{interest} where id=#{id}	
 	</update>
 	
 	<select id="loginCheck" parameterType="java.lang.String" resultType="java.util.HashMap">

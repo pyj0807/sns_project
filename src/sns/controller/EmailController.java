@@ -26,17 +26,18 @@ public class EmailController {
 		String email01 = (String)param.get("email01");
 		String email02 = (String)param.get("email02");
 		String receiver  = email01 + "@" + email02;
+		System.out.println("email옴?");
 		System.out.println(receiver);
 		
 		msg.setSubject("회원가입 인증번호");
 		String txt = "인증번호 : ";
 		String confirm = UUID.randomUUID().toString().split("-")[0];
 		txt += confirm;
-		
 		wr.setAttribute("confirm", confirm, wr.SCOPE_SESSION);
 		msg.setText(txt);
 		msg.setTo(receiver);
 		msg.setFrom("sns@test.com");
+		System.out.println(txt);
 		
 		try {
 			sender.send(msg);
