@@ -18,9 +18,21 @@
     <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
       <i class="users icon"></i>NewsFeed
     </a>
-    <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
+    
+    
+    <!--  -->
+    <div class="ui simple dropdown item">
+   
     <i class="github icon"></i>뀨?
-    </a>
+     <div class="menu">
+     <span id="alert"> </span>
+  <a role="alert" class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme=">zzz</a>
+    
+    
+         </div>
+    </div>
+ <!--   //== -->
+   
 	<div class="ui simple dropdown item">관심사
 		<i class="dropdown icon"></i>
 	      <div class="menu">
@@ -106,8 +118,26 @@ var pass=function(){
 		case "zzz":
 			removeHandler(obj);
 		break;
+		
+		case "following":
+			followHandler(obj);
+			break;
 		}
 	}
+	
+	var followHandler=function(obj){
+		console.log("꺄르르르르르르르르르르르르르르를="+obj.id);
+		var html="<div role=\"alert\">";
+		var o=document.getElementById("alert").innerHTML;
+		html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/interest.do?theme=\">"+obj.id+"님이 팔로우하셨습니다."+"</a>";
+		html+="</div>"+o;
+		
+		document.getElementById("alert").innerHTML = html; 
+		
+		console.log("꾜로로로ㅗ"+o);
+		
+		
+	};
 	
 
 	var countHandler = function(obj) {
