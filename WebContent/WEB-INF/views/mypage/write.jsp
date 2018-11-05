@@ -39,13 +39,9 @@
 		<button type="button" onclick="addressPopUp()" >간편 주소 입력</button>
 		<input type="text" class="form-control" id="address1" placeholder="간편 주소" readonly="readonly" onchange="address(this);" name="area" style="width: 500px;">					
 		<div id="map" style="width: 40%; height: 350px;"></div>
-		<p>
-			사람태그 :
-			<button type="button" name="account">사람태그</button>
-		</p>
 		<button type="submit" style="width: 330px; padding: 5px;">글
 			공유</button>
-	</form>
+	</form> 	
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4&libraries=services,clusterer,drawing"></script>
 <script>

@@ -80,10 +80,14 @@ article:hover .links {
 	관심사 :
 	<c:forEach var="in" items="${myInter }">☆${in } </c:forEach>
 	<p>
-		게시물수 : <b>${msize }</b> 팔로워 : <a
+		게시물수 : <b>${msize }</b> 
+		팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${sessionScope.user.ID }"
-			name="${sessionScope.user.ID }"><b>${followerCnt }</b></a> 팔로잉 : <a
+			data-remote="false" data-toggle="modal" data-target="#exampleModalCenter"
+			name="${sessionScope.user.ID }"><b>${followerCnt }</b></a> 
+		팔로잉 : <a 
 			href="${pageContext.servletContext.contextPath}/following.do?id=${sessionScope.user.ID }"
+			data-remote="false" data-toggle="modal" data-target="#exampleModalCenter"
 			name="${sessionScope.user.ID }"><b>${followingCnt }</b></a>
 	</p>
 	<p>
@@ -246,7 +250,26 @@ article:hover .links {
     </div>
   </div>
 </div>
-
+<!-- 팔로잉 팔로워 Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+<!--       <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Follow</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        ...
+      </div>
+<!--       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+ -->    </div>
+  </div>
+</div>
 
 <script>
 	// 모달에 불러와지는 링크 JQuery
@@ -258,6 +281,16 @@ article:hover .links {
  	$('#myModal').on('hidden.bs.modal', function (e) { 
 		  $(this).removeData('.modal'); 
 		 console.log("모달 gg");
+	}); 
+	// 모달에 불러와지는 링크 JQuery
+	$("#exampleModalCenter").on("show.bs.modal", function(e) {
+	    console.log("exampleModalCenter 모달이 열림! 디스가뭐지"+this);
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+ 	$('#exampleModalCenter').on('hidden.bs.modal', function (e) { 
+		  $(this).removeData('.modal'); 
+		 console.log("exampleModalCenter 모달 gg");
 	}); 
 </script>
 <script>

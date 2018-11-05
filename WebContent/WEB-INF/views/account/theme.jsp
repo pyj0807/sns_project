@@ -5,18 +5,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 img {
-	max-width: 100%;
-	width: 400px;
-	max-height: 100%;
-	height: 300px;
+	width: 2px;
+	height: auto;
 }
 
 video {
 	max-width: 100%;
-	width: 400px;
+	width: 700px;
 	max-height: 100%;
-	height: 300px;
+	height: auto;
 }
+
 .container {
 	position: relative;
 	width: 250%;
@@ -58,53 +57,77 @@ article:hover .links {
 	transition: .5s ease;
 }
 </style>
-<p>
-<h2>테마 별 게시물</h2>
-</p>
 
+<!-- semantic 아이콘 사용위한 스크립트와 link  -->
+<script src="semantic/semantic.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
 
-<h2 style="color: blue">${theme}</h2>
+<h2 class="ui header">
+  <i class="hashtag icon"></i>
+  <div class="content">
+    ${theme}
+    <div class="sub header">Posts by theme...</div>
+  </div>
+</h2>
+
 <main role="main">
-<div class="album py-5 bg-light">
-	<div class="container">
-		<div class="row">
-			<c:forEach var="i" items="${list }">
+<div class="container">
+	<div class="row">
+		<c:forEach var="i" items="${list }">
+			<c:forEach var="p" begin="0" end="0" items="${i.type }">
 				<c:choose>
-					<c:when test="${i.type == 'video'}">
+					<c:when test="${p == 'video'}">
 						<!-- 타입이비디오일경우 -->
 						<div class="col-md-4">
 							<div class="card mb-4 shadow-sm">
-								<video class="card-img-top" src="${i.file_attach }" controls></video>
+								<article>
+									<div class="thumbImg" style="width: auto; height: 250px;">
+										<c:forEach var="v" begin="0" end="0"
+											items="${i.file_attach  }">
+											<video class="card-img-top" src="${v }" controls></video>
+										</c:forEach>
+									</div>
+									<div class="links" style="text-align: center;"></div>
+								</article>
 								<div class="card-body">
-									<a
-										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
-											class="card-text">${i.content }</p></a>
+									<%--  <a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"> --%>
+									<p class="card-text">${i.content }</p>
+									<%-- </a> --%>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">	
-										<c:choose>
-				                    		<c:when test="${i.lasttime <60}">
-				                    			${i.lasttime }초전
-				                    		</c:when>
-				                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
-				                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전
-				                    		</c:when>
-				                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
-				                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전
-				                    		</c:when>
-				                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
-				                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전
-				                    		</c:when>
-				                    		<c:otherwise>
-				                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
-				                    		</c:otherwise>
-				                    	</c:choose>
+										<small class="text-muted"> <c:choose>
+												<c:when test="${i.lasttime <60}">
+		                    			${i.lasttime }초전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+													<fmt:formatNumber type="number" value="${i.lasttime/60 }"
+														pattern="#" />분전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60) }" pattern="#" />시간전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+		                    		</c:when>
+												<c:otherwise>
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+		                    		</c:otherwise>
+											</c:choose>
 										</small>
+										<div class="btn-group">
+											<!-- Button trigger modal -->
+											<a
+												href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"
+												data-remote="false" data-toggle="modal"
+												data-target="#myModal">
+												<button type="button" class="btn btn-primary"
+													data-toggle="modal" data-target="#VideoModalCenter"
+													data-con="${i.content}" data-vid="${i.file_attach }">
+													View</button>
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -112,44 +135,53 @@ article:hover .links {
 					</c:when>
 					<c:otherwise>
 						<div class="col-md-4">
+							<!-- 배열 -->
 							<div class="card mb-4 shadow-sm">
-				              	<article>
-				              		<div class="thumbImg" style="width: auto; height:250px;" data-target="${i._id }">
-				                		<img class="card-img-top" src="${i.file_attach }" alt="Card image cap" >
-				                	</div>
-				                	<div  class="links" style="text-align:center;"> <!--내일댓글수처리 -->
-					                	<span>♡:${fn:length(i.liker) }</span> <span></span>
-				                	</div>	
-				                </article>
+								<!-- 그림자 -->
+								<article>
+									<div class="thumbImg" style="width: auto; height: 250px;"
+										data-target="${i._id }">
+										<c:forEach var="p" begin="0" end="0" items="${i.file_attach }">
+											<a
+												href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"
+												data-remote="false" data-toggle="modal"
+												data-target="#myModal" class="btn btn-default"><img
+												class="card-img-top" src="${p }" alt="Card image cap"
+												style="width: 328px;"></a>
+										</c:forEach>
+									</div>
+									<div class="links" style="text-align: center;">
+										<span><img
+											src="${pageContext.servletContext.contextPath }/img/heart1.png"
+											class="icon"> ${fn:length(i.liker) }</span> <span></span>
+									</div>
+								</article>
 								<div class="card-body">
-									<a
-										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
-											class="card-text">${i.content }</p></a>
+									<%-- <a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"> --%>
+									<p class="card-text">${i.content }</p>
+									<%-- </a> --%>
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">	
-											<c:choose>
-					                    		<c:when test="${i.lasttime <60}">
-					                    			${i.lasttime }초전
-					                    		</c:when>
-					                    		<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
-					                    			<fmt:formatNumber type="number" value="${i.lasttime/60 }" pattern="#" />분전
-					                    		</c:when>
-					                    		<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
-					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60) }" pattern="#" />시간전
-					                    		</c:when>
-					                    		<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
-					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24) }" pattern="#" />일전
-					                    		</c:when>
-					                    		<c:otherwise>
-					                    			<fmt:formatNumber type="number" value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
-					                    		</c:otherwise>
-					                    	</c:choose>
+										<small class="text-muted"> <c:choose>
+												<c:when test="${i.lasttime <60}">
+		                    			${i.lasttime }초전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=60 && i.lasttime <3600}">
+													<fmt:formatNumber type="number" value="${i.lasttime/60 }"
+														pattern="#" />분전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=3600 && i.lasttime <86400}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60) }" pattern="#" />시간전
+		                    		</c:when>
+												<c:when test="${i.lasttime >=86400 && i.lasttime <604800}">
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24) }" pattern="#" />일전
+		                    		</c:when>
+												<c:otherwise>
+													<fmt:formatNumber type="number"
+														value="${i.lasttime/(60*60*24*7) }" pattern="#" />주전
+		                    		</c:otherwise>
+											</c:choose>
 										</small>
 									</div>
 								</div>
@@ -158,20 +190,51 @@ article:hover .links {
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<script>
-	           	$(".thumbImg").on("mouseover", function(){
-	           		var target = $(this);
-	           		var t = $(this).data("target"); //글번호
-	           		var param ={
-	           			"room_no":t	
-	           		};
-	           		$.post("${pageContext.servletContext.contextPath}/indexAjax.do",param,function(rst){
-	           			//this =<div class="thumbImg"> , .next 는 동일선상의 다음꺼(<div  class="links"), .children은 자식 (<span>). eq 는 자식을 배열로표시
-	           			target.next().children().eq(1).html("♧:" +rst.length);
-	           		}); 	
-	           	});
-           </script>
-		</div>
+		</c:forEach>
+       <script>
+     	$(".thumbImg").on("mouseover", function(){
+     		var target = $(this);
+     		var t = $(this).data("target"); //글번호
+     		console.log(t);
+     		var param ={
+     			"room_no":t	
+     		};
+     		$.post("${pageContext.servletContext.contextPath}/indexAjax.do",param,function(rst){
+     			//this =<div class="thumbImg"> , .next 는 동일선상의 다음꺼(<div  class="links"), .children은 자식 (<span>). eq 는 자식을 배열로표시
+     			target.next().children().eq(1).html("<img src=\"${pageContext.servletContext.contextPath }/img/comment.png\" class=\"icon\"> " +rst.length);
+     		}); 	
+     	});
+     </script>
 	</div>
 </div>
 </main>
+
+<!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
+	<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog  modal-lg ">
+	    <div class="modal-content">
+	<%--       <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">	
+	        <img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
+							class="photo" style="width: 30px; height: 30px;"> <a
+							href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
+	        </h4>
+	      </div> --%>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	<!--       <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div> -->
+	    </div>
+	  </div>
+	</div>
+    </main>
+    <script>
+	// 모달에 불러와지는 링크 JQuery
+	$("#myModal").on("show.bs.modal", function(e) {
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+</script>
+
