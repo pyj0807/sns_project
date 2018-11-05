@@ -235,6 +235,7 @@ article:hover .links {
 			</script>
 			</div>
 	</div>
+</main>
 <!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
 <div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg ">
@@ -245,7 +246,7 @@ article:hover .links {
     </div>
   </div>
 </div>
-</main>
+
 
 <script>
 	// 모달에 불러와지는 링크 JQuery
