@@ -73,7 +73,7 @@ article:hover .links {
 </style>
 <br/>
 <div align="center">
-	<a href="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','','width=800 height=600');">
+	<a href="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','','width=800 height=600');"><%--  onClick="javascript:window.open('${pageContext.servletContext.contextPath }/changepic.do','popup','scrollbars=no, resizable=no, width=800,height=600')"> --%>
 	<img src="${pageContext.servletContext.contextPath }/pic/${loginPic}"  class="photo" style="width: 200px; height: 200px;"></a>
 	<br /><br /><br />
 	<strong>${sessionScope.user.ID }</strong><br />
@@ -116,6 +116,7 @@ article:hover .links {
 
 
 <main role="main">
+<div class="album py-5 bg-light">
 	<div class="container">
 		<div class="row">
 			<c:forEach var="i" items="${mylist }">
@@ -235,6 +236,7 @@ article:hover .links {
 			</script>
 			</div>
 	</div>
+</div>
 <!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
 <div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg ">
@@ -277,9 +279,7 @@ article:hover .links {
 				html += "<div class=\"ui horizontal list\">";
 				for (var i = 1; i <= 3; i++) {
 					html += "<div class=\"item\">";
-					html += "<img class=\"ui avatar image\" src=\"${pageContext.servletContext.contextPath }/pic/";
-					html += obj[i].PROFILE_ATTACH;
-					html += "\" class=\"photo\" style=\"width: 30px; height: 30px;\"> <div class=\"content\">";
+					html += "<img class=\"ui avatar image\" src=\"${pageContext.servletContext.contextPath }/pic/01.jpg\" class=\"photo\" style=\"width: 30px; height: 30px;\"> <div class=\"content\">";
 					html += "<div><a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
 					html += obj[i].ID;
 					html += "\">";
