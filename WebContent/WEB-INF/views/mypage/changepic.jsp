@@ -10,6 +10,7 @@
 }
 </style>
 <div align="center">
+<h1>프로필 사진 바꾸기</h1>
 	<c:if test="${!empty err}">
 		<div class="alert alert-danger" role="alert">Image 파일만 업로드 가능합니다.</div>
 	</c:if>
@@ -22,7 +23,7 @@
 		  <p><input type=file name="file" ></p>
 		  <div id="holder"></div>
 		</article><br/>
-		<input type=submit value="전송">
+		<input type=submit value="전송" onclick="gogo();">
 	</form>
 </div>
 
@@ -53,4 +54,8 @@ upload.onchange = function (e) {
   reader.readAsDataURL(file);
   return false;
 };
+
+var gogo = function(){
+    self.close();
+} 
 </script>

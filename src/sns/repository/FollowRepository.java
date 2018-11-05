@@ -61,14 +61,9 @@ public class FollowRepository {
 		return sqltemplate.selectOne("follow.CheckFollowing", map);
 	}
 	
-	// 모든 유저 정보중 ID, 이름, 관심사만 Map 형으로 뽑아오기
+	// 모든 유저 정보 Map 형으로 뽑아오기
 	public List<Map> getAllUserInfo(){
 		return sqltemplate.selectList("account.getAllUserInfo");
-	}
-	
-	// 모든 유저 정보
-	public List<Map> getAll(){
-		return sqltemplate.selectList("account.getAll");
 	}
 
 	// 프로필 사진 업데이트

@@ -35,7 +35,7 @@ public class AccountController {
 	
 	// 다른 회원 페이지
 	@RequestMapping("/account.do")
-	public String account(WebRequest wr, @RequestParam String id,ModelMap map) {
+	public String account(WebRequest wr, @RequestParam String id, ModelMap map) {
 
 		System.out.println("진짜아이디유"+id);
 		String sss="#";
@@ -45,13 +45,9 @@ public class AccountController {
 		Pattern p = Pattern.compile(sss);
 		Matcher d=p.matcher(id);
 		if(d.find()==true) {
-			
-						
 			wr.setAttribute("hashtag", str, wr.SCOPE_REQUEST);
 			return "redirect:/board/board_search.do?hashtag="+str[0];
 		}else {
-		
-
 
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
@@ -120,11 +116,6 @@ public class AccountController {
 		return "sns.newsfeed";
 	}
 	
-	@RequestMapping("/alluser.do")
-	public String alluser(WebRequest wr) {
-		List<Map> list = follow.getAll();
-		wr.setAttribute("list", list, wr.SCOPE_REQUEST);
-		return "sns.alluser";
-	}
+
 	
 }

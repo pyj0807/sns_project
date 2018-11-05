@@ -9,15 +9,10 @@
 	</select>
 	<!-- 모든 유저 정보중 ID, 이름, 관심사만 Map 형으로 뽑아오기 -->
 	<select id="getAllUserInfo" resultType="java.util.HashMap">
-		select id,name,interest from account
-	</select>
-
-	<!-- 모든 유저 정보 -->
-	<select id="getAll" resultType="java.util.HashMap">
 		select * from account
 	</select>
 
-	<!-- 모든 유저 정보의 ID,EMAIL,NAME 값만 MAP으로 받아오기 -->
+	<!-- 해당아이디에 ID,EMAIL,NAME 값만 MAP으로 받아오기 -->
 	<select id="allAccount" resultType="java.util.HashMap" parameterType="java.lang.String">
 		select id,email,name from account where id like #{id}
 	</select>

@@ -109,11 +109,11 @@ article:hover .links {
 	border-bottom: 2px solid #c1370e;
 }
 </style>
-
+<br />
 <div align="center">
-	<img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-		class="photo" style="width: 300px; height: 300px;"><br /> <strong>
-		${id}</strong><br /> 관심사 :
+	<img src="${pageContext.servletContext.contextPath }/pic/${otherUser.PROFILE_ATTACH}"
+		class="photo" style="width: 200px; height: 200px;"><br /><br /><strong>
+		${otherUser.ID}</strong><br /> 관심사 :
 	<c:forEach var="in" items="${otherInter }">☆${in } </c:forEach>
 	<br />
 	<p>

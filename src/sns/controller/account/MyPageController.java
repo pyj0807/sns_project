@@ -53,7 +53,7 @@ public class MyPageController {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
 		String loginPic = (String) user.get("PROFILE_ATTACH");
-		wr.setAttribute("loginPic", loginPic, wr.SCOPE_SESSION);
+		wr.setAttribute("loginPic", loginPic, wr.SCOPE_REQUEST);
 
 		// 내가 쓴 글 목록 조회하기 위해
 		List<Map> mylist = boardRepository.findWriter(loginId);
@@ -307,12 +307,14 @@ public class MyPageController {
 			map.put("id", loginId);
 			System.out.println(map.toString());
 			System.out.println("바뀐프사 : " + filename);
-			
-			System.out.println(follow.changePic(map));
+			System.out.println(follow.changePic(map)); // 업데이트 매퍼 실행 
 			System.out.println("변경완료");
+			wr.setAttribute("loginPic", filename, wr.SCOPE_SESSION);
+			System.out.println("newPic : " + filename);
+			user.put("PROFILE_ATTACH", filename);
 			String newPic = (String) user.get("PROFILE_ATTACH");
-			wr.setAttribute("loginPic", newPic, wr.SCOPE_SESSION);
-			System.out.println("newPic : " + newPic);
+			System.out.println("뉴픽 : " + newPic);
+			System.out.println(user.toString());
 			
 			return "redirect:/mypage.do";
 		}	
