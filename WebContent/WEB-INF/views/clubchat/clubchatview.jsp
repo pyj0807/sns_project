@@ -4,7 +4,38 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+
+<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg ">
+    <div class="modal-content">
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	// 모달에 불러와지는 링크 JQuery
+	$("#myModal").on("show.bs.modal", function(e) {
+	    console.log("모달이 열림! 디스가뭐지"+this);
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+ 	$('#myModal').on('hidden.bs.modal', function (e) { 
+		  $(this).removeData('.modal'); 
+		 console.log("모달 gg");
+	}); 
+	// 모달에 불러와지는 링크 JQuery
+	$("#exampleModalCenter").on("show.bs.modal", function(e) {
+	    console.log("exampleModalCenter 모달이 열림! 디스가뭐지"+this);
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+ 	$('#exampleModalCenter').on('hidden.bs.modal', function (e) { 
+		  $(this).removeData('.modal'); 
+		 console.log("exampleModalCenter 모달 gg");
+	}); 
+</script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
 <div
@@ -85,7 +116,7 @@
 		<div role="alert" style="padding: 10px; margin-bottom: 10px;"
 					align="left">
 			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
-			<span class="badge badge-pill badge-warning">${v.userNAME} </span><i class="chess queen icon"></i></a><br/>
+			<span class="badge badge-pill badge-warning">${v.userNAME}(${v.ID }) </span><i class="chess queen icon"></i></a><br/>
 			<span style="font-size: x-large;" class="badge badge-secondary">
 			${v.content } / <small><b>${v.sendtime}</b></small></b>
 					</span>
@@ -97,7 +128,7 @@
 		<div role="alert" style="padding: 10px; margin-bottom: 10px;"
 					align="left">
 			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.ID}">
-			<span class="badge badge-pill badge-warning">${v.userNAME} </a><br/>
+			<span class="badge badge-pill badge-warning">${v.userNAME}(${v.ID }) </a><br/>
 			<span style="font-size: x-large;" class="badge badge-secondary">
 			${v.content } / <small><b>${v.sendtime}</b></small></b>
 					</span>
