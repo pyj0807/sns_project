@@ -6,15 +6,25 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style>
 img {
-	width: 2px;
-	height: auto;
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
 }
 
 video {
 	max-width: 100%;
-	width: 700px;
+	width: 400px;
 	max-height: 100%;
-	height: auto;
+	height: 300px;
+}
+</style>
+<style>
+.photo {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 .container {
