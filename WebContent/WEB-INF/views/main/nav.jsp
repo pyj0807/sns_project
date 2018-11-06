@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+		<!-- semantic 아이콘 사용위한 스크립트와 link  -->
+ <script src="semantic/semantic.js"></script>
+ <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+		
 <style>
 .photo {
 	width: 35px;
@@ -38,7 +45,7 @@
  <!--   //== -->
 	<div class="ui simple dropdown item">
 		<i class="hashtag icon"></i>관심사
-	      <div class="menu">
+	      <div class="menu" style="overflow:scroll; overflow-x:hidden; max-height:200px;" >
 	      <c:forEach var="v" items="${allInter}">
 				<a class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
 	      </c:forEach>
@@ -147,7 +154,7 @@ var pass=function(){
 			
 			}else{
 				html+="<hr/><div role=\"alert\">";
-				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+s[i].num+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+s[i].attach+"\" />"+s[i].id+s[i].content+"</a>";
+				html+="<a  data-remote=\"false\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+s[i].num+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+s[i].attach+"\" />"+s[i].id+s[i].content+"</a>";
 				html+="<div align=\"center\"><small >"+s[i].senddatejsp+"</small></div>";	
 				html+="</div><hr/>"+o;
 			}
@@ -172,7 +179,7 @@ var pass=function(){
 		html+="</div><hr/>"+o;
 		}else{
 			html+="<hr/><div role=\"alert\">";
-			html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+obj.num+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+obj.attach+"\" />"+obj.id+obj.content+"</a>";
+			html+="<a  data-remote=\"false\" data-toggle=\"modal\" data-target=\"#myModal\" class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+obj.num+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+obj.attach+"\" />"+obj.id+obj.content+"</a>";
 			html+="<div align=\"center\"><small >"+obj.senddatejsp+"</small></div>";	
 			html+="</div><hr/>"+o;
 			
@@ -205,6 +212,7 @@ var pass=function(){
 		window.location.href = "${pageContext.servletContext.contextPath}/index.do";
 	}
 </script>
+
 
 <%-- 
 <nav class="navbar navbar-light">

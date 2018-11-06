@@ -71,11 +71,19 @@ article:hover .links {
 	transition: .5s ease;
 }
 </style>
-<p>
-<h2>내가 좋아요 누른 게시물들</h2>
-</p>
+
+<!-- semantic 아이콘 사용위한 스크립트와 link  -->
+<script src="semantic/semantic.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
+
+<h2 class="ui header">
+  <i class="heart icon"></i>
+  <div class="content">
+    내가 좋아요 누른 게시물
+    <div class="sub header">Posts by liked...</div>
+  </div>
+</h2>
 <main role="main">
-<div class="album py-5 bg-light">
 	<div class="container">
 		<div class="row">
 			<c:forEach var="i" items="${getLikedList}">
@@ -94,9 +102,7 @@ article:hover .links {
 									<div class="links" style="text-align: center;"></div>
 								</article>
 								<div class="card-body">
-									<a
-										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
-											class="card-text">${i.content }</p></a>
+									<p class="card-text">${i.content }</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<small class="text-muted">
 					                    	<c:choose>
@@ -196,7 +202,6 @@ article:hover .links {
 			</script>
 		</div>
 	</div>
-</div>
 </main>
 <!-- 사진이나 버튼을 클릭하면 보여지는 모달 뷰 - Default bootstrap modal example -->
 <div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

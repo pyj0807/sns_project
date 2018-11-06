@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
 <style>
@@ -75,7 +73,7 @@ article:hover .links {
 <link href="https://fonts.googleapis.com/css?family=Lobster"
 	rel="stylesheet">
 <style>
-.btn {
+.btnn {
 	text-decoration: none;
 	font-size: 2rem;
 	color: white;
@@ -88,25 +86,25 @@ article:hover .links {
 	font-family: 'Lobster', cursive;
 }
 
-.btn:active {
+.btnn:active {
 	transform: translateY(3px);
 }
 
-.btn.blue {
+.btnn.blue {
 	background-color: #1f75d9;
 	border-bottom: 5px solid #165195;
 }
 
-.btn.blue:active {
+.btnn.blue:active {
 	border-bottom: 2px solid #165195;
 }
 
-.btn.red {
+.btnn.red {
 	background-color: #ff521e;
 	border-bottom: 5px solid #c1370e;
 }
 
-.btn.red:active {
+.btnn.red:active {
 	border-bottom: 2px solid #c1370e;
 }
 </style>
@@ -122,7 +120,7 @@ article:hover .links {
 		팔로워 : <a
 			href="${pageContext.servletContext.contextPath}/follower.do?id=${id}"
 			data-remote="false" data-toggle="modal" data-target="#exampleModalCenter"
-			name="${id}"><b id="cnt">${followerCnt }</b></a> 
+			name="${id}"><b id="cnt">${followerCnt }</b></a> 	
 		팔로잉 : <a
 			href="${pageContext.servletContext.contextPath}/following.do?id=${id}"
 			data-remote="false" data-toggle="modal" data-target="#exampleModalCenter"
@@ -131,11 +129,11 @@ article:hover .links {
 	<c:choose>
 		<c:when test="${ check!=null }">
 			<!-- 	<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button> -->
-			<a class="btn red" href="#red" id="follow">following</a>
+			<a class="btnn red" href="#red" id="follow">following</a>
 		</c:when>
 		<c:otherwise>
 			<!-- 	<button type="button" class="btn btn-primary" id="follow">팔로우</button> -->
-			<a class="btn blue" href="#blue" id="follow">follow</a>
+			<a class="btnn blue" href="#blue" id="follow">follow</a>
 		</c:otherwise>
 	</c:choose>
 </div>
@@ -160,9 +158,7 @@ article:hover .links {
 									<div class="links" style="text-align: center;"></div>
 								</article>
 								<div class="card-body">
-									<a
-										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
-											class="card-text">${i.content }</p></a>
+									<p class="card-text">${i.content }</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<small class="text-muted">
 					                    	<c:choose>
@@ -186,7 +182,7 @@ article:hover .links {
 										<div class="btn-group">
 											<!-- Button trigger modal -->
 											<a href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}" 
-													data-remote="false" data-toggle="modal" data-target="#myModal">
+													data-remote="false" data-toggle="modal" data-target="#myModal"  class="btn btn-default">
 												<button type="button" class="btn btn-primary"
 												data-toggle="modal" data-target="#VideoModalCenter"
 												data-con="${i.content}" data-vid="${i.file_attach }">
@@ -343,13 +339,13 @@ article:hover .links {
 
 	var onHandle = function(obj) {
 		var cnt = obj.followerCnt;
-		$("#follow").attr("class", "btn red");
+		$("#follow").attr("class", "btnn red");
 		$("#follow").html("following");
 		$("#cnt").html(cnt);
 	}
 	var offHandle = function(obj) {
 		var cnt = obj.followerCnt;
-		$("#follow").attr("class", "btn blue");
+		$("#follow").attr("class", "btnn blue");
 		$("#follow").html("follow");
 		$("#cnt").html(cnt);
 	}
