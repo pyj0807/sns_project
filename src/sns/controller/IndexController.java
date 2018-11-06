@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 import sns.repository.BoardDao;
 import sns.repository.AlertService;
@@ -118,7 +119,7 @@ public class IndexController {
 				return "redirect:"+wr.getAttribute("dest", wr.SCOPE_SESSION);
 			}
 		} else {
-
+			
 			return "/index/login";
 		}
 
