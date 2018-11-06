@@ -51,8 +51,6 @@ article:hover .links{
 </style>
 
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
- <script src="${pageContext.servletContext.contextPath }/semantic/semantic.js"></script>
- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
   
     <main role="main">
       <div class="album py-5">
@@ -159,7 +157,7 @@ article:hover .links{
            	$(".thumbImg").on("mouseover", function(){
            		var target = $(this);
            		var t = $(this).data("target"); //글번호
-           		console.log(t);
+           		//console.log(t);
            		var param ={
            			"room_no":t	
            		};
