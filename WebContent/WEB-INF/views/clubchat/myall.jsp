@@ -6,7 +6,37 @@
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
     <link rel="stylesheet" type="text/css"
 	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
-    
+    <div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg ">
+    <div class="modal-content">
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	// 모달에 불러와지는 링크 JQuery
+	$("#myModal").on("show.bs.modal", function(e) {
+	    console.log("모달이 열림! 디스가뭐지"+this);
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+ 	$('#myModal').on('hidden.bs.modal', function (e) { 
+		  $(this).removeData('.modal'); 
+		 console.log("모달 gg");
+	}); 
+	// 모달에 불러와지는 링크 JQuery
+	$("#exampleModalCenter").on("show.bs.modal", function(e) {
+	    console.log("exampleModalCenter 모달이 열림! 디스가뭐지"+this);
+	    var link = $(e.relatedTarget);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+ 	$('#exampleModalCenter').on('hidden.bs.modal', function (e) { 
+		  $(this).removeData('.modal'); 
+		 console.log("exampleModalCenter 모달 gg");
+	}); 
+</script>
     
     
     

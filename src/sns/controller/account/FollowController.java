@@ -19,6 +19,7 @@ import org.springframework.web.socket.TextMessage;
 
 import com.google.gson.Gson;
 
+import sns.repository.AccountDao;
 import sns.repository.AlertService;
 import sns.repository.BoardRepository;
 import sns.repository.FollowLikemongoalert;
@@ -40,13 +41,18 @@ public class FollowController {
 	
 	@Autowired
 	FollowLikemongoalert mongoalert;
+	
+	@Autowired
+	AccountDao acdao;
 
 	@ResponseBody
 	@PostMapping("/follow.do")
 	public String follow(@RequestParam Map map) {
 		String myid = (String) map.get("myid");
 		String otherid = (String) map.get("otherid");
-
+		Map follower =acdao.accountselect(myid);
+		System.out.println("팔로우한사람 프로필경로요="+follower.get("PROFILE_ATTACH"));
+		
 		// 팔로우가 되어있는지 체크하는 맵
 		Map checkmap = follow.CheckFollowing(map);
 		Map mm = new HashMap<>();
@@ -68,6 +74,8 @@ public class FollowController {
 				sendMap.put("senddate", (long)System.currentTimeMillis());
 				sendMap.put("content", " 님이 팔로우 하였습니다.");
 				sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
+				sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+				sendMap.put("pass", "on");
 				mongoalert.Mongofollowservice(sendMap);
 				TextMessage msg =new TextMessage(gson.toJson(sendMap));
 				
@@ -95,6 +103,8 @@ public class FollowController {
 			sendMap.put("senddate", (long)System.currentTimeMillis());
 			sendMap.put("content", " 님이 팔로우를 취소 하였습니다.");
 			sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
+			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
 			mongoalert.Mongofollowservice(sendMap);
 			TextMessage msg =new TextMessage(gson.toJson(sendMap));
 			for(int i=0;i<service.list.size();i++) {

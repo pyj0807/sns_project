@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
+import sns.repository.AccountDao;
 import sns.repository.BoardRepository;
 import sns.repository.FollowRepository;
 
@@ -32,6 +33,8 @@ public class AccountController {
 	FollowRepository follow;
 	@Autowired
 	Gson gson;
+	
+	
 	
 	// 다른 회원 페이지
 	@RequestMapping("/account.do")

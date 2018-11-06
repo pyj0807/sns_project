@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style>
 img {
 	max-width: 100%;
@@ -93,8 +90,8 @@ article:hover .links {
 	<p>
 		<a href="${pageContext.servletContext.contextPath }/write.do"><button
 				type="button" class="btn btn-warning">글쓰기</button></a> <a
-			href="${pageContext.servletContext.contextPath }/club/all.do"><button
-				type="button" class="btn btn-primary">클럽</button></a> <a
+			href="${pageContext.servletContext.contextPath }/chat/freechat.do?cluballon=on"><button
+				type="button" class="btn btn-primary">오픈채팅</button></a> <a
 			href="${pageContext.servletContext.contextPath }/change.do"><button
 				type="button" class="btn btn-success">회원정보변경</button></a> <a
 			href="${pageContext.servletContext.contextPath }/liked.do"><button

@@ -5,54 +5,70 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <style>
 img {
-	width: 2px;
-	height: auto;
-	}
+	max-width: 100%;
+	width: 400px;
+	max-height: 100%;
+	height: 300px;
+}
+
 video {
 	max-width: 100%;
-	width:700px;
+	width: 400px;
 	max-height: 100%;
-	height: auto;
+	height: 300px;
 }
+</style>
+<style>
+.photo {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
 .container {
-    position: relative;
-    width: 250%;
+	position: relative;
+	width: 250%;
 }
-article{
+
+article {
 	display: inline-block;
-	position:relative;
+	position: relative;
 }
-article:hover .thumbImg img{
-	opacity:0.3;
+
+article:hover .thumbImg img {
+	opacity: 0.3;
 }
-article:hover .links{
+
+article:hover .links {
 	opacity: 1;
 }
-.thumbImg img{
-	width:350px;
-	height:250px;
-	opacity:1;
-	transition:.5s ease;
+
+.thumbImg img {
+	width: 350px;
+	height: 250px;
+	opacity: 1;
+	transition: .5s ease;
 }
-.icon{
-	width:15px;
-	height:15px;
+
+.icon {
+	width: 15px;
+	height: 15px;
 }
-.links{
+
+.links {
 	opacity: 0;
 	position: absolute;
 	text-align: center;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%,-50%);
-	-ms-transform:translate(-50%,-50%);
-	transition:.5s ease;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transition: .5s ease;
 }
 </style>
 
 <!-- semantic 아이콘 사용위한 스크립트와 link  -->
- <script src="${pageContext.servletContext.contextPath }/semantic/semantic.js"></script>
- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
   
     <main role="main">
       <div class="album py-5">
@@ -159,7 +175,7 @@ article:hover .links{
            	$(".thumbImg").on("mouseover", function(){
            		var target = $(this);
            		var t = $(this).data("target"); //글번호
-           		console.log(t);
+           		//console.log(t);
            		var param ={
            			"room_no":t	
            		};

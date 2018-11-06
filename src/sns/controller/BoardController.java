@@ -3,6 +3,7 @@ package sns.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import org.springframework.web.socket.TextMessage;
 
 import com.google.gson.Gson;
 
+import sns.repository.AccountDao;
 import sns.repository.AlertService;
 import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
@@ -45,7 +47,9 @@ public class BoardController {
 	FollowLikemongoalert mongoalert;
 	@Autowired
 	AlertService service;
-
+	@Autowired
+	AccountDao acdao;
+	
 	@GetMapping("/board_detail.do")
 	public String board_datail(@RequestParam int num, ModelMap modelmap, WebRequest wr) {
 		Map list = boarddao.getOneBoard(num);
@@ -70,10 +74,15 @@ public class BoardController {
 			long writetime = (long)reply_list.get(i).get("time");
 			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 			reply_list.get(i).put("lasttime", lasttime);
+			String replyWriter = (String)reply_list.get(i).get("writer");
+			reply_list.get(i).put("pic", boardRepository.getOneUserInfo(replyWriter).get("PROFILE_ATTACH"));
 		}
 		
+		// 프로필 사진 뽑기 위해 글 작성자 모든 정보 한 줄(맵)을 뽑았다
+		Map writerMap = boardRepository.getOneUserInfo((String)list.get("writer"));
+		modelmap.put("writerMap", writerMap);
 		
-//=================================================================================		
+		//=================================================================================		
 		//입력한내용에서 split 뽑기(띄어쓰기마다)
 		String content = (String) list.get("content");
 		String[] temp = content.split("\\s+"); //enter space tab 등 공백전부
@@ -121,7 +130,7 @@ public class BoardController {
 //================================================================================
 		modelmap.put("boardOne", list);
 		modelmap.put("reply_list", reply_list);
-
+		
 		return "sns.board_detail";
 	}
 
@@ -137,7 +146,7 @@ public class BoardController {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");// 접속한 ID
 		SimpleDateFormat sf =new SimpleDateFormat("YYYY-MM-dd HH:mm");
-		
+		Map follower =acdao.accountselect(userId);
 		//=========================얼럿용
 		
 		
@@ -164,6 +173,8 @@ public class BoardController {
 			sendMap.put("id",userId);
 			sendMap.put("receiver",boardOnee.get("writer"));
 			sendMap.put("senddate", (long)System.currentTimeMillis());
+			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
 			if(((String)boardOnee.get("content")).length()>7) {
 				contentstr=	((String)boardOnee.get("content")).substring(1, 7);
 			sendMap.put("content", " 님이 당신의 글 ("+contentstr+"...)에 좋아요를 누르셨습니다.");
@@ -198,6 +209,8 @@ public class BoardController {
 			sendMap.put("id",userId);
 			sendMap.put("receiver",boardOnee.get("writer"));
 			sendMap.put("senddate", (long)System.currentTimeMillis());
+			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
 			
 			if(((String)boardOnee.get("content")).length()>7) {
 				contentstr=	((String)boardOnee.get("content")).substring(1, 7);
@@ -231,8 +244,14 @@ public class BoardController {
 	@RequestMapping("/likelist.do")
 	public String boardLikelist(@RequestParam String num, ModelMap modelmap) {
 		Map list = boarddao.getOneBoard(Integer.parseInt(num));
-		modelmap.put("likes", list.get("liker")); // 좋아요한사람
-
+		List likerList = (List)list.get("liker");
+		List userPath = new ArrayList<>();
+		for(int i=0; i<likerList.size(); i++) {
+			String likerUser = (String)likerList.get(i);
+			userPath.add(boardRepository.getOneUserInfo(likerUser));//리스트하나에 likerUser추가
+		}
+		modelmap.put("likes", userPath);
+		
 		return "sns.board_detail.likelist";
 	}
 	
@@ -272,6 +291,8 @@ public class BoardController {
 			long writetime = (long)reply_list.get(i).get("time");
 			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 			reply_list.get(i).put("lasttime", lasttime);
+			String replyWriter = (String)reply_list.get(i).get("writer");
+			reply_list.get(i).put("pic", boardRepository.getOneUserInfo(replyWriter).get("PROFILE_ATTACH"));
 		}
 		
 		String json = gson.toJson(reply_list);
@@ -299,6 +320,8 @@ public class BoardController {
 			long writetime = (long)reply_list.get(i).get("time");
 			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 			reply_list.get(i).put("lasttime", lasttime);
+			String replyWriter = (String)reply_list.get(i).get("writer");
+			reply_list.get(i).put("pic", boardRepository.getOneUserInfo(replyWriter).get("PROFILE_ATTACH"));
 		}
 		
 		String json = gson.toJson(reply_list);

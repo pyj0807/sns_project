@@ -8,6 +8,7 @@
 <script src="semantic/semantic.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/semantic/semantic.css">
 
+
 <style>
 img {
 	max-width: 100%;
@@ -21,6 +22,14 @@ video {
 	width: 400px;
 	max-height: 100%;
 	height: 300px;
+}
+</style>
+<style>
+.photo {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 .container {
@@ -64,6 +73,7 @@ article:hover .links {
 	transition: .5s ease;
 }
 </style>
+
 <c:forEach var="i" items="${select_code }"><%-- # --%>
 	<h2 class="ui header">
 	  <i class="hashtag icon"></i>
