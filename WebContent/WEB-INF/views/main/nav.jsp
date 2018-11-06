@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+.photo {
+	width: 35px;
+	height: 35px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lobster"
+	rel="stylesheet">
+
 <div class="ui attached stackable menu">
   <div class="ui container">
     <a class="item" href="${pageContext.servletContext.contextPath}">
@@ -130,14 +141,14 @@ var pass=function(){
 			console.log("이게바로 그거입니다그거+"+s[i].senddatejsp);
 			if(s[i].moded==follow){
 				html+="<hr/><div role=\"alert\">";
-				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/account.do?id="+s[i].id+"\">"+s[i].id+s[i].content+"</a>";
-				html+="<div align=\"right\"><small >"+s[i].senddatejsp+"</small></div>";			
+				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/account.do?id="+s[i].id+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+s[i].attach+"\" />"+s[i].id+s[i].content+"</a>";
+				html+="<div align=\"center\"><small >"+s[i].senddatejsp+"</small></div>";			
 				html+="</div><hr/>"+o;
 			
 			}else{
 				html+="<hr/><div role=\"alert\">";
-				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+s[i].num+"\">"+s[i].id+s[i].content+"</a>";
-				html+="<div align=\"right\"><small >"+s[i].senddatejsp+"</small></div>";	
+				html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+s[i].num+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+s[i].attach+"\" />"+s[i].id+s[i].content+"</a>";
+				html+="<div align=\"center\"><small >"+s[i].senddatejsp+"</small></div>";	
 				html+="</div><hr/>"+o;
 			}
 		}
@@ -148,18 +159,21 @@ var pass=function(){
 	
 	
 	var followHandler=function(obj){
+		var follow="follow";
 		console.log("꺄르르르르르르르르르르르르르르를="+obj.id);
 		var html="";
 		var o=document.getElementById("alert").innerHTML;
+		console.log("호로로로록"+obj.moded);
 		if(obj.moded==follow){
 		html+="<hr/><div role=\"alert\">";
-		html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"+obj.id+obj.content+"</a>";
-		html+="<div align=\"right\"><small >"+obj.senddatejsp+"</small></div>";
+	/* 	html+="<img src=\"${pageContext.servletContext.contextPath}"+obj.attach+"\" />" */
+		html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+obj.attach+"\" />"+obj.id+obj.content+"</a>";
+		html+="<div align=\"center\"><small >"+obj.senddatejsp+"</small></div>";
 		html+="</div><hr/>"+o;
 		}else{
 			html+="<hr/><div role=\"alert\">";
-			html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+obj.num+"\">"+obj.id+obj.content+"</a>";
-			html+="<div align=\"right\"><small >"+obj.senddatejsp+"</small></div>";	
+			html+="<a  class=\"dropdown-item\" href=\"${pageContext.servletContext.contextPath}/board/board_detail.do?num="+obj.num+"\">"+"<img class=\"photo\" src=\"${pageContext.servletContext.contextPath}"+obj.attach+"\" />"+obj.id+obj.content+"</a>";
+			html+="<div align=\"center\"><small >"+obj.senddatejsp+"</small></div>";	
 			html+="</div><hr/>"+o;
 			
 		}

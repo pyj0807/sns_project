@@ -59,7 +59,7 @@
 				<div role="alert" style="padding: 10px; margin-bottom: 10px;"
 					align="right">
 					<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
-					<span class="badge badge-pill badge-success">${v.userNAME}</span></a><br/>
+					<span class="badge badge-pill badge-success">${v.userNAME}(${v.id })</span></a><br/>
 					
 					<span style="font-size: x-large;" class="badge badge-secondary">
 				
@@ -74,7 +74,7 @@
 			<c:otherwise>
 				<div role="alert" style="padding: 10px; margin-bottom: 10px;" align="left">
 						<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
-					<span class="badge badge-pill badge-warning">${v.userNAME}</span></a><br/>
+					<span class="badge badge-pill badge-warning">${v.userNAME}(${v.id })</span></a><br/>
 				<span style="font-size: x-large;" class="badge badge-secondary">
 					
 					${v.text } / <small><b>${v.sendtime}</b></small></b>
@@ -159,7 +159,7 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 		html += 
 				
 				 "<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"
-				+ "<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"</span></a><br/>"
+				+ "<span class=\"badge badge-pill badge-warning\">"+obj.userNAME+"("+obj.userId+")"+"</span></a><br/>"
 				+"<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 				+ obj.text+" / " + "<small><b>"+obj.sendtime+"</b></small></span></div></b> ";
 		
@@ -185,7 +185,7 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 		html += 
 				
 				 "<a href=\"${pageContext.servletContext.contextPath}/account.do?id="+obj.id+"\">"
-				+ "<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"</span></a><br/>"
+				+ "<span class=\"badge badge-pill badge-success\">"+obj.userNAME+"("+obj.userId+")"+"</span></a><br/>"
 				+"<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 				+ obj.text+" / " + "<small><b>"+obj.sendtime+"</b></small></span></div></b> ";
 		
