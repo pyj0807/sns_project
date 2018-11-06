@@ -15,7 +15,7 @@
 		action="${pageContext.servletContext.contextPath}/mypage.do"
 		enctype="multipart/form-data">
 		<p>
-			파일첨부<br /> <input type="file" style="width: 320px; pa dding: 5px;"
+			파일첨부<br /> <input  type="file" style="width: 320px; pa dding: 5px;"
 				name="file" id="file" multiple="multiple" />
 		</p>
 		<p>
@@ -26,9 +26,9 @@
 		</p>
 		<p>
 			관심사(*)<br/>
-			<c:forEach var="v" items="${interest }">
+			<c:forEach var="v" items="${interest}">
 				<input type="checkbox" name="interest" value="${v}"
-					onchange="cksave(this)" />${v }
+					onchange="cksave(this)" />${v}
 		 </c:forEach>
 		</p>
 		
@@ -39,8 +39,12 @@
 		<button type="button" onclick="addressPopUp()" >간편 주소 입력</button>
 		<input type="text" class="form-control" id="address1" placeholder="간편 주소" readonly="readonly" onchange="address(this);" name="area" style="width: 500px;">					
 		<div id="map" style="width: 40%; height: 350px;"></div>
-		<button type="submit" style="width: 330px; padding: 5px;">글
+		<button type="submit" style="width: 330px; padding: 5px;" class="btn btn-primary">글
 			공유</button>
+			<br/>
+			<br/>
+			<br/>
+			
 	</form> 	
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4&libraries=services,clusterer,drawing"></script>
@@ -162,3 +166,20 @@
 	   		}).open();
 		}
 </script>
+
+<style>
+.btn {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    outline: none;
+    border: none;
+
+}
+.btn:active {
+  border-style: outset;
+  border: none;
+}
+</style>

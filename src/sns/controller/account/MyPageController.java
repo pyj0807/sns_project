@@ -50,6 +50,9 @@ public class MyPageController {
 	// 마이페이지 입장
 	@GetMapping("/mypage.do")
 	public String mypage(WebRequest wr) {
+		
+		
+		
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String loginId = (String) user.get("ID");
 		String loginPic = (String) user.get("PROFILE_ATTACH");
@@ -108,9 +111,9 @@ public class MyPageController {
 		//===========================================
 
 		//관심사등록안하면 에러발생
-		if(map.get("interest").equals(null)){
+		if(map.get("interest")==null){
 			modelmap.put("errr", "inter");
-			return "sns.write";
+			return "redirect:/write.do?errr=inter";
 		}
 		//List 2개 만들기
 		List path_list = new ArrayList<>();
@@ -121,7 +124,7 @@ public class MyPageController {
 			String type = file[i].getContentType().substring(0, 5);
 			if (!(type.equals("image") || type.equals("video"))) {
 				modelmap.put("err", "type");
-				return "sns.write";
+				return "redirect:/write.do?err=type";
 			}else { //비디오파일이나, 사진파일이면
 				// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
 				long currentTime = System.currentTimeMillis();
@@ -182,10 +185,20 @@ public class MyPageController {
 	
 	// 글쓰는페이지
 	@GetMapping("/write.do")
-	public String write(ModelMap modelmap) {
+	public String write(ModelMap modelmap,@RequestParam Map map) {
 		// 글 관심사 선택, 1개만 선택 가능
 		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
 		modelmap.put("interest", data);
+		System.out.println("호로록="+map.get("err"));
+		System.out.println("호로록="+map.get("errr"));
+		if(map.get("err")!=null) {
+			modelmap.put("err", "type");	
+		}
+		if(map.get("errr")!=null) {
+			modelmap.put("errr", "inter");
+		}
+		
+		
 		return "sns.write";
 	}
 	
