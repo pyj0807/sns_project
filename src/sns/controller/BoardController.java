@@ -3,6 +3,7 @@ package sns.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,10 +71,15 @@ public class BoardController {
 			long writetime = (long)reply_list.get(i).get("time");
 			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 			reply_list.get(i).put("lasttime", lasttime);
+			String replyWriter = (String)reply_list.get(i).get("writer");
+			reply_list.get(i).put("pic", boardRepository.getOneUserInfo(replyWriter).get("PROFILE_ATTACH"));
 		}
 		
+		// 프로필 사진 뽑기 위해 글 작성자 모든 정보 한 줄(맵)을 뽑았다
+		Map writerMap = boardRepository.getOneUserInfo((String)list.get("writer"));
+		modelmap.put("writerMap", writerMap);
 		
-//=================================================================================		
+		//=================================================================================		
 		//입력한내용에서 split 뽑기(띄어쓰기마다)
 		String content = (String) list.get("content");
 		String[] temp = content.split("\\s+"); //enter space tab 등 공백전부
@@ -121,7 +127,7 @@ public class BoardController {
 //================================================================================
 		modelmap.put("boardOne", list);
 		modelmap.put("reply_list", reply_list);
-
+		
 		return "sns.board_detail";
 	}
 
@@ -272,6 +278,8 @@ public class BoardController {
 			long writetime = (long)reply_list.get(i).get("time");
 			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 			reply_list.get(i).put("lasttime", lasttime);
+			String replyWriter = (String)reply_list.get(i).get("writer");
+			reply_list.get(i).put("pic", boardRepository.getOneUserInfo(replyWriter).get("PROFILE_ATTACH"));
 		}
 		
 		String json = gson.toJson(reply_list);
@@ -299,6 +307,8 @@ public class BoardController {
 			long writetime = (long)reply_list.get(i).get("time");
 			long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 			reply_list.get(i).put("lasttime", lasttime);
+			String replyWriter = (String)reply_list.get(i).get("writer");
+			reply_list.get(i).put("pic", boardRepository.getOneUserInfo(replyWriter).get("PROFILE_ATTACH"));
 		}
 		
 		String json = gson.toJson(reply_list);
