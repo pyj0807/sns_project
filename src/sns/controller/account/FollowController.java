@@ -75,6 +75,7 @@ public class FollowController {
 				sendMap.put("content", " 님이 팔로우 하였습니다.");
 				sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
 				sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+				sendMap.put("pass", "on");
 				mongoalert.Mongofollowservice(sendMap);
 				TextMessage msg =new TextMessage(gson.toJson(sendMap));
 				
@@ -103,6 +104,7 @@ public class FollowController {
 			sendMap.put("content", " 님이 팔로우를 취소 하였습니다.");
 			sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
 			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
 			mongoalert.Mongofollowservice(sendMap);
 			TextMessage msg =new TextMessage(gson.toJson(sendMap));
 			for(int i=0;i<service.list.size();i++) {

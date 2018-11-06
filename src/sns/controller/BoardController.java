@@ -174,6 +174,7 @@ public class BoardController {
 			sendMap.put("receiver",boardOnee.get("writer"));
 			sendMap.put("senddate", (long)System.currentTimeMillis());
 			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
 			if(((String)boardOnee.get("content")).length()>7) {
 				contentstr=	((String)boardOnee.get("content")).substring(1, 7);
 			sendMap.put("content", " 님이 당신의 글 ("+contentstr+"...)에 좋아요를 누르셨습니다.");
@@ -209,6 +210,7 @@ public class BoardController {
 			sendMap.put("receiver",boardOnee.get("writer"));
 			sendMap.put("senddate", (long)System.currentTimeMillis());
 			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
 			
 			if(((String)boardOnee.get("content")).length()>7) {
 				contentstr=	((String)boardOnee.get("content")).substring(1, 7);

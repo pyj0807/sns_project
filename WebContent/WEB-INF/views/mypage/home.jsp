@@ -90,8 +90,8 @@ article:hover .links {
 	<p>
 		<a href="${pageContext.servletContext.contextPath }/write.do"><button
 				type="button" class="btn btn-warning">글쓰기</button></a> <a
-			href="${pageContext.servletContext.contextPath }/club/all.do"><button
-				type="button" class="btn btn-primary">클럽</button></a> <a
+			href="${pageContext.servletContext.contextPath }/chat/freechat.do?cluballon=on"><button
+				type="button" class="btn btn-primary">오픈채팅</button></a> <a
 			href="${pageContext.servletContext.contextPath }/change.do"><button
 				type="button" class="btn btn-success">회원정보변경</button></a> <a
 			href="${pageContext.servletContext.contextPath }/liked.do"><button

@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!DOCTYPE html>
   <%-- <link rel="stylesheet" type="text/css"
 	href="${pageContext.servletContext.contextPath}/semantic/semantic.css"> --%>
