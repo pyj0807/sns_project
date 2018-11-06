@@ -13,9 +13,6 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath }/css/signin.css"> 
-
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
@@ -96,13 +93,13 @@ button:hover:before,button:hover:after{
 
 <title>join</title>
 <body>
-	<div class="container" style="margin-top: 80px;">
+	<div class="container" style="margin-top: 80px; margin-bottom: 80px;">
   	<div class="row">
     <div class="col-sm">
     </div>
     
 	<span class="border">
-    <div class="col-sm" style="margin-top: 60px 60px">
+    <div class="col-sm" style="margin-top: 60px; margin-bottom: 60px;">
 		<form class="form-signin" align="center" action="${pageContext.servletContext.contextPath }/join.do" method="post">
 			<div class="join">
 				<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
@@ -205,13 +202,18 @@ button:hover:before,button:hover:after{
 								</div>
 
 								<label>성별</label><i class="fas fa-venus-mars fa-2x"></i>
+								<!-- 
 								<div class="ps_box gender_code" style="margin-bottom: 20px"
 									required>
 									<select id="gender" name="gender" aria-label="성별">
-										<option selected>성별</option>
-										<option value="M">남자</option>
-										<option value="F">여자</option>
+										<option value="M"><i class="fas fa-male"></i></option>
+										<option value="F"><i class="fas fa-female"></i></option>
 									</select>
+								</div>
+								 -->
+								<div  style="margin-bottom: 20px">
+								<input type=radio id="gender" name="gender" value=M> <i class="fas fa-male fa-2x"></i> 
+								<input type=radio id="gender" name="gender" value=F> <i class="fas fa-female fa-2x"></i> 
 								</div>
 							<div style="margin-bottom: 20px"><label>관심사</label><i class="fas fa-heart fa-2x"></i><br/>
 									<c:forEach var="v" items="${interest }">
