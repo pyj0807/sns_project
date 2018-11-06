@@ -63,6 +63,11 @@ public class FreeChatController {
 		List li =new ArrayList<>();
 		li=chatdao.followchatgetall((String)wr.getAttribute("Id", wr.SCOPE_SESSION));
 		System.out.println("규규규규규규="+wr.getAttribute("cluballon", wr.SCOPE_REQUEST)+ww.get("zz")+" . "+ww.get("cluballon"));
+		
+		if(ww.get("zz")!=null) {
+			wr.setAttribute("cluballon", ww.get("cluballon"),wr.SCOPE_REQUEST);
+		}
+		
 		if(ww.get("cluballon")!=null) {
 			wr.setAttribute("cluballon", ww.get("cluballon"),wr.SCOPE_REQUEST);
 		}
