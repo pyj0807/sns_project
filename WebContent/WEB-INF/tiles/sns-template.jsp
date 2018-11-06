@@ -24,20 +24,7 @@ div {
 font-family: 'Nanum Pen Script', cursive ;
 font-size: 20px;
 }
-body{
-    background: url(${pageContext.servletContext.contextPath }/mainimg/ss.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
 </style> 
-<!-- <style >
-body{
-    background: url(${pageContext.servletContext.contextPath }/mainimg/zzzz.jpg) ; 
-   
-}
-</style> -->
 </head>
 <body>
 
