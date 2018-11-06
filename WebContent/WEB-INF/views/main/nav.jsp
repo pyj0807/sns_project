@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-
-%>
-
-
 <div class="ui attached stackable menu">
   <div class="ui container">
     <a class="item" href="${pageContext.servletContext.contextPath}">
@@ -21,32 +16,23 @@
     <a class="item" href="${pageContext.servletContext.contextPath }/newsfeed.do"">
       <i class="users icon"></i>NewsFeed
     </a>
-
-    
-    
-    <!--  -->
-    <div class="ui simple dropdown item">
-   
-    <i class="github icon" ></i>뀨?
-     <div class="menu" style="overflow:scroll; overflow-x:hidden; max-height:200px;" >
-     <span id="alert" > </span>
-  <a role="alert" class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme="></a>
-    
-    
-         </div>
-    </div>
+    <!-- 알림 -->
+ 	 <div class="ui simple dropdown item">
+		 <i class="github icon" ></i>뀨?
+   		<div class="menu" style="overflow:scroll; overflow-x:hidden; max-height:200px;" >
+     		<span id="alert" > </span>
+		<a role="alert" class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme="></a>
+       </div>
+  </div>
  <!--   //== -->
-   
-	<div class="ui simple dropdown item">관심사
-		<i class="dropdown icon"></i>
-
+	<div class="ui simple dropdown item">
+		<i class="hashtag icon"></i>관심사
 	      <div class="menu">
 	      <c:forEach var="v" items="${allInter}">
 				<a class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme=${v}">${v}</a>
 	      </c:forEach>
 	      </div>
     </div>
-    
 <%--     <div class="ui simple dropdown item">
       Chat
       <i class="dropdown icon"></i>
