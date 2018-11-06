@@ -242,8 +242,14 @@ public class BoardController {
 	@RequestMapping("/likelist.do")
 	public String boardLikelist(@RequestParam String num, ModelMap modelmap) {
 		Map list = boarddao.getOneBoard(Integer.parseInt(num));
-		modelmap.put("likes", list.get("liker")); // 좋아요한사람
-
+		List likerList = (List)list.get("liker");
+		List userPath = new ArrayList<>();
+		for(int i=0; i<likerList.size(); i++) {
+			String likerUser = (String)likerList.get(i);
+			userPath.add(boardRepository.getOneUserInfo(likerUser));//리스트하나에 likerUser추가
+		}
+		modelmap.put("likes", userPath);
+		
 		return "sns.board_detail.likelist";
 	}
 	
