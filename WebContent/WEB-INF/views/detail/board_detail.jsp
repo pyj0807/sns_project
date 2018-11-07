@@ -307,9 +307,14 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 	};
 	
 	var delete_reply = function(target){
-		console.log("삭제버튼클릭함"+target.value);
+		//console.log("삭제버튼클릭함"+target.value);	
 		var xhr = new XMLHttpRequest();
-		xhr.open("post","${pageContext.servletContext.contextPath}/board/delete_reply.do",true);
+		//삭제시 예를 누르면 컨트롤러로 보내고 아니면 안보냄
+		if(window.confirm("삭제하시겠습니까?")){ 
+			xhr.open("post","${pageContext.servletContext.contextPath}/board/delete_reply.do",true);
+		}else{
+			console.log("취소하였습니다.");			
+		}
 		//파람설정
 		var param = {
 			"key":target.value // 키값,방번호
