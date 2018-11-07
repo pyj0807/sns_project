@@ -308,37 +308,33 @@ public class MyPageController {
 			dir.mkdirs();
 		}
 		
-		// 파일타입확인하고 이미지만 업로드 가능하게 하자
-/*		String type = file.getContentType().substring(0, 5);
-		if (!(type.equals("image"))) {
-//			modelmap.put("err", "type");
-			System.out.println("이미지파일만 업로드 가능합니다.");
-			//return "redirect:/changepic.do";
-			return "sns.getpic";
-		}else {*/
-			// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
-			long currentTime = System.currentTimeMillis(); // 현재시간
-			String filename = file.getOriginalFilename(); // 원래 파일이름 가져오고
-			String ext = "." + FilenameUtils.getExtension(filename); // .확장자 붙여주고
-			filename = currentTime + loginId + ext; // 현재시간+글쓴이아이디+확장자
-			File insertfile = new File(dir, filename); // 파일 넣어주고
-			file.transferTo(insertfile); // 변환해주고
-			
-			Map map = new HashMap<>();
-			map.put("file", filename);
-			map.put("id", loginId);
-			System.out.println(map.toString());
-			System.out.println("바뀐프사 : " + filename);
-			System.out.println(follow.changePic(map)); // 업데이트 매퍼 실행 
-			System.out.println("변경완료");
-			wr.setAttribute("loginPic", filename, wr.SCOPE_SESSION);
-			System.out.println("newPic : " + filename);
-			user.put("PROFILE_ATTACH", filename);
-			String newPic = (String) user.get("PROFILE_ATTACH");
-			System.out.println("뉴픽 : " + newPic);
-			System.out.println(user.toString());
-			
-			return "redirect:/mypage.do";
-//		}	
+		long currentTime = System.currentTimeMillis(); // 현재시간
+		String filename = file.getOriginalFilename(); // 원래 파일이름 가져오고
+		System.out.println("filename:"+filename);
+		
+		String ext = "." + FilenameUtils.getExtension(filename); // .확장자 붙여주고
+		if(filename=="") {//등록안했을경우 기본사진으로
+			filename="01.jpg";
+		}else {
+			filename = currentTime + loginId + ext; // 현재시간+글쓴이아이디+확장자			
+		}
+		File insertfile = new File(dir, filename); // 파일 넣어주고
+		file.transferTo(insertfile); // 변환해주고
+		
+		Map map = new HashMap<>();
+		map.put("file", filename);
+		map.put("id", loginId);
+		System.out.println(map.toString());
+		System.out.println("바뀐프사 : " + filename);
+		System.out.println(follow.changePic(map)); // 업데이트 매퍼 실행 
+		System.out.println("변경완료");
+		wr.setAttribute("loginPic", filename, wr.SCOPE_SESSION);
+		System.out.println("newPic : " + filename);
+		user.put("PROFILE_ATTACH", filename);
+		String newPic = (String) user.get("PROFILE_ATTACH");
+		System.out.println("뉴픽 : " + newPic);
+		System.out.println(user.toString());
+		
+		return "redirect:/mypage.do";	
 	}
 }
