@@ -24,8 +24,8 @@
     <a class="item" href="${pageContext.servletContext.contextPath}">
 
       <!-- <i class="home icon" onclick="selectt();" id="homeicon"></i> Home -->
-      <img src="${pageContext.servletContext.contextPath}/clubimg/zzz.png" style="width: 70px; height: 50px">
-    </a>
+      <img src="${pageContext.servletContext.contextPath}/pic/home.jpg" style="width: 100px; height: 50px ;padding-top: 5px;" id="homeimg">
+    </a>  
     <a class="item" href="${pageContext.servletContext.contextPath }/mypage.do">
       <i class="user icon"></i> MyPage
     </a>
