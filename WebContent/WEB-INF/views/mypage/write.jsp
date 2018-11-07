@@ -24,7 +24,12 @@
 	<div align="center" style="float: left; width: 500px;" >
 		<form method="post" name="addBoard" action="${pageContext.servletContext.contextPath}/mypage.do" enctype="multipart/form-data">
 			<p>
-				파일첨부(<span style="color: blue;">*</span>)<small>(image, video)</small><br /> <input  type="file" style="width: 320px; pa dding: 5px;" name="file" id="file" multiple="multiple" />
+				파일첨부(<span style="color: blue;">*</span>)<small>(image, video)</small><br /><%-- <input  type="file" style="width: 320px; pa dding: 5px;" name="file" id="file" multiple="multiple" /> --%>
+				<div class="filebox bs3-primary " align="center">
+					<input class="upload-name" value="파일선택" disabled="disabled">
+					<label for="file">업로드</label> 
+					<input type="file" id="file" name="file"class="upload-hidden" multiple="multiple" > <br/>
+				</div>
 			</p>
 			<p>
 				글내용(<span style="color: blue;">*</span>) <small>200자 제한</small><br />
@@ -163,6 +168,70 @@ var mapContainer = document.getElementById("map"), // 지도를 표시할 div
 		}
 </script>
 
+<script>
+$(document).ready(function(){
+	  var fileTarget = $('.filebox .upload-hidden');
+
+	    fileTarget.on('change', function(){
+	        if(window.FileReader){
+	            var filename = $(this)[0].files[0].name;
+	        } else {
+	            var filename = $(this).val().split('/').pop().split('\\').pop();
+	        }
+
+	        $(this).siblings('.upload-name').val(filename);
+	    });
+	}); 
+</script>
+<style>
+.filebox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+
+/* named upload */
+.filebox .upload-name {
+    display: inline-block;
+    padding: .5em .75em;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.filebox.bs3-primary label {
+  color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+</style>
 <!-- <style>
 .btn {
     -webkit-border-radius: 0px;
