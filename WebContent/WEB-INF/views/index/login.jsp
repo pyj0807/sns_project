@@ -12,6 +12,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&amp;subset=korean"
 	rel="stylesheet">
+	<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 form {
 	font-family: 'East Sea Dokdo', cursive;
