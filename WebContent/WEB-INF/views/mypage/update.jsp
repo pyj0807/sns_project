@@ -3,53 +3,57 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
-<div align="center">
-	<c:if test="${!empty err}">
-		<div class="alert alert-danger" role="alert">Image 나 Video 파일만
-			업로드 가능합니다.</div>
-	</c:if>
-	<c:if test="${!empty errr}">
-		<div class="alert alert-danger" role="alert">관심사 체크는 필수입니다.</div>
-	</c:if>
+<h2 class="ui header">
+  <i class="edit icon"></i>
+  <div class="content">
+    글 수정
+    <div class="sub header">Edit Post...</div>
+  </div>
+</h2>
+
+<div align="center" >
+<br/>
+	<div align="center" style="float: left; width: 500px;" >
 	<form method="post"
 		action="${pageContext.servletContext.contextPath}/update_install.do?num=${Oneboard._id}"
 		enctype="multipart/form-data">
-		<%--
 		<p>
-			파일첨부<br /> <input type="file" style="width: 320px; pa dding: 5px;"
-				name="file" id="file"/>
-		</p>
-		 --%>
-		<p>
-			글내용(*)<br />
+			글내용(<span style="color: blue;">*</span>) <small>200자 제한</small><br />
 			<textarea name="content"
 				style="height: 170px; width: 320px; padding: 5px; resize: none; font-family: inherit;"
 				placeholder="write a content">${Oneboard.content }</textarea>
 		</p>
 		<p>
-			관심사(*)<br/>
+			관심사(<span style="color: blue;">*</span>)<br/>
 			<c:forEach var="v" items="${interest }">
-				<input type="checkbox" name="interest" value="${v }"
-				onchange="cksave(this)" ${v==Oneboard.interest ? 'checked' :'' }/>${v }
+				<input type="radio" name="interest" value="${v }" ${v==Oneboard.interest ? 'checked' :'' }>${v }
 		 </c:forEach>
 		</p>
+		<br/>
+</div> 
+	<div align="center" style="float:left; width: 500px;">
 		<!-- 지도 -->
 		<input type="hidden" name="lat" value="" id="lat" />
 		<input type="hidden" name="longi" value="" id="longi" />
-		
-		<label for="lastName">내위치(상세주소입력)</label>			
-		<button type="button" onclick="addressPopUp()" >간편 주소 입력</button>
-		<input type="text" class="form-control" id="address1" value="${Oneboard.area }" placeholder="간편 주소" readonly="readonly" onchange="address(this);" name="area" style="width: 500px;">					
-		<div id="map" style="width: 40%; height: 350px;"></div>
-
-		<p>
-			사람태그 :
-			<button type="button" name="account">사람태그</button>
-		</p>
-		<button type="submit" style="width: 330px; padding: 5px;">글
-			수정</button>	
-	</form>
+				장소 태그 <i  class="map icon"></i><br/>
+				<div style="width: 370px;" align="center" >
+					<div  style="float: left; ">
+						<input type="text" class="form-control" id="address1"  value="${Oneboard.area }" placeholder="간편 주소" readonly="readonly" onchange="address(this);" name="area"  style="width: 305px;" >   
+					</div>		
+					<div  style="float: left; ">   
+						<button type="button" class="btn btn-secondary" onclick="addressPopUp();">검색</button>
+					</div>
+				</div><Br/><Br/>
+				<div style="width: 370px;">
+					<div id="map" style=" height: 350px;" ></div>
+				</div><br/>
+			<button type="submit" style="width: 330px;" class="btn btn-outline-primary">글 공유</button>
+		</form>
+	</div>
 </div>
+
+
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b82b2024c179d6b907274cd249b2c4&libraries=services,clusterer,drawing"></script>
 <script>
 	//default 값지정 , 안해주면 처음 수정시 click된 체크박스가 배열에없어서 인식이안됨

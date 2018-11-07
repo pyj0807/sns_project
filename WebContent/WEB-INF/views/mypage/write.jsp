@@ -57,9 +57,9 @@
 					</div>
 				</div><Br/><Br/>
 				<div style="width: 370px;">
-					<div id="map" style="/* width: 40%; */ height: 350px;" ></div>
+					<div id="map" style=" height: 350px;" ></div>
 				</div><br/>
-			<button type="submit" style="width: 330px; /* padding: 5px; */" class="btn btn-outline-primary">글 공유</button>
+			<button type="submit" style="width: 330px;" class="btn btn-outline-primary">글 공유</button>
 		</form>
 	</div>
 </div>
