@@ -301,7 +301,7 @@ article:hover .links {
 								<div class="media-body">
 									<br />
 									<h5 class="mt-0 mb-1">
-										<b>▶ 방제목 : </b> ${v._id} 방 인원 : <span
+										<b>▶ 방제목 : </b> ${v._id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;방 인원 : <span
 											class="badge badge-pill badge-info">
 											${fn:length(v.agency)} </span>
 
@@ -343,11 +343,13 @@ article:hover .links {
 		    
 		    <c:choose>
 		    	<c:when test="${empty clubmyAll }">
+		    	<div align="center">
 		    	<img src="${pageContext.servletContext.contextPath }/clubimg/noclubchatingagency.png">
 		    	<br/>
 		    	<a
 								href="${pageContext.servletContext.contextPath }/club/create.do"
 								class="btn btn-primary">오픈채팅방 만들기</a>
+								</div>
 		    	</c:when>
 		    <c:otherwise>
     <div class="container">
@@ -359,7 +361,12 @@ article:hover .links {
 <br/>
 
 <c:forEach var="v" items="${clubmyAll }">
-<ul class="list-unstyled" >
+<div align="center">
+<a
+								href="${pageContext.servletContext.contextPath }/club/create.do"
+								class="btn btn-primary">오픈채팅방 만들기</a>
+			</div>					
+			<ul class="list-unstyled" >
   <li class="media" >
    <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}">  <img class="mr-3" style="height: 70px; width: auto;" src="${v.attach }" alt="Generic placeholder image"></a>
     <div class="media-body">
