@@ -83,7 +83,7 @@ button {
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 						in</button>
 				<p style="text-align: center;">
-					계정이 없으십니까? <a href="${pageContext.servletContext.contextPath }/join.do">가입</a>
+					계정이 없으십니까?  <a href="${pageContext.servletContext.contextPath }/join.do">가입</a>
 				</p>
 				</form>
 			</div>
