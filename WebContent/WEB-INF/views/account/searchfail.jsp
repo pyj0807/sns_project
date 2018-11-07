@@ -8,4 +8,4 @@
 <br/>
 <br/>
 <br/>
-    <div align="center" style="font-size: 50px">아이디 ${word } 은(는) 없는 사용자입니다.</div>
+    <div align="center" style="font-size: 50px">아이디 ${id } 은(는) 없는 사용자입니다.</div>

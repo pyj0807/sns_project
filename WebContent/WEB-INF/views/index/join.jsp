@@ -221,15 +221,6 @@ button:hover:before,button:hover:after{
 								</div>
 
 								<label>성별</label><i class="fas fa-venus-mars fa-2x"></i>
-								<!-- 
-								<div class="ps_box gender_code" style="margin-bottom: 20px"
-									required>
-									<select id="gender" name="gender" aria-label="성별">
-										<option value="M"><i class="fas fa-male"></i></option>
-										<option value="F"><i class="fas fa-female"></i></option>
-									</select>
-								</div>
-								 -->
 								<div  style="margin-bottom: 20px">
 								<input type=radio id="gender" name="gender" value=M> <i class="fas fa-male fa-2x"></i> 
 								<input type=radio id="gender" name="gender" value=F> <i class="fas fa-female fa-2x"></i> 
@@ -392,10 +383,8 @@ button:hover:before,button:hover:after{
 		$("#subid option:selected").each(function() {
 			if ($(this).val() == '1') { //직접입력일 경우 
 				$("#email02").val(''); //값 초기화
-				//$("#email02").attr("disabled", false); //활성화
 			} else { //직접입력이 아닐경우 
 				$("#email02").val($(this).text()); //선택값 입력
-				//$("#email02").attr("disabled", true); //비활성화
 			}
 		});
 	});

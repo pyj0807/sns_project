@@ -5,21 +5,11 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<!DOCTYPE html>
-  <%-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.servletContext.contextPath}/semantic/semantic.css"> --%>
 	<div class="container">
 <div
 	class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-	<%--  to .<h1 class="h5">${otherId }</h5> --%>
 	<h5 class="h5">from . ${userId } ▶  to . ${otherId }</h5>	
 	<div class="btn-toolbar mb-2 mb-md-0">
-
-
-		<!-- 		<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-			<span data-feather="calendar">전체채팅</span> 
-				<span data-feather="calendar">부서채팅</span> 
-		</button> -->
 
 		<div class="btn-group" role="group">
 			  <button id="btnGroupDrop1" type="button"
@@ -27,9 +17,6 @@
 				aria-haspopup="true" aria-expanded="false">팔로우 목록</button>
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-				<%--   <c:forEach var="v" items="${chatlist }">
-    ${v }
-    </c:forEach> --%>
 				<c:forEach var="v" items="${friends}">
 					<c:if test="${v.OTHERID != otherid }">
 						<a class="dropdown-item"
@@ -47,10 +34,6 @@
 
 
 
-
-<!-- <h4>
-	Chat Room <small id="ho">(??)</small>
-</h4> -->
 <div style="overflow:scroll;overflow-x:hidden;max-height:600px;"
 	id="chatView" >
 	<c:forEach var="v" items="${allchat }">
@@ -114,9 +97,6 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 	chatws.onmessage = function(evt) {
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
-		/* var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-		html += obj.id+" : "+obj.text ;
-		html +="</div>"; */
 		console.log("시간이유" + obj.sendtime);
 
 		switch (obj.mode) {
@@ -164,16 +144,6 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 				+"<span style=\"font-size: x-large;\" class=\"badge badge-secondary\">"
 				+ obj.text+" / " + "<small><b>"+obj.sendtime+"</b></small></span></div></b> ";
 		
-		
-		/* <div role="alert" style="padding: 10px; margin-bottom: 10px;"
-			align="right">
-			<a href="${pageContext.servletContext.contextPath}/account.do?id=${v.id}">
-			<span class="badge badge-pill badge-success">${v.userNAME}</span></a><br/>
-		<span style="font-size: x-large;" class="badge badge-secondary">
-			${v.text } / <small><b>${v.sendtime}</b></small></b>
-
-		</span>
-		</div> */
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = document
 				.getElementById("chatView").scrollHeight;
@@ -198,15 +168,6 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 	document.getElementById("input").onchange = function() {
 		console.log(this.value);
 		var msg = null;
-		/* var aa="HumanResources";
-		var bb="${depart}";
-		var cc="public"; */
-
-		/* console.log(aa==bb);
-		console.log(bb==cc);
-		console.log(aa);
-		console.log(cc);
-		 */
 
 		msg = {
 			"mode" : "${otherId}",
@@ -215,7 +176,6 @@ $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clie
 			"otherId" : "${otherId}"
 
 		};
-		/* console.log(JSON.stringify(msg)); */
 		chatws.send(JSON.stringify(msg));
 		this.value = "";
 

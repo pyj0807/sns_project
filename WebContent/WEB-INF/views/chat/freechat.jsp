@@ -2,11 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
-
-
-
 <style>
 img {
 	max-width: 100%;
@@ -72,18 +67,11 @@ article:hover .links {
 }
 </style>
 
-	
-
-
-
-
-
-
 	<br />
 	<br />
 	<!-- Nav tabs -->
 	
-	<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg ">
     <div class="modal-content">
       <div class="modal-body">
@@ -123,8 +111,6 @@ article:hover .links {
 			href="#menu2" id="opensearch">내가 가입한 오픈채팅</a></li>
 
 	</ul>
-	
-
 
 	<div class="tab-content">
 		<!-- 탭 컨텐트 시작 -->
@@ -140,7 +126,6 @@ article:hover .links {
 
 						<a class="dropdown-item"
 							href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.OTHERID}">${v.OTHERID }</a>
-
 
 					</c:forEach>
 				</div>
@@ -245,9 +230,6 @@ article:hover .links {
 
 
 
-				<!-- <div style="width: 400px; height: 400px; align-content: center;" >
-    <main role="main;"> -->
-
 				<section class="jumbotron text-center"
 					style="height: 300px; width: auto;">
 					<div class="container">
@@ -269,24 +251,6 @@ article:hover .links {
 					</div>
 				</section>
 
-				<%-- <div style="width:200px; width: auto;height: 200px; height: auto; ">
- <c:forEach var="v" items="${clubAll }">
-           <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"><img class="img" src="${v.attach }" alt="Card image cap"></a>
-            <p class="card-text">▶  ${v._id}</p>
-            
-            
-               <div class="media">
-  <img class="mr-3" src="${v.attach }" alt="Generic placeholder image">
-  <div class="media-body">
-    <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}"> <h5 class="mt-0">▶  ${v._id}</h5></a>
-   
-  </div>
-</div>
-  
-            <br/>
-            </c:forEach>
-
-</div>  --%>
 				<div
 					style="overflow: scroll; overflow-x: hidden; max-height: 300px;">
 					<hr />
@@ -314,21 +278,7 @@ article:hover .links {
 					<hr />
 
 				</div>
-				<!-- <li class="media my-4">
-    <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
-    <div class="media-body">
-      <h5 class="mt-0 mb-1">List-based media object</h5>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-    </div>
-  </li>
-  <li class="media">
-    <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
-    <div class="media-body">
-      <h5 class="mt-0 mb-1">List-based media object</h5>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-    </div>
-  </li> -->
-				</ul>
+			</ul>
 
 
 
@@ -406,27 +356,6 @@ article:hover .links {
 	})
 	</script>
 
-
-
-
-	
-
-
-
-	<%-- <c:forEach var="v" items="${frends}">
-		<c:if test="${v.EMAIL != userId }">
-		<a href="${pageContext.servletContext.contextPath}/chat/freechatview.do?id=${v.EMAIL}">${v.EMAIL } : ${v.NAME }</a><br/>
-		
-		</c:if>
-	
-		</c:forEach> --%>
-
-
-
-
-
-
-<%--      <c:if test = "${fn:contains(theString, 'test')}" --%>
 
 
 

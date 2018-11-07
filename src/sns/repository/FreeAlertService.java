@@ -75,24 +75,22 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.google.gson.Gson;
 
-
 @Service
 public class FreeAlertService {
 	public List<WebSocketSession> listt;
-	
+
 	@Autowired
 	Gson gson;
-	
-	
+
 	public FreeAlertService() {
 		listt = new ArrayList<>();
-		
+
 	}
-	
+
 	public int size() {
 		return listt.size();
 	}
-	
+
 	public boolean addSocket(WebSocketSession target) {
 		return listt.add(target);
 	}
@@ -100,10 +98,10 @@ public class FreeAlertService {
 	public boolean removeSocket(WebSocketSession target) {
 		return listt.remove(target);
 	}
-	
+
 	public void sendAll(String txt) {
 		TextMessage msg = new TextMessage(txt);
-		for(int i=0; i<listt.size(); i++) {
+		for (int i = 0; i < listt.size(); i++) {
 			try {
 				listt.get(i).sendMessage(msg);
 			} catch (IOException e) {
@@ -111,62 +109,56 @@ public class FreeAlertService {
 			}
 		}
 	}
-	public void sendOne(String txt,String target) {
+
+	public void sendOne(String txt, String target) {
 		TextMessage msg = new TextMessage(txt);
-		for(int i=0; i<listt.size(); i++) {
-			WebSocketSession ws=listt.get(i);
-			String userId =(String)ws.getAttributes().get("Id");
-			if(userId.equals(target)) {
+		for (int i = 0; i < listt.size(); i++) {
+			WebSocketSession ws = listt.get(i);
+			String userId = (String) ws.getAttributes().get("Id");
+			if (userId.equals(target)) {
 				try {
 					ws.sendMessage(msg);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
-		
+
 		}
 	}
-	
-	public void sendSome(String txt,String... target) {
+
+	public void sendSome(String txt, String... target) {
 		TextMessage msg = new TextMessage(txt);
-		for(int i=0; i<listt.size(); i++) {
-			WebSocketSession ws=listt.get(i);
-			String userId =(String)ws.getAttributes().get("Id");
-			
-			for(int ii=0;ii<target.length;ii++) {
-			if(userId.equals(target)) {
-				try {
-					ws.sendMessage(msg);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		for (int i = 0; i < listt.size(); i++) {
+			WebSocketSession ws = listt.get(i);
+			String userId = (String) ws.getAttributes().get("Id");
+
+			for (int ii = 0; ii < target.length; ii++) {
+				if (userId.equals(target)) {
+					try {
+						ws.sendMessage(msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 				}
-				
+
 			}
-		
-		}
 		}
 	}
-	
-	
-	
-	
-	
+
 	public void sendAll(Map map) {
 		sendAll(gson.toJson(map));
 	}
-	public void sendOne(Map map,String target) {
-		sendOne(gson.toJson(map),target);
+
+	public void sendOne(Map map, String target) {
+		sendOne(gson.toJson(map), target);
 	}
-	
-	
-	public void sendSome(Map map,String...target) {
-		sendSome(gson.toJson(map),target);
+
+	public void sendSome(Map map, String... target) {
+		sendSome(gson.toJson(map), target);
 	}
-	
-	
+
 }
-
-

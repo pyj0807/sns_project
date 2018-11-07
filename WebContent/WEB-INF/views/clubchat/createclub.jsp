@@ -13,12 +13,6 @@
 
  <br/>
 
-	<%-- 	<form action="${pageContext.servletContext.contextPath }/club/createon.do" method="post" enctype="multipart/form-data">
-		제목 : <input type="text" name="info"/> <br/>
-		메인 사진 : <input type="file" name="attach"> 
-		<br/>
-		<button type="submit">만들기</button>
-	</form> --%>
 	
 	<form action="${pageContext.servletContext.contextPath }/club/createon.do" method="post" enctype="multipart/form-data">
 	<div class="filebox bs3-primary " align="center">

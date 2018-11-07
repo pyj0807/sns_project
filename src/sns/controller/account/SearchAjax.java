@@ -40,90 +40,64 @@ public class SearchAjax {
 	@Autowired
 	BoardDao boarddao;
 
-	@PostMapping(path="/searchAjax.do",produces="application/json;charset=UTF-8" )
-/*		@PostMapping("/searchAjax.do" )*/
+	@PostMapping(path = "/searchAjax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchAjax(@RequestParam Map map) {
-		System.out.println(map.get("value"));
-		List<Map> list =dao.Allaccount((String)map.get("value"));
-	/*	String regmove="#"+(String)map.get("value");
-		String reg="[#원피스]";
-		System.out.println("리젝스 확인용");
-		System.out.println(regmove.matches(reg));
-		System.out.println("리젝스 확인 끝");*/
-		String ss= "#";
+		List<Map> list = dao.Allaccount((String) map.get("value"));
+		String ss = "#";
 		Pattern p = Pattern.compile(ss);
-		Matcher mmmm= p.matcher((String)map.get("value"));
-		String data="#원피스";
-		String tag="#";
-		Pattern q=Pattern.compile("#");
-		Pattern qq=Pattern.compile((String)map.get("value"));
-		Matcher m = q.matcher((String)map.get("value")); 
-		/*System.out.println("트루인가 거짓인가?"+m.find());*/
-		
-		System.out.println("사이즈="+ss.length());
-		List li=boarddao.getAllBoard();
-		List hashtag=new ArrayList<>();
-	
-		
-		
-			if(mmmm.find()==false) {
-				System.out.println("여기서부터가 #이 없을때");
-		for(int i=0; i<li.size();i++) {
-			Map mm=(Map)li.get(i);
-			/*System.out.println(mm);*/
-			List aa=(List)mm.get("hashcode");
-			for(int ii=0;ii<aa.size();ii++) {
-				String str=(String)aa.get(ii);
-				Matcher d=p.matcher(str);
-				
-			
-				if(d.find()==true) {
-				if(!hashtag.contains((String)aa.get(ii))) {
-					hashtag.add(aa.get(ii));
-				}
-				}
-			}
-		}
-			}else {
-				System.out.println("여기서부터가 #이 있을때");
-		if(((String)map.get("value")).length()>1) {
-				for(int i=0; i<li.size();i++) {
-					Map mm=(Map)li.get(i);
-					/*System.out.println(mm);*/
-					List aa=(List)mm.get("hashcode");
-					for(int ii=0;ii<aa.size();ii++) {
-						String str=(String)aa.get(ii);
-					
-						
-						Matcher e=qq.matcher(str);
-						if(e.find()==true) {
-						if(!hashtag.contains((String)aa.get(ii))) {
+		Matcher mmmm = p.matcher((String) map.get("value"));
+		String data = "#원피스";
+		String tag = "#";
+		Pattern q = Pattern.compile("#");
+		Pattern qq = Pattern.compile((String) map.get("value"));
+		Matcher m = q.matcher((String) map.get("value"));
+
+		List li = boarddao.getAllBoard();
+		List hashtag = new ArrayList<>();
+
+		if (mmmm.find() == false) {
+			for (int i = 0; i < li.size(); i++) {
+				Map mm = (Map) li.get(i);
+				List aa = (List) mm.get("hashcode");
+				for (int ii = 0; ii < aa.size(); ii++) {
+					String str = (String) aa.get(ii);
+					Matcher d = p.matcher(str);
+
+					if (d.find() == true) {
+						if (!hashtag.contains((String) aa.get(ii))) {
 							hashtag.add(aa.get(ii));
 						}
+					}
+				}
+			}
+		} else {
+			if (((String) map.get("value")).length() > 1) {
+				for (int i = 0; i < li.size(); i++) {
+					Map mm = (Map) li.get(i);
+					List aa = (List) mm.get("hashcode");
+					for (int ii = 0; ii < aa.size(); ii++) {
+						String str = (String) aa.get(ii);
+
+						Matcher e = qq.matcher(str);
+						if (e.find() == true) {
+							if (!hashtag.contains((String) aa.get(ii))) {
+								hashtag.add(aa.get(ii));
+							}
 						}
 					}
-						
-				}
-		}
-			}
-		
-			
-	
-				
-			hashtag.sort(new AscendingString());
-			
-			Map allmap=new HashMap<>();
-			allmap.put("idlist", list);
-			allmap.put("taglist", hashtag);
-			
-			return gson.toJson(allmap);
-				}
-			
-			
-			
-		
-	
-	
-}
 
+				}
+			}
+		}
+
+		hashtag.sort(new AscendingString());
+
+		Map allmap = new HashMap<>();
+		allmap.put("idlist", list);
+		allmap.put("taglist", hashtag);
+
+		return gson.toJson(allmap);
+	}
+
+}

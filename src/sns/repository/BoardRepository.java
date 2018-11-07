@@ -29,7 +29,7 @@ public class BoardRepository {
 	public void insertOne(Map map) {
 		template.insert(map, "board");
 	}
-	
+
 	// 다른 회원의 정보 Map 으로 뽑아오기
 	public Map getOneUserInfo(String id) {
 		return sqltemplate.selectOne("account.getOneUserInfo", id);
@@ -55,14 +55,14 @@ public class BoardRepository {
 					return 1; // 1오름
 				} else {
 					return 0;
-				} 
+				}
 			}
-		}); 
+		});
 		return list;
 	}
-	
+
 	// 뉴스피드 글 정렬
-	public List<Map> newsfeedSort(List list){
+	public List<Map> newsfeedSort(List list) {
 		list.sort(new Comparator<Map>() {
 			@Override
 			public int compare(Map o1, Map o2) {
@@ -74,18 +74,18 @@ public class BoardRepository {
 					return 1; // 1오름
 				} else {
 					return 0;
-				} 
+				}
 			}
-		}); 
+		});
 		return list;
 	}
-	
+
 	// 팔로우한 사람들의 모든 글 목록 최신순으로 리스트에 담기 (뉴스피드)
-	public  List<Map> getFollowBoardCnt(List list) {
+	public List<Map> getFollowBoardCnt(List list) {
 		List<Map> allList = new ArrayList<>();
-		for(int i=0; i<list.size();i++) {
-			List<Map> oneList = findWriter((String)list.get(i));
-			for(int k=0; k<oneList.size(); k++) {
+		for (int i = 0; i < list.size(); i++) {
+			List<Map> oneList = findWriter((String) list.get(i));
+			for (int k = 0; k < oneList.size(); k++) {
 				allList.add(oneList.get(k));
 			}
 		}
@@ -100,9 +100,9 @@ public class BoardRepository {
 					return 1; // 1오름
 				} else {
 					return 0;
-				} 
+				}
 			}
-		}); 
+		});
 		return allList;
 	}
 
@@ -168,13 +168,13 @@ public class BoardRepository {
 		});
 		return list;
 	}
-	
-	public List<Map> gethashboard(String content){
-		Regex reg =new Regex(content);
-		return template.find(new Query(Criteria.where("hashcode").regex(content)), Map.class,"board");
+
+	public List<Map> gethashboard(String content) {
+		Regex reg = new Regex(content);
+		return template.find(new Query(Criteria.where("hashcode").regex(content)), Map.class, "board");
 	}
-	
-	public List<Map> getnohashboard(String content){
-		return template.find(new Query(Criteria.where("hashcode").regex("#"+content)), Map.class,"board");
+
+	public List<Map> getnohashboard(String content) {
+		return template.find(new Query(Criteria.where("hashcode").regex("#" + content)), Map.class, "board");
 	}
 }

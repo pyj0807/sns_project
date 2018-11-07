@@ -1,6 +1,5 @@
 package sns.controller.account;
 
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,19 +28,19 @@ import sns.repository.FollowRepository;
 public class FollowController {
 	@Autowired
 	FollowRepository follow;
-	
+
 	@Autowired
 	BoardRepository board;
-	
+
 	@Autowired
 	Gson gson;
-	
+
 	@Autowired
 	AlertService service;
-	
+
 	@Autowired
 	FollowLikemongoalert mongoalert;
-	
+
 	@Autowired
 	AccountDao acdao;
 
@@ -50,65 +49,63 @@ public class FollowController {
 	public String follow(@RequestParam Map map) {
 		String myid = (String) map.get("myid");
 		String otherid = (String) map.get("otherid");
-		Map follower =acdao.accountselect(myid);
-		System.out.println("팔로우한사람 프로필경로요="+follower.get("PROFILE_ATTACH"));
-		
+		Map follower = acdao.accountselect(myid);
+
 		// 팔로우가 되어있는지 체크하는 맵
 		Map checkmap = follow.CheckFollowing(map);
 		Map mm = new HashMap<>();
-		SimpleDateFormat sf =new SimpleDateFormat("YYYY-MM-dd HH:mm");
-		if (checkmap==null) {
+		SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
+		if (checkmap == null) {
 			// 서로 팔로우가 안되어있을때 인서트 시도
 			int r = follow.insertFollowing(map);
 			int a = follow.insertFollower(map);
 			// 인서트 성공
-				mm.put("mode","on");
-				int cnt = follow.getFollowerCnt(otherid);
-				mm.put("followerCnt", cnt);
-				
-				Map sendMap=new HashMap<>();
-				sendMap.put("mode", "followinglike");
-				sendMap.put("moded", "follow");
-				sendMap.put("id", myid);
-				sendMap.put("receiver", otherid);
-				sendMap.put("senddate", (long)System.currentTimeMillis());
-				sendMap.put("content", " 님이 팔로우 하였습니다.");
-				sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
-				sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
-				sendMap.put("pass", "on");
-				mongoalert.Mongofollowservice(sendMap);
-				TextMessage msg =new TextMessage(gson.toJson(sendMap));
-				
-				for(int i=0;i<service.list.size();i++) {
-					if(service.list.get(i).getAttributes().get("userId").equals(otherid)) {
-						try {
-							service.list.get(i).sendMessage(msg);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
-				
-				
-				return gson.toJson(mm);
-		}else {
-			// 이미 팔로우중일때 이쪽으로
-			// 팔로우 취소
-			Map sendMap=new HashMap<>();
+			mm.put("mode", "on");
+			int cnt = follow.getFollowerCnt(otherid);
+			mm.put("followerCnt", cnt);
+
+			Map sendMap = new HashMap<>();
 			sendMap.put("mode", "followinglike");
 			sendMap.put("moded", "follow");
 			sendMap.put("id", myid);
 			sendMap.put("receiver", otherid);
-			sendMap.put("senddate", (long)System.currentTimeMillis());
-			sendMap.put("content", " 님이 팔로우를 취소 하였습니다.");
+			sendMap.put("senddate", (long) System.currentTimeMillis());
+			sendMap.put("content", " 님이 팔로우 하였습니다.");
 			sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
-			sendMap.put("attach", "/pic/"+follower.get("PROFILE_ATTACH"));
+			sendMap.put("attach", "/pic/" + follower.get("PROFILE_ATTACH"));
 			sendMap.put("pass", "on");
 			mongoalert.Mongofollowservice(sendMap);
-			TextMessage msg =new TextMessage(gson.toJson(sendMap));
-			for(int i=0;i<service.list.size();i++) {
-				if(service.list.get(i).getAttributes().get("userId").equals(otherid)) {
+			TextMessage msg = new TextMessage(gson.toJson(sendMap));
+
+			for (int i = 0; i < service.list.size(); i++) {
+				if (service.list.get(i).getAttributes().get("userId").equals(otherid)) {
+					try {
+						service.list.get(i).sendMessage(msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+			return gson.toJson(mm);
+		} else {
+			// 이미 팔로우중일때 이쪽으로
+			// 팔로우 취소
+			Map sendMap = new HashMap<>();
+			sendMap.put("mode", "followinglike");
+			sendMap.put("moded", "follow");
+			sendMap.put("id", myid);
+			sendMap.put("receiver", otherid);
+			sendMap.put("senddate", (long) System.currentTimeMillis());
+			sendMap.put("content", " 님이 팔로우를 취소 하였습니다.");
+			sendMap.put("senddatejsp", sf.format(System.currentTimeMillis()));
+			sendMap.put("attach", "/pic/" + follower.get("PROFILE_ATTACH"));
+			sendMap.put("pass", "on");
+			mongoalert.Mongofollowservice(sendMap);
+			TextMessage msg = new TextMessage(gson.toJson(sendMap));
+			for (int i = 0; i < service.list.size(); i++) {
+				if (service.list.get(i).getAttributes().get("userId").equals(otherid)) {
 					try {
 						service.list.get(i).sendMessage(msg);
 					} catch (IOException e) {
@@ -119,7 +116,7 @@ public class FollowController {
 			}
 			follow.delFollower(map);
 			follow.delFollowing(map);
-			mm.put("mode","off");
+			mm.put("mode", "off");
 			int cnt = follow.getFollowerCnt(otherid);
 			mm.put("followerCnt", cnt);
 			return gson.toJson(mm);
@@ -131,8 +128,8 @@ public class FollowController {
 	public String follower(@RequestParam String id, ModelMap map) {
 		List listuu = follow.getFollowerList(id);
 		List<Map> list = new ArrayList<>();
-		for(int i=0;i<listuu.size();i++) {
-			list.add((Map)board.getOneUserInfo((String)listuu.get(i)));
+		for (int i = 0; i < listuu.size(); i++) {
+			list.add((Map) board.getOneUserInfo((String) listuu.get(i)));
 		}
 		map.put("list", list);
 		return "sns.follower";
@@ -142,8 +139,8 @@ public class FollowController {
 	public String following(@RequestParam String id, ModelMap map) {
 		List listuu = follow.getFollowingList(id);
 		List<Map> list = new ArrayList<>();
-		for(int i=0;i<listuu.size();i++) {
-			list.add((Map)board.getOneUserInfo((String)listuu.get(i)));
+		for (int i = 0; i < listuu.size(); i++) {
+			list.add((Map) board.getOneUserInfo((String) listuu.get(i)));
 		}
 		map.put("list", list);
 		return "sns.following";

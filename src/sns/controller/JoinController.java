@@ -25,10 +25,10 @@ public class JoinController {
 
 	@Autowired
 	JoinDao jdao;
-	
+
 	@Autowired
 	LoginCheckDao lcdao;
-	
+
 	@Autowired
 	Gson gson;
 
@@ -44,7 +44,7 @@ public class JoinController {
 	public String joinPostHandle(@RequestParam Map param, ModelMap map, WebRequest wr) {
 
 		String id = (String) param.get("id");
-		String emailid = (String)param.get("email01");
+		String emailid = (String) param.get("email01");
 		String subid = (String) param.get("email22");
 		String email = emailid + "@" + subid;
 		String pass = (String) param.get("pass");
@@ -54,16 +54,12 @@ public class JoinController {
 		String mm = (String) param.get("mm");
 		String dd = (String) param.get("dd");
 		String birth = yy + mm + dd;
-		
-				
+
 		String gender = (String) param.get("gender");
 
 		String[] interest = wr.getParameterValues("interest");
-		System.out.println("관심사 : " + Arrays.toString(interest));
 		String inter = Arrays.toString(interest);
-		
-		System.out.println(
-				id + "/" + subid + "/" + email + "/" + pass + "/" + birth + "/" + name + "/" + gender + "/" + inter);
+
 
 		Map data = new HashMap<>();
 		data.put("id", id);
@@ -72,86 +68,47 @@ public class JoinController {
 		data.put("pass", pass);
 		data.put("name", name);
 		data.put("birth", birth);
-		//data.put("day", day);
+		// data.put("day", day);
 
 		data.put("gender", gender);
 		data.put("interest", inter);
 
-		
 		try {
 			int a = jdao.addAccount(data);
-			
-		
-				return "redirect:/index.do";
-			
-			
-		}catch(Exception e) {
+
+			return "redirect:/index.do";
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/join.do";
 		}
 
 	}
-	
-	
-	@GetMapping(path="/joinajax.do", produces="application/json;charset=UTF-8" )
+
+	@GetMapping(path = "/joinajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String joinajaxHandle(@RequestParam String id) {
-		System.out.println(id);
 		Map ckid = lcdao.loginCheck(id);
-		System.out.println("id :"+id);
 		Map map = new HashMap<>();
-		if(ckid != null) {
+		if (ckid != null) {
 			map.put("pass", "on");
-			System.out.println(id +"사용중인 아이디");
-		}else {
+		} else {
 			map.put("pass", "off");
-			System.out.println(id+"사용가능한 아이디");
 		}
 		return gson.toJson(map);
 	}
-	
-	@GetMapping(path="/emailajax.do", produces="application/json;charset=UTF-8" )
+
+	@GetMapping(path = "/emailajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String emailajaxHandle(@RequestParam String email) {
-		System.out.println(email);
 		Map ckemail = jdao.emailCheck(email);
-		System.out.println("email : "+email);
 		Map map = new HashMap<>();
-		if(ckemail != null) {
+		if (ckemail != null) {
 			map.put("pass", "on");
-			System.out.println("이미 인증을 한 이메일입니다. \n다른 이메일로 인증을 해주세요");
-		}else {
+		} else {
 			map.put("pass", "off");
-			System.out.println("인증 가능한 이메일 입니다");
 		}
 		return gson.toJson(map);
 	}
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

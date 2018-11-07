@@ -100,9 +100,7 @@ article:hover .links {
 									<div class="links" style="text-align: center;"></div>
 								</article>
 								<div class="card-body">
-									<a
-										href="${pageContext.servletContext.contextPath }/board/board_detail.do?num=${i._id}"><p
-											class="card-text">${i.content }</p></a>
+									<p class="card-text">${i.content }</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<small class="text-muted">
 					                    	<c:choose>

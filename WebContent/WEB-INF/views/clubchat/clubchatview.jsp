@@ -44,12 +44,6 @@
 	<h5 class="h5"><b>방제목</b> : <small><b> ${contentid }</b></small></h5>
 	<div class="btn-toolbar mb-2 mb-md-0">
 		
-		
-<!-- 		<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-			<span data-feather="calendar">전체채팅</span> 
-				<span data-feather="calendar">부서채팅</span> 
-		</button> -->
-		
 <div class="btn-group" role="group">
     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
      오픈채팅 목록
@@ -57,11 +51,6 @@
      
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
     
-    
-  
-  <%--   <c:forEach var="v" items="${chatlist }">
-    ${v }
-    </c:forEach> --%>
    <c:forEach var="v" items="${allclub}">
    
       <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/club/clubview.do?id=${v._id}"> ${v._id }</a>
@@ -276,40 +265,10 @@ $("#abcde").on("click",function(){
 		
 	}
 	
-	
-
-/* var chatws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/chating.do");
-
-chatws.onmessage= function(evt) {
-	console.log(evt.data);
-	var obj = JSON.parse(evt.data);
-	
-	console.log("시간이유"+obj.sendtime);
-	
-	
-	
-	var html="<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-	html += "<b>"+obj.id+"<a href=\"${pageContext.servletContext.contextPath}/mypage.do\">"+"<small><b>("+obj.userNAME+")</b></small></a> : "+obj.text+" / <small><b>"+obj.sendtime+"</b></small>"+"</b>"
-	html +="</div>"; 
-	document.getElementById("chatView").innerHTML += html;
-	document.getElementById("chatView").scrollTop = 
-		document.getElementById("chatView").scrollHeight; 
-	
-}  */
 
 document.getElementById("input").onchange= function() {
 	console.log(this.value);
 	var msg=null;
-	/* var aa="HumanResources";
-	var bb="${depart}";
-	var cc="public"; */
-	
-	/* console.log(aa==bb);
-	console.log(bb==cc);
-	console.log(aa);
-	console.log(cc);
-	 */
-	
 		 
 		 msg = {
 			 	"mode" :"${contentid}",
@@ -318,7 +277,6 @@ document.getElementById("input").onchange= function() {
 				"contentid":"${contentid}"
 				
 			};
-	 /* console.log(JSON.stringify(msg)); */
 	 clubchatws.send(JSON.stringify(msg));
 		 this.value=""; 
 	

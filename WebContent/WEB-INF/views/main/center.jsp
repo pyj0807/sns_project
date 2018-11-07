@@ -192,19 +192,9 @@ article:hover .links {
 	<div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog  modal-lg ">
 	    <div class="modal-content">
-	<%--       <div class="modal-header">
-	        <h4 class="modal-title" id="myModalLabel">	
-	        <img src="${pageContext.servletContext.contextPath }/pic/01.jpg"
-							class="photo" style="width: 30px; height: 30px;"> <a
-							href="${pageContext.servletContext.contextPath}/account.do?id=${sessionScope.user.ID }">${sessionScope.user.ID }</a>
-	        </h4>
-	      </div> --%>
 	    <div class="modal-body">
 	        ...
 	      </div>
-	<!--       <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div> -->
 	    </div>
 	  </div>
 	</div>
@@ -216,10 +206,5 @@ article:hover .links {
 	    $(this).find(".modal-body").load(link.attr("href"));
 
 	});
-	
-	/* $('.modal').on('hidden.bs.modal', function (e) {
-	    console.log('modal close');
-	  	$(this).find('.modal-body')[0].reset();
-	}); */
 </script>
 

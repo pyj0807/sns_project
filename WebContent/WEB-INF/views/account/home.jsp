@@ -109,7 +109,6 @@ article:hover .links {
 }
 </style>
 <br />
-<%System.out.println(session.getAttribute("allInter")); %>
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/${otherUser.PROFILE_ATTACH}"
 		class="photo" style="width: 200px; height: 200px;"><br /><br /><strong>
@@ -129,11 +128,9 @@ article:hover .links {
 	</p>
 	<c:choose>
 		<c:when test="${ check!=null }">
-			<!-- 	<button type="button" class="btn btn-outline-primary" id="follow"> 팔로잉</button> -->
 			<a class="btnn red" href="#red" id="follow">following</a>
 		</c:when>
 		<c:otherwise>
-			<!-- 	<button type="button" class="btn btn-primary" id="follow">팔로우</button> -->
 			<a class="btnn blue" href="#blue" id="follow">follow</a>
 		</c:otherwise>
 	</c:choose>
@@ -274,20 +271,10 @@ article:hover .links {
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-<!--       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Follow</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div> -->
       <div class="modal-body">
         ...
       </div>
-<!--       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
- -->    </div>
+	 </div>
   </div>
 </div>
 
@@ -317,7 +304,6 @@ article:hover .links {
 
 <script>
 	$("#follow").on("click",function() {
-		
 			if("${userId}"==""){
 				window.location.href ="${pageContext.servletContext.contextPath}/login.do";
 			}

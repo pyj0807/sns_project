@@ -232,20 +232,3 @@ $(document).ready(function(){
     border-color: #2e6da4;
 }
 </style>
-<!-- <style>
-.btn {
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-    border-radius: 0px;
-    outline: none;
-    border: none;
-
-}
-.btn:active {
-  border-style: outset;
-  border: none;
-}
-</style>
- -->

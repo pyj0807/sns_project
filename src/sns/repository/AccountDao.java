@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 public class AccountDao {
 	@Autowired
 	SqlSessionTemplate sqltemplate;
-	
+
 	public Map accountselect(String id) {
-		
+
 		return sqltemplate.selectOne("account.getOneUserInfo", id);
-		
+
 	}
 }
