@@ -28,8 +28,7 @@
   	<url-pattern>/board/reply.do</url-pattern>
   	<url-pattern>/board/delete_reply.do</url-pattern>
   	<url-pattern>/board/map.do</url-pattern>
-  	
-  	
+  	<url-pattern>/write.do</url-pattern>
   	<url-pattern>/mypage.do</url-pattern>
   	<url-pattern>/chat/*</url-pattern>
   	<url-pattern>/newsfeed.do</url-pattern>
