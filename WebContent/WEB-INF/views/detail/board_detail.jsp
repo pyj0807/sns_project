@@ -234,7 +234,11 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		//1글자라도 입력했을경우
 		if(document.getElementById("reply").value.trim().length>0){
 			var xhr = new XMLHttpRequest();
-			xhr.open("post","${pageContext.servletContext.contextPath}/board/reply.do",true);
+			if(window.confirm("등록하시겠습니까?")){ 
+				xhr.open("post","${pageContext.servletContext.contextPath}/board/reply.do",true);
+			}else{
+				console.log("취소하였습니다.");			
+			}
 			//파람설정
 			var param = {
 				"id":${boardOne._id} //방번호
