@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import sns.repository.AccountDao;
 import sns.repository.BoardDao;
 import sns.repository.BoardRepository;
 import sns.repository.FollowRepository;
@@ -42,6 +43,8 @@ public class MyPageController {
 	BoardRepository boardRepository;
 	@Autowired
 	BoardDao boarddao;
+	@Autowired
+	AccountDao accountdao;
 	@Autowired
 	FollowRepository follow;
 	@Autowired
@@ -284,7 +287,10 @@ public class MyPageController {
 	
 	// 프로필 사진을 누르면 프로필 사진을 바꿀수 있는 팝업창을 열어준다.
 	@GetMapping("changepic.do")
-	public String getPic() {
+	public String getPic(WebRequest wr,ModelMap modelMap) {
+		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		Map map = accountdao.accountselect(id);
+		modelMap.put("profile", map);
 		return "sns.getpic";
 	}
 	
@@ -303,12 +309,13 @@ public class MyPageController {
 		}
 		
 		// 파일타입확인하고 이미지만 업로드 가능하게 하자
-		String type = file.getContentType().substring(0, 5);
+/*		String type = file.getContentType().substring(0, 5);
 		if (!(type.equals("image"))) {
-			modelmap.put("err", "type");
+//			modelmap.put("err", "type");
 			System.out.println("이미지파일만 업로드 가능합니다.");
-			return "redirect:/changepic.do";
-		}else {
+			//return "redirect:/changepic.do";
+			return "sns.getpic";
+		}else {*/
 			// 파일 이름 리네임(현재시간+글쓴이아이디+확장자)
 			long currentTime = System.currentTimeMillis(); // 현재시간
 			String filename = file.getOriginalFilename(); // 원래 파일이름 가져오고
@@ -332,10 +339,6 @@ public class MyPageController {
 			System.out.println(user.toString());
 			
 			return "redirect:/mypage.do";
-		}	
-
-
+//		}	
 	}
-	
-
 }
