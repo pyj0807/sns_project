@@ -109,6 +109,7 @@ article:hover .links {
 }
 </style>
 <br />
+<%System.out.println(session.getAttribute("allInter")); %>
 <div align="center">
 	<img src="${pageContext.servletContext.contextPath }/pic/${otherUser.PROFILE_ATTACH}"
 		class="photo" style="width: 200px; height: 200px;"><br /><br /><strong>
@@ -316,6 +317,11 @@ article:hover .links {
 
 <script>
 	$("#follow").on("click",function() {
+		
+			if("${userId}"==""){
+				window.location.href ="${pageContext.servletContext.contextPath}/login.do";
+			}
+		
 				console.log("start");
 				var param = {
 					"myid" : "${sessionScope.user.ID}",

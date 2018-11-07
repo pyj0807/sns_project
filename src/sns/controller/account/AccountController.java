@@ -33,65 +33,70 @@ public class AccountController {
 	FollowRepository follow;
 	@Autowired
 	Gson gson;
-	
+	@Autowired
+	AccountDao dao;
 	
 	
 	// 다른 회원 페이지
 	@RequestMapping("/account.do")
-	public String account(WebRequest wr, @RequestParam String id, ModelMap map) {
-
-		System.out.println("진짜아이디유"+id);
+	public String account(WebRequest wr, @RequestParam String word, ModelMap map) {
+		
+		System.out.println("진짜아이디유"+word);
 		String sss="#";
 		String[] str=new String[10]; 
-		str[0]="%23"+id.substring(1);
+		str[0]="%23"+word.substring(1);
 		System.out.println(str);
 		Pattern p = Pattern.compile(sss);
-		Matcher d=p.matcher(id);
-		if(d.find()==true) {
+		Matcher d=p.matcher(word);
+		/*if(d.find()==true) {
 			wr.setAttribute("hashtag", str, wr.SCOPE_REQUEST);
-			return "redirect:/board/board_search.do?hashtag="+str[0];
-		}else {
-
-		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
-		String loginId = (String) user.get("ID");
-		
-		if (id.equals(loginId)) {
+			return "redirect:/board/board_search.do?hashtag="+word.replace("#", "%23");
+		}else *//*{*/
+			String loginId="";
+	
+		if(wr.getAttribute("user", wr.SCOPE_SESSION)!=null) {
+			Map user=(Map)wr.getAttribute("user", wr.SCOPE_SESSION);
+		loginId = (String) user.get("ID");
+		}
+		if (word.equals(loginId)) {
 			// 파라미터값 id와 로그인한 id가 같으면 마이페이지로 리다이렉트
 			return "redirect:/mypage.do";
 		} else {
 			// 다른 회원이 쓴 글목록 리스트와 사이즈(글개수)
-			List<Map> accountlist = boardRepository.findWriter(id);
+			List<Map> accountlist = boardRepository.findWriter(word);
 			for(int i=0; i<accountlist.size(); i++) {
 				long writetime = (long)accountlist.get(i).get("time");
 				long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 				accountlist.get(i).put("lasttime", lasttime);
 			}
 			int size = accountlist.size();
-			Map otherUser = boardRepository.getOneUserInfo(id);
+			Map otherUser = boardRepository.getOneUserInfo(word);
 			wr.setAttribute("otherUser", otherUser, wr.SCOPE_REQUEST);
-			wr.setAttribute("id", id, wr.SCOPE_REQUEST);	
+			wr.setAttribute("id", word, wr.SCOPE_REQUEST);	
 			wr.setAttribute("size", size, wr.SCOPE_REQUEST);	
 			wr.setAttribute("accountlist", accountlist, wr.SCOPE_REQUEST);
 			List inter=gson.fromJson((String)otherUser.get("INTEREST"), List.class);
 			wr.setAttribute("otherInter", inter, wr.SCOPE_REQUEST);
 			
-		}
+		
 		
 		Map followingcheck =new HashMap<>();
 		followingcheck.put("myid",loginId);
-		followingcheck.put("otherid",id);
+		followingcheck.put("otherid",word);
 		
 		Map cnt =follow.CheckFollowing(followingcheck);
 		System.out.println("팔로잉체크="+cnt);
 		map.put("check",cnt);
 		
-		int followerCnt = follow.getFollowerCnt(id);
-		int followingCnt = follow.getFollowingCnt(id);
+		int followerCnt = follow.getFollowerCnt(word);
+		int followingCnt = follow.getFollowingCnt(word);
 		wr.setAttribute("followerCnt", followerCnt, wr.SCOPE_REQUEST);
 		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
 
 		return "sns.account";
 		}
+		
+		/*}*/
 	}
 	
 	// 뉴스피드 (팔로잉한 사람들의 글 목록)

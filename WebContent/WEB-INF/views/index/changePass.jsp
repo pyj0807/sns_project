@@ -20,8 +20,20 @@
 </head>
 <body style="text-align: center;">
 	<div class="guide">
+	<c:if test="${!empty intererr}">
+	<div class="alert alert-danger" role="alert">
+	관심사를 설정 안하셨습니다.
+</div>
+	</c:if>
+		<c:if test="${!empty passno}">
+	<div class="alert alert-danger" role="alert">
+	현재비밀번호가 틀리셨거나 입력하지 않으셨습니다.
+</div>
+	</c:if>
 	<div class="center-box">
 	<h4>Change Information</h4>
+	
+	
 	<form
 		action="${pageContext.servletContext.contextPath }/change.do" method="post">
 		<div class="form-group row">

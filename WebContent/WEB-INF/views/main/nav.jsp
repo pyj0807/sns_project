@@ -65,9 +65,9 @@
     </div> --%>
     <div class="right item">
       <div class="ui input">
-		<form class="form-inline my-2 my-md-0" action="${pageContext.servletContext.contextPath}/account.do" onchange="pass();">
+		<form class="form-inline my-2 my-md-0" action="${pageContext.servletContext.contextPath}/account.do"   id="sform">
 			<input class="form-control" type="text" placeholder="Search" list="some"
-				 autocomplete="off" id="searchlist" name="id" >
+				 autocomplete="off" id="searchlist" name="hashtag" onchange="dstChange();">
 				<!-- <input class="form-control" type="text" placeholder="Search" list="some"
 				aria-label="Search" autocomplete="off" id="searchlist" name="id" > -->
 				<datalist id="some"></datalist>
@@ -155,9 +155,16 @@ $("#searchlist").on("keyup",function(){
 /* $("#pass").on("change",function(){
 	window.location.href="${pageContext.servletContext.contextPath}/mypage.do?id="+$("#id").val();
 }) */
-var pass=function(){
-	var a=$("#searchlist").val();
-	var r1= new RegExp(/^[#]/);
+var dstChange=function(){
+	var a= $("#searchlist").val();
+	console.log(a + " /  " +(a.startsWith("#")));
+	if(a.startsWith("#")) {
+		$("#sform").attr("action", "${pageContext.servletContext.contextPath}/board/board_search.do");
+		$("#searchlist").attr("name","hashtag");
+	}else {
+		$("#sform").attr("action", "${pageContext.servletContext.contextPath}/account.do");
+	 	$("#searchlist").attr("name","word");
+	}
 		/* window.location.href="${pageContext.servletContext.contextPath}/mypage.do?id="+a; */
 }
 </script>

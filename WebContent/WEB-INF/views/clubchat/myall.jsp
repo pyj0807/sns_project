@@ -4,6 +4,7 @@
     
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+    
     <link rel="stylesheet" type="text/css"
 	href="${pageContext.servletContext.contextPath}/semantic/semantic.css">
     <div class="modal fade  bd-example-modal-lg " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -52,17 +52,17 @@ public class IndexController {
 		}
 
 		modelmap.put("board_list", list);
-		if (wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
+		/*if (wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
 
 			return "/index/login";
-		} else {
+		} else {*/
 			String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
 			String sInter = Arrays.toString(interest);
 			List listInter = gson.fromJson(sInter, List.class);
-			wr.setAttribute("allInter", listInter, wr.SCOPE_REQUEST);
+			wr.setAttribute("allInter", listInter, wr.SCOPE_SESSION);
 			
 			return "sns.home";
-		}
+		/*}*/
 	}
 	@ResponseBody
 	@PostMapping(path="/indexAjax.do",produces="application/json;charset=UTF-8")
@@ -73,6 +73,13 @@ public class IndexController {
 	}
 	@Autowired
 	AlertService service;
+	
+	@GetMapping("/login.do")
+	public String loginHandler() {
+		
+		return "/index/login";
+	}
+	
 
 	@PostMapping("/login.do")
 	public String loginHandle(WebRequest wr, ModelMap map, HttpSession session) {
@@ -80,7 +87,12 @@ public class IndexController {
 
 		String id = (String) wr.getParameter("id");
 		String subid = (String) wr.getParameter("subid");
-
+		
+		
+		if(sessions.get(id)!=null) {
+			session.invalidate();
+		sessions.remove(id);
+		}
 		String pass = (String) wr.getParameter("pass");
 
 		Map data = new HashMap<>();
@@ -126,9 +138,10 @@ public class IndexController {
 	}
 	
 	@GetMapping("logout.do")
-	public String logout(WebRequest wr) {
+	public String logout(WebRequest wr,HttpSession session) {
 		String id= (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		/*sessions.get(id).invalidate();*/
+	session.invalidate();
 		sessions.remove(id);
 		wr.removeAttribute("auth", wr.SCOPE_SESSION);
 		return "redirect:index.do";
