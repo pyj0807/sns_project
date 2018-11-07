@@ -31,7 +31,7 @@ public class AuthFilter extends HttpFilter {
 			chain.doFilter(req, res); // 필터통과
 		}else { //로그인안되있을경우처리
 			session.setAttribute("dest", path);
-			res.sendRedirect(req.getContextPath()+"/index.do");
+			res.sendRedirect(req.getContextPath()+"/login.do");
 		}
 	}
 }

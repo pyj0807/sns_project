@@ -21,6 +21,8 @@
 	<update id="changePic" parameterType="java.util.HashMap">
 		update account set PROFILE_ATTACH=#{file} where id=#{id}		
 	</update>
+	
+	
 
 
 </mapper>

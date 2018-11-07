@@ -24,9 +24,16 @@ public class ChangeController {
 	ChangePassDao cpdao;
 	
 	@GetMapping("/change.do")
-	public String changeGetHandle(Map map) {
+	public String changeGetHandle(Map map,@RequestParam Map ma,ModelMap model) {
 		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,애견,기타,".split(",");
 		map.put("interest", data);
+		if(ma.get("internone")!=null) {
+			model.put("intererr", "on");
+		}
+		
+		if(ma.get("passno")!=null) {
+			model.put("passno", "on");
+		}
 		
 		return "index/changePass";
 	}
@@ -47,16 +54,27 @@ public class ChangeController {
 		passmap.put("id", user.get("ID"));
 		passmap.put("npass", np);
 		passmap.put("interest", interest);
+		if(op.length()<1||np.length()<1) {
+			
+			return "redirect:/change.do?passno=no";
+		}
+		if(inter==null) {
+			return "redirect:/change.do?internone=nono";
+		}
+		
 		if(op.equals(cp)) {
 			int r = cpdao.changePass(passmap);
 			
 			if(r>0) {
 				
-				return "sns.mypage";
+				return "redirect:/mypage.do";
 			}
 		}
-		return "index/changePass";
-	}
+		
+		return "redirect:/change.do";
+		
+		
+		}
 	
 }
 

@@ -209,6 +209,10 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 <script>
 	//상세화면에서 좋아요 눌렀을때 ajax처리
 	var like = function(target){
+		
+		if("${userId}"==""){
+			window.location.href ="${pageContext.servletContext.contextPath}/login.do";
+		}
 		var xhr = new XMLHttpRequest();
 		//1.open
 		xhr.open("post","${pageContext.servletContext.contextPath}/board/like.do",true);
@@ -231,6 +235,10 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 	
 	//댓글등록하기
 	var replyAjax = function(){
+		
+		if("${userId}"==""){
+			window.location.href ="${pageContext.servletContext.contextPath}/login.do";
+		}
 		//1글자라도 입력했을경우
 		if(document.getElementById("reply").value.trim().length>0){
 			var xhr = new XMLHttpRequest();

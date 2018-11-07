@@ -54,12 +54,14 @@ public class BoardController {
 	public String board_datail(@RequestParam int num, ModelMap modelmap, WebRequest wr) {
 		Map list = boarddao.getOneBoard(num);
 		List liker = (List) list.get("liker"); // board테이블에 좋아요한 list
+		if(wr.getAttribute("userId", wr.SCOPE_SESSION)!=null) {
 		Map user = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
 		String userId = (String) user.get("ID");// 접속한 EMAIL
 		if (liker.contains(userId)) {
 			list.put("checked", true);// 체크 true
 		} else {
 			list.put("checked", false);// 체크 false
+		}
 		}
 		//없는값조회
 		if(list.get("area").equals("")) {
@@ -133,6 +135,12 @@ public class BoardController {
 		
 		return "sns.board_detail";
 	}
+	@GetMapping("/like.do")
+	public String boardreturnlike() {
+		
+		return "redirect:/index.do";
+	}
+	
 
 	// board one에서 like눌렀을때 처리
 	@ResponseBody // 안해주면 view로 리턴함
@@ -258,7 +266,7 @@ public class BoardController {
 	//해당 해쉬태그 조회
 	@RequestMapping(path="/board_search.do",produces="application/json;charset=UTF-8")
 	public String boardHashlist(@RequestParam String[] hashtag, ModelMap modelmap) {
-		System.out.println(hashtag);
+		System.out.println("넘어온 해시태ㅡ>"+hashtag[0]);
 		List<Map> list = boarddao.getBoardHash(hashtag);
 		for(int i=0; i<list.size(); i++) {
 			long writetime = (long)list.get(i).get("time");
@@ -270,6 +278,13 @@ public class BoardController {
 		return "sns.board_hash";
 	}
 	
+	
+	
+	//댓글달기에서 팅길때
+	@GetMapping("/reply.do")
+	public String boardAddReplyreturn() {
+		return "redirect:/index.do";
+	}
 	//댓글달기
 	@ResponseBody
 	@PostMapping(path ="/reply.do",produces="application/json;charset=UTF-8")

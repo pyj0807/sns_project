@@ -21,13 +21,25 @@
   <filter-mapping>
   	<filter-name>sns</filter-name>
   	<!-- 필터 파라미터 하나까지만 가능 -->
-  	<url-pattern>/board/*</url-pattern>
+
+  	<url-pattern>/board/like.do</url-pattern>
+  	<url-pattern>/board/likelist.do</url-pattern>
+  	<!-- <url-pattern>/board/board_search.do</url-pattern> -->
+  	<url-pattern>/board/reply.do</url-pattern>
+  	<url-pattern>/board/delete_reply.do</url-pattern>
+  	<url-pattern>/board/map.do</url-pattern>
+  	
+  	
   	<url-pattern>/mypage.do</url-pattern>
   	<url-pattern>/chat/*</url-pattern>
   	<url-pattern>/newsfeed.do</url-pattern>
-  	<url-pattern>/interest.do</url-pattern>
-  	<url-pattern>/account.do</url-pattern>
+  	<!-- <url-pattern>/interest.do</url-pattern> -->
+ <!--  	<url-pattern>/account.do</url-pattern> -->
+  	
   </filter-mapping>
+  <session-config>
+  <session-timeout>60</session-timeout>
+  </session-config>
   
   <!-- The front controller of this Spring Web application, responsible for handling all application requests -->
 	<servlet>
