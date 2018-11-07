@@ -39,7 +39,7 @@ public class IndexController {
 	public IndexController() {
 		sessions = new HashMap<>();
 	}
-
+	
 	@RequestMapping("/index.do")
 	public String index(ModelMap modelmap, WebRequest wr) {
 		
@@ -73,7 +73,13 @@ public class IndexController {
 	}
 	@Autowired
 	AlertService service;
-
+	
+	@GetMapping("/login.do")
+	public String logingetHandle() {
+		return "/index/login";
+	}
+	
+	
 	@PostMapping("/login.do")
 	public String loginHandle(WebRequest wr, ModelMap map, HttpSession session) {
 		System.out.println("login 옴");
@@ -122,7 +128,8 @@ public class IndexController {
 			
 			return "/index/login";
 		}
-
+		
+		
 	}
 	
 	@GetMapping("logout.do")

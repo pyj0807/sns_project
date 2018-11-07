@@ -42,6 +42,9 @@ input::placeholder{
 input::value{
 	font-size: 25px;
 }
+p{
+	font-size: 25px;
+}
 
 select { 
 	width: 60px; /* 원하는 너비설정 */ 
@@ -53,6 +56,7 @@ select {
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
 	-moz-appearance: none; 
 	appearance: none; 
+	font-size: 25px;
 }
 
 button{
@@ -117,7 +121,7 @@ button:hover:before,button:hover:after{
 		<form class="form-signin" align="center" action="${pageContext.servletContext.contextPath }/join.do" method="post">
 			<div class="join">
 				<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
-					<input name="id" id="id" type="text" style="margin-bottom: 10px; text-align: center; " placeholder="아이디 " class="form-control"
+					<input name="id" id="id" type="text" style="margin-bottom: 10px; text-align: center; font-size: 25px; " placeholder="아이디 " class="form-control"
 									onkeyup="checkId(this.value);" required><span
 									id="idspan" style="margin-bottom: 20px; text-align: center;" ></span><br/>
 								
@@ -126,16 +130,17 @@ button:hover:before,button:hover:after{
 									placeholder="비밀번호" required style="margin-bottom: 20px; text-align: center;"  > <br />
 								<label>이름</label><i class="fas fa-user-circle fa-2x"></i><br/>
 								<input name="name" id="name" type="text" maxlength="20" class="form-control"
-									placeholder="이름" required style="margin-bottom: 20px; text-align: center;" > <br />
+									placeholder="이름" required style="margin-bottom: 20px; text-align: center; font-size: 25px;" > <br />
 								
+								<div>
 								<label>이메일 인증</label><i class="far fa-envelope fa-2x"></i><br/>
-								<input type="text" name="email01" id="email01" class="form-control" style="width: 100px; display:inline-block; " 
+								<input type="text" name="email01" id="email01" class="form-control" style="width: 100px; display:inline-block;" 
 									onkeyup="checkEmailID(this.value);" >
 									@ 
 									<input  type="text" name="email22" id="email02"
 									onchange="checkEmailSubid(this.value);"  style="width: 100px; display:inline-block;"  class="form-control"
 									value="naver.com" style="margin-bottom: 10px"> <select
-									style="width: 100px; margin-right: 10px" name="subid"
+									style="width: 100px; display:inline-block; margin-right: 10px; font-size: 18px;" name="subid"  class="form-control"
 									id="subid">
 									<option value="1">직접입력</option>
 									<option value="naver.com" selected>naver.com</option>
@@ -148,20 +153,20 @@ button:hover:before,button:hover:after{
 								
 								<button type="button" id="emailauth" style="margin: 10px 10px">번호받기</button>
 								<small id="ckmail1"></small> <input type="text" id="confirm"
-									class="form-control" name="confirm" placeholder="인증번호" style="margin-bottom: 20px; text-align: center; " >
+									class="form-control" name="confirm" placeholder="인증번호" style="margin-bottom: 10px; text-align: center; " >
 								<button type="button" id="confirmok" disabled="disabled"
 									required style="margin-bottom: 20px" >인증하기</button>
 								<small id="ckmail2"></small><br/>
-
+								</div>
 
 								
 								<div class="join_row join_birthday">
 									<label>생년월인</label><i class="fas fa-birthday-cake fa-2x"></i>
 									<div class="bir_wrap" required>
-										<div class="bir_yy">
+										<div class="bir_yy" style="font-size: 30px; text-align: center;">
 											<span class="ps_box"> <input type="text" name="yy" class="form-control" style="width: 100px; display:inline-block; text-align: center;"
 												placeholder="년도(4자)" maxlength="4"> <select
-												name="mm" aria-label="월" class="form-control" style="width: 100px; display:inline-block; text-align: center;" >
+												name="mm" aria-label="월" class="form-control" style="width: 100px; display:inline-block; text-align: center; font-size: 18px;" >
 													<option>월</option>
 													<option value="01">01</option>
 													<option value="02">02</option>
@@ -176,7 +181,7 @@ button:hover:before,button:hover:after{
 													<option value="11">11</option>
 													<option value="12">12</option>
 											</select>
-											</span> <span> <select name="dd" aria-label="일" class="form-control" style="margin-bottom: 20px; width: 100px; display:inline-block; text-align: center;">
+											</span> <span> <select name="dd" aria-label="일" class="form-control" style="margin-bottom: 20px; width: 100px; display:inline-block; text-align: center; font-size: 18px;">
 													<option>일</option>
 													<option value="01">01</option>
 													<option value="02">02</option>
@@ -229,7 +234,7 @@ button:hover:before,button:hover:after{
 								<input type=radio id="gender" name="gender" value=M> <i class="fas fa-male fa-2x"></i> 
 								<input type=radio id="gender" name="gender" value=F> <i class="fas fa-female fa-2x"></i> 
 								</div>
-							<div style="margin-bottom: 20px"><label>관심사</label><i class="fas fa-heart fa-2x"></i><br/>
+							<div style="margin-bottom: 20px; font-size: 25px;"><label>관심사</label><i class="fas fa-heart"></i><br/>
 									<c:forEach var="v" items="${interest }">
 										<c:choose>
 											<c:when test="${ v eq '연애' }">
@@ -248,6 +253,9 @@ button:hover:before,button:hover:after{
 							<button type="submit" id="btnsubmit">가입</button>
 						</form>
 					</div>
+					<p style="text-align: center;">
+					이미 계정이 있으십니까?   <a href="${pageContext.servletContext.contextPath }/login.do">로그인</a>
+					</p>
 				</span>
     
     <div class="col-sm">
