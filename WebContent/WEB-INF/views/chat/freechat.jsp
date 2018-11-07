@@ -119,8 +119,11 @@ article:hover .links {
 			href="#home">개인채팅</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab"
 			href="#menu1" id="open">오픈채팅</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab"
+			href="#menu2" id="opensearch">내가 가입한 오픈채팅</a></li>
 
 	</ul>
+	
 
 
 	<div class="tab-content">
@@ -260,8 +263,8 @@ article:hover .links {
 						</p>
 						<p>
 							<a
-								href="${pageContext.servletContext.contextPath }/club/myallclub.do"
-								class="btn btn-secondary">내 오픈채팅방 조회</a>
+								href="#"
+								class="btn btn-secondary"id="openchatmyall">내 오픈채팅방 조회</a>
 						</p>
 					</div>
 				</section>
@@ -335,10 +338,66 @@ article:hover .links {
 		</div>
 		<!-- 오픈채팅 끝 -->
 		
-	</div>
+		<div id="menu2" class="container tab-pane fade"><!-- 내오픈채팅방 -->
+		  
+		    
+		    <c:choose>
+		    	<c:when test="${empty clubmyAll }">
+		    	<img src="${pageContext.servletContext.contextPath }/clubimg/noclubchatingagency.png">
+		    	<br/>
+		    	<a
+								href="${pageContext.servletContext.contextPath }/club/create.do"
+								class="btn btn-primary">오픈채팅방 만들기</a>
+		    	</c:when>
+		    <c:otherwise>
+    <div class="container">
+<div style="overflow:scroll;overflow-x:hidden;height:900px;">
+
+
+
+<hr/>
+<br/>
+
+<c:forEach var="v" items="${clubmyAll }">
+<ul class="list-unstyled" >
+  <li class="media" >
+   <a href="${pageContext.servletContext.contextPath }/club/clubview.do?id=${v._id}">  <img class="mr-3" style="height: 70px; width: auto;" src="${v.attach }" alt="Generic placeholder image"></a>
+    <div class="media-body">
+    <br/>
+      <h5 class="mt-0 mb-1"> <b>▶ 방제목 : </b> ${v._id}  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;방 인원 : <span class="badge badge-pill badge-info"> ${fn:length(v.agency)} </span>    
+ 
+       </h5>
+   
+     
+    </div>
+  </li><br/>
+  </c:forEach>
+  <hr/>
+
+  </div>
+  </div>
+		    </c:otherwise>
+		    </c:choose>
+  <hr/>
+
+  </div>
+		</div>
+		
+
+
 	<!--탭 컨텐트 마지막  -->
 
 
+	<script>
+	if("${cluballon}"=="on"){
+	$("#open").click();
+	};
+	
+	$("#openchatmyall").on("click",function(){
+		$("#opensearch").click();
+	})
+	</script>
 
 
 

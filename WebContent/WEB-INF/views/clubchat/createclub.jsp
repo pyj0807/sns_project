@@ -27,7 +27,7 @@
                          메인 사진 :  <input class="upload-name" value="파일선택" disabled="disabled">
 
                             <label for="ex_filename">업로드</label> 
-                          <input type="file" id="ex_filename" name="attach"class="upload-hidden" onchange="previewImage(this,'View_area')"> <br/>
+                          <input type="file" id="ex_filename" name="attach"class="upload-hidden" onchange="previewImage(this,'View_area')" accept="image/*"> <br/>
 <div align="center">
 
 <div id='View_area' style='position:relative; width: auto; height: auto; color: black; border: 0px solid black; dispaly: inline; align-content: center;'></div>

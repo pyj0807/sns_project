@@ -39,6 +39,22 @@
 <option  value="http://www.daum.net">다음</option>
 </datalist> -->
 
+<i class="american sign language interpreting icon"
+		style="font-size: medium;" id="bbb" onclick="save(this);"></i>
+		<i class="american sign language interpreting icon"
+		style="font-size: medium;" id="bbb"></i>
+		<i class="american sign language interpreting icon"
+		style="font-size: medium;" id="bbb"></i>
+		
+	<script>
+		var save =function(target){
+			console.log(target);
+		};
+		
+		</script>
+		
+		
+
 	<i class="american sign language interpreting icon"
 		style="font-size: medium;" id="aaa"></i>
 

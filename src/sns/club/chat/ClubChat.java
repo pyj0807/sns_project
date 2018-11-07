@@ -99,7 +99,7 @@ public class ClubChat {
 		System.out.println("호호="+attach.getName());
 		
 		String filename= attach.getOriginalFilename();
-		
+		System.out.println("filename="+filename);
 		String id =(String)wr.getAttribute("Id", wr.SCOPE_SESSION);
 		human.add(id);
 		System.out.println(id);

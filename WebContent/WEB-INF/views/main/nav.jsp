@@ -147,11 +147,11 @@ $("#searchlist").on("keyup",function(){
 	};
 	}
 		 
-		 if(list.length>1){
+		 
 		 for(var ii=0;ii<list.length;ii++){
 			html+= "<option value=\""+list[ii]+"\">"+"("+list[ii]+")</option>"
 		}; 
-		 }
+		 
 			$("#some").html(html);
 	});
 });
@@ -166,7 +166,7 @@ var dstChange=function(){
 		$("#searchlist").attr("name","hashtag");
 	}else {
 		$("#sform").attr("action", "${pageContext.servletContext.contextPath}/account.do");
-	 	$("#searchlist").attr("name","word");
+	 	$("#searchlist").attr("name","id");
 	}
 		/* window.location.href="${pageContext.servletContext.contextPath}/mypage.do?id="+a; */
 }

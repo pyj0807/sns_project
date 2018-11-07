@@ -173,7 +173,7 @@ public class BoardController {
 			Map boardOnee = boarddao.getOneBoard(room_num);
 			String jsonn = gson.toJson(boardOnee);
 			
-			
+			if(!boardOnee.get("writer").equals(wr.getAttribute("userId", wr.SCOPE_SESSION))) {
 			String contentstr="";
 			Map sendMap=new HashMap<>();
 			sendMap.put("mode", "followinglike");
@@ -204,6 +204,7 @@ public class BoardController {
 					}
 				}
 			}
+			}
 		} else {
 			
 			boarddao.removeBoardLiker(room_id, userId); // 좋아요취소
@@ -211,6 +212,7 @@ public class BoardController {
 			Map boardOnee = boarddao.getOneBoard(room_num);
 			String jsonn = gson.toJson(boardOnee);
 			String contentstr= "";
+			if(!boardOnee.get("writer").equals(wr.getAttribute("userId", wr.SCOPE_SESSION))) {
 			Map sendMap=new HashMap<>();
 			sendMap.put("mode", "followinglike");
 			sendMap.put("moded", "like");
@@ -230,7 +232,6 @@ public class BoardController {
 			sendMap.put("num", room_num);
 			mongoalert.Mongofollowservice(sendMap);
 			TextMessage msg =new TextMessage(gson.toJson(sendMap));
-			
 			for(int i=0;i<service.list.size();i++) {
 				if(service.list.get(i).getAttributes().get("userId").equals(boardOnee.get("writer"))) {
 					try {
@@ -240,6 +241,7 @@ public class BoardController {
 						e.printStackTrace();
 					}
 				}
+			}
 			}
 		}
 		// liker수 count해서 ajax리턴

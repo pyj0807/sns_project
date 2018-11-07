@@ -152,6 +152,24 @@ public class FreeChatController {
 		
 		map.put("clubAll", lii);
 		
+		List<Map>l=	clubmongo.clubmyall((String)wr.getAttribute("userId", wr.SCOPE_SESSION));
+		l.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				long n1= (long)o1.get("createdate");
+				long n2= (long)o2.get("createdate");
+				
+				if(n1<n2) {
+					return 1;
+				}else if(n1>n2) {
+					return -1;
+				}else {
+					return 0;
+				}
+			}
+		});
+		map.put("clubmyAll", l);
+		
 		
 		
 		return "chat.free";

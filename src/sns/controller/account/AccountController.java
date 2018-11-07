@@ -39,21 +39,21 @@ public class AccountController {
 	
 	// 다른 회원 페이지
 	@RequestMapping("/account.do")
-	public String account(WebRequest wr, @RequestParam String word, ModelMap map) {
+	public String account(WebRequest wr, @RequestParam String id, ModelMap map) {
 		
-		System.out.println("진짜아이디유"+word);
+		System.out.println("진짜아이디유"+id);
 		String sss="#";
 		String[] str=new String[10]; 
-		str[0]="%23"+word.substring(1);
+		str[0]="%23"+id.substring(1);
 		System.out.println(str);
 		Pattern p = Pattern.compile(sss);
-		Matcher d=p.matcher(word);
+		Matcher d=p.matcher(id);
 		/*if(d.find()==true) {
 			wr.setAttribute("hashtag", str, wr.SCOPE_REQUEST);
 			return "redirect:/board/board_search.do?hashtag="+word.replace("#", "%23");
 		}else *//*{*/
-		if(acdao.accountselect(word)==null) {
-			map.put("word", word);
+		if(acdao.accountselect(id)==null) {
+			map.put("id", id);
 			return"sns.search.fail";
 		}
 		
@@ -64,21 +64,21 @@ public class AccountController {
 			Map user=(Map)wr.getAttribute("user", wr.SCOPE_SESSION);
 		loginId = (String) user.get("ID");
 		}
-		if (word.equals(loginId)) {
+		if (id.equals(loginId)) {
 			// 파라미터값 id와 로그인한 id가 같으면 마이페이지로 리다이렉트
 			return "redirect:/mypage.do";
 		} else {
 			// 다른 회원이 쓴 글목록 리스트와 사이즈(글개수)
-			List<Map> accountlist = boardRepository.findWriter(word);
+			List<Map> accountlist = boardRepository.findWriter(id);
 			for(int i=0; i<accountlist.size(); i++) {
 				long writetime = (long)accountlist.get(i).get("time");
 				long lasttime = (System.currentTimeMillis()-writetime)/(1000); //초!
 				accountlist.get(i).put("lasttime", lasttime);
 			}
 			int size = accountlist.size();
-			Map otherUser = boardRepository.getOneUserInfo(word);
+			Map otherUser = boardRepository.getOneUserInfo(id);
 			wr.setAttribute("otherUser", otherUser, wr.SCOPE_REQUEST);
-			wr.setAttribute("id", word, wr.SCOPE_REQUEST);	
+			wr.setAttribute("id", id, wr.SCOPE_REQUEST);	
 			wr.setAttribute("size", size, wr.SCOPE_REQUEST);	
 			wr.setAttribute("accountlist", accountlist, wr.SCOPE_REQUEST);
 			List inter=gson.fromJson((String)otherUser.get("INTEREST"), List.class);
@@ -88,14 +88,14 @@ public class AccountController {
 		
 		Map followingcheck =new HashMap<>();
 		followingcheck.put("myid",loginId);
-		followingcheck.put("otherid",word);
+		followingcheck.put("otherid",id);
 		
 		Map cnt =follow.CheckFollowing(followingcheck);
 		System.out.println("팔로잉체크="+cnt);
 		map.put("check",cnt);
 		
-		int followerCnt = follow.getFollowerCnt(word);
-		int followingCnt = follow.getFollowingCnt(word);
+		int followerCnt = follow.getFollowerCnt(id);
+		int followingCnt = follow.getFollowingCnt(id);
 		wr.setAttribute("followerCnt", followerCnt, wr.SCOPE_REQUEST);
 		wr.setAttribute("followingCnt", followingCnt, wr.SCOPE_REQUEST);
 
