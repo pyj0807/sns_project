@@ -5,8 +5,8 @@ public class Source14_Regex {
 
 	public static void main(String[] args) {
 		
-		Pattern p = Pattern.compile("#원피");
-		String data="#원피스";
+		Pattern p = Pattern.compile("#원");
+		String data="#";
 		Matcher m = p.matcher(data); 
 		System.out.println(m.find());
 		

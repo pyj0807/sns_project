@@ -238,13 +238,15 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		
 		if("${userId}"==""){
 			window.location.href ="${pageContext.servletContext.contextPath}/login.do";
-		}
+		}else{
 		//1글자라도 입력했을경우
 		if(document.getElementById("reply").value.trim().length>0){
 			var xhr = new XMLHttpRequest();
 			if(window.confirm("등록하시겠습니까?")){ 
+			
 				xhr.open("post","${pageContext.servletContext.contextPath}/board/reply.do",true);
-			}else{
+				
+				}else{
 				console.log("취소하였습니다.");			
 			}
 			//파람설정
@@ -315,6 +317,7 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 			};
 			//send
 			xhr.send(JSON.stringify(param));
+		}
 		}
 	};
 	

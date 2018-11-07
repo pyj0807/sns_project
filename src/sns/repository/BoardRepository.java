@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+
 @Repository
 public class BoardRepository {
 	@Autowired
@@ -165,5 +167,14 @@ public class BoardRepository {
 			}
 		});
 		return list;
+	}
+	
+	public List<Map> gethashboard(String content){
+		Regex reg =new Regex(content);
+		return template.find(new Query(Criteria.where("hashcode").regex(content)), Map.class,"board");
+	}
+	
+	public List<Map> getnohashboard(String content){
+		return template.find(new Query(Criteria.where("hashcode").regex("#"+content)), Map.class,"board");
 	}
 }

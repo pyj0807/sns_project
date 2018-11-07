@@ -128,7 +128,7 @@ $("#hashicon").on("mouseout", function() {
 
 
 $("#searchlist").on("keyup",function(){
-	console.log($("#searchlist").val());
+	
 	var search=$("#searchlist").val();
 	var param ={
 			"value":search
@@ -146,9 +146,12 @@ $("#searchlist").on("keyup",function(){
 			html+="<option value=\""+id[i].ID+"\">"+id[i].ID+"("+id[i].NAME+")</option>";
 	};
 	}
+		 
+		 if(list.length>1){
 		 for(var ii=0;ii<list.length;ii++){
 			html+= "<option value=\""+list[ii]+"\">"+"("+list[ii]+")</option>"
 		}; 
+		 }
 			$("#some").html(html);
 	});
 });

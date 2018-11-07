@@ -34,7 +34,7 @@ public class AccountController {
 	@Autowired
 	Gson gson;
 	@Autowired
-	AccountDao dao;
+	AccountDao acdao;
 	
 	
 	// 다른 회원 페이지
@@ -52,8 +52,14 @@ public class AccountController {
 			wr.setAttribute("hashtag", str, wr.SCOPE_REQUEST);
 			return "redirect:/board/board_search.do?hashtag="+word.replace("#", "%23");
 		}else *//*{*/
-			String loginId="";
-	
+		if(acdao.accountselect(word)==null) {
+			map.put("word", word);
+			return"sns.search.fail";
+		}
+		
+		
+		String loginId="";
+		
 		if(wr.getAttribute("user", wr.SCOPE_SESSION)!=null) {
 			Map user=(Map)wr.getAttribute("user", wr.SCOPE_SESSION);
 		loginId = (String) user.get("ID");
