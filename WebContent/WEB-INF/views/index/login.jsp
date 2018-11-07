@@ -73,11 +73,11 @@ button {
 					method="post">
 					<label>Login</label><i class="fas fa-sign-in-alt fa-2x"></i> <label
 						for="inputEmail" class="sr-only">아이디</label> <input type="text"
-						id="id" class="form-control" style="text-align: center;"
+						id="id" class="form-control" style="text-align: center; font-size: 25px;"
 						placeholder="아이디" name="id" required autofocus> <label
 						for="inputPassword" class="sr-only">비밀번호</label> <input
 						type="password" id="pass" class="form-control"
-						style="text-align: center;" placeholder="비밀번호" name="pass"
+						style="text-align: center; font-size: 25px;" placeholder="비밀번호" name="pass"
 						required>
 					<div class="checkbox">
 						<label> </label>
