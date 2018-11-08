@@ -144,18 +144,18 @@ button:hover:before,button:hover:after{
 									onkeyup="checkEmailID(this.value);" >
 									@ 
 									<input  type="text" name="email22" id="email02"
-									onchange="checkEmailSubid(this.value);"  style="width: 100px; display:inline-block;"  class="form-control"
+									onkeyup="checkEmailSubid(this.value);"  style="width: 100px; display:inline-block;"  class="form-control"
 									value="naver.com" style="margin-bottom: 10px"> <select
 									style="width: 100px; display:inline-block; margin-right: 10px; font-size: 18px;" name="subid"  class="form-control"
 									id="subid">
-									<option value="1">직접입력</option>
-									<option value="naver.com" selected>naver.com</option>
-									<option value=daum.net>daum.net</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="nate.com">nate.com</option>
-									<option value="gmail.com">gmail.com</option>
+									<option id="selectoption" value="1">직접입력</option>
+									<option id="selectoption" value="naver.com" selected>naver.com</option>
+									<option id="selectoption" value=daum.net>daum.net</option>
+									<option id="selectoption" value="hanmail.net">hanmail.net</option>
+									<option id="selectoption" value="nate.com">nate.com</option>
+									<option id="selectoption" value="gmail.com">gmail.com</option>
 								</select> <br />
-
+					
 								
 								<button type="button" id="emailauth" style="margin: 10px 10px">번호받기</button>
 								<small id="ckmail1"></small> <input type="text" id="confirm" 
@@ -263,6 +263,12 @@ button:hover:before,button:hover:after{
 </body>
 </head>
 </html>
+	<script >
+						$("#subid").on("click",function(){
+							console.log($("#subid").val());
+							
+						})
+						</script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
@@ -340,7 +346,7 @@ button:hover:before,button:hover:after{
 		var subid = document.getElementById("email02").value;
 		var email = emailid + "@" + subid;
 		var r2 = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
+	console.log(emailid+"골뱅이듀"+subid);
 		console.log("test : " + r2.test(email));
 
 		if (r2.test(email)) {
