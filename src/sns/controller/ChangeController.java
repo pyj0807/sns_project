@@ -52,8 +52,8 @@ public class ChangeController {
 
 	@PostMapping("/change.do")
 	public String changePostHandle(@SessionAttribute Map user, @RequestParam Map map, WebRequest wr) {
-
-		String cp = (String) user.get("PASS");
+		Map mmm=accdao.accountselect((String)wr.getAttribute("userId", wr.SCOPE_SESSION));
+		String cp = (String) mmm.get("PASS");
 		String op = (String) map.get("opass");
 		String np = (String) map.get("npass");
 		String[] inter = wr.getParameterValues("interest");
@@ -80,7 +80,7 @@ public class ChangeController {
 			}
 		}
 
-		return "redirect:/change.do?op="+op+"&np="+np;
+		return "redirect:/change.do?passno=no";
 
 	}
 

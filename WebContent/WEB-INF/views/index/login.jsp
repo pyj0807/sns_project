@@ -91,7 +91,7 @@ button {
 						<label> </label>
 					</div>
 					<div>
-					<input type="checkbox"  name="dd" value="d"><b>1시간 로그인유지</b>
+					<input type="checkbox"  name="dd" value="d"><b>로그인유지</b>
 					</div>
 					<button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 300px;">Sign
 						in</button>
