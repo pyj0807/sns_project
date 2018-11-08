@@ -261,14 +261,16 @@ public class MyPageController {
 		// 관심사가 같은 회원 정보 뽑기
 		List<Map> allUserInfo = follow.getAllUserInfo(); // 모든회원정보
 		List<Map> sameInterUser = new ArrayList<>(); // 같은 관심사를 가진 회원이 담긴 리스트
+		int inteCnt = 0;
 		for (int i = 0; i < allUserInfo.size(); i++) {
 			boolean boo = allUserInfo.get(i).get("INTEREST").toString().contains(inte);
 			if (boo) {
 				sameInterUser.add(allUserInfo.get(i));
+				inteCnt++;
 			}
 		}
 		Map realSame = new HashMap<>();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < inteCnt-1; i++) {
 			int ran = (int) (Math.random() * sameInterUser.size());
 			if (realSame.containsValue(sameInterUser.get(ran)) || sameInterUser.get(ran).get("ID").equals(loginId)) {
 				i--;
@@ -276,6 +278,7 @@ public class MyPageController {
 				realSame.put(1 + i, sameInterUser.get(ran));
 			}
 		}
+		realSame.put("cnt", inteCnt-1);
 		return gson.toJson(realSame);
 	}
 
