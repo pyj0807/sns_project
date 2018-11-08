@@ -266,7 +266,37 @@ button:hover:before,button:hover:after{
 	<script >
 						$("#subid").on("click",function(){
 							console.log($("#subid").val());
-							
+							var emailid = document.getElementById("email01").value;
+							var subid = document.getElementById("email02").value;
+							var email = emailid + "@" + subid;
+							var r2 = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+						console.log(emailid+"골뱅이듀"+subid);
+							console.log("test : " + r2.test(email));
+
+							if (r2.test(email)) {
+								var req = new XMLHttpRequest();
+								req.open("get", "emailajax.do?email=" + email, true);
+								console.log("옴? 왜 안옴?");
+								req.onreadystatechange = function() {
+									if (this.readyState == 4) {
+										var m = JSON.parse(this.responseText);
+										console.log("m =" + m);
+										if (m.pass == "on") {
+											console.log("on");
+											document.getElementById("ckmail1").innerHTML = "이미 인증을 한 이메일입니다.";
+											document.getElementById("ckmail1").style.color = "red";
+										} else {
+											console.log("off")
+											document.getElementById("ckmail1").innerHTML = "인증 가능한 이메일입니다";
+											document.getElementById("ckmail1").style.color = "green";
+										}
+									}
+								}
+								req.send();
+							} else {
+								document.getElementById("ckmail1").innerHTML = "사용 불가능한 이메일 형식입니다";
+								document.getElementById("ckmail1").style.color = "red";
+							}
 						})
 						</script>
 <script type="text/javascript"
