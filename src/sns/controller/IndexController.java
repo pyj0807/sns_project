@@ -50,9 +50,10 @@ public class IndexController {
 	@RequestMapping("/index.do")
 	public String index(ModelMap modelmap, WebRequest wr,HttpServletRequest req,HttpServletResponse res) {
 
-		Cookie[] aa=  req.getCookies();
-		/*for(int i=0;i<aa.length;i++) {
-			if(aa[i].getName().equals("id")){
+		if(req.getCookies()!=null) {
+			Cookie[] aa=  req.getCookies();
+		for(int i=0;i<aa.length;i++) {
+			if(aa[i].getName().equals("idd")){
 				System.out.println("꺄르르>"+aa[i].getName()+"////"+aa[i].getValue());
 				Map user=accdao.accountselect(aa[i].getValue());
 				wr.setAttribute("userId",aa[i].getValue(), wr.SCOPE_SESSION);
@@ -60,8 +61,8 @@ public class IndexController {
 				wr.setAttribute("user",user, wr.SCOPE_SESSION);
 				wr.setAttribute("auth",aa[i].getValue(), wr.SCOPE_SESSION);
 			}
-		}*/
-		
+		}
+		}
 		// 메인접속시 몽고db board테이블 정보 뽑기
 		List<Map> list = boarddao.getAllBoard();
 		for (int i = 0; i < list.size(); i++) {
@@ -97,8 +98,8 @@ public class IndexController {
 	AlertService service;
 
 	@GetMapping("/login.do")
-	public String loginHandler() {
-
+	public String loginHandler(HttpServletRequest req,HttpServletResponse res) {
+		
 		return "/index/login";
 	}
 
@@ -133,9 +134,6 @@ public class IndexController {
 				service.sendOne(msgg, id);
 			}
 			sessions.put(id, session);
-			Cookie a =new Cookie("id", id);
-			a.setMaxAge(3600);
-			res.addCookie(a);
 
 			wr.setAttribute("userId", id, wr.SCOPE_SESSION);
 			wr.setAttribute("Id", log.get("ID"), wr.SCOPE_SESSION);
@@ -143,6 +141,9 @@ public class IndexController {
 			wr.setAttribute("auth", id, wr.SCOPE_SESSION);
 			wr.setAttribute("user", log, wr.SCOPE_SESSION);
 
+			Cookie a =new Cookie("idd", id);
+			a.setMaxAge(3600);
+			res.addCookie(a);
 			if (wr.getAttribute("dest", wr.SCOPE_SESSION) == null) { // dest:경로 입력했을때 주소저장
 				return "redirect:/index.do";
 			} else {
@@ -158,18 +159,20 @@ public class IndexController {
 	@GetMapping("logout.do")
 	public String logout(WebRequest wr, HttpSession session,HttpServletRequest req,HttpServletResponse res) {
 		/* sessions.get(id).invalidate(); */
-		Cookie[] a=req.getCookies();
-		for(int i=0;i<a.length;i++) {
-			if(a[i].getName().equals("id")) {
-				System.out.println("dfghdkshnkpsndfhpsgnpghnshnp");
-				a[i].setMaxAge(0);
-			}
-			
-		}
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		session.invalidate();
 		sessions.remove(id);
 		wr.removeAttribute("auth", wr.SCOPE_SESSION);
+		Cookie[] a=req.getCookies();
+	
+		for(int i=0;i<a.length;i++) {
+			
+				
+				a[i].setMaxAge(0);
+				res.addCookie(a[i]);
+			
+			
+		}
 		return "redirect:index.do";
 	}
 }

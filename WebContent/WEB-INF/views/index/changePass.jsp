@@ -60,7 +60,7 @@ div {
       <div class="form-group row">
          <label for="opass" class="col-sm-2 col-form-label">관심사</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" placeholder="${sessionScope.user.INTEREST }" disabled="disabled" />
+               <input type="text" class="form-control" placeholder="${intermy }" disabled="disabled" />
             </div>
       </div><div class="form-group row">
          <label for="opass" class="col-sm-2 col-form-label">관심사<br/> 변경</label>
