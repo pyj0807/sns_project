@@ -25,10 +25,11 @@ div {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원정보 변경</title>
 </head>
 <body style="text-align: center;">
    <div class="guide">
+
    <c:if test="${!empty intererr}">
    <div class="alert alert-danger" role="alert">
    관심사를 설정 안하셨습니다.
@@ -40,7 +41,6 @@ div {
 </div>
    </c:if>
    <div class="center-box">
-   <h4>Change Information</h4>
    
    
    <form

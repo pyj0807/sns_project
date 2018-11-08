@@ -140,10 +140,11 @@ public class IndexController {
 
 			wr.setAttribute("auth", id, wr.SCOPE_SESSION);
 			wr.setAttribute("user", log, wr.SCOPE_SESSION);
-
+			if(wr.getParameter("dd")!=null) {
 			Cookie a =new Cookie("idd", id);
 			a.setMaxAge(3600);
 			res.addCookie(a);
+			}
 			if (wr.getAttribute("dest", wr.SCOPE_SESSION) == null) { // dest:경로 입력했을때 주소저장
 				return "redirect:/index.do";
 			} else {

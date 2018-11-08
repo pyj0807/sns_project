@@ -65,31 +65,34 @@ button {
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <title>login</title>
 <body style="text-align: center;">
-	<div class="guide">
+	
 		<div class="center-box">
-			<div class="container">
+			<div class="container" align="center">
 				<form class="form-signin"
 					action="${pageContext.servletContext.contextPath }/login.do"
 					method="post">
 					<label>Login</label><i class="fas fa-sign-in-alt fa-2x"></i> <label
 						for="inputEmail" class="sr-only">아이디</label> <input type="text"
-						id="id" class="form-control" style="text-align: center; font-size: 25px;"
+						id="id" class="form-control"    style="  text-align: center; font-size: 25px; width: 300px;"
 						placeholder="아이디" name="id" required autofocus> <label
-						for="inputPassword" class="sr-only">비밀번호</label> <input
+						for="inputPassword" class="sr-only"style="padding-top: 20px">비밀번호</label> <input
 						type="password" id="pass" class="form-control"
-						style="text-align: center; font-size: 25px;" placeholder="비밀번호" name="pass"
+						style="text-align: center; font-size: 25px; width: 300px; margin-top: 10px" placeholder="비밀번호" name="pass"
 						required>
 					<div class="checkbox">
 						<label> </label>
 					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+					<div>
+					<input type="checkbox"  name="dd" value="d"><b>1시간 로그인유지</b>
+					</div>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 300px;">Sign
 						in</button>
 				<p style="text-align: center;">
 					계정이 없으십니까?  <a href="${pageContext.servletContext.contextPath }/join.do">가입</a>
 				</p>
 				</form>
 			</div>
-		</div>
+		
 	</div>
 
 </body>
