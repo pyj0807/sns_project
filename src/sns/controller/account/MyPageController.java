@@ -317,6 +317,7 @@ public class MyPageController {
 		Map map = new HashMap<>();
 		map.put("file", filename);
 		map.put("id", loginId);
+		follow.changePic(map); // 업데이트 매퍼 실행 
 		wr.setAttribute("loginPic", filename, wr.SCOPE_SESSION);
 		user.put("PROFILE_ATTACH", filename);
 		String newPic = (String) user.get("PROFILE_ATTACH");
