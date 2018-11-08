@@ -79,8 +79,11 @@ public class IndexController {
 	AlertService service;
 
 	@GetMapping("/login.do")
-	public String loginHandler() {
+	public String loginHandler(@RequestParam Map map,ModelMap model) {
 
+		if(map.get("nopass") != null) {
+			model.put("nopass", "on");
+		}
 		return "/index/login";
 	}
 
@@ -128,8 +131,7 @@ public class IndexController {
 				return "redirect:" + wr.getAttribute("dest", wr.SCOPE_SESSION);
 			}
 		} else {
-
-			return "/index/login";
+			return "redirect:/login.do?nopass=no";
 		}
 
 	}
