@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import com.google.gson.Gson;
 import com.sun.java.swing.plaf.windows.resources.windows;
 
 import sns.repository.BoardDao;
+import sns.repository.AccountDao;
 import sns.repository.AlertService;
 import sns.repository.LoingDao;
 
@@ -34,7 +38,9 @@ public class IndexController {
 	Gson gson;
 	@Autowired
 	LoingDao ldao;
-
+	
+	@Autowired
+	AccountDao accdao;
 	Map<String, HttpSession> sessions;
 
 	public IndexController() {
@@ -42,8 +48,20 @@ public class IndexController {
 	}
 
 	@RequestMapping("/index.do")
-	public String index(ModelMap modelmap, WebRequest wr) {
+	public String index(ModelMap modelmap, WebRequest wr,HttpServletRequest req,HttpServletResponse res) {
 
+		Cookie[] aa=  req.getCookies();
+		/*for(int i=0;i<aa.length;i++) {
+			if(aa[i].getName().equals("id")){
+				System.out.println("꺄르르>"+aa[i].getName()+"////"+aa[i].getValue());
+				Map user=accdao.accountselect(aa[i].getValue());
+				wr.setAttribute("userId",aa[i].getValue(), wr.SCOPE_SESSION);
+				wr.setAttribute("Id",aa[i].getValue(), wr.SCOPE_SESSION);
+				wr.setAttribute("user",user, wr.SCOPE_SESSION);
+				wr.setAttribute("auth",aa[i].getValue(), wr.SCOPE_SESSION);
+			}
+		}*/
+		
 		// 메인접속시 몽고db board테이블 정보 뽑기
 		List<Map> list = boarddao.getAllBoard();
 		for (int i = 0; i < list.size(); i++) {
@@ -85,7 +103,7 @@ public class IndexController {
 	}
 
 	@PostMapping("/login.do")
-	public String loginHandle(WebRequest wr, ModelMap map, HttpSession session) {
+	public String loginHandle(WebRequest wr, ModelMap map, HttpSession session,HttpServletRequest req,HttpServletResponse res) {
 
 		String id = (String) wr.getParameter("id");
 		String subid = (String) wr.getParameter("subid");
@@ -115,11 +133,14 @@ public class IndexController {
 				service.sendOne(msgg, id);
 			}
 			sessions.put(id, session);
+			Cookie a =new Cookie("id", id);
+			a.setMaxAge(3600);
+			res.addCookie(a);
 
 			wr.setAttribute("userId", id, wr.SCOPE_SESSION);
 			wr.setAttribute("Id", log.get("ID"), wr.SCOPE_SESSION);
 
-			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
+			wr.setAttribute("auth", id, wr.SCOPE_SESSION);
 			wr.setAttribute("user", log, wr.SCOPE_SESSION);
 
 			if (wr.getAttribute("dest", wr.SCOPE_SESSION) == null) { // dest:경로 입력했을때 주소저장
@@ -135,9 +156,17 @@ public class IndexController {
 	}
 
 	@GetMapping("logout.do")
-	public String logout(WebRequest wr, HttpSession session) {
-		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+	public String logout(WebRequest wr, HttpSession session,HttpServletRequest req,HttpServletResponse res) {
 		/* sessions.get(id).invalidate(); */
+		Cookie[] a=req.getCookies();
+		for(int i=0;i<a.length;i++) {
+			if(a[i].getName().equals("id")) {
+				System.out.println("dfghdkshnkpsndfhpsgnpghnshnp");
+				a[i].setMaxAge(0);
+			}
+			
+		}
+		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		session.invalidate();
 		sessions.remove(id);
 		wr.removeAttribute("auth", wr.SCOPE_SESSION);
