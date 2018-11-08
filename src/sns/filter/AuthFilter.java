@@ -16,7 +16,7 @@ public class AuthFilter extends HttpFilter {
 			throws IOException, ServletException {
 		//1.세션뽑기
 		HttpSession session = req.getSession();
-		Boolean logincondition = (Boolean)session.getAttribute("auth");
+		String logincondition = (String)session.getAttribute("auth");
 		
 		String uri = req.getRequestURI().substring(12);
 		String query = req.getQueryString();

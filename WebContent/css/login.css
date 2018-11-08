@@ -1,12 +1,6 @@
 @charset "UTF-8";
-.guide {
-    position: relative;   
-    width: 20%;
-    height: 350px;
-    border: 5px solid #999;
-    background: #fff;
-    margin: 325px auto;
-}
+
+
 .center-box {
     position: absolute;   
     width: 70%;
@@ -16,4 +10,5 @@
     left: 0;              
     right: 0;             
     margin: auto;  
+    align-content: center;
 }
