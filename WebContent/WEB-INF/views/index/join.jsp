@@ -32,6 +32,7 @@ span{
 	width:400px;
 	/* width: 350px; */
 	background-color: #FFFFFF;
+	font-size: 25px;
 }
 label{
 	font-size: 38px;
@@ -119,6 +120,11 @@ button:hover:before,button:hover:after{
 	<span class="border">
     <div class="col-sm" style="margin-top: 60px; margin-bottom: 60px;">
 		<form class="form-signin" align="center" action="${pageContext.servletContext.contextPath }/join.do" method="post">
+			  <c:if test="${!empty nojoin}">
+				<div class="alert alert-danger" role="alert">
+				가입에 실패했습니다
+				</div>
+				</c:if>
 			<div class="join">
 				<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
 					<input name="id" id="id" type="text" style="margin-bottom: 10px; text-align: center; font-size: 25px; " placeholder="아이디 " class="form-control"
@@ -152,7 +158,7 @@ button:hover:before,button:hover:after{
 
 								
 								<button type="button" id="emailauth" style="margin: 10px 10px">번호받기</button>
-								<small id="ckmail1"></small> <input type="text" id="confirm"
+								<small id="ckmail1"></small> <input type="text" id="confirm" 
 									class="form-control" name="confirm" placeholder="인증번호" style="margin-bottom: 10px; text-align: center; " >
 								<button type="button" id="confirmok" disabled="disabled"
 									required style="margin-bottom: 20px" >인증하기</button>

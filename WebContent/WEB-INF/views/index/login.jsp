@@ -64,8 +64,14 @@ button {
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <title>login</title>
+
 <body style="text-align: center;">
 	<div class="guide">
+	<c:if test="${!empty nopass}">
+	<div class="alert alert-danger" role="alert">
+	아이디 또는 비밀번호가 틀렸습니다.
+	</div>
+	</c:if>
 		<div class="center-box">
 			<div class="container">
 				<form class="form-signin"

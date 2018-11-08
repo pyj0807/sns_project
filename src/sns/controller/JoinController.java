@@ -33,10 +33,14 @@ public class JoinController {
 	Gson gson;
 
 	@GetMapping("/join.do")
-	public String joinGetHandle(ModelMap map) {
+	public String joinGetHandle(ModelMap map,@RequestParam Map param) {
 		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,애견,기타,".split(",");
 		map.put("interest", data);
-
+		
+		if(param.get("nojoin") != null) {
+			map.put("nojoin", "on");
+		}
+		
 		return "index/join";
 	}
 
@@ -60,7 +64,6 @@ public class JoinController {
 		String[] interest = wr.getParameterValues("interest");
 		String inter = Arrays.toString(interest);
 
-
 		Map data = new HashMap<>();
 		data.put("id", id);
 		data.put("subid", subid);
@@ -72,15 +75,18 @@ public class JoinController {
 
 		data.put("gender", gender);
 		data.put("interest", inter);
+		System.out.println(data);
 
 		try {
 			int a = jdao.addAccount(data);
 
-			return "redirect:/index.do";
+			return "redirect:/login.do";
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
-			return "redirect:/join.do";
+			
+			return "redirect:/join.do?nojoin=no";
 		}
 
 	}
