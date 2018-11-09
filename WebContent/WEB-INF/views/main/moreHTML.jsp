@@ -9,7 +9,7 @@
 			<c:when test="${p == 'video'}">
 				<!-- 타입이비디오일경우 -->
 				<div class="col-md-4">
-					<div class="card mb-4 shadow-sm">
+					<div class="card mb-4 shadow-sm"> 
 						<article>
 							<div class="thumbImg" style="width: auto; height: 250px;">
 								<c:forEach var="v" begin="0" end="0" items="${i.file_attach  }">

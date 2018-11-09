@@ -37,7 +37,7 @@ public class IndexController {
 	@Autowired
 	Gson gson;
 	@Autowired
-	LoingDao ldao;
+	LoingDao ldao; 
 	
 	@Autowired
 	AccountDao accdao;

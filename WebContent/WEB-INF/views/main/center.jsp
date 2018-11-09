@@ -266,6 +266,6 @@ article:hover .links {
 	$(function(){
 		$("html, body").animate({ scrollTop: 0 }, "slow"); 
 	});
-</script>
+</script> 
 
 

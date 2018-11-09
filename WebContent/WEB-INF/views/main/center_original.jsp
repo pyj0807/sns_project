@@ -16,7 +16,7 @@ video {
 	width: 400px;
 	max-height: 100%;
 	height: 300px;
-}
+} 
 </style>
 <style>
 .photo {
