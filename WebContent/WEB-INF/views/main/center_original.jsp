@@ -48,7 +48,7 @@ article:hover .links {
 	width: 350px;
 	height: 250px;
 	opacity: 1;
-	transition: .5s ease;
+	transition: .5s ease; 
 }
 
 .icon {
