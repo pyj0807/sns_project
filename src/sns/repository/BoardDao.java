@@ -66,7 +66,23 @@ public class BoardDao {
 	//board테이블에서  파라미터로 Hashcode 뽑기 
 	public List<Map> getBoardHash(String[] hashtag){
 		Query query = new Query(Criteria.where("hashcode").in(hashtag));
-		return template.find(query, Map.class, "board");
+		List<Map> list = template.find(query, Map.class, "board");
+		//뽑아온 list 내림차순정렬
+			list.sort(new Comparator<Map>() {
+				@Override
+				public int compare(Map o1, Map o2) {
+					long n1 = (long)o1.get("time"); //time숫자가 클수록 최근
+					long n2 = (long)o2.get("time");	
+					if(n1>n2) {//2번째>1번째 
+						return -1; //-1내림
+					}else if(n1<n2){
+						return 1; //1오름
+					}else {
+						return 0;
+					}
+				}
+			});
+			return list;
 	}
 	
 	//reply 달기
