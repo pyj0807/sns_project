@@ -253,7 +253,7 @@ article:hover .links {
 				//스크롤이 맨아래로 갔는지 아닌지 확인하는 if문
 /* 				console.log("scrolHeight:"+scrollHeight); //현재
 					console.log("DocumentHeight:"+documentHeight); //전체 */
-					if (scrollHeight + 2 > documentHeight && scrollHeight!=documentHeight) { //페이지를 넘어갈때	
+					if (scrollHeight + 5 > documentHeight && scrollHeight!=documentHeight) { //페이지를 넘어갈때	
 					$.get("${pageContext.servletContext.contextPath}/moreHtml.do?p="+p,function(rst) {
 						$("#album").append(rst); //rowid
 						p++;
