@@ -293,23 +293,41 @@ article:hover .links {
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4) {
 				var obj = JSON.parse(this.responseText);
-				console.log(obj); 
+				console.log(obj.cnt); 
 				var html = "";
 				html += "<div class=\"ui horizontal list\">";
-				for (var i = 1; i <= 3; i++) {
-					html += "<div class=\"item\">";
-					html += "<img class=\"ui avatar image\" src=\"${pageContext.servletContext.contextPath }/pic/";
-					html += obj[i].PROFILE_ATTACH;
-					html += "\" class=\"photo\" style=\"width: 30px; height: 30px;\"> <div class=\"content\">";
-					html += "<div><a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
-					html += obj[i].ID;
-					html += "\">";
-					html += obj[i].ID;
-					html += "(";
-					html += obj[i].NAME;
-					html += ")</a></div>";
-					html += obj[i].INTEREST;
-					html += "</div></div>";
+				if(obj.cnt<3){
+					for (var i = 1; i <= obj.cnt; i++) {
+						html += "<div class=\"item\">";
+						html += "<img class=\"ui avatar image\" src=\"${pageContext.servletContext.contextPath }/pic/";
+						html += obj[i].PROFILE_ATTACH;
+						html += "\" class=\"photo\" style=\"width: 30px; height: 30px;\"> <div class=\"content\">";
+						html += "<div><a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
+						html += obj[i].ID;
+						html += "\">";
+						html += obj[i].ID;
+						html += "(";
+						html += obj[i].NAME;
+						html += ")</a></div>";
+						html += obj[i].INTEREST;
+						html += "</div></div>"; 
+					}
+				}else{
+					for (var i = 1; i <= 3; i++) {
+						html += "<div class=\"item\">";
+						html += "<img class=\"ui avatar image\" src=\"${pageContext.servletContext.contextPath }/pic/";
+						html += obj[i].PROFILE_ATTACH;
+						html += "\" class=\"photo\" style=\"width: 30px; height: 30px;\"> <div class=\"content\">";
+						html += "<div><a href=\"${pageContext.servletContext.contextPath }/account.do?id=";
+						html += obj[i].ID;
+						html += "\">";
+						html += obj[i].ID;
+						html += "(";
+						html += obj[i].NAME;
+						html += ")</a></div>";
+						html += obj[i].INTEREST;
+						html += "</div></div>"; 
+					}
 				}
 				html += "</div>";
 				document.getElementById("inte").innerHTML = html;

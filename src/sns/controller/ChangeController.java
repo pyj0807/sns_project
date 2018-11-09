@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.sun.java.swing.plaf.windows.resources.windows;
 
+import sns.repository.AccountDao;
 import sns.repository.ChangePassDao;
 
 @Controller
@@ -22,11 +23,16 @@ public class ChangeController {
 
 	@Autowired
 	ChangePassDao cpdao;
+	
+	@Autowired
+	AccountDao accdao;
 
 	@GetMapping("/change.do")
-	public String changeGetHandle(Map map, @RequestParam Map ma, ModelMap model) {
+	public String changeGetHandle(Map map, @RequestParam Map ma, ModelMap model,WebRequest wr) {
 		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,애견,기타,".split(",");
 		map.put("interest", data);
+		Map mmm=accdao.accountselect((String)wr.getAttribute("userId", wr.SCOPE_SESSION));
+		model.put("intermy", mmm.get("INTEREST"));
 		if (ma.get("internone") != null) {
 			model.put("intererr", "on");
 		}
@@ -34,14 +40,20 @@ public class ChangeController {
 		if (ma.get("passno") != null) {
 			model.put("passno", "on");
 		}
+		if(ma.get("op")!=null) {
+			model.put("pass", ma.get("op"));
+		}
+		if(ma.get("np")!=null) {
+			model.put("pass1", ma.get("np"));
+		}
 
 		return "index/changePass";
 	}
 
 	@PostMapping("/change.do")
 	public String changePostHandle(@SessionAttribute Map user, @RequestParam Map map, WebRequest wr) {
-
-		String cp = (String) user.get("PASS");
+		Map mmm=accdao.accountselect((String)wr.getAttribute("userId", wr.SCOPE_SESSION));
+		String cp = (String) mmm.get("PASS");
 		String op = (String) map.get("opass");
 		String np = (String) map.get("npass");
 		String[] inter = wr.getParameterValues("interest");
@@ -53,10 +65,10 @@ public class ChangeController {
 		passmap.put("interest", interest);
 		if (op.length() < 1 || np.length() < 1) {
 
-			return "redirect:/change.do?passno=no";
+			return "redirect:/change.do?passno=no&op="+op+"&np="+np;
 		}
 		if (inter == null) {
-			return "redirect:/change.do?internone=nono";
+			return "redirect:/change.do?internone=nono&op="+op+"&np="+np;
 		}
 
 		if (op.equals(cp)) {
@@ -68,7 +80,7 @@ public class ChangeController {
 			}
 		}
 
-		return "redirect:/change.do";
+		return "redirect:/change.do?passno=no";
 
 	}
 

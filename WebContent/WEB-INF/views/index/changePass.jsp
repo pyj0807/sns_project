@@ -25,10 +25,11 @@ div {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원정보 변경</title>
 </head>
 <body style="text-align: center;">
    <div class="guide">
+
    <c:if test="${!empty intererr}">
    <div class="alert alert-danger" role="alert">
    관심사를 설정 안하셨습니다.
@@ -40,7 +41,6 @@ div {
 </div>
    </c:if>
    <div class="center-box">
-   <h4>Change Information</h4>
    
    
    <form
@@ -60,7 +60,7 @@ div {
       <div class="form-group row">
          <label for="opass" class="col-sm-2 col-form-label">관심사</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" placeholder="${sessionScope.user.INTEREST }" disabled="disabled" />
+               <input type="text" class="form-control" placeholder="${intermy }" disabled="disabled" />
             </div>
       </div><div class="form-group row">
          <label for="opass" class="col-sm-2 col-form-label">관심사<br/> 변경</label>

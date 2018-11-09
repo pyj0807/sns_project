@@ -71,6 +71,7 @@ public class JoinController {
 		data.put("pass", pass);
 		data.put("name", name);
 		data.put("birth", birth);
+		data.put("attach", "01.jpg");
 		// data.put("day", day);
 
 		data.put("gender", gender);

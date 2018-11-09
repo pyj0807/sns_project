@@ -4,7 +4,7 @@
 <mapper namespace="account"><!-- 패키지같은느낌 -->
 	
 	<insert id="addAccount" parameterType="java.util.HashMap">
-		insert into account values(#{email}, #{id},'하이', #{pass}, #{name}, to_date(#{birth},'yyyy-mm-dd'), #{gender}, #{interest} )
+		insert into account values(#{email}, #{id},#{attach}, #{pass}, #{name}, to_date(#{birth},'yyyy-mm-dd'), #{gender}, #{interest} )
 	</insert>
 	
 	<select id="login" resultType="java.util.HashMap" parameterType="java.util.HashMap">

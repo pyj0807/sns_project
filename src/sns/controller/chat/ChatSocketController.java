@@ -86,6 +86,8 @@ public class ChatSocketController extends TextWebSocketHandler {
 		map.put("sendtime", sf.format(time));
 		map.put("readid", a);
 		map.put("receive", otherId);
+		map.put("userId",(String)map.get("id") );
+		System.out.println("진짜꺄르르르르>>"+map.get("id"));
 		mongochat.insertfreechat(map);
 
 		String str = gson.toJson(map);

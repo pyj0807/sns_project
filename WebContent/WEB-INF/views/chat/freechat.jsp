@@ -309,12 +309,17 @@ article:hover .links {
 
 <hr/>
 <br/>
-
-<c:forEach var="v" items="${clubmyAll }">
+<br/>
 <div align="center">
+
 <a
 								href="${pageContext.servletContext.contextPath }/club/create.do"
 								class="btn btn-primary">오픈채팅방 만들기</a>
+</div>
+<br/>
+
+<c:forEach var="v" items="${clubmyAll }">
+<div align="center">
 			</div>					
 			<ul class="list-unstyled" >
   <li class="media" >
