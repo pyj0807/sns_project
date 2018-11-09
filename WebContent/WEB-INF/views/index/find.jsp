@@ -121,7 +121,7 @@ button:hover:before,button:hover:after{
 </c:if><br/>
 <label style="padding-top: 50px; " >ID 확인</label><br/>
 
-	<input id="ID"> <br/>
+	<input id="ID" value="${realid}" style="text-align: center;"> <br/>
 	<div style="padding-top: 10px;padding-bottom: 10px">
 	<button type="button" id="IDfind" >확인</button>
 	</div>
@@ -148,7 +148,7 @@ button:hover:before,button:hover:after{
 </p>
 <p>
 <div>▼답변▼</div>
-<input name="answer" id="answer">
+<input name="answer" id="answer"style="text-align: center;">
 </p>
 	<button type="submit" id="sub">찾기</button>
 </form>

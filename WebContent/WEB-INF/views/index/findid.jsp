@@ -155,8 +155,10 @@ button:hover:before,button:hover:after{
 					</div>
 					<p style="text-align: center;">
 					<a href="${pageContext.servletContext.contextPath }/login.do">로그인</a>|
-					<a href="${pageContext.servletContext.contextPath }/login.do">비밀번호 찾기 </a>
+					<a href="#" id="passfind">비밀번호 찾기 </a>
 					</p>	
+					
+					<input value="" id="realid" type="hidden">
 				</form>
 		    	</div>
 		    </span>
@@ -170,6 +172,13 @@ button:hover:before,button:hover:after{
 </html>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+$("#passfind").on("click",function(){
+	window.location.href=("${pageContext.servletContext.contextPath }/find.do?realid="+$("#idview").val());
+	
+})
+</script>	
+
 <script>
 
 	//이메일 정규식
@@ -193,7 +202,8 @@ button:hover:before,button:hover:after{
 						console.log("on");
 						document.getElementById("ckmail1").innerHTML = "인증 가능한 이메일 입니다.";
 						document.getElementById("ckmail1").style.color = "green";
-						$("#idview").attr("value",m.id);
+						console.log("진짜임꺄르르"+m.id);
+						$("#realid").attr("value",m.id);
 						
 						
 					}else{
@@ -276,6 +286,7 @@ button:hover:before,button:hover:after{
 		//인증
 		$("#idconfirmok").on("click",function() {
 				console.log("오냐?")
+				console.log("꺄르르르르르르"+$("#realid").val());
 				var param = {"confirmkey" : $("#confirm").val()};
 				console.log($("#confirm").val());
 				$.post("${pageContext.servletContext.contextPath}/idemailauth.do",param).done(function(rst) {
@@ -288,6 +299,8 @@ button:hover:before,button:hover:after{
 						$("#idconfirmok").prop("disabled", true);
 						$("#email11").prop("readonly",true);
 						$("#email12").prop("readonly",true);
+						$("#idview").attr("value",$("#realid").val());
+						
 					} else {
 						document.getElementById("ckmail2").innerHTML = "인증실패";
 						document.getElementById("ckmail2").style.color = "red";

@@ -33,6 +33,11 @@ public class FindIdPasscontroller {
 	
 	@GetMapping("/find.do")
 	public String findpass(@RequestParam Map mm,ModelMap model) {
+		String id="";
+		if(mm.get("realid")!=null) {
+			id=(String)mm.get("realid");
+		}
+		model.put("realid", id);
 		if(mm.get("CCCUE")!=null) {
 			System.out.println("이게 모드다>>"+mm.get("CCCUE"));
 			model.put("CCUE", "on");

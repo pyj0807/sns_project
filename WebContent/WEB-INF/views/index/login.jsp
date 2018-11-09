@@ -106,7 +106,7 @@ button {
 					계정이 없으십니까?  <a href="${pageContext.servletContext.contextPath }/join.do">가입</a>
 				</p>
 				<p style="text-align: center;">
-					아이디를 잊어버리셨습니까? <a href="${pageContext.servletContext.contextPath }/join.do">ID</a> | <a href="${pageContext.servletContext.contextPath }/find.do">PASS</a>
+					아이디를 잊어버리셨습니까? <a href="${pageContext.servletContext.contextPath }/findid.do">ID</a> | <a href="${pageContext.servletContext.contextPath }/find.do">PASS</a>
 				</p>
 				</form>
 			</div>
