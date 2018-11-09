@@ -93,7 +93,7 @@ public class IndexController {
 	}
 	
 	//무한스크롤
-	  @RequestMapping("/moreHtml.do")
+	  @RequestMapping("/moreHtml.do") 
       public String moreHtml(ModelMap modelmap, @RequestParam(required=false) String p) {
       
          List<Map> list = boarddao.getAllBoard();

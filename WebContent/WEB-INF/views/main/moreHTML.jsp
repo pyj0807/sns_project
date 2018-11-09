@@ -137,7 +137,7 @@
 					.eq(1)
 					.html("<img src=\"${pageContext.servletContext.contextPath }/img/comment.png\" class=\"icon\"> "
 						+ rst.length);
-		});
+		}); 
 	});
 	flag=${more};
 </script>
