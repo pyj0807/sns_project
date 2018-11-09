@@ -37,7 +37,7 @@
   	
   </filter-mapping>
   <session-config>
-  <session-timeout>60</session-timeout>
+  <session-timeout>1</session-timeout>
   </session-config>
   
   <!-- The front controller of this Spring Web application, responsible for handling all application requests -->
