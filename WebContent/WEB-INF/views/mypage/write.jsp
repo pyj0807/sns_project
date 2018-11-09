@@ -34,7 +34,7 @@
 			<p>
 				글내용(<span style="color: blue;">*</span>) <small>200자 제한</small><br />
 				<textarea name="content"   onKeyup="len_chk()" style="height: 170px; width: 320px; padding: 5px; resize: none; font-family: inherit;"
-					placeholder="무슨 생각을 하고 계신가요?"></textarea>
+					placeholder="무슨 생각을 하고 계신가요?" id="content_search"></textarea>
 			</p>
 			<p>
 				관심사(<span style="color: blue;">*</span>)<br/>

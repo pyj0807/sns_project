@@ -51,8 +51,14 @@ public class IndexController {
 			long lasttime = (System.currentTimeMillis() - writetime) / (1000); // 초!
 			list.get(i).put("lasttime", lasttime);
 		}
-
-		modelmap.put("board_list", list);
+		//리스트 9개만 보여주는것
+		if(list.size()<=9) {
+			modelmap.put("board_list", list);			
+			modelmap.put("more", false);
+		}else {
+			modelmap.put("board_list", list.subList(0, 9));
+			modelmap.put("more", true);
+		}
 		/*
 		 * if (wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
 		 * 
@@ -66,7 +72,38 @@ public class IndexController {
 		return "sns.home";
 		/* } */
 	}
+	
+	//무한스크롤
+	  @RequestMapping("/moreHtml.do")
+      public String moreHtml(ModelMap modelmap, @RequestParam(required=false) String p) {
+      
+         List<Map> list = boarddao.getAllBoard();
+         for (int i = 0; i < list.size(); i++) {
+            long writetime = (long) list.get(i).get("time");
+            long lasttime = (System.currentTimeMillis() - writetime) / (1000); // 초!
+            list.get(i).put("lasttime", lasttime);
+         }
+         
+         int b1 = (list.size()%9)== 0 ? list.size()/9-1 : (list.size()/9); // 글이 38개 , 4 page 
 
+         int page = Integer.parseInt(p);
+         System.out.println(page);
+               
+    	if(page < b1) { //page는 1부터
+          modelmap.put("board_list", list.subList(page*9,(page+1)*9));
+          modelmap.put("more", true);
+    	 }else { //마지막페이지이면
+    		System.out.println("hello !!world");
+          modelmap.put("board_list", list.subList(page*9,list.size()));
+          //page =1 이면 (10,19), 2이면 (19,28)
+          modelmap.put("more", false);
+    	}
+         
+         return "main/moreHTML";
+      }
+
+	
+	
 	@ResponseBody
 	@PostMapping(path = "/indexAjax.do", produces = "application/json;charset=UTF-8")
 	public String indexAjax(@RequestParam int room_no) {
