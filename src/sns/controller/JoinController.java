@@ -53,7 +53,9 @@ public class JoinController {
 		String email = emailid + "@" + subid;
 		String pass = (String) param.get("pass");
 		String name = (String) param.get("name");
-
+		String question =(String)param.get("qeustion");
+		String answer =(String)param.get("answer");
+		
 		String yy = (String) param.get("yy");
 		String mm = (String) param.get("mm");
 		String dd = (String) param.get("dd");
@@ -72,6 +74,11 @@ public class JoinController {
 		data.put("name", name);
 		data.put("birth", birth);
 		data.put("attach", "01.jpg");
+		data.put("question",question);
+		data.put("answer", answer);
+		System.out.println("question>>>>"+question);
+		System.out.println("answer>>>>>>"+answer);
+		
 		// data.put("day", day);
 
 		data.put("gender", gender);

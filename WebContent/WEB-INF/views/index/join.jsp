@@ -245,6 +245,20 @@ button:hover:before,button:hover:after{
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
+									<label>질문<small>(ID,PASS 찾기용)</small></label>
+									<br/>
+									<select name="qeustion" style="width: 300px; height: 40px; font-size: 20px">
+									<option value="내 보물 1호" style="font-size: 20px">내 보물 1호</option>
+									<option value="내가 졸업한 초등학교는?">내가 졸업한 초등학교는?</option>
+									<option value="내가존경하는 인물(위인)">내가존경하는 인물(위인)</option>
+									<option value="내가 감명깊게 읽은 책">내가 감명깊게 읽은 책</option>
+									<option value="내 첫사랑의 이름은?">내 첫사랑의 이름은?</option>
+									<option value="내가 태어난 지역">내가 태어난 지역</option>
+									<option value="아버지의 성함은?">아버지의 성함은?</option>
+									</select>
+									<br/>
+									<label>답변 </label> <br/>
+									<input style="width: 300px; height: 40px; font-size: 20px; align-content: center;" name="answer">
 								</div>
 							</div>
 							<button type="submit" id="btnsubmit">가입</button>

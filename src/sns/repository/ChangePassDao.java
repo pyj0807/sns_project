@@ -15,4 +15,10 @@ public class ChangePassDao {
 	public int changePass(Map map) {
 		return template.update("account.changePass", map);
 	}
+	
+	
+	
+	public int newchangepass(Map map) {
+		return template.update("account.newchangePass",map);
+	}
 }

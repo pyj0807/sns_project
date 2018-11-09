@@ -100,6 +100,10 @@ public class IndexController {
 	@GetMapping("/login.do")
 
 	public String loginHandler(HttpServletRequest req,HttpServletResponse res,ModelMap modelmap, WebRequest wr) {
+		
+		if(wr.getParameter("newpass")!=null) {
+			modelmap.put("newpass", "on");
+		}
 		if(req.getCookies()!=null) {
 			Cookie[] aa=  req.getCookies();
 		for(int i=0;i<aa.length;i++) {
