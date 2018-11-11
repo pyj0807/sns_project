@@ -167,7 +167,7 @@ button:hover:before,button:hover:after{
 
 								
 								<div class="join_row join_birthday">
-									<label>생년월인</label><i class="fas fa-birthday-cake fa-2x"></i>
+									<label>생년월일</label><i class="fas fa-birthday-cake fa-2x"></i>
 									<div class="bir_wrap" required>
 										<div class="bir_yy" style="font-size: 30px; text-align: center;">
 											<span class="ps_box"> <input type="text" name="yy" class="form-control" style="width: 100px; display:inline-block; text-align: center;"
