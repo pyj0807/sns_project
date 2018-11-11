@@ -126,20 +126,20 @@ button:hover:before,button:hover:after{
 				</div>
 				</c:if>
 			<div class="join">
-				<label>아이디</label><i class="far fa-user-circle fa-2x"></i><br/>
+				<label>아이디</label><i class="far fa-user-circle"></i><br/>
 					<input name="id" id="id" type="text" style="margin-bottom: 10px; text-align: center; font-size: 25px; " placeholder="아이디 " class="form-control"
 									onkeyup="checkId(this.value);" required><span
 									id="idspan" style="margin-bottom: 20px; text-align: center;" ></span><br/>
 								
-								<label>비밀번호</label><i class="fas fa-unlock-alt fa-2x"></i><br/>
+								<label>비밀번호</label><i class="fas fa-unlock-alt"></i><br/>
 								<input name="pass" id="pass" type="password" maxlength="20" class="form-control"
 									placeholder="비밀번호" required style="margin-bottom: 20px; text-align: center;"  > <br />
-								<label>이름</label><i class="fas fa-user-circle fa-2x"></i><br/>
+								<label>이름</label><i class="fas fa-user-circle"></i><br/>
 								<input name="name" id="name" type="text" maxlength="20" class="form-control"
 									placeholder="이름" required style="margin-bottom: 20px; text-align: center; font-size: 25px;" > <br />
 								
 								<div>
-								<label>이메일 인증</label><i class="far fa-envelope fa-2x"></i><br/>
+								<label>이메일 인증</label><i class="far fa-envelope"></i><br/>
 								<input type="text" name="email01" id="email01" class="form-control" style="width: 100px; display:inline-block;" 
 									onkeyup="checkEmailID(this.value);" >
 									@ 
@@ -167,7 +167,7 @@ button:hover:before,button:hover:after{
 
 								
 								<div class="join_row join_birthday">
-									<label>생년월인</label><i class="fas fa-birthday-cake fa-2x"></i>
+									<label>생년월인</label><i class="fas fa-birthday-cake"></i>
 									<div class="bir_wrap" required>
 										<div class="bir_yy" style="font-size: 30px; text-align: center;">
 											<span class="ps_box"> <input type="text" name="yy" class="form-control" style="width: 100px; display:inline-block; text-align: center;"
@@ -226,7 +226,7 @@ button:hover:before,button:hover:after{
 									</div>
 								</div>
 
-								<label>성별</label><i class="fas fa-venus-mars fa-2x"></i>
+								<label>성별</label><i class="fas fa-venus-mars"></i>
 								<div  style="margin-bottom: 20px">
 								<input type=radio id="gender" name="gender" value=M> <i class="fas fa-male fa-2x"></i> 
 								<input type=radio id="gender" name="gender" value=F> <i class="fas fa-female fa-2x"></i> 
@@ -245,9 +245,11 @@ button:hover:before,button:hover:after{
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-									<label>질문<small>(ID,PASS 찾기용)</small></label>
 									<br/>
-									<select name="qeustion" style="width: 300px; height: 40px; font-size: 20px">
+								</div>
+								<div style="margin-bottom: 20px;">
+									<label>질문<small>(ID,PASS 찾기용)</small></label><i class="far fa-question-circle"></i>
+									<select class="form-control" name="qeustion" style="font-size: 20px; text-align: center;" >
 									<option value="내 보물 1호" style="font-size: 20px">내 보물 1호</option>
 									<option value="내가 졸업한 초등학교는?">내가 졸업한 초등학교는?</option>
 									<option value="내가존경하는 인물(위인)">내가존경하는 인물(위인)</option>
@@ -256,12 +258,11 @@ button:hover:before,button:hover:after{
 									<option value="내가 태어난 지역">내가 태어난 지역</option>
 									<option value="아버지의 성함은?">아버지의 성함은?</option>
 									</select>
-									<br/>
-									<label>답변 </label> <br/>
-									<input style="width: 300px; height: 40px; font-size: 20px; align-content: center;" name="answer">
+									<label>답변 </label><i class="far fa-check-circle"></i><br/>
+									<input class="form-control" style="font-size: 20px; align-content: center;" name="answer">
 								</div>
-							</div>
 							<button type="submit" id="btnsubmit">가입</button>
+							</div>
 						</form>
 					</div>
 					<p style="text-align: center;">
