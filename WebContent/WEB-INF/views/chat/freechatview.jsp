@@ -34,7 +34,7 @@
 
 
 
-<div style="overflow:scroll;overflow-x:hidden;max-height:600px;"
+<div style="overflow:scroll;overflow-x:hidden;height:600px;"
 	id="chatView" >
 	<c:forEach var="v" items="${allchat }">
 
