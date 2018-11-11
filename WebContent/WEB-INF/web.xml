@@ -36,9 +36,9 @@
  <!--  	<url-pattern>/account.do</url-pattern> -->
   	
   </filter-mapping>
-  <session-config>
+ <!--  <session-config>
   <session-timeout>1</session-timeout>
-  </session-config>
+  </session-config> -->
   
   <!-- The front controller of this Spring Web application, responsible for handling all application requests -->
 	<servlet>

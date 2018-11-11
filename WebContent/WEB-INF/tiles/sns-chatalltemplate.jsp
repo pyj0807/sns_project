@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
+<title>우리들의 이야기</title>
 <style>
 div {
 	font-family: 'Nanum Pen Script', cursive;

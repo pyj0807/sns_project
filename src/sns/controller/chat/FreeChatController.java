@@ -56,7 +56,7 @@ public class FreeChatController {
 	@RequestMapping("/freechat.do")
 	public String freechatController(ModelMap map, WebRequest wr, @RequestParam Map ww) {
 		List li = new ArrayList<>();
-		li = chatdao.followchatgetall((String) wr.getAttribute("Id", wr.SCOPE_SESSION));
+		li = chatdao.followchatgetall((String) wr.getAttribute("userId", wr.SCOPE_SESSION));
 
 		if (ww.get("zz") != null) {
 			wr.setAttribute("cluballon", ww.get("cluballon"), wr.SCOPE_REQUEST);
@@ -168,7 +168,7 @@ public class FreeChatController {
 	@GetMapping("/freechatview.do")
 	public String freechatviewController(ModelMap map, @RequestParam Map pp, WebRequest wr) {
 
-		String id = (String) wr.getAttribute("Id", wr.SCOPE_SESSION);
+		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		String id2 = (String) pp.get("id");// 상대아이디
 
 		mongochat.removecount(id, (String) wr.getAttribute("Id", wr.SCOPE_SESSION), id2);

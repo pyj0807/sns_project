@@ -73,7 +73,19 @@ public class ClubChat {
 	}
 
 	@GetMapping("/create.do")
-	public String clubcreate() {
+	public String clubcreate(@RequestParam Map map,ModelMap model) {
+		if(map.get("length")!=null) {
+			model.put("length", "on");
+		}
+		if(map.get("notnull")!=null) {
+			model.put("notnull", "on");
+		}
+		
+		if(map.get("attachnull")!=null) {
+			model.put("attachnull", "on");
+		}
+		
+		
 
 		return "club.chat.create";
 	}
@@ -82,6 +94,25 @@ public class ClubChat {
 	public String clubcreateon(@RequestParam String info, @RequestParam MultipartFile attach, WebRequest wr)
 			throws IllegalStateException, IOException {
 
+		
+		if(info.length()<1) {
+			return "redirect:/club/create.do?length=on";
+		}
+		List<Map> lll=clubmongo.getAllclub(info);
+		for(int i=0; i<lll.size();i++) {
+			System.out.println(lll.get(i).get("_id")+" 뀨?");
+			if(lll.get(i).get("_id").equals(info)) {
+				return "redirect:/club/create.do?notnull=on";
+			}
+		}
+		
+		if(attach.getSize()<10) {
+			return "redirect:/club/create.do?attachnull=on";
+		}
+		
+		
+		
+		
 		Map map = new LinkedHashMap<>();
 		List human = new ArrayList<>();
 

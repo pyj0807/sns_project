@@ -1,13 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<c:if test="${!empty length }">
+<div style="padding-top: 50px;">
+ <div class="alert alert-danger" role="alert" align="center" style="align-content: center;" >
+	 방제목을 작성하지 않으셨습니다.
+</div>
+</div>
+</c:if>
+
+<c:if test="${!empty notnull }">
+<div style="padding-top: 50px;">
+ <div class="alert alert-danger" role="alert" align="center" style="align-content: center;" >
+	 생성된 방제목입니다.
+</div>
+</div>
+</c:if>
+
+<c:if test="${!empty attachnull }">
+<div style="padding-top: 50px;">
+ <div class="alert alert-danger" role="alert" align="center" style="align-content: center;" >
+	 사진을 설정하지 않으셨습니다.
+</div>
+</div>
+</c:if>
+
 
 
 

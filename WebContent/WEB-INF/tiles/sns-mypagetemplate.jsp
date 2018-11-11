@@ -34,7 +34,7 @@ div {
 	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>우이</title>
+<title>우리들의 이야기</title>
 </head>
 <body>
 	<div>
