@@ -83,7 +83,7 @@ public class IndexController {
 		 * 
 		 * return "/index/login"; } else {
 		 */
-		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,동물,기타".split(",");
 		String sInter = Arrays.toString(interest);
 		List listInter = gson.fromJson(sInter, List.class);
 		wr.setAttribute("allInter", listInter, wr.SCOPE_SESSION);

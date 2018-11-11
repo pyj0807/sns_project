@@ -34,7 +34,7 @@ public class JoinController {
 
 	@GetMapping("/join.do")
 	public String joinGetHandle(ModelMap map,@RequestParam Map param) {
-		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,애견,기타,".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,동물,기타,".split(",");
 		map.put("interest", data);
 		
 		if(param.get("nojoin") != null) {

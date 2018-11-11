@@ -188,7 +188,7 @@ public class MyPageController {
 	@GetMapping("/write.do")
 	public String write(ModelMap modelmap, @RequestParam Map map) {
 		// 글 관심사 선택, 1개만 선택 가능
-		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,동물,기타".split(",");
 		modelmap.put("interest", data);
 		if (map.get("err") != null) {
 			modelmap.put("err", "type");
@@ -203,7 +203,7 @@ public class MyPageController {
 	// 글수정페이지(글내용 관심사만 수정가능)
 	@GetMapping("/update.do")
 	public String board_update(@RequestParam int num, ModelMap modelmap) {
-		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+		String[] data = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,동물,기타".split(",");
 		modelmap.put("interest", data);
 		Map map = boarddao.getOneBoard(num);
 		// update시에 map에 area가없으면 강제로 위도 경도 없으면 초기값찍어줘서 update.jsp보내줌
