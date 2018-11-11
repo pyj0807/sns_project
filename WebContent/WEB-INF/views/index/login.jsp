@@ -67,12 +67,19 @@ button {
 
 <body style="text-align: center;">
 
-	<div class="guide">
+	<div class="guide" align="center" style="padding-top: 150px; display: "id="zz" >
 	<c:if test="${!empty nopass}">
-	<div class="alert alert-danger" role="alert">
+	<div class="alert alert-danger" role="alert"  style="width: 300px">
 	아이디 또는 비밀번호가 틀렸습니다.
 	</div>
 	</c:if>
+	
+	<c:if test="${!empty newpass}">
+	<div class="alert alert-success" role="alert"  style="width: 300px">
+	비밀번호 변경 완료
+	</div>
+	</c:if>
+	</div>
 
 		<div class="center-box">
 			<div class="container" align="center">
@@ -98,10 +105,20 @@ button {
 				<p style="text-align: center;">
 					계정이 없으십니까?  <a href="${pageContext.servletContext.contextPath }/join.do">가입</a>
 				</p>
+				<p style="text-align: center;">
+					아이디를 잊어버리셨습니까? <a href="${pageContext.servletContext.contextPath }/findid.do">ID</a> | <a href="${pageContext.servletContext.contextPath }/find.do">PASS</a>
+				</p>
 				</form>
 			</div>
 		
 	</div>
+	
+	<script >
+	$("#id").on("keyup",function(){
+		$("#zz").attr("style","display:none");
+		
+	})
+	</script>
 
 </body>
 </html>

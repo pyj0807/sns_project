@@ -83,7 +83,7 @@ public class IndexController {
 		 * 
 		 * return "/index/login"; } else {
 		 */
-		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,기타".split(",");
+		String[] interest = "게임,운동,영화,음악,IT,연애,음식,여행,패션,애니,동물,기타".split(",");
 		String sInter = Arrays.toString(interest);
 		List listInter = gson.fromJson(sInter, List.class);
 		wr.setAttribute("allInter", listInter, wr.SCOPE_SESSION);
@@ -136,8 +136,30 @@ public class IndexController {
 
 	@GetMapping("/login.do")
 
-	public String loginHandler(HttpServletRequest req,HttpServletResponse res) {
+	public String loginHandler(HttpServletRequest req,HttpServletResponse res,ModelMap modelmap, WebRequest wr) {
 		
+		if(wr.getParameter("newpass")!=null) {
+			modelmap.put("newpass", "on");
+		}
+		if(req.getCookies()!=null) {
+			Cookie[] aa=  req.getCookies();
+		for(int i=0;i<aa.length;i++) {
+			if(aa[i].getName().equals("idd")){
+				System.out.println("꺄르르>"+aa[i].getName()+"////"+aa[i].getValue());
+				Map user=accdao.accountselect(aa[i].getValue());
+				wr.setAttribute("userId",aa[i].getValue(), wr.SCOPE_SESSION);
+				wr.setAttribute("Id",aa[i].getValue(), wr.SCOPE_SESSION);
+				wr.setAttribute("user",user, wr.SCOPE_SESSION);
+				wr.setAttribute("auth",aa[i].getValue(), wr.SCOPE_SESSION);
+			}
+		}
+		}
+		
+		if (wr.getAttribute("dest", wr.SCOPE_SESSION) == null&&wr.getAttribute("auth", wr.SCOPE_SESSION)!=null) { // dest:경로 입력했을때 주소저장
+			return "redirect:/index.do";
+		} else if(wr.getAttribute("auth", wr.SCOPE_SESSION)!=null&&wr.getAttribute("dest", wr.SCOPE_SESSION)!=null){
+			return "redirect:" + wr.getAttribute("dest", wr.SCOPE_SESSION);
+		}
 
 		return "/index/login";
 	}

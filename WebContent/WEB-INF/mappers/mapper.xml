@@ -4,7 +4,7 @@
 <mapper namespace="account"><!-- 패키지같은느낌 -->
 	
 	<insert id="addAccount" parameterType="java.util.HashMap">
-		insert into account values(#{email}, #{id},#{attach}, #{pass}, #{name}, to_date(#{birth},'yyyy-mm-dd'), #{gender}, #{interest} )
+		insert into account values(#{email}, #{id},#{attach}, #{pass}, #{name}, to_date(#{birth},'yyyy-mm-dd'), #{gender}, #{interest},#{question},#{answer} )
 	</insert>
 	
 	<select id="login" resultType="java.util.HashMap" parameterType="java.util.HashMap">
@@ -22,5 +22,10 @@
 	<select id="emailCheck" parameterType="java.lang.String" resultType="java.util.HashMap" >
 		select * from account where email=#{email}
 	</select>
+	
+	
+		<update id="newchangePass" parameterType="java.util.HashMap">
+		update account set pass=#{npass} where id=#{id}	
+	</update>
 	
 </mapper>
