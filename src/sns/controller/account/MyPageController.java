@@ -227,7 +227,8 @@ public class MyPageController {
 	public String board_delete(@RequestParam int num) {
 		// 삭제처리(board,board_reply,like)
 		boarddao.deleteBoard(num);
-		return "redirect:/index.do";
+		//return "redirect:/index.do";
+		return "redirect:/mypage.do"; //삭제시 mypage로 리턴
 	}
 
 	// 내가 좋아요한 글 목록 보기

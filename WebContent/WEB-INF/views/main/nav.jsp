@@ -38,7 +38,7 @@
     <!-- 알림 -->
  	 <div class="ui simple dropdown item" style="padding:10px; width: 120px;" id="navalert"">
 		 <i class="github icon" id="iconccue"  style="font-size: x-large;" onmouseout="save();"></i>뀨? <span class="badge badge-pill badge-primary" id="ccueicon"></span>
-   		<div class="menu" style="overflow:scroll; overflow-x:hidden; max-height:200px;" >
+   		<div class="menu" style="overflow:scroll; overflow-x:hidden; max-height:200px; width: 350px;" >
      		<span id="alert" > </span>
 		<%-- <a role="alert" class="dropdown-item" href="${pageContext.servletContext.contextPath}/interest.do?theme="></a> --%>
        </div>

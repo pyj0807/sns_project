@@ -153,7 +153,8 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 		<c:choose>
 			<c:when test="${Id==boardOne.writer}">
 				<a href="${pageContext.servletContext.contextPath }/update.do?num=${boardOne._id}"><i class="edit icon"></i></a>
-				<a href="${pageContext.servletContext.contextPath }/delete.do?num=${boardOne._id}"><i class="trash alternate outline icon"></i></a>
+				<a href="${pageContext.servletContext.contextPath }/delete.do?num=${boardOne._id}"><i class="trash alternate outline icon" id="deletecontroller"></i></a>
+				<input id="numid" type="hidden" value="${boardOne._id}">
 			</c:when>
 		</c:choose>
 		<hr/>	
@@ -204,6 +205,19 @@ input[type=checkbox]:checked + label { background-image: url('${pageContext.serv
 	</div>
 </div>
 
+
+<script>
+$("#deletecontroller").on("click",function(){
+	var d=window.confirm("게시물을 없애시겠습니까?");
+	if(d==true){
+	
+	
+	window.location.href="${pageContext.servletContext.contextPath }/delete.do?num="+$("#numid").val();
+			
+	}
+})
+
+</script>
 
 
 <script>
